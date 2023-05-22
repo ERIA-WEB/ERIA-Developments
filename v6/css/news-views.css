@@ -1,0 +1,118 @@
+.news-views-page {
+  position: relative;
+}
+
+.news-views-page .headtext {
+  font-size: 15px;
+  color: #251f20;
+}
+
+.news-views-page .podcast {
+  background-color: #f3f8fc;
+}
+
+.news-views-page .podcast .heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.news-views-page .begin-title .heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.news-views-page .right-span {
+  font-size: 16px;
+  color: var(--primaryBlue);
+  font-weight: bold;
+  position: relative;
+  top: 6px;
+}
+
+.news-views-page .right-span i {
+  font-size: 20px;
+  color: var(--primaryBlue);
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.news-views-page .podcast h3 {
+  font-weight: bold;
+}
+
+.news-multimedia-detail-page p {
+  font-size: 16px;
+}
+
+.news-multimedia-detail-page .page-content .date {
+  font-size: 13px;
+}
+
+.news-multimedia-detail-page .page-content .heading {
+  padding-right: 20px;
+}
+
+.news-multimedia-detail-page .social-media-icons span {
+  font-weight: normal !important;
+  font-size: 12px;
+  color: #5c5c5c;
+}
+
+.news-multimedia-detail-page .download-section-two .padding-right p {
+  padding-right: 7rem;
+}
+
+.news-multimedia-detail-page .download-section-two .left-side-padding {
+  padding-top: 22vh;
+}
+
+.news-multimedia-detail-page .background-grey {
+  height: 255px;
+  width: 662px;
+}
+
+.image-galary .bottom-margin {
+  padding-bottom: 2.2rem !important;
+}
+
+.news-multimedia-detail-page .video-padding {
+  padding-right: 5rem;
+}
+
+.powerpoint-iframe {
+  width: 600px;
+  height: 400px;
+}
+
+.news-multimedia-detail-page .powerpoint-padding {
+  padding-left: 7rem;
+}
+
+.news-multimedia-detail-page .press-release-padding {
+  padding-right: 6rem !important;
+}
+
+@media (max-width: 600px) {
+  .news-multimedia-detail-page .video-padding {
+    padding-right: 1rem;
+    padding-top: 2rem;
+  }
+
+  .news-multimedia-detail-page .download-section-two .left-side-padding {
+    padding-top: 0;
+  }
+
+  .powerpoint-iframe {
+    width: 250px;
+    height: 200px;
+  }
+
+  .news-multimedia-detail-page .press-release-padding {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+}

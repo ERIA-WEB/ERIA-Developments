@@ -1,0 +1,47 @@
+.page-content{
+  .content-section-right{
+    .row.section-divider{
+      &:first-child{
+        .heading{
+          font-weight: 700;
+          font-size: 22px;
+          line-height: 1.23;
+        }
+      }
+      .heading{
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .date{
+        font-family: $font-family-monospace;
+      }
+    }
+  }
+}
+.searchbar {
+  visibility: hidden;
+  &.searchbar-show{
+    visibility: visible;
+  }
+  .form-inline{
+    .searchbar-input{
+      height: 58px;
+      border-radius: 8px;
+      font-size: 22px;
+      text-align: left;
+      width: 100%;
+    }
+    .btn{
+      height: 58px;
+      border-radius: 8px;
+      text-align: center;
+      color: $white;
+      font-size: 22px;
+      font-weight: 700;
+      .fa{
+        margin-left: 10px;
+      }
+    }
+  }
+}

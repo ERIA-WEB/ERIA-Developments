@@ -1,0 +1,41 @@
+
+    <!-- <div class="collapse" id="collapsibleNavbar">
+
+      <a class="mobile-navbar-item" data-toggle="collapse" href="#mobile-submenu-about-collapse" role="button"
+        aria-expanded="false" aria-controls="mobile-submenu-about-collapse">ABOUT US</a>
+     
+      <div class="collapse" id="mobile-submenu-about-collapse">
+        <div class="container mobile-submenu">
+          <a href="About.html">About</a>
+          <a href="history.html">History</a>
+          <a href="message-board.html">Message from the board</a>
+          <a href="governing-board.html">Governing Board</a>
+          <a href="advisors-to-president.html">Advisors to the President..</a>
+          <a href="Original_structure.html">Organisational Structure</a>
+          <a href="Key-staff.html">Key Staff</a>
+          <a href="Organisations-we-work.html">Organisations We Work With</a>
+          <a href="Contact-us.html">Contact Us</a>
+          <a href="message-president.html">Message from the President of ERIA</a>
+          <a href="Career-opportunities.html">Career Opportunities</a>
+        </div>
+      </div>
+
+      <div class="mobile-navbar-item">EXPERTS</div>
+      <div class="mobile-navbar-item">PROGRAMS</div>
+      <div class="mobile-navbar-item">PRESS ROOM</div>
+      <div class="mobile-navbar-item">CONTACT</div>
+      <div class="mobile-navbar-item">RESEARCH AREA</div>
+      <div class="mobile-navbar-item">ASEAN INSIGHT</div>
+      <div class="mobile-navbar-item">PUBLICATIONS</div>
+      <div class="mobile-navbar-item">RECENT UPDATES</div>
+      <div class="mobile-navbar-item">EVENTS</div>
+      <div class="mobile-navbar-item">MULTIMEDIA</div>
+      <div class="col-lg-auto col-sm-1 col-xs-2 p-md-4 pl-0 p-xs-2 mr-0 ml-auto nav-search">
+        <ul class="navbar-nav">
+          <li id="showsearch" class="nav-item">
+            <i class="fa fa-search"></i>
+          </li>
+        </ul>
+      </div>
+
+    </div> -->

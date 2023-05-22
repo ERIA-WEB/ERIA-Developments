@@ -1,0 +1,50 @@
+.navbar.main-nav{
+  &.navbar-light{
+    .navbar-collapse{
+      .small-sub-nav{
+        margin-top: 9px;
+        .nav-item{
+          .nav-link{
+            padding: {
+              top: 0;
+              bottom: 0;
+              left: 16px;
+              right: 16px;
+            };
+            font-size: 12px;
+            letter-spacing: 0.085em;
+            color: $light-gray;
+            font-weight: 500;
+            &.section-divider{
+              border-right: 1px solid $light-border;
+            }
+          }
+        }
+      }
+      .main-nav-headings{
+        .nav-item {
+          .nav-link {
+            color: $dark;
+            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 600;
+            padding: {
+              top: 28px;
+              left: 9px;
+              right: 9px;
+            };
+          }
+          &.active{
+            .nav-link {
+              color: $primary;
+            }
+          }
+        }
+      }
+      .nav-search{
+        padding-right: 20px;
+        .navbar-nav{}
+      }
+    }
+  }
+}

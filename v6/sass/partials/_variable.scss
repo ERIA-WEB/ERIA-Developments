@@ -1,0 +1,58 @@
+$light-gray: #666666;
+$dark: #383a50;
+$primary: #003680;
+$light-border: #dddfdf;
+
+
+$font-heading: 'Literata', serif;
+$font-primary: 'SF Pro Display', 'Source Sans Pro', Arial, sans-serif;
+
+$font-family-sans-serif:      'SF Pro Display', 'Source Sans Pro', Arial, sans-serif;
+$font-family-monospace:       'Literata', serif;
+$font-family-base:            'SF Pro Display', 'Source Sans Pro', Arial, sans-serif;
+$headings-font-family:        'SF Pro Display', 'Source Sans Pro', Arial, sans-serif;
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px
+);
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1152px
+);
+
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-gutter-width:           32px;
+
+$spacer: 1rem;
+$spacers: ();
+$spacers: map-merge(
+                (
+                        0: 0,
+                        1: ($spacer * .25),
+                        2: ($spacer * .5),
+                        3: $spacer,
+                        4: ($spacer * 1.5),
+                        5: ($spacer * 3),
+                        6: ($spacer * 2)
+                ),
+                $spacers
+);

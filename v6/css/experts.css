@@ -1,0 +1,206 @@
+.experts-page {
+  position: relative;
+  background-color: white;
+}
+
+.experts-page .experts-page-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--primaryBlue);
+  border-bottom: 1px solid #69aab4;
+}
+
+/* .experts-page .name {
+  font-weight: bold;
+  font-size: 22px;
+  color: var(--primaryBlue);
+} */
+
+.experts-page .status {
+  font-size: 14px;
+  color: #666666;
+  margin-top: -2px;
+}
+
+.experts-page .person-description {
+  font-size: 12px;
+}
+
+.experts-page .view-profile .btn-view-profile a {
+  color: var(--primaryBlue);
+}
+
+.experts-page .view-profile .btn-view-profile a:hover {
+  border-bottom: 0px !important;
+  color: #0059d4;
+  text-decoration: none;
+}
+
+.experts-page .view-profile .btn-view-profile {
+  color: var(--primaryBlue);
+  font-weight: bold;
+  background-color: #f3f3f3;
+  font-size: 15px;
+}
+
+.experts-page .view-profile .btn-view-profile .view-more {
+  width: 90%;
+  text-align: left;
+  padding-top: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.experts-page .view-profile .btn-view-profile span {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+/* .experts-page .view-profile .padding-left {
+  padding-left: 2.5rem !important;
+  padding-right: 1.25rem;
+} */
+
+.experts-page .view-profile .upper-section {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.experts-page .person-description .description {
+  font-size: 12px;
+  color: #003680;
+}
+
+.experts-page .dropdown .fa {
+  position: absolute;
+  right: 5%;
+  top: 30%;
+  color: var(--primaryBlue);
+  font-weight: bold;
+}
+
+.experts-page .dropdown {
+  text-align: left;
+}
+
+/* Expert detail page */
+
+.experts-detail-page {
+  position: relative;
+  background-color: #ffffff;
+}
+
+.experts-detail-page .profile-overView {
+  position: relative;
+  background-color: #f3f8fc;
+}
+
+.experts-detail-page .profile-overView div {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 20px;
+  border-left: 1px solid #cfcfcf;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 300;
+  color: #251f20;
+}
+
+/* .experts-detail-page .profile-overView div:hover {
+  border-left: 2px solid #69aab4;
+  color: var(--primaryBlue);
+  font-weight: bold;
+} */
+
+.experts-detail-page .profile-overView .selected {
+  border-left: 2px solid #69aab4;
+  color: var(--primaryBlue);
+}
+
+.experts-detail-page .profile-overView .selected:hover {
+  border-left: 2px solid #69aab4;
+  color: var(--primaryBlue);
+  font-weight: bold;
+}
+
+.experts-detail-page .author-detail .img-container {
+  height: auto;
+  width: 100%;
+  border-radius: 50%;
+  padding-bottom: 22%;
+}
+
+/* .experts-detail-page .author-detail img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  padding: 0;
+  border-radius: 50%;
+} */
+
+.experts-detail-page .experts-page-title {
+  font-size: 23px;
+  font-weight: bold;
+  color: var(--primaryBlue);
+  border-bottom: 1px solid #69aab4;
+  line-height: 1;
+  font-family: "Merriweather";
+}
+
+.experts-detail-page .role {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--primaryBlue);
+}
+
+.experts-detail-page .description {
+  font-size: 15px;
+  color: #251f20;
+  letter-spacing: -0.2px;
+}
+
+.experts-detail-page .experts-page-content ul {
+  list-style: none;
+}
+
+.experts-detail-page .experts-page-content ul li::before {
+  content: "\2022";
+  color: var(--primaryBlue);
+  font-weight: bolder;
+  display: inline-block;
+  width: 0.8em;
+  font-size: 25px;
+  margin-left: -1em;
+}
+
+.experts-detail-page .experts-page-content li {
+  font-weight: bold;
+}
+
+.experts-detail-page .experts-page-content li span {
+  font-weight: normal !important;
+  font-size: 15px;
+}
+
+.experts-detail-page .experts-page-content .year {
+  color: var(--primaryBlue);
+  font-weight: bold;
+  /* margin-right: 3rem;  */
+}
+
+.experts-detail-page .other-section .lines {
+  font-weight: normal !important;
+  font-size: 15px;
+}
+
+.ppt-description {
+  font-weight: normal;
+  font-size: 14px;
+  color: #5c5c5c;
+}
+
+.experts-detail-page .expert-publications-btn {
+  margin-left: 27vw;
+}

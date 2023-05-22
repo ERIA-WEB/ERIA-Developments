@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap');
+
+/*@import url('https://fonts.googleapis.com/css2?family=Literata:wght@400;562;700&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Literata:wght@200;300&family=Montserrat&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Literata:wght@300&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Literata:wght@500&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+
+/*@font-face {*/
+    /*font-family: 'Literata-Italic';*/
+    /*src: url(../fonts/Literata-Italic.ttf);*/
+/*}*/
+
+/*@font-face {*/
+    /*font-family: 'Sf-pro';*/
+    /*src: url(../fonts/SF-pro.ttf);*/
+/*}*/
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Light.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Light.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Light.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Regular.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Regular.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Medium.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Medium.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Black.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Black.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Bold.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Bold.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Heavy.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Heavy.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Heavy.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Semibold.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Semibold.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Ultralight.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Ultralight.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Ultralight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('../fonts/sf-pro-display/SFProDisplay-Thin.woff2') format('woff2'),
+    url('../fonts/sf-pro-display/SFProDisplay-Thin.woff') format('woff'),
+    url('../fonts/sf-pro-display/SFProDisplay-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SF-pro-light';
+    src: url(../fonts/SF-pro-light.ttf);
+}
+
