@@ -1,0 +1,539 @@
+<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="id" style="">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<base href="http://www.eria.org"><title>RePec : ERIA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="http://www.eria.org/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+<link rel="stylesheet" href="http://www.eria.org/fonts/stylesheet.css">
+<link rel="stylesheet" href="http://www.eria.org/css/normalize.min.css">
+<link rel="stylesheet" href="http://www.eria.org/js/vendor/fancybox2/jquery.fancybox.161.css">
+<link rel="stylesheet" href="http://www.eria.org/js/vendor/jquery.scrollbar/jquery.scrollbar.css">
+<link rel="stylesheet" type="text/css" href="/css/slick.css">
+<link rel="stylesheet" type="text/css" href="http://www.eria.org/css/slick-theme.css">
+<link rel="stylesheet" href="http://www.eria.org/css/main.161.css?v=1.6">
+<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-TQHPV7H"></script>
+<script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/api2/v1538980283511/recaptcha__en.js"></script>
+<script src="http://www.eria.org/js/vendor/modernizr-2.8.3.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+<script type="text/javascript">var keyword_placeholder = 'Type to search';
+    var home_page_menu = 'Home';
+    var choose_filter = 'Choose Filter';
+    var all = 'All';
+    var search_keywords = 'Search keywords';
+    var sort_by_date = 'Sort by date';</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TQHPV7H');</script>
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style>
+<style type="text/css">.fancybox-margin{margin-right:0px;}</style>
+<style type="text/css">
+.backpack.dropzone {
+  font-family: 'SF UI Display', 'Segoe UI';
+  font-size: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 150px;
+  font-weight: lighter;
+  color: white;
+  will-change: right;
+  z-index: 2147483647;
+  bottom: 20%;
+  background: #333;
+  position: fixed;
+  user-select: none;
+  transition: left .5s, right .5s;
+  right: 0px; }
+  .backpack.dropzone .animation {
+    height: 80px;
+    width: 250px;
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center; }
+  .backpack.dropzone .title::before {
+    content: 'Save to'; }
+  .backpack.dropzone.closed {
+    right: -250px; }
+  .backpack.dropzone.hover .animation {
+    animation: sxt-play-anim-hover 0.91s steps(21);
+    animation-fill-mode: forwards;
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center; }
+@keyframes sxt-play-anim-hover {
+  from {
+    background-position: 0px; }
+  to {
+    background-position: -5250px; } }
+  .backpack.dropzone.saving .title::before {
+    content: 'Saving to'; }
+  .backpack.dropzone.saving .animation {
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saving_loop.png") left center;
+    animation: sxt-play-anim-saving steps(59) 2.46s infinite; }
+@keyframes sxt-play-anim-saving {
+  100% {
+    background-position: -14750px; } }
+  .backpack.dropzone.saved .title::before {
+    content: 'Saved to'; }
+  .backpack.dropzone.saved .animation {
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saved.png") left center;
+    animation: sxt-play-anim-saved steps(20) 0.83s forwards; }
+@keyframes sxt-play-anim-saved {
+  100% {
+    background-position: -5000px; } }
+</style>
+</head>
+<body>
+<noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQHPV7H" height="0" width="0" style="display:none;visibility:hidden">
+</iframe>
+</noscript>
+<div class="container">
+	<header id="header">
+	<div class="wrapper">
+		<p>
+			<a class="logo" href="http://www.eria.org" title="ERIA: Economic Research Institute for ASEAN and East Asia"><img src="/uploads/logo/logo.png" alt="ERIA: Economic Research Institute for ASEAN and East Asia" width="109" height="38">Economic Research Institute for ASEAN and East Asia</a>
+		</p>
+		<nav id="main-nav">
+		<ul>
+			<li>
+				<a class="amenu" href="http://www.eria.org" title="MENU"><span>MENU</span></a>
+			</li>
+			<li class="nav__menu-item">
+				<a href="http://www.eria.org/about-us" title="About Us">About</a>
+				<ul class="nav__submenu clearfix" total="11">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/about-us/history">History</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/messages-from-the-board">Messages from the Board</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/governing-board">Governing Board</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/special-advisors-to-the-president">Special Advisors to the President</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/academic-advisory-council">Academic Advisory Council</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/eria-research-institutes-network">ERIA Research Institute Network</a>
+						</div>
+					</li>
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/about-us/eria-energy-research-institutes-network">ERIA Energy Research Institutes Network</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/organisational-structure">Organisational Structure</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/key-staff">Key Staff</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/career-opportunities">Career Opportunities</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/about-us/contact-us">Contact Us</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="nav__menu-item">
+				<a href="/research/" title="Research: East Asia">Research</a>
+				<ul class="nav__submenu clearfix" total="35">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/research/topic/agricultural-development">Agricultural Development</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean">ASEAN</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/brunei-darussalam" class="sub">Brunei Darussalam</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/cambodia" class="sub">Cambodia</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/indonesia" class="sub">Indonesia</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/lao-pdr" class="sub">Lao PDR</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/malaysia" class="sub">Malaysia</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/myanmar" class="sub">Myanmar</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/philippines" class="sub">Philippines</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/singapore" class="sub">Singapore</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/thailand" class="sub">Thailand</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/asean/viet-nam" class="sub">Viet Nam</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/call-for-proposals">Call for Proposals</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/co-publications">Co-Publications</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/competitiveness">Competitiveness</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/connectivity">Connectivity</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/disasters">Disasters</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/education-training-and-human-capital">Education, Training, and Human Capital</a>
+						</div>
+					</li>
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/research/topic/energy">Energy</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/environment-and-climate-change">Environment and Climate Change</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/finance-and-macroeconomy">Finance and Macroeconomy</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/global-governance-and-multilateralism">Global Governance and Multilateralism</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/industry-and-manufacturing">Industry and Manufacturing</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/infrastructure">Infrastructure</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/innovation-and-technology">Innovation and Technology</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/investment">Investment</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/labour-and-migration">Labour and Migration</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/poverty-and-sustainable-development-goals">Poverty and Sustainable Development Goals</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/regulation-and-governance">Regulation and Governance</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/services">Services</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/smes">SMEs</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/social-protection">Social Protection</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/state-owned-enterprises">State-Owned Enterprises</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/trade">Trade</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/research/topic/urban-development">Urban Development</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="nav__menu-item">
+				<a href="/experts" title="Experts">Experts</a>
+				<ul class="nav__submenu clearfix" total="3">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/experts?id=experts">Experts</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/experts?id=research-associates">Research Associates</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/experts?id=research-fellows">Research Fellows</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="nav__menu-item">
+				<a href="/database-and-programmes/" title="Database and Programmes">Database and Programmes</a>
+				<ul class="nav__submenu clearfix" total="9">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/asean-east-asia-ntm-database">ASEAN / East Asia NTM Database</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/asean50">ASEAN@50</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/asean50/events" class="sub">Events</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/asean50/news" class="sub">News</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/asean50/publications" class="sub">Publications</a>
+						</div>
+					</li>
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/capacity-building-programme">Capacity Building Programme</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/capacity-building-programme/program-overview" class="sub">Program Overview</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/database-and-programmes/topic/comprehensive-asia-development-plan">Comprehensive Asia Development Plan</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="nav__menu-item">
+				<a href="/news-and-views" title="News and Views">News and Views</a>
+				<ul class="nav__submenu clearfix" total="6">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/news-and-views/category/news">News</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/news-and-views/category/opinions">Opinions</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/news-and-views/category/in-the-news">In the News</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/news-and-views/category/press-releases">Press Releases</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/news-and-views/category/multimedia">Multimedia</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/news-and-views/category/siia-insight">SIIA Insights</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="nav__menu-item">
+				<a href="/events" title="Events">Events</a>
+				<ul class="nav__submenu clearfix" total="2">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/events#upcoming-events">Upcoming Events</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/events#past-events">Past Events</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li class="nav__menu-item">
+				<a href="/publications/" title="Publications">Publications</a>
+				<ul class="nav__submenu clearfix" total="8">
+					<li class="nav__submenu-item">
+						<div class="">
+							<a href="http://www.eria.org/publications/category/books">Books</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/newsletters">Newsletters</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/policy-briefs">Policy Briefs</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/publications-catalogues">Publications Catalogues</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/research-project-reports">Research Project Reports</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/east-asia-updates">East Asia Updates</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/annual-reports">Annual Reports</a>
+						</div>
+						<div class="">
+							<a href="http://www.eria.org/publications/category/discussion-papers">Discussion Papers</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a class="asearch" href="http://www.eria.org" title="Search"><span>Search</span></a>
+			</li>
+		</ul>
+		</nav>
+	</div>
+	</header><article id="main-content" class="page" style="min-height: 299px;">
+	<div class="tm-headline">
+		<div class="wrapper">
+			<span class="tm-nav">Page Not Found</span>
+		</div>
+	</div>
+	<div class="content">
+		<div class="wrapper research-page page">
+			<article>
+			<div>
+				<h4 style="font-weight:700">ERIA Working Papers</h4>
+				<a href="https://econpapers.repec.org/mirror/era/chaptr/">eriachaptr jurnal</a>
+			</div>
+			<div>
+				<h4 style="font-weight:700">ERIA Working Papers</h4>
+				<a href="https://econpapers.repec.org/mirror/era/eriabk/">eriabk jurnal</a>
+			</div>
+			<div>
+				<h4 style="font-weight:700">ERIA Working Papers</h4>
+				<a href="https://econpapers.repec.org/mirror/era/wpaper/">wrapaper</a>
+			</div>
+			<div class="clearfix"></div>
+			</article>
+		</div>
+	</div>
+	</article><footer id="footer">
+	<div class="wrapper">
+		<div class="grid row1">
+			<div class="col4">
+				<div>
+					<h3>Follow our social media</h3>
+					<ul class="social">
+						<li>
+							<a target="_blank" class="social-icon soc-fb" href="https://www.facebook.com/ERIA.org" title="Facebook"><span>Facebook</span></a>
+						</li>
+						<li>
+							<a target="_blank" class="social-icon soc-tw" href="https://twitter.com/ERIAorg" title="Twitter"><span>Twitter</span></a>
+						</li>
+						<li>
+							<a target="_blank" class="social-icon soc-linked" href="https://www.linkedin.com/company/eria-economic-research-institute-for-asean-and-east-asia" title="Linked In"><span>Linked In</span></a>
+						</li>
+						<li>
+							<a target="_blank" class="social-icon soc-yt" href="https://www.youtube.com/c/EriaOrg-Indonesia" title="Youtube"><span>Youtube</span></a>
+						</li>
+						<li>
+							<a target="_blank" class="social-icon soc-goog" href="https://plus.google.com/+EriaOrg-Indonesia/" title="Google+"><span>Google+</span></a>
+						</li>
+						<li>
+							<a target="_blank" class="social-icon soc-flickr" href="https://www.flickr.com/photos/eriaorg/" title="Flickr"><span>Flickr</span></a>
+						</li>
+						<li>
+							<a target="_blank" class="social-icon soc-med" href="https://medium.com/@eriaorg" title="Medium"><span>Medium</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col4">
+				<div>
+					<h3>Contact Us</h3>
+					<p class="m-b-0">
+						<span style="font-family: sf_compact_textsemibold;">ERIA Annex Office</span>
+					</p>
+					<table border="0" cellspacing="0" cellpadding="0">
+					<tbody style="font-size: 12px;
+    color: #fff;">
+					<tr>
+						<td valign="top">
+							<span style="font-family: sf_compact_textregular;">Address &nbsp; &nbsp; &nbsp;&nbsp;</span>
+						</td>
+						<td>
+							<span style="font-family: sf_compact_textregular;">Sentral Senayan II</span><br>
+							<span style="font-family: sf_compact_textregular;">6th floor Jalan Asia Afrika No.8</span><br>
+							<span style="font-family: sf_compact_textregular;">Gelora Bung Karno, Senayan</span><br>
+							<span style="font-family: sf_compact_textregular;">Jakarta Pusat 10270, Indonesia</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="font-family: sf_compact_textregular;">Phone</span>
+						</td>
+						<td>
+							<span style="font-family: sf_compact_textregular;">(62-21) 57974460</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="font-family: sf_compact_textregular;">Fax</span>
+						</td>
+						<td>
+							<span style="font-family: sf_compact_textregular;">(62-21) 57974463</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span style="font-family: sf_compact_textregular;">E-mail</span>
+						</td>
+						<td>
+							<span style="font-family: sf_compact_textregular;"><a href="mailto:contactus@eria.org" target="_blank" rel="noopener noreferrer">contactus@eria.org</a></span>
+						</td>
+					</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col4">
+				<div>
+					<h3 class="m-b-0">Subscribe to Mailing List</h3>
+					<h4>Invitations . Publications . Newsletters</h4>
+					<form id="frmSubscribe" action="/page/dosubscribe/" method="post">
+						<p>
+							<input type="text" required="required" name="full_name" id="s_full_name" placeholder="full name"></p>
+						<p>
+							<input type="email" required="required" name="email" id="s_email" placeholder="e-mail address"></p>
+						<p>
+							<input type="submit" value="Send"></p>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="grid row2">
+			<div class="col8">
+				<p>
+					<a href="/privacy-policy/" title="Privacy Policy">Privacy Policy</a>
+				</p>
+				<p class="light">
+					Copyright <span style="font-family:arial;">&#169;</span> 2018 ERIA. All rights reserved.
+				</p>
+			</div>
+			<div class="col4">
+				<p></p>
+			</div>
+		</div>
+	</div>
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-59042566-1"></script>
+	<script>window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-59042566-1');</script>
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-125640634-1"></script>
+	<script>window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-125640634-1');</script>
+	</footer>
+</div>
+<img class="iloading" src="http://www.eria.org/images/indicator.svg" width="20" height="20" alt="Loading">
+<img class="iloading iloadingv1" src="http://www.eria.org/images/indicator-inversed.svg" width="20" height="20" alt="Loading">
+<script src="http://www.eria.org/js/vendor/jquery-1.11.2.min.js"></script>
+<script src="http://www.eria.org/js/plugins.161.js"></script>
+<script type="text/javascript" src="http://www.eria.org/js/vendor/slick.min.js"></script>
+<script src="http://www.eria.org/js/main.161.js?v=1.9"></script>
+</body>
+</html>
