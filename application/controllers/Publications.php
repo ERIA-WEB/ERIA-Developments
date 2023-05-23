@@ -739,6 +739,7 @@ class Publications extends CI_Controller
         }
 
         $mm = $this->frontModel->getResearch_Search('topics', $start, $limit, $publication, $region, $key, $cato);
+
         $output = '';
 
         $output = '<input type="hidden" id="count_topics" value='.$count_research.'>
