@@ -739,7 +739,7 @@ class Publications extends CI_Controller
         }
 
         $mm = $this->frontModel->getResearch_Search('topics', $start, $limit, $publication, $region, $key, $cato);
-
+        
         $output = '';
 
         $output = '<input type="hidden" id="count_topics" value='.$count_research.'>
@@ -833,25 +833,43 @@ class Publications extends CI_Controller
 
                 $tag_limit = implode(', ', $mm['tags']);
                 
-                if ($mm['article_type'] == 'publications' && file_exists(FCPATH . $mm['image_name'])) {
-                    
-                    if (file_exists(FCPATH . $mm['image_name'])) {
-                        $img_thumb = $mm['image_name'];
-                    } else {
-                        $img_thumb = 'upload/Publication.jpg';
-                    }
+                if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
+                    $img_thumb = base_url() . $mm['image_name'];
                 } else {
-
-                    if (!empty($mm['image_name']) and file_exists(FCPATH . $mm['image_name'])) {
-                        $img_thumb = $mm['image_name'];
+                    $url_image = "https://www.eria.org" . $mm['image_name'];
+                    $get_headers = @get_headers($url_image, 1);
+                    
+                    if ($get_headers == 1) {
+                        if (!empty($mm['image_name'])) {
+                            $img_thumb = "https://www.eria.org" . $mm['image_name'];
+                        } else {
+                            $img_thumb = base_url() . "upload/Publication.jpg";
+                        }
                     } else {
-                        $img_thumb = 'upload/Publication.jpg';
+                        $img_thumb = base_url() . "upload/Publication.jpg";
                     }
                 }
+                
+                // if ($mm['article_type'] == 'publications' && file_exists(FCPATH . $mm['image_name'])) {
+                    
+                //     if (file_exists(FCPATH . $mm['image_name'])) {
+                //         $img_thumb = base_url().$mm['image_name'];
+                //     } else {
+                //         $img_thumb = base_url().'upload/Publication.jpg';
+                //     }
+                // } else {
 
-                $output .= '<div class="col-md-6 d-lg-flex align-items-lg-start mb-4 mb-lg-5nborder">
+                //     if (!empty($mm['image_name']) and file_exists(FCPATH . $mm['image_name'])) {
+                //         $img_thumb = base_url().$mm['image_name'];
+                //     } else {
+                //         $img_thumb = base_url().'upload/Publication.jpg';
+                //     }
+                // }
+
+                if ($mm['article_type'] === 'publications') {
+                    $output .= '<div class="col-md-6 d-lg-flex align-items-lg-start mb-4 mb-lg-5nborder">
                                 <div class="publications-image">
-                                    <img class="responsive pub-img" src="' . base_url() . $img_thumb . '" alt="'. str_replace(array('â€’','â€™', 'â€“', 'â€”', 'â€˜'), "'", $k) .'">
+                                    <img class="responsive pub-img" src="' . $img_thumb . '" alt="'. str_replace(array('â€’','â€™', 'â€“', 'â€”', 'â€˜'), "'", $k) .'">
                                 </div>
                                 <div class="mt-3 mt-lg-0 pl-lg-4">
                                     <div class="card-title text-blue">
@@ -873,6 +891,8 @@ class Publications extends CI_Controller
                                     </div>
                                 </div>
                             </div>';
+                }
+                
             }
         } else {
             

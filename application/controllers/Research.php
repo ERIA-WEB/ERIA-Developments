@@ -587,61 +587,47 @@ class Research extends CI_Controller
 
                 $tag_limit = implode(', ', $mm['tags']);
                 
-                if ($mm['article_type'] == 'publications' && file_exists(FCPATH . $mm['image_name'])) {
-                    
-                    
-                    $url_img = "https://www.eria.org" . $mm['image_name'];
-                    $response_img = @get_headers($url_img, 1);
-                    $file_exists_img = (strpos($response_img[0], "404") === false);
-
-                    if ($file_exists_img == 1) {
-                        $img_thumb = "https://www.eria.org" . $mm['image_name'];
-                    } else {
-                        $img_thumb = base_url() . $mm['image_name'];
-                    }
-                    
-                    
+                /*
+                ** Get Image
+                */
+                if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
+                    $img_thumb = base_url() . $mm['image_name'];
                 } else {
-
-                    if (!empty($mm['image_name']) and file_exists(FCPATH . $mm['image_name'])) {
-                        
-                        $url_img = "https://www.eria.org" . $mm['image_name'];
-                        $response_img = @get_headers($url_img, 1);
-                        $file_exists_img = (strpos($response_img[0], "404") === false);
-
-                        if ($file_exists_img == 1) {
+                    $url_image = "https://www.eria.org" . $mm['image_name'];
+                    $get_headers = @get_headers($url_image, 1);
+                    
+                    if ($get_headers == 1) {
+                        if (!empty($mm['image_name'])) {
                             $img_thumb = "https://www.eria.org" . $mm['image_name'];
                         } else {
-                            $img_thumb = base_url() . $mm['image_name'];
+                            $img_thumb = base_url() . "upload/Publication.jpg";
                         }
                     } else {
-                        $url_img = "https://www.eria.org" . $mm['image_name'];
-                        $response_img = @get_headers($url_img, 1);
-                        $file_exists_img = (strpos($response_img[0], "404") === false);
-
-                        if ($file_exists_img == 1) {
-                            $img_thumb = "https://www.eria.org" . $mm['image_name'];
-                        } else {
-                            $img_thumb = base_url() . 'upload/Publication.jpg';
-                        }
+                        $img_thumb = base_url() . "upload/Publication.jpg";
                     }
                 }
 
-                // author
-                
+                /*
+                ** Author
+                */ 
                 if (!empty($mm['author'])) {
                     $authors[$key_category] = $this->get_author($mm['author']);
                 } else {
                     $authors[$key_category] = array();
                 }
                 
-                // editor
+                /*
+                ** Editor
+                */
                 if (!empty($mm['editor'])) {
                     $editors[$key_category] = $this->get_editor($mm['editor']);
                 } else {
                     $editors[$key_category] = array();
                 }
 
+                /*
+                ** Merge Author & Editor
+                */
                 if (!empty($authors[$key_category]) AND !empty($editors[$key_category])) {
                     $author_editor_merge = array_unique(array_merge($authors[$key_category], $editors[$key_category]));
                     $people_author_editors = implode(', ', $author_editor_merge);
@@ -661,7 +647,9 @@ class Research extends CI_Controller
                 } else {
                     $authorsAndEditors = '';
                 }
-                $output .= '<div class="col-md-6">
+                
+                if ($mm['article_type'] == 'publications') {
+                    $output .= '<div class="col-md-6">
                                 <div class="row pt-3 pb-3 pr-3 pl-3">
                                     <div class="col-md-4 col-xs-12 mr-md-2 m-0 p-0" style="text-align: center">
                                         <a href="'. base_url() . "research/" . $mm['uri'] .'">
@@ -687,6 +675,10 @@ class Research extends CI_Controller
                                     </div>
                                 </div>
                             </div>';
+                } else {
+                    $output .= '';
+                }
+                
             }
         } else {
             $output .= '';
