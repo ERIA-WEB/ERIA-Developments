@@ -80,7 +80,19 @@ if ($contentData->uri != 'presidents-office') {
         </style>';
 }
 ?>
-<div class="container experts-detail-page history-page section-top mb-5">
+<section>
+
+</section>
+<div class="bg-light-blue pt-5">
+    <div class="container-fluid px-0">
+        <div class="row">
+            <div class="research-topic-cover w-100">
+                <img src="<?= base_url(); ?>v6/assets/Images/About/cover_2.png">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5 experts-detail-page history-page mb-5">
     <div class="row">
         <div class="col-md-4 mb-4 px-0">
             <?php $this->load->view('front-end/common/left'); ?>
