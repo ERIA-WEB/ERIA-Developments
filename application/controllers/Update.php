@@ -244,7 +244,9 @@ class Update extends CI_Controller
         $key = $_POST['key'];
 
         $mm = $this->frontModel->get_new_updateNews($start, $limit, $type, $n_type, $key, $ntype);
-        
+        // echo "<pre>";
+        // print_r($mm);
+        // exit();
         $output = '<input type="hidden" id="count_topics" value='.$count_topics.'>
                     <input type="hidden" id="count_categories" value='.$count_categories.'>
                     <script>
@@ -307,7 +309,30 @@ class Update extends CI_Controller
                     $by_editor = '';
                 }
 
-                $output .= '<div class="col-md-6 search-section ' . $cd . ' p-3">
+                $categories_updates = explode(',', $mm['cat']);
+                // echo "<pre>";
+                // print_r($categories_updates[1]);
+                // exit();
+                if ($mm['cat'] == ', In the News') {
+                    $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
+                                
+                                <div>
+                                    <div style="height: auto" class="card-title mb-0">
+                                        <a href="' . base_url() . 'news-and-views/' . $mm['uri'] . '">' . str_replace(array("â€™"), "’", $t) . '</a>
+                                    </div>
+                                    <div>
+                                    ' . $by_editor . '
+                                    </div>
+                                    <div>
+                                        <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
+                                    </div>
+                                    <div class="description">
+                                        ' . $str . '
+                                    </div>
+                                </div>
+                            </div>';
+                } else {
+                    $output .= '<div class="col-md-6 search-section ' . $cd . ' p-3">
                                 <div class="mb-2">
                                     <a href="' . base_url() . 'news-and-views/' . $mm['uri'] . '">
                                         <img class="img-fluid" src="' . $img . '" style="aspect-ratio:9/6; object-fit:cover;">
@@ -329,7 +354,10 @@ class Update extends CI_Controller
                                     </div>
                                 </div>
                             </div>';
+                }
+                
             }
+            
         } else {
             $output .= '<section id="404notFound" class="w-100 text-center">
                             <div class="container">
