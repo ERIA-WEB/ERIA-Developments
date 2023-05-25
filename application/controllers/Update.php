@@ -244,9 +244,7 @@ class Update extends CI_Controller
         $key = $_POST['key'];
 
         $mm = $this->frontModel->get_new_updateNews($start, $limit, $type, $n_type, $key, $ntype);
-        // echo "<pre>";
-        // print_r($mm);
-        // exit();
+        
         $output = '<input type="hidden" id="count_topics" value='.$count_topics.'>
                     <input type="hidden" id="count_categories" value='.$count_categories.'>
                     <script>
@@ -263,7 +261,7 @@ class Update extends CI_Controller
                     </script>';
         $x = 0;
         if (!empty($mm)) {
-            foreach ($mm as $mm) {
+            foreach ($mm as $key => $mm) {
                 $x++;
 
                 if ($x == 0) {
@@ -309,11 +307,15 @@ class Update extends CI_Controller
                     $by_editor = '';
                 }
 
-                $categories_updates = explode(',', $mm['cat']);
-                // echo "<pre>";
-                // print_r($categories_updates[1]);
-                // exit();
-                if ($mm['cat'] == ', In the News') {
+                $categories_updates = str_replace(array(', ', ', News', ', News'), '', $mm['cat']);
+                $categories_updates = explode(', ', $mm['cat']);
+                
+                for ($i=0; $i < count($categories_updates); $i++) { 
+                    
+                    $inTheNews[] = $categories_updates[$i];
+                }
+                
+                if (in_array('In the News', $inTheNews)) {
                     $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
                                 
                                 <div>
