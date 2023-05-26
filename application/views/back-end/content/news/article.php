@@ -250,9 +250,12 @@
                                     $short_des = (set_value('short_des') == false && !empty($slider_row)) ? $slider_row->short_des : set_value('short_des');
                                     ?>
                                     <label class="form-label" for="formfield1"> Short Description </label>
+                                    <span class="desc">"A short description is required"</span>
                                     <div class="controls">
                                         <textarea rows="5" style="height: 150px" class="form-control mytextarea"
-                                            name="short_des"><?= $this->privilage->RemoveBS($short_des); ?></textarea>
+                                            name="short_des" required>
+                                            <?= $this->privilage->RemoveBS($short_des); ?>
+                                        </textarea>
                                         <?php echo form_error('short_des', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
