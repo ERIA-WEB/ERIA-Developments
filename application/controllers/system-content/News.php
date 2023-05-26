@@ -172,7 +172,7 @@ class News extends CI_Controller
         $data['sub'] = 'news';
         $data['m_areaList'] = $this->Page_model->getExpert_catogeries('multimedia');
         $data['_multimedia'] = $this->Page_model->get_articleMultimedia($id);
-
+        
         $this->load->view('back-end/common/template', $data);
     }
 
@@ -220,6 +220,13 @@ class News extends CI_Controller
             }
             //$u=preg_replace('/[^a-zA-Z0-9_ %\[\]\.\'\(\)%&-]/s', '', $this->input->post('title'));
 
+            $input = $this->input->post();
+            if (isset($input['link_website']) AND !empty($input['link_website'])) {
+                $link_website = $this->input->post('link_website');
+            } else {
+                $link_website = '';
+            }
+
             $data = array(
                 'title'                 => $this->input->post('title'),
                 'posted_date'           => $this->input->post('posted_date'),
@@ -233,6 +240,7 @@ class News extends CI_Controller
                 'modified_date'         => date('Y-m-d H:i:s'),
                 'meta_keywords'         => $this->input->post('meta_keywords'),
                 'meta_description'      => $this->input->post('meta_description'),
+                'link_website'          => $link_website,
             );
 
             if ($img !== -1) {
@@ -779,7 +787,7 @@ class News extends CI_Controller
         if ($validate == FALSE) {
             $this->index();
         } else {
-
+            
             $img = $this->setEvent();
             $img = "/uploads/news/" . $img;
 
@@ -791,22 +799,29 @@ class News extends CI_Controller
 
             $data_s = $this->session->userdata('logged_in');
 
+            $input = $this->input->post();
+            if (isset($input['link_website']) AND !empty($input['link_website'])) {
+                $link_website = $this->input->post('link_website');
+            } else {
+                $link_website = '';
+            }
+            
             $data = array(
-                'image_name' => $img,
-                'title' => $this->input->post('title'),
-                'uri' => str_replace(' ', '-', $this->input->post('title')),
-                'posted_date' => $this->input->post('posted_date'),
-                'editor' => $this->input->post('editor'),
-                'article_type' => 'news',
-                'pub_type' => 0,
-                'content' => $this->input->post('content'),
-                'published' => $published,
-                'image_name' => $img,
-                'modified_by' => $data_s['user_id'],
-                'modified_date' => date('Y-m-d H:i:s'),
-                'meta_keywords' => $this->input->post('meta_keywords'),
-                'meta_description' => $this->input->post('meta_description'),
-
+                'image_name'        => $img,
+                'title'             => $this->input->post('title'),
+                'uri'               => str_replace(' ', '-', $this->input->post('title')),
+                'posted_date'       => $this->input->post('posted_date'),
+                'editor'            => $this->input->post('editor'),
+                'article_type'      => 'news',
+                'pub_type'          => 0,
+                'content'           => $this->input->post('content'),
+                'published'         => $published,
+                'image_name'        => $img,
+                'modified_by'       => $data_s['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s'),
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'link_website'      => $link_website,
             );
             
             $category = $this->input->post('catogery');
