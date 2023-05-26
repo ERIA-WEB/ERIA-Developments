@@ -24,6 +24,14 @@ $this->load->view('back-end/common/header');
     <script src="<?php echo base_url() ?>resources/js/moment.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>resources/js/caleran.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>resources/js/newcalendar.js" type="text/javascript"></script>
+    <!-- <script src="<?php echo base_url() ?>vendor/ckeditor/ckeditor/ckeditor.js"></script>
+    <script src="<?php echo base_url() ?>vendor/ckeditor/ckeditor/adapters/jquery.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#article_keywords').ckeditor();
+    });
+    </script> -->
+
     <script src="<?php echo base_url() ?>assets/tinymce/tinymce.min.js" type="text/javascript"></script>
     <!-- <script src="https://cdn.tiny.cloud/1/xsc1u8yhlpzgzdkqt417bgt01vzf7w9t29qt5wsw0wwvtvu6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
     <script>
@@ -81,7 +89,48 @@ $this->load->view('back-end/common/header');
         file_picker_types: 'file image media',
         relative_urls: false,
         remove_script_host: false,
+        // file_picker_callback: function(cb, value, meta) {
+        //     var input = document.createElement('input');
 
+        //     input.setAttribute('type', 'file');
+
+        //     /*
+        //     Note: In modern browsers input[type="file"] is functional without
+        //     even adding it to the DOM, but that might not be the case in some older
+        //     or quirky browsers like IE, so you might want to add it to the DOM
+        //     just in case, and visually hide it. And do not forget do remove it
+        //     once you do not need it anymore.
+        //     */
+
+        //     input.onchange = function() {
+        //         var file = this.files[0];
+
+        //         var reader = new FileReader();
+        //         reader.onload = function() {
+        //             /*
+        //             Note: Now we need to register the blob in TinyMCEs image blob
+        //             registry. In the next release this part hopefully won't be
+        //             necessary, as we are looking to handle it internally.
+        //             */
+        //             var id = '<?php echo base_url()."images/"; ?>blobid' + (new Date()).getTime();
+        //             var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+        //             var base64 = reader.result.split(',')[1];
+        //             var blobInfo = blobCache.create(id, file, base64);
+        //             blobCache.add(blobInfo);
+
+
+        //             /* call the callback and populate the Title field with the file name */
+        //             cb(blobInfo.blobUri(), {
+        //                 title: file.name
+        //             });
+
+        //         };
+        //         reader.readAsDataURL(file);
+
+        //     };
+
+        //     input.click();
+        // },
         plugins: [
             "image code",
             "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
