@@ -5012,6 +5012,8 @@ class FrontModel extends CI_Model
                     $typeData[$aid]['cat'] = $this->get_articleCat($query->article_id);
                     $typeData[$aid]['tags'] = $this->tag_topic_news_and_views($query->article_id);
                     $typeData[$aid]['by_editor'] = $query->editor;
+                    $typeData[$aid]['link_website'] = $query->link_website;
+                    $typeData[$aid]['short_des'] = $query->short_des;
                 }
 
                 $results = $typeData;

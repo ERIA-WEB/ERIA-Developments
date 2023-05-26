@@ -272,21 +272,22 @@ class Update extends CI_Controller
                 // $ns = substr(strip_tags($mm['content']), 0, 200);
                 // $str = substr($ns, 0, strrpos($ns, ' ')) . "...";
 
-                $nd = preg_replace("/<h2(.*)<\/h2>/iUs", " ", $mm['content']);
-
-                $nsd = str_replace('â€˜', "-", strip_tags($this->RemoveBS($nd)));
-
-                $str = $this->limit_text($nsd, 25, "news-and-views/" . $mm['uri']);
-
+                if (!empty($mm['short_des'])) {
+                    $nd = $mm['short_des'];
+                    $nsd = str_replace('â€˜', "-", strip_tags($this->RemoveBS($nd)));
+                    $str = $this->limit_text($nsd, 200, "news-and-views/" . $mm['uri']);
+                } else {
+                    $nd = preg_replace("/<h2(.*)<\/h2>/iUs", " ", $mm['content']);
+                    $nsd = str_replace('â€˜', "-", strip_tags($this->RemoveBS($nd)));
+                    $str = $this->limit_text($nsd, 25, "news-and-views/" . $mm['uri']);
+                }
+                
                 if (substr($mm['cat'], 1) != '') {
-
-
                     foreach (array_unique(explode(', ', $mm['cat'])) as $key => $value) {
                         if (!empty($value)) {
                             $ss[] = '<a href="' . base_url() . 'news-and-views/category/' . strtolower(substr($value, 0)) . '">' . substr($value, 0) . '</a>';
                         }
                     }
-                    
                 } else {
                     $ss[] = '<a href="' . base_url() . 'news-and-views/category/news">News</a>';
                 }
@@ -316,11 +317,17 @@ class Update extends CI_Controller
                 }
                 
                 if (in_array('In the News', $inTheNews)) {
+                    if (!empty($mm['link_website'])) {
+                        $link_website = $mm['link_website'];
+                    } else {
+                        $link_website = $mm['uri'];
+                    }
+                    
                     $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
                                 
                                 <div>
                                     <div style="height: auto" class="card-title mb-0">
-                                        <a href="' . base_url() . 'news-and-views/' . $mm['uri'] . '">' . str_replace(array("â€™"), "’", $t) . '</a>
+                                        <a href="' . $link_website . '" target="_blank">' . str_replace(array("â€™"), "’", $t) . '</a>
                                     </div>
                                     <div>
                                     ' . $by_editor . '
