@@ -143,12 +143,6 @@ class News extends CI_Controller
         $pri = $this->privilage->login($data_s['username'], $data_s['user_id'], 'dashboard', $data_s['group_id']);
         $data['profile'] = $this->profile->getProfile();
 
-        // if ($pri != TRUE) {
-        //     $data['title'] = '  Dashboard';
-        //     $data['content'] = 'content/error';
-        //     $data['active'] = 'news';
-        //     $data['sub'] = 'news';
-        // } 
         $data['editor_'] = $this->Page_model->getPage_allsubArticle();
         $data['eData'] = array();
         $data['areaList'] = $this->Page_model->getPage_catogeries('newscategories');
@@ -157,7 +151,7 @@ class News extends CI_Controller
         $data['slider_row'] = $this->Page_model->getPage_article($id);
         $data['article_images'] = $this->Page_model->getArticleImageByArticleId($id);
         $data['publicationList'] = $this->Page_model->getPage_allarticle('publications', 200);
-        // $data['relatedPublicationsData'] = $this->Page_model->getArticlePublicationRelated($id);
+        
         $data['relatedPublicationsData'] = $this->Page_model->getRelatedArticleForPublication($id);
 
         $data['related'] = $this->Page_model->getPage_allarticle('news', 200);
@@ -218,15 +212,15 @@ class News extends CI_Controller
 
                 $this->Page_model->insertGalleryImage($article_id, $gallery_image);
             }
-            //$u=preg_replace('/[^a-zA-Z0-9_ %\[\]\.\'\(\)%&-]/s', '', $this->input->post('title'));
-
+            
             $input = $this->input->post();
+            
             if (isset($input['link_website']) AND !empty($input['link_website'])) {
                 $link_website = $this->input->post('link_website');
             } else {
                 $link_website = '';
             }
-
+            
             $data = array(
                 'title'                 => $this->input->post('title'),
                 'posted_date'           => $this->input->post('posted_date'),
