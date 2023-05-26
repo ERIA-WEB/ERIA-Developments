@@ -94,7 +94,8 @@
                                             $image = (set_value('image') == false && !empty($slider_row)) ? $slider_row->image_name : set_value('image');
                                             ?>
                                             <label class="form-label" for="formfield1"> Image </label>
-                                            <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions 800 X 450 PX*)</span>
+                                            <span style="font-size: 9px;font-style: italic;color: red;">(Please Using
+                                                Dimensions 800 X 450 PX*)</span>
                                             <div class="controls">
                                                 <i class=""></i>
                                                 <input type="hidden" id="image" name="image" value="" />
@@ -147,13 +148,14 @@
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <?php
+                                            $dataCategories = $areaList->result();
                                             $error = (form_error('catogery') === '') ? '' : 'error';
                                             ?>
                                             <label class="form-label" for="formfield1">Categories</label>
                                             <!-- <span class="desc">Choose category</span> -->
                                             <div class="controls">
                                                 <select id="s2example-2" name="catogery[]" multiple>
-                                                    <?php foreach ($areaList->result() as $areaList) { ?>
+                                                    <?php foreach ($dataCategories as $areaList) { ?>
                                                     <?php if ($areaList->published == 1) { ?>
                                                     <option <?php if (in_array($areaList->category_id, $catData)) { ?>
                                                         selected="" <?php  } ?>
@@ -168,6 +170,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <?php
@@ -192,6 +195,34 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div id="linkWebsite">
+                                    <?php 
+                                        echo '<div class="form-group">';
+                                        $categories = $dataCategories;
+                                        foreach ($categories as $value) {
+                                            if ($value->published == 1) {
+                                                if (in_array($value->category_id, $catData)) {
+                                                    if ($value->category_id == 46) {
+                                                        if (!empty($slider_row->link_website)) {
+                                                            echo '<label class="form-label" for="formLinkWebsite">Link Website</label>
+                                                                <span class="desc">This link for category "In The News"</span>
+                                                                <div class="controls">
+                                                                    <input type="text" name="link_website" id="linkwebsite" class="form-control" value="'.$slider_row->link_website.'" placeholder="Put your link url website" />
+                                                                </div>';
+                                                        } else {
+                                                            echo '<label class="form-label" for="formLinkWebsite">Link Website</label>
+                                                                <span class="desc">This link for category "In The News"</span>
+                                                                <div class="controls">
+                                                                    <input type="text" name="link_website" id="linkwebsite" class="form-control" placeholder="Put your link url website" />
+                                                                </div>';
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        echo '</div>';
+                                    ?>
                                 </div>
                                 <div class="form-group">
                                     <?php
@@ -260,7 +291,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <?php   ?>
                                 <div class="form-group">
                                     <?php
                                     $error = (form_error('published') === '') ? '' : 'error';
@@ -280,7 +310,8 @@
                                     <label class="form-label" for="formfield1"> Related Article</label>
                                     <span class="desc">e.g. "
                                         Type in article title and press enter "<br>
-                                        <span style="font-size: 9px;font-style: italic;color: red;">Article must be 3*</span>
+                                        <span style="font-size: 9px;font-style: italic;color: red;">Article must be
+                                            3*</span>
                                     </span>
                                     <div class="controls">
                                         <i class=""></i>
@@ -298,7 +329,8 @@
                                     <label class="form-label" for="formfield1"> Related Publication</label>
                                     <span class="desc">e.g. "
                                         Type in article title and press enter "<br>
-                                        <span style="font-size: 9px;font-style: italic;color: red;">Article must be 2*</span>
+                                        <span style="font-size: 9px;font-style: italic;color: red;">Article must be
+                                            2*</span>
                                     </span>
                                     <div class="controls">
                                         <select id="relatedPublications" name="related_publication[]" multiple>
@@ -630,6 +662,32 @@ $('#photo').change(function() {
 });
 </script>
 <script>
+$('#s2example-2').change(function() {
+    var count_categories = $(this).val().length;
+    var value = $(this).val();
+    if (count_categories == '1') {
+
+        if (value == '46') {
+            $('#linkWebsite').addClass('form-group');
+            $('#linkWebsite').html(
+                '<label class="form-label" for="formLinkWebsite">Link Website</label><span class="desc">This link for category "In The News"</span><div class="controls"><input type="text" name="link_website" id="linkwebsite" class="form-control" placeholder="Put your link url website" /></div>'
+            );
+        }
+    } else {
+
+        var i;
+        for (i = 0; i < value.length; ++i) {
+            if (value[i] == '46') {
+                $('#linkWebsite').addClass('form-group');
+                $('#linkWebsite').html(
+                    '<label class="form-label" for="formLinkWebsite">Link Website</label><span class="desc">This link for category "In The News"</span><div class="controls"><input type="text" name="link_website" id="linkwebsite" class="form-control" placeholder="Put your link url website" /></div>'
+                );
+            }
+        }
+    }
+});
+</script>
+<script>
 $('form').submit(function() {
 
     // Get the Login Name value and trim it
@@ -662,11 +720,11 @@ $('form').submit(function() {
     //     $('.bImg').removeClass('fa-spinner fa-spin');
     //     return false;
     // } 
-    else {
-        $('.err').hide();
-        $('.err1').hide();
-        $('.bImg').removeClass('fa-spinner fa-spin');
-        return true;
-    }
+    // else {
+    //     $('.err').hide();
+    //     $('.err1').hide();
+    //     $('.bImg').removeClass('fa-spinner fa-spin');
+    //     return true;
+    // }
 });
 </script>
