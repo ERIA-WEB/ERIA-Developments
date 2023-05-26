@@ -24,14 +24,6 @@ $this->load->view('back-end/common/header');
     <script src="<?php echo base_url() ?>resources/js/moment.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>resources/js/caleran.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url() ?>resources/js/newcalendar.js" type="text/javascript"></script>
-    <!-- <script src="<?php echo base_url() ?>vendor/ckeditor/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo base_url() ?>vendor/ckeditor/ckeditor/adapters/jquery.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('#article_keywords').ckeditor();
-    });
-    </script> -->
-
     <script src="<?php echo base_url() ?>assets/tinymce/tinymce.min.js" type="text/javascript"></script>
     <!-- <script src="https://cdn.tiny.cloud/1/xsc1u8yhlpzgzdkqt417bgt01vzf7w9t29qt5wsw0wwvtvu6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
     <script>
