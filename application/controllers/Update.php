@@ -220,6 +220,7 @@ class Update extends CI_Controller
     {
         $start = $_POST['start'];
         $limit = $_POST['limit'];
+        
         $output = '';
         
         if (isset($_POST['topic_cat'])) {
@@ -283,13 +284,14 @@ class Update extends CI_Controller
                 }
                 
                 if (substr($mm['cat'], 1) != '') {
-                    foreach (array_unique(explode(', ', $mm['cat'])) as $key => $value) {
+                    foreach (array_unique(explode(', ', $mm['cat'])) as $x => $value) {
                         if (!empty($value)) {
-                            $ss[] = '<a href="' . base_url() . 'news-and-views/category/' . strtolower(substr($value, 0)) . '">' . substr($value, 0) . '</a>';
+                            $ss[$x] = '<a href="' . base_url() . 'news-and-views/category/' . strtolower(substr($value, 0)) . '">' . substr($value, 0) . '</a>';
+                            $categoryInTheNews[$x] = substr($value, 0);
                         }
                     }
                 } else {
-                    $ss[] = '<a href="' . base_url() . 'news-and-views/category/news">News</a>';
+                    $ss[$key] = '<a href="' . base_url() . 'news-and-views/category/news">News</a>';
                 }
 
                 $t = str_replace('â€˜', "-", $this->limit_text($mm['title'], 50)); // $this->RemoveBS($mm['title'])
@@ -307,66 +309,102 @@ class Update extends CI_Controller
                 } else {
                     $by_editor = '';
                 }
-
-                $categories_updates = str_replace(array(', ', ', News', ', News'), '', $mm['cat']);
-                $categories_updates = explode(', ', $mm['cat']);
                 
-                for ($i=0; $i < count($categories_updates); $i++) { 
+                $categories_updates[$key] = explode(', ', $mm['cat']);
+                
+                
+                for ($i=0; $i < count($categories_updates[$key]); $i++) { 
                     
-                    $inTheNews[] = $categories_updates[$i];
+                    $inTheNews[$key] = $categories_updates[$key][$i];
                 }
                 
-                if (in_array('In the News', $inTheNews)) {
-                    if (!empty($mm['link_website'])) {
-                        $link_website = $mm['link_website'];
+                if ($count_categories == 0 || $count_categories > 1 AND $count_categories != 1) {
+                    if (in_array('In the News', $ss)) {
+                        if (!empty($mm['link_website'])) {
+                            $link_website[$key] = $mm['link_website'];
+                        } else {
+                            $link_website[$key] = base_url() . 'news-and-views/' . $mm['uri'];
+                        }
                     } else {
-                        $link_website = $mm['uri'];
+                        if (!empty($mm['link_website'])) {
+                            $link_website[$key] = $mm['link_website'];
+                        } else {
+                            $link_website[$key] = base_url() . 'news-and-views/' . $mm['uri'];
+                        }
                     }
-                    
-                    $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
-                                
-                                <div>
-                                    <div style="height: auto" class="card-title mb-0">
-                                        <a href="' . $link_website . '" target="_blank">' . str_replace(array("â€™"), "’", $t) . '</a>
-                                    </div>
-                                    <div>
-                                    ' . $by_editor . '
-                                    </div>
-                                    <div>
-                                        <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
-                                    </div>
-                                    <div class="description">
-                                        ' . $str . '
-                                    </div>
-                                </div>
-                            </div>';
-                } else {
+
                     $output .= '<div class="col-md-6 search-section ' . $cd . ' p-3">
-                                <div class="mb-2">
-                                    <a href="' . base_url() . 'news-and-views/' . $mm['uri'] . '">
-                                        <img class="img-fluid" src="' . $img . '" style="aspect-ratio:9/6; object-fit:cover;">
-                                    </a>
+                                    <div class="mb-2">
+                                        <a href="' . $link_website[$key] . '">
+                                            <img class="img-fluid" src="' . $img . '" style="aspect-ratio:9/6; object-fit:cover;">
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <div style="height: auto" class="category mb-1">' . implode(', ', array_unique($ss)) . $mm['tags'] . '</div>
+                                        <div style="height: auto" class="card-title mb-0">
+                                            <a href="' . $link_website[$key] . '">' . str_replace(array("â€™"), "’", $t) . '</a>
+                                        </div>
+                                        <div>
+                                        ' . $by_editor . '
+                                        </div>
+                                        <div>
+                                            <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
+                                        </div>
+                                        <div class="description">
+                                            ' . $str . '
+                                        </div>
+                                    </div>
+                                </div>';
+                } else {
+                    if (!empty($mm['link_website'])) {
+                        $link_website[$key] = $mm['link_website'];
+                    } else {
+                        $link_website[$key] = base_url() . 'news-and-views/' . $mm['uri'];
+                    }
+                    if (in_array('In the News', $ss)) {
+                        $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
+                            
+                            <div>
+                                <div style="height: auto" class="card-title mb-0">
+                                    <a href="' . $link_website[$key] . '" target="_blank">' . str_replace(array("â€™"), "’", $t) . '</a>
                                 </div>
                                 <div>
-                                    <div style="height: auto" class="category mb-1">' . implode(', ', array_unique($ss)) . $mm['tags'] . '</div>
-                                    <div style="height: auto" class="card-title mb-0">
-                                        <a href="' . base_url() . 'news-and-views/' . $mm['uri'] . '">' . str_replace(array("â€™"), "’", $t) . '</a>
-                                    </div>
-                                    <div>
-                                    ' . $by_editor . '
-                                    </div>
-                                    <div>
-                                        <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
-                                    </div>
-                                    <div class="description">
-                                        ' . $str . '
-                                    </div>
+                                ' . $by_editor . '
                                 </div>
-                            </div>';
+                                <div>
+                                    <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
+                                </div>
+                                <div class="description">
+                                    ' . $str . '
+                                </div>
+                            </div>
+                        </div>';
+                    } else {
+                        $output .= '<div class="col-md-6 search-section ' . $cd . ' p-3">
+                                    <div class="mb-2">
+                                        <a href="' . $link_website[$key] . '">
+                                            <img class="img-fluid" src="' . $img . '" style="aspect-ratio:9/6; object-fit:cover;">
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <div style="height: auto" class="category mb-1">' . implode(', ', array_unique($ss)) . $mm['tags'] . '</div>
+                                        <div style="height: auto" class="card-title mb-0">
+                                            <a href="' . $link_website[$key] . '">' . str_replace(array("â€™"), "’", $t) . '</a>
+                                        </div>
+                                        <div>
+                                        ' . $by_editor . '
+                                        </div>
+                                        <div>
+                                            <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
+                                        </div>
+                                        <div class="description">
+                                            ' . $str . '
+                                        </div>
+                                    </div>
+                                </div>';
+                    }
                 }
-                
             }
-            
         } else {
             $output .= '<section id="404notFound" class="w-100 text-center">
                             <div class="container">
