@@ -1478,6 +1478,26 @@ class headerModel extends CI_Model
         }
     }
 
+    function getLatestNewsPageCard()
+    {
+        $this->db->select('article_type,tags,pub_type,posted_date,uri,title,article_id');
+        $this->db->where('article_type', 'news');
+        $this->db->where('published', '1');
+        $this->db->order_by('posted_date', 'DESC');
+        $this->db->limit(3);
+
+        $result = $this->db->get('articles')->result();
+        foreach ($result as $aid => $value) {
+            $data['blk'][$aid]['article_type'] = $value->article_type;
+            $tag = explode(',', $value->tags);
+            $data['blk'][$aid]['tags'] = $this->tag_topic($value->article_id);
+            $data['blk'][$aid]['uri'] = $value->uri;
+            $data['blk'][$aid]['title'] = $value->title;
+            $data['blk'][$aid]['posted_date'] = date('j F Y', strtotime($value->posted_date));
+        }
+        return $data;
+    }
+
     function getPageCardLatestNewsRandoms()
     {
         try {
