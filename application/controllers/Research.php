@@ -606,6 +606,22 @@ class Research extends CI_Controller
                         $img_thumb = base_url() . "upload/Publication.jpg";
                     }
                 }
+                // if (!empty($mm['image_name'])) {
+                //     if (file_exists(FCPATH . $mm['image_name'])) {
+                //         $img_thumb = base_url() . $mm['image_name'];
+                //     } else if ($mm['image_name']) {
+                //         $img_thumb = "https://www.eria.org" . $mm['image_name'];
+                //     } else {
+
+                //         if ($mm['article_type'] == 'publications') {
+                //             $img_thumb = base_url() . "upload/Publication.jpg";
+                //         } else {
+                //             $img_thumb = base_url() . "upload/Article.jpg";
+                //         }
+                //     }
+                // } else {
+                //     $img_thumb = base_url() . "upload/Publication.jpg";
+                // }
 
                 /*
                 ** Author
