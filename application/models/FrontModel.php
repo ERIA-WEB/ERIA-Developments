@@ -3345,7 +3345,7 @@ class FrontModel extends CI_Model
             $this->db->limit($limit, $start);
             $query = $this->db->get('articles');
 
-            return   $query->result();
+            return $query->result();
         } catch (Exception $err) {
             return show_error($err->getMessage());
         }
