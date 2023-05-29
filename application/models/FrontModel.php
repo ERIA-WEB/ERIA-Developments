@@ -4465,23 +4465,23 @@ class FrontModel extends CI_Model
 
         if (!$CachedString->isHit()) {
             try {
-
+                
+                
                 $this->db->select('articles.*, categories.uri as url_slug');
                 $this->db->from('articles AS articles');
                 
                 $this->db->join('article_topics', 'article_topics.article_id = articles.article_id', 'inner');
-                $this->db->join('categories', 'categories.category_id = article_topics.topic_id', 'inner');
-
-                $this->db->where('articles.article_type', 'publications');
-                $this->db->where('articles.published', 1);
+                $this->db->join('categories', 'categories.category_id = article_topics.topic_id', 'inner');                
                 //$this->db->where_in('categories.uri', $like);
             
                 if ($key) {
-                    $this->db->like('articles.author', $key);
-                    $this->db->or_like('articles.editor', $key);
-                    $this->db->like('articles.title', $key);
+                    $this->db->where("IF(`articles`.`title` > 0 , `articles`.`title` , `articles`.`content`) like '%".$key."%'", NULL, FALSE);
+                    
                 }
 
+                $this->db->where('articles.article_type', 'publications');
+                $this->db->where('articles.published', 1);
+                
                 if ($publication != 'all') {
                     $this->db->join('article_categories', 'article_categories.article_id = articles.article_id', 'inner');
                     $this->db->where_in('article_categories.category_id', $publication);
@@ -4496,6 +4496,9 @@ class FrontModel extends CI_Model
                     $this->db->where_in('articles.venue', $region);
                 }
 
+                if ($key) {
+                    $this->db->or_where("IF(`articles`.`author` > 0 , `articles`.`author` , `articles`.`editor`) like '%".$key."%'", NULL, FALSE);
+                }
                 $this->db->group_by('article_id');
                 $this->db->order_by('posted_date', 'DESC');
                 $this->db->limit($limit, $start);
