@@ -1,6 +1,16 @@
 <?php
 $c2 = $this->header->getPageCardLatestNewsRandoms();
-$c2['image_name']
+
+if (!empty($c2['blk'])) {
+    $news_data['blk'] = $c2['blk'];
+    $title = 'Related News';
+} else {
+    $news_data = $this->header->getLatestNewsPageCard();
+    $title = 'Latest News';
+}
+
+// id article before in DB => 7266,7251
+$c2['image_name'];
 ?>
 <?php
 if (file_exists(FCPATH . $c2['image_name']) && $c2['image_name'] != '') {
@@ -17,8 +27,8 @@ if (file_exists(FCPATH . $c2['image_name']) && $c2['image_name'] != '') {
 </style>
 
 <div class="latest-news-card bg-light-blue card-body mb-4">
-    <h4 class="font-merriweather font-weight-bold text-blue mb-3">Latest News</h4>
-    <?php foreach ($c2['blk'] as $key => $nd) {  ?>
+    <h4 class="font-merriweather font-weight-bold text-blue mb-3"><?= $title; ?></h4>
+    <?php foreach ($news_data['blk'] as $key => $nd) {  ?>
     <div class="latest-news-card">
         <p class="mb-1"><small>News</small></p>
         <a href="<?= base_url() ?>news-and-views/<?= $nd['uri'] ?>"
