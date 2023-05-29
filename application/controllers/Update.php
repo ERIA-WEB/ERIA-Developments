@@ -317,9 +317,7 @@ class Update extends CI_Controller
                     
                     $inTheNews[$key] = $categories_updates[$key][$i];
                 }
-                // echo "<pre>";
-                //         print_r($inTheNews);
-                //         exit();
+                
                 if ($count_categories == 0 || $count_categories > 1 AND $count_categories != 1) {
                     if (in_array('In the News', $inTheNews)) {
                         if (!empty($mm['link_website'])) {
