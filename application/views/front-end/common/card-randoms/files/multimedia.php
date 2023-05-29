@@ -36,8 +36,18 @@
 }
 </style>
 
-<?php $c3 = $this->header->getPageCardMultimediaRandoms(); ?>
-<?php if (!empty($c3)) { ?>
+<?php 
+    $multimedia_cards = $this->header->getPageCardMultimediaRandoms();
+    
+    if(!empty($multimedia_cards)) {
+        $multimedia_data = $multimedia_cards;
+        $title = 'Related Multimedia';
+    } else {
+        $multimedia_data = $this->header->getLatestMultimediaPageCard();
+        $title = 'Latest Multimedia';
+    }
+?>
+<?php if (!empty($multimedia_data)) { ?>
 <div class="multimedia-card card card-body mb-4 rounded-0 bg-second-gray border-0">
     <?php
     $category_multimedia = [
@@ -71,15 +81,15 @@
     ];
 
     ?>
-    <h4 class="font-merriweather font-weight-bold text-blue mb-3">Latest Multimedia</h4>
+    <h4 class="font-merriweather font-weight-bold text-blue mb-3"><?= $title; ?></h4>
     <div class="accordion" id="multimediaCardAccordion">
-        <?php foreach ($c3 as $key => $c3):?>
+        <?php foreach ($multimedia_data as $key => $value):?>
 
         <?php
-            $tools = $category_multimedia[$c3['category']];
+            $tools = $category_multimedia[$value['category']];
         ?>
 
-        <div class="<?php echo $c3['category']; ?>">
+        <div class="<?php echo $value['category']; ?>">
             <div id="heading<?php echo $key; ?>">
                 <button
                     class="btn multimedia-card-collapse-button text-left px-0 w-100 d-flex justify-content-between align-items-center <?php echo ($key == 0 ? "" : "collapsed")  ?>"
@@ -99,11 +109,11 @@
             <div id="<?php echo $key; ?>" class="collapse" aria-labelledby="accordion<?php echo $key; ?>"
                 data-parent="#multimediaCardAccordion">
                 <div class="iframe-container my-2">
-                    <?php echo $c3['video_url']; ?>
+                    <?php echo $value['video_url']; ?>
                 </div>
-                <a href="<?= base_url() ?>multimedia/<?php echo strtolower($c3['category']); ?>/<?php echo $c3['uri']; ?>"
+                <a href="<?= base_url() ?>multimedia/<?php echo strtolower($value['category']); ?>/<?php echo $value['uri']; ?>"
                     class="mt-1 font-weight-semibold">
-                    <?php echo str_replace('â€”', "-", substr($c3['title'], 0, 200)); ?>
+                    <?php echo str_replace('â€”', "-", substr($value['title'], 0, 200)); ?>
                 </a>
             </div>
             <hr>
