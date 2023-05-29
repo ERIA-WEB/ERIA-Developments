@@ -771,14 +771,6 @@ class Publications extends CI_Controller
                 $str = substr($ns, 0, strrpos($ns, ' '));
                 $cn = str_replace(array('â€’','â€™', 'â€“', 'â€”', 'â€˜'), "'", $str);
 
-                if (file_exists(FCPATH . $mm['image_name'])) {
-                    $img = $mm['image_name'];
-                } else {
-                    if ($mm['article_type'] == 'articles') {
-                        $img = 'upload/Article.jpg';
-                    }
-                }
-
                 $s = '';
                 $nc =  count($mm['editornew']) + count($mm['authornew']);
 
@@ -833,39 +825,40 @@ class Publications extends CI_Controller
 
                 $tag_limit = implode(', ', $mm['tags']);
                 
-                if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                    $img_thumb = base_url() . $mm['image_name'];
-                } else {
-                    $url_image = "https://www.eria.org" . $mm['image_name'];
-                    $get_headers = @get_headers($url_image, 1);
-                    
-                    if ($get_headers == 1) {
-                        if (!empty($mm['image_name'])) {
-                            $img_thumb = "https://www.eria.org" . $mm['image_name'];
-                        } else {
-                            $img_thumb = base_url() . "upload/Publication.jpg";
-                        }
+                if (!empty($mm['image_name'])) {
+                    if (file_exists(FCPATH . $mm['image_name'])) {
+                        $img_thumb = base_url() . $mm['image_name'];
+                    } else if ($mm['image_name']) {
+                        $img_thumb = "https://www.eria.org" . $mm['image_name'];
                     } else {
-                        $img_thumb = base_url() . "upload/Publication.jpg";
-                    }
-                }
-                
-                // if ($mm['article_type'] == 'publications' && file_exists(FCPATH . $mm['image_name'])) {
-                    
-                //     if (file_exists(FCPATH . $mm['image_name'])) {
-                //         $img_thumb = base_url().$mm['image_name'];
-                //     } else {
-                //         $img_thumb = base_url().'upload/Publication.jpg';
-                //     }
-                // } else {
 
-                //     if (!empty($mm['image_name']) and file_exists(FCPATH . $mm['image_name'])) {
-                //         $img_thumb = base_url().$mm['image_name'];
+                        if ($mm['article_type'] == 'publications') {
+                            $img_thumb = base_url() . "upload/Publication.jpg";
+                        } else {
+                            $img_thumb = base_url() . "upload/Article.jpg";
+                        }
+                    }
+                } else {
+                    $img_thumb = base_url() . "upload/Publication.jpg";
+                }
+
+                // if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
+                //     $img_thumb = base_url() . $mm['image_name'];
+                // } else {
+                //     $url_image = "https://www.eria.org" . $mm['image_name'];
+                //     $get_headers = @get_headers($url_image, 1);
+                    
+                //     if ($get_headers == 1) {
+                //         if (!empty($mm['image_name'])) {
+                //             $img_thumb = "https://www.eria.org" . $mm['image_name'];
+                //         } else {
+                //             $img_thumb = base_url() . "upload/Publication.jpg";
+                //         }
                 //     } else {
-                //         $img_thumb = base_url().'upload/Publication.jpg';
+                //         $img_thumb = base_url() . "upload/Publication.jpg";
                 //     }
                 // }
-
+                
                 if ($mm['article_type'] === 'publications') {
                     $output .= '<div class="col-md-6 d-lg-flex align-items-lg-start mb-4 mb-lg-5nborder">
                                 <div class="publications-image">
