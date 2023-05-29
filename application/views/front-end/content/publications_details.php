@@ -516,6 +516,7 @@ iframe {
                 </div>
                 <div class="col-md-4 content-section-right d-none d-lg-block">
                     <?php
+                    
                         if (!empty($card)) {
                             foreach ($card as $c) {
                                 if (!empty($c->file)) {
