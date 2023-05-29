@@ -1185,6 +1185,36 @@ class headerModel extends CI_Model
         }
     }
 
+    function getLatestMultimediaPageCard()
+    {
+        try {
+
+            $this->db->select('articles.*,eria_expert_categories.category');
+            $this->db->where('article_type', 'multimedia');
+            $this->db->where('parent', 'multimedia');
+            $this->db->where_in('category', ['Video', 'Podcasts','Webinar']);
+            $this->db->join('eria_expert_categories', 'eria_expert_categories.ec_id = articles.sub_experts', 'left');
+            $this->db->limit(3);
+            $results = $this->db->get('articles')->result();
+
+            $data = array();
+
+            foreach ($results as $aid => $queryim) {
+                $category_data = $this->getCategoryMultimedia($queryim->sub_experts);
+                $data[$aid]['article_type'] = $queryim->article_type;
+                $data[$aid]['category'] = $category_data->category;
+                $data[$aid]['uri'] = $queryim->uri;
+                $data[$aid]['title'] = $queryim->title;
+                $data[$aid]['posted_date'] = date('j F Y', strtotime($queryim->posted_date));
+                $data[$aid]['video_url'] = $queryim->video_url;
+            }
+            return $data;
+
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
     function getPageCardMultimedia()
     {
         try {
