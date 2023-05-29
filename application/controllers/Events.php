@@ -232,10 +232,7 @@ class Events extends CI_Controller
 
                 // example images temporary
                 
-                if ($key == 0) {
-                    $img_temporary = base_url().'uploads/media/Speaker-Creative_ERIAxSELCO_S20.jpg';
-                } else {
-                    if (file_exists(FCPATH . $past->image_name) && $past->image_name != '') {
+                if (file_exists(FCPATH . $past->image_name) && $past->image_name != '') {
                         $img_temporary = base_url() . $past->image_name;
                     } else {
                         $url_video = "https://www.eria.org" . $past->image_name;
@@ -257,7 +254,6 @@ class Events extends CI_Controller
                             $img_temporary = base_url() . "upload/Event.jpg";
                         }
                     }
-                }
                 
 
                 if (!empty($past->content)) {

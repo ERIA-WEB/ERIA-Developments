@@ -317,9 +317,11 @@ class Update extends CI_Controller
                     
                     $inTheNews[$key] = $categories_updates[$key][$i];
                 }
-                
+                // echo "<pre>";
+                //         print_r($inTheNews);
+                //         exit();
                 if ($count_categories == 0 || $count_categories > 1 AND $count_categories != 1) {
-                    if (in_array('In the News', $ss)) {
+                    if (in_array('In the News', $inTheNews)) {
                         if (!empty($mm['link_website'])) {
                             $link_website[$key] = $mm['link_website'];
                         } else {
@@ -356,31 +358,32 @@ class Update extends CI_Controller
                                     </div>
                                 </div>';
                 } else {
-                    if (!empty($mm['link_website'])) {
-                        $link_website[$key] = $mm['link_website'];
-                    } else {
-                        $link_website[$key] = base_url() . 'news-and-views/' . $mm['uri'];
-                    }
-                    if (in_array('In the News', $ss)) {
-                        $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
-                            
-                            <div>
-                                <div style="height: auto" class="card-title mb-0">
-                                    <a href="' . $link_website[$key] . '" target="_blank">' . str_replace(array("â€™"), "’", $t) . '</a>
-                                </div>
-                                <div>
-                                ' . $by_editor . '
-                                </div>
-                                <div>
-                                    <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
-                                </div>
-                                <div class="description">
-                                    ' . $str . '
-                                </div>
-                            </div>
-                        </div>';
-                    } else {
-                        $output .= '<div class="col-md-6 search-section ' . $cd . ' p-3">
+                    if ($count_categories == 1) {
+                        if (!empty($mm['link_website'])) {
+                            $link_website[$key] = $mm['link_website'];
+                        } else {
+                            $link_website[$key] = base_url() . 'news-and-views/' . $mm['uri'];
+                        }
+                        if (in_array('In the News', $inTheNews)) {
+                            $output .= '<div class="col-md-12 search-section ' . $cd . ' p-3">
+                                            
+                                            <div>
+                                                <div style="height: auto" class="card-title mb-0">
+                                                    <a href="' . $link_website[$key] . '" target="_blank">' . str_replace(array("â€™"), "’", $t) . '</a>
+                                                </div>
+                                                <div>
+                                                ' . $by_editor . '
+                                                </div>
+                                                <div>
+                                                    <span class="date">' . date('j F Y', strtotime($mm['posted_date'])) . '</span>
+                                                </div>
+                                                <div class="description">
+                                                    ' . $str . '
+                                                </div>
+                                            </div>
+                                        </div>';
+                        } else {
+                            $output .= '<div class="col-md-6 search-section ' . $cd . ' p-3">
                                     <div class="mb-2">
                                         <a href="' . $link_website[$key] . '">
                                             <img class="img-fluid" src="' . $img . '" style="aspect-ratio:9/6; object-fit:cover;">
@@ -402,6 +405,7 @@ class Update extends CI_Controller
                                         </div>
                                     </div>
                                 </div>';
+                        }
                     }
                 }
             }
