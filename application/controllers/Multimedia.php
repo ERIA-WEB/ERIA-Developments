@@ -34,7 +34,7 @@ class Multimedia extends CI_Controller
         }
         
         $data['contentData'] = $content;
-        
+        $data['article'] = '';
         if ($type) {
             $data['type'] = $type;
         } else {
@@ -109,7 +109,7 @@ class Multimedia extends CI_Controller
         }
 
         $data['contentData'] = $content;
-        
+        $data['article'] = '';
         if ($type_multimedia == 'unclassified') {
             $multimedia_data = $this->frontModel->getAllCategoryMultimedia($type_multimedia);
             $data['title_category'] = 'Others';
