@@ -111,29 +111,40 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                         <a href="' . base_url() . 'multimedia/' . '">
                                             Multimedia </a>
                                     </li>';
-                            // echo '<li class="breadcrumb-item" aria-current="page">
-                            //             <a href="'.base_url().strtolower($article->article_type).'">
-                            //                 '.ucfirst($article->article_type).'
-                            //             </a>
-                            //         </li>';
-                            if ($article->category == 'Unclassified') {
-                                $category_multimedia = 'Others';
-                            } else {
-                                $category_multimedia = $article->category;
+                            if (end($urlArray) != 'index.php' AND end($urlArray) != 'multimedia') {
+                                if (!isset($article) || empty($article)) {
+                                echo '<li class="breadcrumb-item" aria-current="page">
+                                            <a href="'.base_url() .'multimedia/' . strtolower(end($urlArray)).'">
+                                                '.ucfirst(end($urlArray)).'
+                                            </a>
+                                        </li>';
+                                }
                             }
+                            if (isset($article) AND !empty($article)) {
+                                if ($article->category == 'Unclassified') {
+                                    $category_multimedia = 'Others';
+                                } else {
+                                    $category_multimedia = $article->category;
+                                }
 
-                            echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="'.base_url() . strtolower($article->article_type).'/' . strtolower($article->category).'">
-                                            '.ucfirst($category_multimedia).'
-                                        </a>
-                                    </li>';
+                                echo '<li class="breadcrumb-item" aria-current="page">
+                                            <a href="'.base_url() . strtolower($article->article_type).'/' . strtolower($article->category).'">
+                                                '.ucfirst($category_multimedia).'
+                                            </a>
+                                        </li>';
+                            }
+                            
                         } else {}
                     }
                     ?>
+                    <?php 
+                        if (isset($article) AND !empty($article)) {
+                            echo '<li class="breadcrumb-item">
+                                        '.limit_text(str_replace(array('â€™', 'â€˜'), "'", $article->title), 7).'
+                                    </li>';
+                        }
+                    ?>
 
-                    <li class="breadcrumb-item">
-                        <?php echo limit_text(str_replace(array('â€™', 'â€˜'), "'", $article->title), 7); ?>
-                    </li>
                 </ol>
             </nav>
         </div>
