@@ -80,23 +80,30 @@ $areaList = $areaList;
                                         <select class="form-control" name="topics[0]">
                                             <?php 
                                                 foreach ($areaList as $value) {
-                                                    if ($value->sub_experts == 20) {
+                                                    if ($value->sub_experts == '20') {
                                                         if (in_array($value->article_id, $sub_heading)) {
-                                                            $selected = 'selected';
-                                                            $webinar_id = $value->article_id;
-                                                            $webinar_name = $value->title;
+                                                            $video_selected = 'selected';
+                                                            $video_id = $value->article_id;
+                                                            $video_name = $value->title;
                                                         }
                                                     }
                                                 }
-                                                if (isset($selected)) {
-                                                    echo '<option value="'.$webinar_id.'" '.$selected.'>
-                                                            '.$webinar_name.'
+                                                if (isset($video_selected)) {
+                                                    echo '<option value="'.$video_id.'" '.$video_selected.'>
+                                                            '.$video_name.'
+                                                        </option>';
+                                                } else {
+                                                    echo '<option value="">
+                                                            None
                                                         </option>';
                                                 }
                                             ?>
                                             <?php 
+                                                if (isset($video_selected)) {
+                                                    echo '<option value="">None</option>';
+                                                }
                                                 foreach ($areaList as $value) {
-                                                    if ($value->sub_experts == 20) {
+                                                    if ($value->sub_experts !== '20') {
                                                         echo '<option value="'.$value->article_id.'">
                                                                 '.$value->title.'
                                                             </option>';
@@ -110,26 +117,34 @@ $areaList = $areaList;
                                     <label class="form-label" for="formfield3"> Select Podcasts </label>
                                     <div class="controls">
                                         <select class="form-control" name="topics[1]">
+                                            <option value="">None</option>
                                             <?php 
                                                 foreach ($areaList as $value) {
-                                                    if ($value->sub_experts == 8) {
+                                                    if ($value->sub_experts === '8') {
                                                         if (in_array($value->article_id, $sub_heading)) {
-                                                            $selected = 'selected';
-                                                            $webinar_id = $value->article_id;
-                                                            $webinar_name = $value->title;
+                                                            $podcasts_selected = 'selected';
+                                                            $podcasts_id = $value->article_id;
+                                                            $podcasts_name = $value->title;
                                                         }
                                                     }
                                                 }
-                                                if (isset($selected)) {
-                                                    echo '<option value="'.$webinar_id.'" '.$selected.'>
-                                                            '.$webinar_name.'
+                                                if (isset($podcasts_selected)) {
+                                                    echo '<option value="'.$podcasts_id.'" '.$podcasts_selected.'>
+                                                            '.$podcasts_name.'
+                                                        </option>';
+                                                } else {
+                                                    echo '<option value="">
+                                                            None
                                                         </option>';
                                                 }
                                             ?>
 
                                             <?php 
+                                                if (isset($podcasts_selected)) {
+                                                    echo '<option value="">None</option>';
+                                                }
                                                 foreach ($areaList as $value) {
-                                                    if ($value->sub_experts == 8) {
+                                                    if ($value->sub_experts !== '8') {
                                                         echo '<option value="'.$value->article_id.'">
                                                                 '.$value->title.'
                                                             </option>';
@@ -143,25 +158,32 @@ $areaList = $areaList;
                                     <label class="form-label" for="formfield3"> Select Webinar </label>
                                     <div class="controls">
                                         <select class="form-control" name="topics[2]">
+                                            <option value="">None</option>
                                             <?php 
                                                 foreach ($areaList as $value) {
-                                                    if ($value->sub_experts == 7) {
+                                                    if ($value->sub_experts === '7') {
                                                         if (in_array($value->article_id, $sub_heading)) {
-                                                            $selected = 'selected';
+                                                            $webinar_selected = 'selected';
                                                             $webinar_id = $value->article_id;
                                                             $webinar_name = $value->title;
                                                         }
                                                     }
                                                 }
-                                                if (isset($selected)) {
-                                                    echo '<option value="'.$webinar_id.'" '.$selected.'>
+                                                
+                                                if (isset($webinar_selected)) {
+                                                    echo '<option value="'.$webinar_id.'" '.$webinar_selected.'>
                                                             '.$webinar_name.'
                                                         </option>';
+                                                } else {
+                                                    echo '<option value="">None</option>';
                                                 }
                                             ?>
                                             <?php 
+                                                if (isset($webinar_selected)) {
+                                                    echo '<option value="">None</option>';
+                                                }
                                                 foreach ($areaList as $value) {
-                                                    if ($value->sub_experts == 7) {
+                                                    if ($value->sub_experts !== '7') {
                                                         echo '<option value="'.$value->article_id.'">
                                                                 '.$value->title.'
                                                             </option>';
