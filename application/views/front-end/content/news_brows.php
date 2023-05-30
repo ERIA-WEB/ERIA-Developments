@@ -268,15 +268,21 @@ if (!in_array('all', $current_url)) {
     margin-top: 4px !important;
 }
 </style>
-<div class="research-page mb-5 section-top">
-    <div class="container mb-3">
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <h1 class="event-title text-white font-merriweather">ERIA Updates</h1>
+        <p class="subtitle text-white">The latest News and Updates from ERIA</p>
+    </div>
+</section>
+<div class="research-page mt-5 mb-5">
+    <!-- <div class="container mb-3">
         <div class="row mt-3">
             <div class="col-md-6">
                 <h3 class="main-title text-blue">Updates</h3>
                 <p class="subtitle">The latest News and Updates from ERIA</p>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="container">
         <div class="row">
             <!-- left section -->
