@@ -200,7 +200,19 @@ class Card_model extends CI_Model
     function updateCard($id, $newCard)
     {
         try {
-            $this->db->set($newCard);
+            
+            if (!empty($newCard['sub_heading'])) {
+                $subheading = $newCard['sub_heading'];
+            } else {
+                $subheading = '';
+            }
+            
+            $data = [
+                'c_name'        => $newCard['c_name'],
+                'sub_heading'   => $subheading,
+            ];
+            
+            $this->db->set($data);
             $this->db->where('c_id', $id);
             $this->db->update('eria_card');
             return TRUE;
