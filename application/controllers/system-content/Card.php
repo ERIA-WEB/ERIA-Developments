@@ -915,13 +915,30 @@ class Card extends CI_Controller
         if ($validate == FALSE) {
             $this->edit_sub($id);
         } else {
-            $sub_heading = implode(',', $this->input->post('topics'));
+            // echo "<pre>";
+            // print_r($this->input->post('topics'));
+            // exit();
+            $sub_heading_data = $this->input->post('topics');
+            
+            foreach ($sub_heading_data as $value) {
+                if (!empty($value)) {
+                    $subheading[] = $value;
+                }
+            }
+            
+            if (!empty($subheading)) {
+                $sub_heading = implode(',', $subheading);
+            } else {
+                $sub_heading = Null;
+            }
+            
             $users = $this->session->userdata('logged_in');
             $newCard = array(
                 'c_name' => $this->input->post('home_title'),
                 'sub_heading' => $sub_heading,
             );
-
+            
+            
             $query = $this->Card_model->updateCard($id, $newCard);
 
             $this->HistoryModel->insertHistory($id, $id, "Cart  Content has been Edited   ");
