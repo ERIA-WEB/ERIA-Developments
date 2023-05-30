@@ -768,19 +768,20 @@ h1 {
 </head>
 
 <body>
-    <div class="research-page news-views-page section-top">
-        <!-- head title and cards -->
-        <div class="research-topic news-views-page">
-            <div class="container">
-                <div class="row mb-4">
-                    <div class="col-lg-6">
-                        <h3 class="main-title text-blue">Multimedia</h3>
-                        <!-- <p class="description">ERIA regularly hosts key events with prominent leaders and creates content covering fundamental issues affecting the ASEAN and East Asia regions. Stay up to date on the latest media content by visiting this page.</p> -->
-                    </div>
-                </div>
-            </div>
+    <section class="section-top bg-blue">
+        <div class="container py-3 py-lg-5">
+            <h1 class="event-title text-white font-merriweather">ERIA Multimedia</h1>
+            <p class="subtitle text-white d-none">ERIA regularly hosts key events with prominent leaders and creates
+                content
+                covering fundamental issues affecting the ASEAN and East Asia regions. Stay up to date on the latest
+                media
+                content by visiting this page.</p>
         </div>
-
+    </section>
+    <!-- Breadcrumb -->
+    <?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+    <!-- end Breadcrumb -->
+    <div class="research-page news-views-page mt-2">
         <?php $this->load->view('front-end/content/search-multimedia/search'); ?>
 
         <div id="resultMultimedia" class="container">
