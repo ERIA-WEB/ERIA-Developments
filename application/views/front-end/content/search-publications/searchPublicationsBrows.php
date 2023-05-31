@@ -4,7 +4,7 @@
 }
 </style>
 <div class="col-md-8 col-12 publication-browse-page pl-4 pr-4">
-    <div class="publication-browse-tittle mb-3">
+    <div class="publication-browse-tittle mb-3 d-none">
         <?php
             $g = strtoupper(str_replace("_", " ", $nt));
             echo str_replace("-", " ", $g);
