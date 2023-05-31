@@ -146,10 +146,25 @@ foreach ($pub as $value) {
     top: 0 !important;
 }
 </style>
-<div class="container experts-detail-page mb-5 pr-md-5 pr-1 section-top">
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <?php 
+            $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+            
+            $urlCategories = explode('/', $parse_url);
+            if (isset($urlArray) || !empty($urlCategories)) {
+                $title_head = ucwords(str_replace('-', ' ', end($urlCategories)));
+            } else {
+                $title_head = 'Publications';
+            }
 
-    <div class="row mt-3">
-
+            echo '<h1 class="event-title text-white font-merriweather">'.$title_head.'</h1>';
+        ?>
+    </div>
+</section>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="container experts-detail-page mb-5 pr-md-5 pr-1">
+    <div class="row">
         <div class="col-md-4 col-12">
             <input type="hidden" value="<?= $sub ?>" name="ty" id="ty">
             <div class="profile-overView pt-3">
