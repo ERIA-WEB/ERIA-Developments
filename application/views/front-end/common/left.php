@@ -116,78 +116,81 @@ table {
     <div class="collapse" id="collapseExample">
         <div class="card card-body px-2">
             <ul class="sidebar-items list-unstyled h-100">
-                <?php
-        $aboutus = $this->header->getPageAllAboutMenu();
-        $count_url = $this->uri->total_segments();
-        $last_url = $this->uri->segment($count_url);
-        ?>
-                <?php foreach ($aboutus as $key => $value) { ?>
                 <?php 
-            if ($value->uri == $last_url) {
-                $active_first = 'active';
-                $color = 'color: #fff;';
-                
-            } else {
-                $active_first = '';
-                $color = '';
-            }
-            $submenu_aboutus = $this->header->getPageAllAboutSubMenu($value->page_id); 
-            
-            /*
-            ** Check url submenu same with last url/slug browser
-            */ 
-            foreach ($submenu_aboutus as $val) {
-                $checkurlsame_for_submenu[] = $val->uri;
-            }
-            /*
-            ** end
-            */ 
-            ?>
-                <li class="sidebar-item position-relative">
-                    <?php if (!empty($submenu_aboutus)) { ?>
-                    <a href="<?= base_url() ?>about-us/<?= $value->uri; ?>"
-                        class="btn py-3 w-100 text-left <?= $active_first; ?>">
-                        <span><?= ucfirst($value->menu_title); ?></span>
-                    </a>
-                    <button class="arrow-active sidebar-collapse-button justify-content-between bg-transparent border-0"
-                        data-toggle="collapse" data-target="#<?php echo $key; ?>_Collapse" aria-expanded="false"
-                        aria-controls="<?php echo $key; ?>_Collapse" style="<?php echo $color; ?>">
-                        <i class="bi bi-chevron-right"></i>
-                    </button>
-                    <?php
-                if (in_array($last_url, $checkurlsame_for_submenu)) {
-                    $urlsubmenu_show = 'show';
-                } else {
-                    $urlsubmenu_show = '';
-                }
+                    $aboutus = $this->header->getPageAllAboutMenu();
+                    $count_url = $this->uri->total_segments();
+                    $last_url = $this->uri->segment($count_url);
+
+                    foreach ($aboutus as $key => $value) {
+                        if ($value->uri == $last_url) {
+                            $active_first = 'active';
+                            $color = 'color: #fff;';
+                            
+                        } else {
+                            $active_first = '';
+                            $color = '';
+                        }
+                        $submenu_aboutus = $this->header->getPageAllAboutSubMenu($value->page_id); 
+                        
+                        /*
+                        ** Check url submenu same with last url/slug browser
+                        */ 
+                        foreach ($submenu_aboutus as $val) {
+                            $checkurlsame_for_submenu[] = $val->uri;
+                        }
+                        /*
+                        ** end
+                        */ 
+                        if (in_array($last_url, $checkurlsame_for_submenu)) {
+                            $urlsubmenu_show = 'show';
+                        } else {
+                            $urlsubmenu_show = '';
+                        }
+                        echo '<li class="sidebar-item position-relative">';
+                        if (!empty($submenu_aboutus)) {
+                            echo '<a href="'.base_url() .'about-us/'. $value->uri.'" class="btn py-3 w-100 text-left '.$active_first.'">
+                                <span>'.ucfirst($value->menu_title).'</span>
+                                </a>
+                                <button class="arrow-active sidebar-collapse-button justify-content-between bg-transparent border-0"
+                                    data-toggle="collapse" data-target="#'.$key.'_Collapse" aria-expanded="false"
+                                aria-controls="'.$key.'_Collapse" style="'.$color.'">
+                                <i class="bi bi-chevron-right"></i>
+                                </button>
+
+                                <div class="collapse '.$urlsubmenu_show.'" id="'.$key.'_Collapse">
+                                <div class="card card-body border-0 py-0 bg-light-blue">
+                                    <ul>';
+                                        foreach ($submenu_aboutus as $i => $submenu_aboutus) {
+
+                                        if ($submenu_aboutus->uri == $last_url) {
+                                            $active_ = 'active';
+                                            $show = 'show';
+                                        } else {
+                                            $active_ = '';
+                                            $show = '';
+                                        }
+
+                                        if ($submenu_aboutus->uri != 'contact-us') {
+                                            $about_us = 'about-us/';
+                                        } else {
+                                            $about_us = '';
+                                        }
+                                        echo '<li>
+                                            <a class="sidebar-item-link '.$active_.'"
+                                                href="'.base_url(). $about_us .$submenu_aboutus->uri.'">'.ucfirst($submenu_aboutus->menu_title).'</a>
+                                        </li>';
+                                        }
+                                        echo '</ul>
+                                </div>
+                        </div>';
+                        } else {
+                            echo '<a class="sidebar-item-link '.$active_first.'" href="'.base_url().'about-us/'.$value->uri.'">
+                                    '.ucfirst($value->menu_title).'
+                                    </a>';
+                        }
+                        echo '</li>';
+                    }
                 ?>
-                    <div class="collapse <?php echo $urlsubmenu_show; ?>" id="<?php echo $key; ?>_Collapse">
-                        <div class="card card-body border-0 py-0 bg-light-blue">
-                            <ul>
-                                <?php
-                            foreach ($submenu_aboutus as $i => $submenu_aboutus) {
-                                
-                                if ($submenu_aboutus->uri == $last_url) {
-                                    $active_ = 'active';
-                                    $show = 'show';
-                                } else {
-                                    $active_ = '';
-                                    $show = '';
-                                }
-                                echo '<li>
-                                        <a class="sidebar-item-link '.$active_.'" href="'.base_url().'about-us/'.$submenu_aboutus->uri.'">'.ucfirst($submenu_aboutus->menu_title).'</a>
-                                    </li>';
-                            }
-                            ?>
-                            </ul>
-                        </div>
-                    </div>
-                    <?php } else { ?>
-                    <a class="sidebar-item-link <?= $active_first; ?>"
-                        href="<?= base_url() ?>about-us/<?= $value->uri; ?>"><?= ucfirst($value->menu_title); ?></a>
-                    <?php } ?>
-                </li>
-                <?php } //exit(); ?>
             </ul>
         </div>
     </div>
@@ -196,78 +199,86 @@ table {
 
 <div class="d-none d-md-block sidebar bg-light-blue p-lg-4 sticky-top sticky-top pr-2" style="top:113px;">
     <ul class="sidebar-items list-unstyled h-100">
-        <?php
-        $aboutus = $this->header->getPageAllAboutMenu();
-        $count_url = $this->uri->total_segments();
-        $last_url = $this->uri->segment($count_url);
-        ?>
-        <?php foreach ($aboutus as $key => $value) { ?>
         <?php 
-            if ($value->uri == $last_url) {
-                $active_first = 'active';
-                $color = 'color: #fff;';
-                
-            } else {
-                $active_first = '';
-                $color = '';
-            }
-            $submenu_aboutus = $this->header->getPageAllAboutSubMenu($value->page_id); 
-            
-            /*
-            ** Check url submenu same with last url/slug browser
-            */ 
-            foreach ($submenu_aboutus as $val) {
-                $checkurlsame_for_submenu[] = $val->uri;
-            }
-            /*
-            ** end
-            */ 
-            ?>
-        <li class="sidebar-item position-relative">
-            <?php if (!empty($submenu_aboutus)) { ?>
-            <a href="<?= base_url() ?>about-us/<?= $value->uri; ?>"
-                class="btn py-3 w-100 text-left <?= $active_first; ?>">
-                <span><?= ucfirst($value->menu_title); ?></span>
-            </a>
-            <button class="arrow-active sidebar-collapse-button justify-content-between bg-transparent border-0"
-                data-toggle="collapse" data-target="#<?php echo $key; ?>_Collapse" aria-expanded="false"
-                aria-controls="<?php echo $key; ?>_Collapse" style="<?php echo $color; ?>">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-            <?php
-                if (in_array($last_url, $checkurlsame_for_submenu)) {
-                    $urlsubmenu_show = 'show';
+            $aboutus = $this->header->getPageAllAboutMenu();
+            $count_url = $this->uri->total_segments();
+            $last_url = $this->uri->segment($count_url);
+
+            foreach ($aboutus as $key => $value) {
+                if ($value->uri == $last_url) {
+                    $active_first = 'active';
+                    $color = 'color: #fff;';
+                    
                 } else {
-                    $urlsubmenu_show = '';
+                    $active_first = '';
+                    $color = '';
                 }
-                ?>
-            <div class="collapse <?php echo $urlsubmenu_show; ?>" id="<?php echo $key; ?>_Collapse">
-                <div class="card card-body border-0 py-0 bg-light-blue">
-                    <ul>
-                        <?php
-                            foreach ($submenu_aboutus as $i => $submenu_aboutus) {
-                                
-                                if ($submenu_aboutus->uri == $last_url) {
-                                    $active_ = 'active';
-                                    $show = 'show';
-                                } else {
-                                    $active_ = '';
-                                    $show = '';
-                                }
-                                echo '<li>
-                                        <a class="sidebar-item-link '.$active_.'" href="'.base_url().'about-us/'.$submenu_aboutus->uri.'">'.ucfirst($submenu_aboutus->menu_title).'</a>
-                                    </li>';
-                            }
-                            ?>
-                    </ul>
-                </div>
-            </div>
-            <?php } else { ?>
-            <a class="sidebar-item-link <?= $active_first; ?>"
-                href="<?= base_url() ?>about-us/<?= $value->uri; ?>"><?= ucfirst($value->menu_title); ?></a>
-            <?php } ?>
-        </li>
-        <?php } //exit(); ?>
+                $submenu_aboutus = $this->header->getPageAllAboutSubMenu($value->page_id); 
+                
+                /*
+                ** Check url submenu same with last url/slug browser
+                */ 
+                foreach ($submenu_aboutus as $val) {
+                    $checkurlsame_for_submenu[] = $val->uri;
+                }
+                /*
+                ** end
+                */ 
+
+                if (!empty($submenu_aboutus)) {
+                    echo '<li class="sidebar-item position-relative">';
+                    if (in_array($last_url, $checkurlsame_for_submenu)) {
+                        $urlsubmenu_show = 'show';
+                    } else {
+                        $urlsubmenu_show = '';
+                    }
+
+                    echo ' <a href="'.base_url().'about-us/'.$value->uri.'"
+                                class="btn py-3 w-100 text-left '.$active_first.'">
+                                <span>'.ucfirst($value->menu_title).'</span>
+                            </a>
+                            <button class="arrow-active sidebar-collapse-button justify-content-between bg-transparent border-0" data-toggle="collapse" data-target="#'.$key.'_Collapse" aria-expanded="false" aria-controls="'.$key.'_Collapse" style="'.$color.'">
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+                            <div class="collapse '.$urlsubmenu_show.'" id="'.$key.'_Collapse">
+                                <div class="card card-body border-0 py-0 bg-light-blue">
+                                    <ul>';
+                                    foreach ($submenu_aboutus as $i => $submenu_aboutus) {
+                                        
+                                        if ($submenu_aboutus->uri == $last_url) {
+                                            $active_ = 'active';
+                                            $show = 'show';
+                                        } else {
+                                            $active_ = '';
+                                            $show = '';
+                                        }
+                                        
+                                        if ($submenu_aboutus->uri != 'contact-us') {
+                                            $about_us = 'about-us/';
+                                        } else {
+                                            $about_us = '';
+                                        }
+
+                                        echo '<li>
+                                                <a class="sidebar-item-link '.$active_.'" href="'.base_url().$about_us.$submenu_aboutus->uri.'">'.ucfirst($submenu_aboutus->menu_title).'</a>
+                                            </li>';
+                                    }
+                                echo '</ul>
+                                </div>
+                            </div>';
+                    echo '</li>';
+                } else {
+                    if ($value->uri != 'contact-us' ) {
+                        $about_us = 'about-us/';
+                    } else {
+                        $about_us = '';
+                    }
+                    echo '<a class="sidebar-item-link '.$active_first.'"href="'.base_url().$about_us.$value->uri.'">
+                            '.ucfirst($value->menu_title).'
+                        </a>';
+                }
+            }
+        ?>
     </ul>
 </div>
 
