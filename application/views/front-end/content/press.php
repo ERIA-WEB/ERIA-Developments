@@ -35,13 +35,21 @@
     }
 }
 </style>
-
-<div class="container research-page news-views-page section-top">
-    <div class="research-topic pt-4">
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <h1 class="event-title text-white font-merriweather">ERIA Press Room</h1>
+        <p class="subtitle text-white d-none">ERIA&apos;s Communications Department works closely with the media to
+            provide information about our research and programs, set up interviews with ERIA experts, or
+            answer any other questions. </p>
+    </div>
+</section>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="container research-page news-views-page mb-5">
+    <!-- <div class="research-topic pt-4">
         <div class="container pr-0 pl-0">
             <div class="row">
                 <div class="col-lg-9">
-                    <h3 class="main-title text-blue">Press Room </h3>
+                    <h3 class="main-title text-blue"></h3>
                     <div class="description"> ERIA&apos;s Communications Department works closely with the media to
                         provide information about our research and programs, set up interviews with ERIA experts, or
                         answer any other questions. </div>
@@ -49,8 +57,8 @@
             </div>
 
         </div>
-    </div>
-    <div class="container py-5 pr-0 pl-0">
+    </div> -->
+    <div class="container pr-0 pl-0">
         <div class="row">
             <!-- Content section left -->
             <div id="contentLeftPressRoom" class="col-lg-8 col-xs-12">
