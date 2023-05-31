@@ -205,12 +205,18 @@ p.mail-people {
     }
 }
 </style>
-<div class="container experts-page section-top">
-    <div class="row my-4">
-        <div class="col-lg-6">
-            <div class="main-title text-blue">Our People</div>
-        </div>
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <h1 class="event-title text-white font-merriweather">ERIA Our People</h1>
     </div>
+</section>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="container experts-page">
+    <!-- <div class="row my-4">
+        <div class="col-lg-6">
+            <div class="main-title text-blue d-none">Our People</div>
+        </div>
+    </div> -->
     <div class="row mb-4">
         <!-- Searches and drop downs -->
         <input type="hidden" value="<?php echo $catogeryID ?>" name="catogery" id="catogery">
