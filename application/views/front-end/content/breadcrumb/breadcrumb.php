@@ -29,6 +29,12 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
         $breadcrumb = 'publications';
     } elseif (in_array('news-and-views', $urlArray)) {
         $breadcrumb = 'news-and-views';
+    } elseif (in_array('press-room', $urlArray)) {
+        $breadcrumb = 'press-room';
+    } elseif (in_array('experts', $urlArray)) {
+        $breadcrumb = 'experts';
+    } elseif (in_array('contact-us', $urlArray)) {
+        $breadcrumb = 'contact-us';
     } elseif (in_array('events', $urlArray)) {
         $breadcrumb = 'events';
     } elseif (in_array('multimedia', $urlArray)) {
@@ -40,6 +46,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
     $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
 
     $urlArray = explode('/', $parse_url);
+    
     if (in_array('research', $urlArray)) {
         $breadcrumb = 'research';
     } elseif (in_array('database-and-programmes', $urlArray)) {
@@ -48,6 +55,12 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
         $breadcrumb = 'publications';
     } elseif (in_array('news-and-views', $urlArray)) {
         $breadcrumb = 'news-and-views';
+    } elseif (in_array('press-room', $urlArray)) {
+        $breadcrumb = 'press-room';
+    } elseif (in_array('experts', $urlArray)) {
+        $breadcrumb = 'experts';
+    } elseif (in_array('contact-us', $urlArray)) {
+        $breadcrumb = 'contact-us';
     } elseif (in_array('events', $urlArray)) {
         $breadcrumb = 'events';
     } elseif (in_array('multimedia', $urlArray)) {
@@ -87,7 +100,8 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                             
                             echo '<li class="breadcrumb-item" aria-current="page">
                                         <a href="' . base_url() . 'database-and-programmes/' . '">
-                                            Programmes </a>
+                                            Programmes 
+                                            </a>
                                     </li>';
                             
                         } elseif ($breadcrumb == 'publications') {
@@ -96,20 +110,52 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                             Publications
                                         </a>
                                     </li>';
+                                    
+                            if (!isset($article) AND empty($article)) {
+                                if (end($urlArray) != 'index.php' AND end($urlArray) != 'publications') {
+                                    echo '<li class="breadcrumb-item" aria-current="page">
+                                                <a href="'.base_url() .'publications/category/' . strtolower(end($urlArray)).'">
+                                                    '.ucfirst(end($urlArray)).'
+                                                </a>
+                                            </li>';
+                                }
+                            }
+                            
                         } elseif ($breadcrumb == 'news-and-views') {
                                 echo '<li class="breadcrumb-item" aria-current="page">
                                             <a href="' . base_url() . 'news-and-views/' . '">
-                                                Updates </a>
+                                                Updates 
+                                                </a>
+                                        </li>';
+                        } elseif ($breadcrumb == 'press-room') {
+                                echo '<li class="breadcrumb-item" aria-current="page">
+                                            <a href="' . base_url() . 'news/press-room/' . '">
+                                                Press Room 
+                                                </a>
+                                        </li>';
+                        } elseif ($breadcrumb == 'experts') {
+                                echo '<li class="breadcrumb-item" aria-current="page">
+                                            <a href="' . base_url() . 'experts/' . '">
+                                                Our People 
+                                            </a>
+                                        </li>';
+                        } elseif ($breadcrumb == 'contact-us') {
+                                echo '<li class="breadcrumb-item" aria-current="page">
+                                            <a href="' . base_url() . 'contact-us/' . '">
+                                                Contact Us
+                                            </a>
                                         </li>';
                         } elseif ($breadcrumb == 'events') {
                             echo '<li class="breadcrumb-item" aria-current="page">
                                         <a href="' . base_url() . 'events/' . '">
-                                            Events </a>
+                                            Events 
+                                            </a>
                                     </li>';
                         } elseif ($breadcrumb == 'multimedia') {
                             echo '<li class="breadcrumb-item" aria-current="page">
                                         <a href="' . base_url() . 'multimedia/' . '">
-                                            Multimedia </a>
+                                            Multimedia 
+                                            </a>
                                     </li>';
                             if (end($urlArray) != 'index.php' AND end($urlArray) != 'multimedia') {
                                 if (!isset($article) || empty($article)) {
