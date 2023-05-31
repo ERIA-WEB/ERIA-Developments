@@ -69,9 +69,14 @@
 
 /* === */
 </style>
-
-<div class="contact-us-page section-top experts-detail-page">
-    <div class="container mb-5 pt-3">
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <h1 class="event-title text-white font-merriweather">Contact Us</h1>
+    </div>
+</section>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="contact-us-page experts-detail-page">
+    <div class="container mb-5">
         <div class="row">
             <div class="col-md-4">
                 <?php $this->load->view('front-end/common/left'); ?>
