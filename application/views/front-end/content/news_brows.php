@@ -274,7 +274,8 @@ if (!in_array('all', $current_url)) {
         <p class="subtitle text-white">The latest News and Updates from ERIA</p>
     </div>
 </section>
-<div class="research-page mt-5 mb-5">
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="research-page mb-5">
     <!-- <div class="container mb-3">
         <div class="row mt-3">
             <div class="col-md-6">
