@@ -62,8 +62,8 @@ table {
 <input type="hidden" value="<?php echo $id ?>" id="key" placeholder="Keywords" aria-describedby="button-addon2"
     name="msearch" class="form-control border-left-0 ">
 <input type="hidden" name="region" class="region" id="region" value="all">
-<div class="program-sidebar bg-light-blue p-4 sticky-top mb-4" style="top:113px;">
-    <h5 class="font-merriweather text-blue font-weight-bold mb-4">Category</h5>
+<div class="program-sidebar bg-light-blue p-4 sticky-top mb-4">
+    <h5 class="font-merriweather text-blue font-weight-bold pl-3 pr-3">Topics</h5>
     <ul class="sidebar-items list-unstyled">
         <?php
             $menudb = $this->header->get_dbMenu();
