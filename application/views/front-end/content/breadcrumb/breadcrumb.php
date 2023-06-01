@@ -103,6 +103,16 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                             Programmes 
                                             </a>
                                     </li>';
+
+                            if (!isset($article) AND empty($article)) {
+                                if (end($urlArray) != 'index.php' AND end($urlArray) != 'database-and-programmes') {
+                                    echo '<li class="breadcrumb-item" aria-current="page">
+                                                <a href="'.base_url() .'database-and-programmes/topic/' . strtolower(end($urlArray)).'">
+                                                    '.ucfirst(str_replace('-', ' ', end($urlArray))).'
+                                                </a>
+                                            </li>';
+                                }
+                            }
                             
                         } elseif ($breadcrumb == 'publications') {
                             echo '<li class="breadcrumb-item" aria-current="page">
@@ -115,18 +125,33 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                 if (end($urlArray) != 'index.php' AND end($urlArray) != 'publications') {
                                     echo '<li class="breadcrumb-item" aria-current="page">
                                                 <a href="'.base_url() .'publications/category/' . strtolower(end($urlArray)).'">
-                                                    '.ucfirst(end($urlArray)).'
+                                                    '.ucfirst(str_replace('-', ' ', end($urlArray))).'
                                                 </a>
                                             </li>';
                                 }
                             }
                             
                         } elseif ($breadcrumb == 'news-and-views') {
-                                echo '<li class="breadcrumb-item" aria-current="page">
-                                            <a href="' . base_url() . 'news-and-views/' . '">
-                                                Updates 
+                            echo '<li class="breadcrumb-item" aria-current="page">
+                                        <a href="' . base_url() . 'news-and-views/' . '">
+                                            Updates 
+                                            </a>
+                                    </li>';
+                            
+                            if (!isset($article) AND empty($article)) {
+                                if (end($urlArray) != 'index.php' AND end($urlArray) != 'news-and-views') {
+                                    if (end($urlArray) == 'call-for-proposals') {
+                                        $url_category = 'news-and-views/category/all/';
+                                    } else {
+                                        $url_category = 'news-and-views/category/';
+                                    }
+                                    echo '<li class="breadcrumb-item" aria-current="page">
+                                                <a href="'.base_url() . $url_category . strtolower(end($urlArray)).'">
+                                                    '.ucfirst(str_replace('-', ' ', end($urlArray))).'
                                                 </a>
-                                        </li>';
+                                            </li>';
+                                }
+                            }
                         } elseif ($breadcrumb == 'press-room') {
                                 echo '<li class="breadcrumb-item" aria-current="page">
                                             <a href="' . base_url() . 'news/press-room/' . '">
