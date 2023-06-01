@@ -232,36 +232,31 @@ class Events extends CI_Controller
 
                 // example images temporary
                 
-                if (file_exists(FCPATH . $past->image_name) && $past->image_name != '') {
-                        $img_temporary = base_url() . $past->image_name;
+                $url_video = "https://www.eria.org" . $past->image_name;
+                $get_headers = @get_headers($url_video, 1);
+                if (!$get_headers) {
+                    $file_exists_video == 0;
+                } else {
+                    $response_video = $get_headers;
+                    $file_exists_video = (strpos($response_video[0], "404") === false);
+                }
+
+                if ($file_exists_video == 1) {
+                    if (!empty($past->image_name)) {
+                        $img_temporary = "https://www.eria.org" . $past->image_name;
                     } else {
-                        $url_video = "https://www.eria.org" . $past->image_name;
-                        $get_headers = @get_headers($url_video, 1);
-                        if (!$get_headers) {
-                            $file_exists_video == 0;
-                        } else {
-                            $response_video = $get_headers;
-                            $file_exists_video = (strpos($response_video[0], "404") === false);
-                        }
-
-                        if ($file_exists_video == 1) {
-                            if (!empty($past->image_name)) {
-                                $img_temporary = "https://www.eria.org" . $past->image_name;
-                            } else {
-                                $img_temporary = base_url() . "upload/Event.jpg";
-                            }
-                        } else {
-                            $img_temporary = base_url() . "upload/Event.jpg";
-                        }
+                        $img_temporary = base_url() . "upload/events.png";
                     }
+                } else {
+                    $img_temporary = base_url() . "upload/events.png";
+                }
                 
-
                 if (!empty($past->content)) {
                     $output .= '<div class="col-lg-4 col-md-6 mb-4">
                     <div class="card upcoming-card-event rounded-0 border-0 bg-main-grey h-100">
                         '.$ribbon.'
-                        <div class="bg-transparent border-0">
-                            <img class="img-fluid" src="'.$img_temporary.'" style="object-fit:cover;height: 236px;width: 100%;background-color: var(--primaryBlue);">
+                        <div class="bg-thumbnails bg-transparent border-0">
+                            <img class="img-fluid" src="'.$img_temporary.'">
                         </div>
                         <a href="' . base_url() . 'events/' . $past->uri . '">
                             <div class="card-body pb-0">
@@ -282,8 +277,8 @@ class Events extends CI_Controller
                     $output .= '<div class="col-lg-4 col-md-6 mb-4">
                         <div class="card upcoming-card-event rounded-0 border-0 bg-main-grey h-100">
                             '.$ribbon.'
-                            <div class="bg-transparent border-0">
-                                <img class="img-fluid" src="'.$img_temporary.'" style="object-fit:cover;height: 236px;width: 100%;background-color: var(--primaryBlue);">
+                            <div class="bg-thumbnails bg-transparent border-0">
+                                <img class="img-fluid" src="'.$img_temporary.'">
                             </div>
                             <div class="card-body pb-0">
                                 <small>' . date('j F Y', strtotime($past->start_date)) . '</small>
