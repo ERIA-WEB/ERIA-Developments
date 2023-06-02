@@ -13,7 +13,8 @@
         <h1 class="event-title text-white font-merriweather">ERIA Programmes</h1>
     </div>
 </section>
-<div class="research-page research-topic-page px-3 px-md-0 mt-5">
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="research-page research-topic-page px-3 px-md-0">
     <!-- related articles -->
     <div class="container-fluid pr-0 pl-0">
         <div class="container py-3 pr-0 pl-0">
