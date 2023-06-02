@@ -37,6 +37,12 @@ function limit_text($text, $limit, $link = null)
     bottom: 0;
 }
 
+.bg-thumbnails {
+    background: var(--primaryBlue) !important;
+    text-align: center;
+    padding: 40px 0px;
+}
+
 .eventbrite-checkout-button button {
     background-color: #0f3979;
     border: 1.5px solid #0f3979;
