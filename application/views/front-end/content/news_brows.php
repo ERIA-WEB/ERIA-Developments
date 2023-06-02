@@ -270,20 +270,23 @@ if (!in_array('all', $current_url)) {
 </style>
 <section class="section-top bg-blue">
     <div class="container py-3 py-lg-5">
-        <h1 class="event-title text-white font-merriweather">ERIA Updates</h1>
+        <?php 
+            $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+            
+            $urlCategories = explode('/', $parse_url);
+            if (isset($urlArray) || !empty($urlCategories)) {
+                $title_head = ucwords(str_replace('-', ' ', end($urlCategories)));
+            } else {
+                $title_head = 'ERIA Updates';
+            }
+
+            echo '<h1 class="event-title text-white font-merriweather">'.$title_head.'</h1>';
+        ?>
         <p class="subtitle text-white">The latest News and Updates from ERIA</p>
     </div>
 </section>
 <?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
 <div class="research-page mb-5">
-    <!-- <div class="container mb-3">
-        <div class="row mt-3">
-            <div class="col-md-6">
-                <h3 class="main-title text-blue">Updates</h3>
-                <p class="subtitle">The latest News and Updates from ERIA</p>
-            </div>
-        </div>
-    </div> -->
     <div class="container">
         <div class="row">
             <!-- left section -->
