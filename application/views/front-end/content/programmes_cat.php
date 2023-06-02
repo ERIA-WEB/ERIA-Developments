@@ -11,24 +11,35 @@ iframe {
 </style>
 
 <?php if (isset($catData)) { ?>
-<div class="container experts-detail-page db-program-topic section-top">
-    <div class="row mt-3">
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <?php
+            if ($catData) {
+                $title_head = ucwords($catData->category_name);
+            } else {
+                $title_head = 'Programmes';
+            }
+
+            echo '<h1 class="event-title text-white font-merriweather">'.$title_head.'</h1>';
+        ?>
+    </div>
+</section>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="container experts-detail-page db-program-topic">
+    <div class="row">
         <div class="col-md-4">
             <?php $this->load->view('front-end/common/dbleft'); ?>
         </div>
         <!-- right section -->
         <div class="col-md-8 col-12">
             <div class="container px-0 mb-4">
-                <div class="Database-Programmes-tittle mb-2">
-                    <?php if ($catData) { ?>
-                    <?php echo ucwords($catData->category_name);  ?>
-                </div>
-                <hr>
+                <?php if ($catData) { ?>
                 <div class="phara-database">
                     <?php echo $catData->description; ?>
-                    <?php } ?>
+
                 </div>
                 <hr>
+                <?php } ?>
             </div>
             <!-- drop sort -->
             <div class="container px-0 related-article">
