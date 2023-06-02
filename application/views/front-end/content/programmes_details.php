@@ -201,16 +201,16 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                         if (strlen($response_articles)) {
                                             $img = "https://www.eria.org" . $article->image_name;
                                         } else {
-                                            $img = base_url() . "/upload/news.jpg";
+                                            $img = base_url() . "/upload/Article.jpg";
                                         }
                                     } else {
-                                        $img = base_url() . "/upload/news.jpg";
+                                        $img = base_url() . "/upload/Article.jpg";
                                     }
                                 }
 
                                 echo '<div style="height: auto" class="img-container"> <img class="responsive mb-2" src="' . $img . '"> </div>';
                             } else {
-                                $img = base_url() . "/upload/news.jpg";
+                                $img = base_url() . "/upload/Article.jpg";
                                 echo '<div style="height: auto" class="img-container"> <img class="responsive mb-2" src="' . $img . '"> </div>';
                             }
                             ?>
