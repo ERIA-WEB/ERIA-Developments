@@ -84,7 +84,7 @@ section.box {
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <div class="masonry-gallery">
-                                                <div class="masonry-thumb" style="margin-left: 30%;">
+                                                <div class="masonry-thumb">
                                                     <?php $path = (!isset($slider_row->image_name)) ? "/uploads/events/slider.jpg" : $slider_row->image_name;
                                                     if ($path == "") {
                                                         $path = "/uploads/events/slider.jpg";
@@ -93,8 +93,7 @@ section.box {
                                                     }
                                                     ?>
                                                     <img id="placeholder" class="grayscale"
-                                                        src="<?php echo base_url(); ?><?php echo $path; ?>" width="142"
-                                                        alt="Sample Image">
+                                                        src="<?php echo base_url(); ?><?php echo $path; ?>">
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -104,8 +103,9 @@ section.box {
                                             $image = (set_value('image') == false && isset($slider_row)) ? $slider_row->image_name_2 : set_value('image');
                                             ?>
                                             <label class="form-label" for="formfield1"> Image </label>
-                                            <span style="font-size: 9px;font-style: italic;color: red;"> (Please Using
-                                                Dimensions 1200 X 510 PX*) </span>
+                                            <span style="font-size: 9px;font-style: italic;color: red;">
+                                                (Please Using Dimensions 1200 X 510 PX*)
+                                            </span>
                                             <div class="controls">
                                                 <input type="hidden" id="image" name="image" value="" />
                                                 <input class="input-file form-control uniform_on focused" id="photo"
@@ -115,31 +115,64 @@ section.box {
                                             </div>
                                         </div>
                                     </div>
-                                    <div style="display: none " class="col-lg-6">
-                                        <fieldset>
-                                            <div class="masonry-gallery">
-                                                <div class="masonry-thumb" style="margin-left: 30%;">
-                                                    <?php $path = (!isset($slider_row->image_name_2)) ? "/uploads/slides/slider.jpg" : $slider_row->image_name_2; ?>
-                                                    <img id="placeholdern" class="grayscale"
-                                                        src="<?php echo base_url(); ?>resources/images<?php echo $path; ?>"
-                                                        width="142" alt="Sample Image">
-                                                </div>
-                                            </div>
-                                        </fieldset>
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <?php
-                                            $error = (form_error('image') === '') ? '' : 'error';
-                                            $image = (set_value('image') == false && isset($slider_row)) ? $slider_row->image_name_2 : set_value('image');
-                                            ?>
-                                            <label class="form-label" for="formfield1"> Image Below Article
-                                            </label>
-                                            <span class="desc">e.g. "720 PX "</span>
+                                            <label class="form-label" for="formfield1"> Thumbnail Image </label>
+                                            <span style="font-size: 9px;font-style: italic;color: red;">
+                                                (Please Using Dimensions 360 X 240 PX*)
+                                            </span>
                                             <div class="controls">
-                                                <input type="hidden" id="imageblow" name="imageblow" value="" />
-                                                <input class="input-file form-control uniform_on focused" id="image_"
-                                                    value="<?php echo $image; ?>" name="image" type="file"
-                                                    accept="image/*" placeholder="photo">
-                                                <?php echo form_error('image', '<span class="help-inline">', '</span>'); ?>
+                                                <label for="upload_image">
+                                                    <?php 
+                                                        if (!empty($slider_row->image_name_2)) {
+                                                            $path = $slider_row->image_name_2;
+                                                        } else {
+                                                            $path = "/uploads/slides/slider.jpg";
+                                                        }
+                                                    ?>
+                                                    <img src="<?= base_url() . $path ?>" id="uploaded_image"
+                                                        class="img-responsive" style="width:350px;height:200px;" />
+                                                    <div class="overlay">
+                                                        <div class="text">Click to Upload Image thumbnails</div>
+                                                    </div>
+                                                    <input type="file" name="image" class="image" id="upload_image"
+                                                        style="display:none">
+                                                    <div id="resultThumbImage"></div>
+                                                </label>
+                                            </div>
+
+                                            <div class="modal fade" id="modal" tabindex="-1" role="dialog"
+                                                aria-labelledby="modalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalLabel">Crop Image Before
+                                                                Upload</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="img-container">
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        <img src="" id="sample_image" />
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="preview"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Cancel</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                id="crop">Crop</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -678,15 +711,15 @@ section.box {
     </div>
 </div>
 <!-- CORE JS Table -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+<!-- <script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
 </script>
 <script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
     type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
-    type="text/javascript"></script>
-<script
+    type="text/javascript"></script> -->
+<!-- <script
     src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
-    type="text/javascript"></script>
+    type="text/javascript"></script> -->
 
 <!-- <script>
 $(document).ready(function() {
@@ -714,6 +747,81 @@ $(document).ready(function() {
 
 <!-- END CORE TEMPLATE JS - END -->
 <script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet" />
+<script src="https://unpkg.com/dropzone"></script>
+<script src="https://unpkg.com/cropperjs"></script>
+<script>
+$(document).ready(function() {
+    var $modal = $('#modal');
+    var image = document.getElementById('sample_image');
+    var cropper;
+
+    $('#upload_image').change(function(event) {
+        var files = event.target.files;
+        var done = function(url) {
+
+            image.src = url;
+
+            $modal.modal('show');
+        };
+
+        if (files && files.length > 0) {
+            reader = new FileReader();
+            reader.onload = function(event) {
+                done(reader.result);
+            };
+            reader.readAsDataURL(files[0]);
+            //}
+        }
+    });
+
+    $modal.on('shown.bs.modal', function() {
+        cropper = new Cropper(image, {
+            aspectRatio: 1.5,
+            viewMode: 3,
+            preview: '.preview'
+        });
+    }).on('hidden.bs.modal', function() {
+        cropper.destroy();
+        cropper = null;
+    });
+
+    $("#crop").click(function() {
+        canvas = cropper.getCroppedCanvas({
+            width: 350,
+            height: 250,
+        });
+
+        canvas.toBlob(function(blob) {
+            var reader = new FileReader();
+            reader.readAsDataURL(blob);
+            reader.onloadend = function() {
+                var base64data = reader.result;
+
+                $.ajax({
+                    url: "<?php echo base_url(); ?>system-content/Events/cropImageThumbnails",
+                    method: "POST",
+                    data: {
+                        image: base64data
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $modal.modal('hide');
+                        $('#uploaded_image').attr('src', '<?= base_url() ?>' +
+                            data);
+                        $('#resultThumbImage').html(
+                            '<input type="hidden" name="thumb_image" value="' +
+                            data + '">');
+
+                    }
+                });
+            }
+        });
+    });
+
+});
+</script>
 <script>
 $("#relatedArticle").select2({
     placeholder: 'Choose your Related News',
@@ -898,7 +1006,7 @@ $('#photo').change(function() {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
+            $('#placeholder').attr('src', e.target.result).attr('width', 'auto');
         };
         reader.readAsDataURL(input.files[0]);
     }
