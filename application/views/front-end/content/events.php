@@ -40,7 +40,11 @@ function limit_text($text, $limit, $link = null)
 .bg-thumbnails {
     background: var(--primaryBlue) !important;
     text-align: center;
-    padding: 40px 0px;
+    /* padding: 40px 0px; */
+}
+
+.bg-thumbnails>img {
+    width: 100%;
 }
 
 .eventbrite-checkout-button button {
@@ -166,7 +170,9 @@ function limit_text($text, $limit, $link = null)
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                 <input type="hidden" id="paramFuture" value="up">
-                <div class="future-events"></div>
+                <div class="future-events text-center">
+                    <img id="loadingFutureEvents" src="<?= base_url().'upload/loadings.gif'?>" />
+                </div>
                 <div class="row mb-4">
                     <div class="col-lg-12 text-center">
                         <button id="ldmrFuture" class="btn third-button py-3">Load More</button>
@@ -175,7 +181,9 @@ function limit_text($text, $limit, $link = null)
             </div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <input type="hidden" id="paramPast" value="past">
-                <div class="upcoming-events"></div>
+                <div class="upcoming-events text-center">
+                    <img id="loadingPastEvents" src="<?= base_url().'upload/loadings.gif'?>" />
+                </div>
                 <div class="row mb-4">
                     <div class="col-lg-12 text-center">
                         <button id="ldmr" class="btn third-button py-3">Load More</button>
@@ -197,16 +205,20 @@ $(document).ready(function() {
     var limit_future = 9;
     var reachedMax = false;
 
-    getPost_searchData();
     getFuturesearchData();
+    getPost_searchData();
 
     $('#ldmrFuture').on('click', function() {
         getFuturesearchData();
     });
 
+    // $('#pills-profile-tab').on('click', function() {
+    //     getPost_searchData();
+    // });
+
     function getFuturesearchData() {
         var type = $('#paramFuture').val();
-        var url = '<?= base_url() ?>Events/loadmSearch';
+        var url = '<?= base_url() ?>Events/loadmSearchFuture';
         $.ajax({
             url: url,
             method: 'POST',
@@ -218,13 +230,20 @@ $(document).ready(function() {
                 limit: limit_future,
                 type: type
             },
+            beforeSend: function() {
+                $("#loadingFutureEvents").removeClass('d-none');
+                $("#ldmrFuture").addClass('d-none');
+            },
+            complete: function() {
+                $("#loadingFutureEvents").addClass('d-none');
+            },
             success: function(response) {
                 if (response == "") {
                     $("#ldmrFuture").hide();
                 } else {
-                    $("#ldmrFuture").html("Load more");
+                    $("#ldmrFuture").removeClass('d-none');
                     start_future += limit_future;
-                    $(".loader-image").show();
+                    // $(".loader-image").show();
                     $(".future-events").append(response);
                 }
             }
@@ -249,16 +268,24 @@ $(document).ready(function() {
                 limit: limit,
                 type: type
             },
+            beforeSend: function() {
+                $("#loadingPastEvents").removeClass('d-none');
+                $("#ldmr").addClass('d-none');
+            },
+            complete: function() {
+                $("#loadingPastEvents").addClass('d-none');
+            },
             success: function(response) {
                 if (response == "") {
                     $(".loader-image").hide();
                     $("#ldmr").hide();
                 } else {
-                    $("#ldmr").html("Load more");
+                    $("#ldmr").removeClass('d-none');
                     $('#normals').show();
                     $('#normal').hide();
                     start += limit;
-                    $(".loader-image").show();
+                    // $(".loader-image").show();
+                    $("#loadingPastEvents").addClass('d-none');
                     $(".upcoming-events").append(response);
                 }
             }
