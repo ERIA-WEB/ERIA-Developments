@@ -172,6 +172,135 @@ class Events extends CI_Controller
         return $text;
     }
 
+    function loadmSearchFuture()
+    {
+        $start = $_POST['start'];
+        $limit = $_POST['limit'];
+        $type = $_POST['type'];
+        
+        $past = $this->frontModel->getEvent_list($type, $start, $limit);
+        
+        $output = '';
+        $x = 0;
+        if (!empty($past)) {
+            $output .= '<div class="row">';
+
+            foreach ($past as $key => $past) {
+                $x++;
+
+                $date = date('j F Y', strtotime($past->start_date));
+
+                if ($past->experts != "") {
+                    $d = '<a href="' . base_url() . 'experts/detail/' . $past->link . '">' . $past->experts . '</a>';
+                } else {
+                    if ($past->majorEmail != "") {
+
+                        $d = '<a href="mailto:' . $past->majorEmail . '" >' . $past->major . '</a>';
+                    } else {
+                        $d = $past->major;
+                    }
+                }
+
+                $row = "";
+                if ($x % 2 == 0) {
+                    $row = "blue-tb";
+                }
+
+                $eria_event_agenda_detail = $this->frontModel->getAgendaDetailByEventId($past->article_id);
+                
+                if (!empty($eria_event_agenda_detail)) {
+                    foreach ($eria_event_agenda_detail as $val) {
+                        $eventType[] = $val->type;
+                        $buttonEventBrite = $val->emmbed_rsvp;
+                    }
+
+                    $type_event = '<small>'. implode(', ', $eventType) .'</small>';
+                } else {
+                    $type_event = '';
+                    $buttonEventBrite = '';
+                }
+                if ($type == 'up') {
+                    if ($past->start_date == date('Y-m-d')) {
+                        $ribbon = '<div class="ribbon-2 d-none" style="background: #0c620c;">On Going</div>';
+                    } else {
+                        $ribbon = '<div class="ribbon-2 d-none" style="background: #0f3979;">Upcoming</div>';
+                    }
+                    
+                } else {
+                    $ribbon = '<div class="ribbon-2 d-none" style="background: #BD1550;">Finished</div>';
+                }
+
+                // example images temporary
+                
+                $url_image = "https://www.eria.org/" . $past->image_name_2;
+                $get_headers = @get_headers($url_image, 1);
+                if (!$get_headers) {
+                    if (!$get_headers) {
+                        $img_temporary = "https://www.eria.org/" . $past->image_name_2;
+                    } else {
+                        $img_temporary = base_url() . "upload/Event.jpg";
+                    }
+                } else {
+                    if (!empty($past->image_name_2)) {
+                        $img_temporary = base_url() . $past->image_name_2;
+                    } else {
+                        $img_temporary = base_url() . "upload/Event.jpg";
+                    }
+                }
+                
+                if (!empty($past->content)) {
+                    $output .= '<div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card upcoming-card-event rounded-0 border-0 bg-main-grey h-100">
+                        '.$ribbon.'
+                        <div class="bg-thumbnails bg-transparent border-0">
+                            <img class="img-fluid" src="'.$img_temporary.'">
+                        </div>
+                        <a href="' . base_url() . 'events/' . $past->uri . '">
+                            <div class="card-body pb-0">
+                                <small>' . date('j F Y', strtotime($past->start_date)) . '</small>
+                                <h6 class="card-title font-merriweather mb-0">' . mb_convert_encoding($this->RemoveBS($past->title), "HTML-ENTITIES", "UTF-8") . '</h6>
+                            </div>
+                        </a>
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column">
+                                '. $type_event .'
+                                <small><i class="bi bi-geo-alt-fill mr-1"></i>' . $past->venue . '</small>
+                            </div>
+                            <div class="eventbrite-checkout-button">'.$buttonEventBrite.'</div>
+                        </div>
+                        </div>
+                    </div>';
+                } else {
+                    $output .= '<div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card upcoming-card-event rounded-0 border-0 bg-main-grey h-100">
+                            '.$ribbon.'
+                            <div class="bg-thumbnails bg-transparent border-0">
+                                <img class="img-fluid" src="'.$img_temporary.'">
+                            </div>
+                            <div class="card-body pb-0">
+                                <small>' . date('j F Y', strtotime($past->start_date)) . '</small>
+                                <h6 class="card-title font-merriweather mb-0">' . mb_convert_encoding($this->RemoveBS($past->title), "HTML-ENTITIES", "UTF-8") . '</h6>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column">
+                                '. $type_event .'
+                                <small><i class="bi bi-geo-alt-fill mr-1"></i>' . $past->venue . '</small>
+                            </div>
+                            <div class="eventbrite-checkout-button">'.$buttonEventBrite.'</div>
+                        </div>
+                        </div>
+                    </div>';
+                }
+            }
+
+            $output .= '</div>';
+        } else {
+            $output = "";
+        }
+
+        echo $output;
+    }
+    
     function loadmSearch()
     {
         $start = $_POST['start'];
@@ -232,23 +361,27 @@ class Events extends CI_Controller
 
                 // example images temporary
                 
-                $url_video = "https://www.eria.org" . $past->image_name;
-                $get_headers = @get_headers($url_video, 1);
+                $url_image = "https://www.eria.org" . $past->image_name_2;
+                $get_headers = @get_headers($url_image, 1);
                 if (!$get_headers) {
-                    $file_exists_video == 0;
+                    $file_exists_image == 0;
                 } else {
-                    $response_video = $get_headers;
-                    $file_exists_video = (strpos($response_video[0], "404") === false);
+                    $response_image = $get_headers;
+                    $file_exists_image = (strpos($response_image[0], "404") === false);
                 }
-
-                if ($file_exists_video == 1) {
-                    if (!empty($past->image_name)) {
-                        $img_temporary = "https://www.eria.org" . $past->image_name;
+                
+                if ($file_exists_image == 1) {
+                    if (!empty($past->image_name_2)) {
+                        $img_temporary = "https://www.eria.org" . $past->image_name_2;
                     } else {
                         $img_temporary = base_url() . "upload/Event.jpg";
                     }
                 } else {
-                    $img_temporary = base_url() . "upload/Event.jpg";
+                    if (!empty($past->image_name_2)) {
+                        $img_temporary = base_url() . $past->image_name_2;
+                    } else {
+                        $img_temporary = base_url() . "upload/Event.jpg";
+                    }
                 }
                 
                 if (!empty($past->content)) {
