@@ -245,10 +245,10 @@ class Events extends CI_Controller
                     if (!empty($past->image_name)) {
                         $img_temporary = "https://www.eria.org" . $past->image_name;
                     } else {
-                        $img_temporary = base_url() . "upload/events.png";
+                        $img_temporary = base_url() . "upload/Event.jpg";
                     }
                 } else {
-                    $img_temporary = base_url() . "upload/events.png";
+                    $img_temporary = base_url() . "upload/Event.jpg";
                 }
                 
                 if (!empty($past->content)) {
