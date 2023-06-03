@@ -360,6 +360,51 @@ class Events extends CI_Controller
         }
     }
 
+    function cropImageThumbnails()
+    {
+        if(isset($_POST["image"])) {
+            $data = $_POST["image"];
+            
+            $image_array_1 = explode(";", $data);
+            $image_array_2 = explode(",", $image_array_1[1]);
+            
+            $data = base64_decode($image_array_2[1]);
+            
+            // $imageName = $this->setCropImage();
+            $imageName =  time() . '.jpg';
+            file_put_contents('uploads/crop-image/' .$imageName, $data);
+
+            echo base_url() . 'uploads/crop-image/' .$imageName;
+        }
+    }
+
+    function setCropImage()
+    {
+        $config['upload_path'] = './uploads/crop-images';
+        $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF
+        $config['overwrite'] = false;
+        $config['remove_spaces'] = true;
+        $config['max_size'] = '5000000'; // in KB
+        $config['file_name'] = 'crop-image-' . uniqid();
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('image')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+
     function editA($id)
     {
         $users = $this->session->userdata('logged_in');
