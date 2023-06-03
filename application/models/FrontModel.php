@@ -5136,7 +5136,7 @@ class FrontModel extends CI_Model
 
         $date = date('y-m-d');
 
-        $this->db->select('articles.article_id,articles.start_date,articles.uri,articles.title,articles.major,articles.majorEmail,articles.venue,exp.title as experts,exp.uri as link, articles.image_name, articles.content');
+        $this->db->select('articles.article_id,articles.start_date,articles.uri,articles.title,articles.major,articles.majorEmail,articles.venue,exp.title as experts,exp.uri as link, articles.image_name, articles.image_name_2, articles.content');
         $this->db->from('articles');
         $this->db->where('articles.article_type', 'events');
         $this->db->where('articles.published', 1);
