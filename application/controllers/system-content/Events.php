@@ -53,11 +53,9 @@ class Events extends CI_Controller
 
             $img2 = $this->setEvent2();
 
-            if (!empty($img2) or !empty($img)) {
-                $img2 = "/uploads/events/" . $img2;
+            if (!empty($img)) {
                 $img = "/uploads/events/" . $img;
             } else {
-                $img2 = '';
                 $img = '';
             }
 
@@ -68,6 +66,12 @@ class Events extends CI_Controller
             }
 
             $users = $this->session->userdata('logged_in');
+
+            if ($this->input->post('thumb_image')) {
+                $thumb_image = $this->input->post('thumb_image');
+            } else {
+                $thumb_image = '';
+            }
 
             $data = array(
                 'image_name'            => $img,
@@ -81,18 +85,20 @@ class Events extends CI_Controller
                 'video_url'             => $this->input->post('video_url'),
                 'pub_type'              => 3,
                 'article_keywords'      => $this->input->post('article_keywords'),
+                'image_name_2'          => $thumb_image,
                 'content'               => $this->input->post('content'),
                 'major'                 => $this->input->post('major'),
                 'venue'                 => $this->input->post('venue'),
                 'organizer'             => $this->input->post('organizer'),
-                'presentations'         => $this->input->post('presentations'),
+                'presentations'         => implode(', ', $this->input->post('presentations')),
                 'old_url'               => $this->input->post('link_event_summary'), // 'old_url'               => $this->input->post('RSVP'),
                 'published'             => $published,
-                'image_name_2'          => $img2,
                 'modified_by'           => $users['user_id'],
                 'modified_date'         => date('Y-m-d H:i:s'),
             );
-
+            // echo "<pre>";
+            // print_r($data);
+            // exit();
             $category = $this->input->post('catogery');
             $related = $this->input->post('related');
             $query = $this->Page_model->insertArticle($data, $category, null, $related, null, null, null, null, null, null, null, null);
@@ -374,7 +380,7 @@ class Events extends CI_Controller
             $imageName =  time() . '.jpg';
             file_put_contents('uploads/crop-image/' .$imageName, $data);
 
-            echo base_url() . 'uploads/crop-image/' .$imageName;
+            echo 'uploads/crop-image/' .$imageName;
         }
     }
 
@@ -478,6 +484,11 @@ class Events extends CI_Controller
                 $published = 0;
             }
 
+            if ($this->input->post('thumb_image')) {
+                $thumb_image = $this->input->post('thumb_image');
+            } else {
+                $thumb_image = '';
+            }
             $users = $this->session->userdata('logged_in');
             $users = $this->session->userdata('logged_in');
             $data = array(
@@ -490,6 +501,7 @@ class Events extends CI_Controller
                 'article_type'      => 'events',
                 'pub_type'          => 3,
                 'article_keywords'  => $this->input->post('article_keywords'),
+                'image_name_2'      => $thumb_image,
                 'content'           => $this->input->post('content'),
                 'major'             => $this->input->post('major'),
                 'venue'             => $this->input->post('venue'),
@@ -504,10 +516,10 @@ class Events extends CI_Controller
                 $data['image_name'] = $img;
             }
 
-            if ($imgs !== -1) {
-                $img = "/uploads/events/" . $imgs;
-                $data['image_name2'] = $imgs;
-            }
+            // if ($imgs !== -1) {
+            //     $img = "/uploads/events/" . $imgs;
+            //     $data['image_name2'] = $imgs;
+            // }
 
             $category = $this->input->post('catogery');
             $related = $this->input->post('related');
