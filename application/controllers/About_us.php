@@ -48,8 +48,14 @@ class About_us extends CI_Controller {
         $data['times'] = $time_row;
 
         $data['m_menu'] = 'about';
-        $data['publications'] = $this->frontModel->get_article(2,'publications','','');
-        // $data['publications'] = $this->frontModel->get_article(2,'publications',1,'home');
+        // $data['publications'] = $this->frontModel->get_article(2,'publications','','');
+
+        // Related Publication
+        $publication_related = $this->frontModel->get_article(2,'publications','','');
+
+        $data['publ'] = $this->frontModel->getRelatedPublicationLatestDate('publications', '');
+        $data['count_related_publications'] = count($publication_related);
+        
         $data['content'] = 'front-end/content/about';
         $this->load->view('front-end/common/template', $data);
 	}
