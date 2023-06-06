@@ -1,0 +1,1732 @@
+<?php
+	if(in_array($_SERVER['SERVER_NAME'], array('eria.cai.com', 'v2.eria.org'))) {
+		ini_set("display_errors", 1);
+		error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+	}
+	else {
+		ini_set("display_errors", 0);
+	}
+	
+	date_default_timezone_set("Asia/Jakarta");
+	
+	if($_SERVER['SERVER_NAME'] == 'eria-web-database.mariadb.database.azure.com') {
+		define("DB_SERVER", "eria-web-database.mariadb.database.azure.com");
+		define("DB_USER", "eriawebadmin");
+		define("DB_PASSWORD", "48-D3-1A-65-88-1B");
+		define("DB_NAME", "eria-web-database");
+
+		define("DB_SERVER_OLD", "127.0.0.1:3307");
+		define("DB_USER_OLD", "root");
+		define("DB_PASSWORD_OLD", "rahasia");
+		define("DB_NAME_OLD", "eria");
+	}
+	else {
+		define("DB_SERVER", "eria-web-database.mariadb.database.azure.com");
+		define("DB_USER", "eriawebadmin");
+		define("DB_PASSWORD", "48-D3-1A-65-88-1B");
+		define("DB_NAME", "eria-web-database");
+	}
+	
+	define("PAGE_TITLE", "ERIA");
+	$basePath = dirname(dirname(dirname(__FILE__)));
+	$basePath = str_replace("\\", "/", $basePath);
+	define("BASE_PATH", $basePath);
+	define("LIB_PATH", BASE_PATH."/application/lib");
+	define("APPLICATION_PATH", BASE_PATH."/application/controllers");
+	define("BASE_URL", ((empty($_SERVER['HTTPS']))?'http':'https')."://".$_SERVER['SERVER_NAME']);
+	define("ADMIN_URL", ((empty($_SERVER['HTTPS']))?'http':'https')."://".$_SERVER['SERVER_NAME']."/admin");
+
+	define("ADMIN_PATH", 'admin');
+	define("PAGE_SIZE", 10);
+	
+	define("IMAGE_PATH", BASE_PATH."/images");
+	define("IMAGE_URL", BASE_URL."/images");
+	define("CACHE_PATH", BASE_URL."/uploads/cache/data");
+	
+	define("JSCRIPT_URL", BASE_URL."/js");
+	
+	class ARTICLE_TYPE {
+		const PUBLICATION = 'publications';
+		const EXPERT = 'experts';
+		const PROGRAMME = 'articles';
+		const NEWS = 'news';
+		const BOARD_MESSAGE = 'boardmessages';
+		const KEY_STAFF = 'keystaffs';
+		const ORGANIZATION = 'organizations';
+		const CAREER = 'careers';
+		const EVENT = 'events';
+		const ASSOCIATE = 'associates';
+
+		public function getConstants()
+		{
+			$reflectionClass = new ReflectionClass($this);
+			return $reflectionClass->getConstants();
+		}
+	}
+
+	define("BUFFER_LENGTH", 4096);
+	
+	define("HASH_STRING", "passwd");
+	
+	define("DATE_FORMAT", "F j, Y"); // h:i A
+	define("DATETIME_FORMAT", "j-M-Y h:iA");
+	define("DB_DATE_FORMAT", "Y-m-d H:i:s");
+	
+	define("ISSMTP", 1);
+	define("SMTP_USER", "");
+	define("SMTP_PASSWORD", "");
+	define("SMTP_PORT", 25);
+	
+	define("SMTP_SERVER", "");
+	define("EMAIL_SENDER", "");
+	
+	define("ADMIN_EMAIL", "yorren@kamarupa.co.id");
+	define("ADMIN_EMAIL_NAME", "Kamarupa");
+		
+	$GLOBALS["allow_images"] = array("jpg", "jpeg", "gif", "png", "svg");
+	$GLOBALS["allow_files"] = array("pdf", "doc", "xls", "pps", "ppt", "docx", "xlsx", "pptx");
+	$GLOBALS["allow_skripsi_files"] = array("pdf", "doc", "docx", "zip", "rar", "7zp");
+	$GLOBALS['weekdays'] = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
+	$GLOBALS['bulans'] = array("", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Nopember", "Desember");
+	
+	$requestURI = $_SERVER['REQUEST_URI'];
+	$GLOBALS['template'] = array(
+	    'name'          => 'ERIA',
+	    'version'       => '1.0.0',
+	    'author'        => '',
+	    'title'         => 'ERIA',
+	    'description'   => ' Economic Research Institute for ASEAN and East Asia',
+	    // 'fixed-top'         for a top fixed header
+	    // 'fixed-bottom'      for a bottom fixed header
+	    // ''                  empty for a static header
+	    'header'        => '',
+	    // 'sticky'            for a sticky sidebar
+	    'sidebar'       => '',
+	    // 'hide-side-content' for hiding sidebar by default
+	    'side_content'  => '',
+	    // 'full-width'        for full width page
+	    // ''                  empty to remove full width from the page in large resolutions
+	    'page'          => 'full-width',
+	    // Available themes: 'fire', 'wood', 'ocean', 'leaf', 'tulip', 'amethyst',
+	    //                   'dawn', 'city', 'oil', 'deepsea', 'stone', 'grass',
+	    //                   'army', 'autumn', 'night', 'diamond', 'cherry', 'sun'
+	    //                   'asphalt'
+	    'theme'         => 'ocean',
+	    'active_page'   => $requestURI,
+	);
+	
+	function trimText($str, $maxLength = 0) {
+		$str = trim($str);
+    	/*if(ini_get('magic_quotes_gpc') == 0) {
+    		$str = addslashes($str);
+    		//$str = mysql_escape_string($str);
+    	}*/
+		$str = addslashes($str);
+    	if($maxLength != 0) {
+    		$str = substr($str, 0, $maxLength);
+    	}
+    	return $str;
+	}
+
+	function getCurrentDate() {
+    	$rightnow = date('Y-m-d H:i:s');
+    	return $rightnow;
+    }
+    
+    function convertDateToTimeStamp($str) {
+    	$str = explode("-", $str);
+    	if(count($str) == 3)
+    		return mktime(0, 0, 0,intval($str[1]), intval($str[2]), intval($str[0]));
+    	else
+    		return 0;
+    }
+	
+	function convertDateTimeToTimeStamp($str) {
+    	$temp = explode(" ", $str);
+    	
+    	$date = $temp[0];
+    	$date = explode("-", $date);
+    	$day = intval($date[2]);
+    	$month = intval($date[1]);
+    	$year = intval($date[0]);
+    	
+    	if(count($temp) == 2) {
+	    	$time = $temp[1];
+	    	$time = explode(":", $time);
+	    	$hour = intval($time[0]);
+	    	$minute = intval($time[1]);
+	    	$second = intval($time[2]);	    	
+    	}
+    	
+    	if(count($date) == 3)
+    		return mktime($hour, $minute, $second, $month, $day, $year);
+    	else
+    		return 0;
+    }
+  	
+  	function generatePagingData($baseUrl, $startRec, $pageSize, $recCount) {
+        $currentPageNo = abs(round(($startRec/$pageSize)-0.499))+1;
+		$maxPage = intval(ceil($recCount/$pageSize));
+        $nextLink = array();
+        $prevLink = array();
+        for($i = 0, $j = 1; $j <= $maxPage; $i+=$pageSize, $j++) {
+            $pagination[] = array(
+                "number"    => $j,
+                "startRec"  => $i,
+                "method"    => $baseUrl."&amp;start_rec=".$i ."&amp;page_size=".$pageSize
+            );
+        }
+        
+        if($startRec == 0 && $recCount < $pageSize) {
+			$nextLink = "";
+			$prevLink = "";
+		}
+		else if($startRec == 0 && $recCount > $pageSize) {
+			$nextLink = array(
+				"startRec"  => $startRec+$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec+$pageSize) ."&amp;page_size=".$pageSize
+			);
+			$prevLink = "";
+		}
+		else if($startRec+$pageSize >= $recCount && $startRec != 0) {
+			$nextLink = "";
+			$prevLink = array(
+				"startRec"  => $startRec-$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec-$pageSize) ."&amp;page_size=".$pageSize
+			);
+		}
+		else if($recCount > $pageSize) {
+			$nextLink = array(
+				"startRec"  => $startRec+$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec+$pageSize) ."&amp;page_size=".$pageSize
+			);
+			$prevLink = array(
+				"startRec"  => $startRec-$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec-$pageSize) ."&amp;page_size=".$pageSize
+			);
+		}
+		$pagingData = array(
+			"recCount"		=> $recCount,
+			"startRec"		=> $startRec,
+			"fromRecord"	=> $startRec+1,
+			"toRecord"		=> (($startRec+$pageSize+1) > $recCount)?$recCount:$startRec+$pageSize,
+			"curPageNo"		=> $currentPageNo,
+			"pageSize"		=> $pageSize,
+			"pagination"	=> (!empty($pagination)?$pagination:array()),
+			"nextLink"		=> $nextLink,
+			"prevLink"		=> $prevLink
+		);
+		return $pagingData;
+	}
+	
+	function valid_email($email)
+	{
+	   $isValid = true;
+	   $atIndex = strrpos($email, "@");
+	   if (is_bool($atIndex) && !$atIndex)
+	   {
+	      $isValid = false;
+	   }
+	   else
+	   {
+	      $domain = substr($email, $atIndex+1);
+	      $local = substr($email, 0, $atIndex);
+	      $localLen = strlen($local);
+	      $domainLen = strlen($domain);
+	      if ($localLen < 1 || $localLen > 64)
+	      {
+	         // local part length exceeded
+	         $isValid = false;
+	      }
+	      else if ($domainLen < 1 || $domainLen > 255)
+	      {
+	         // domain part length exceeded
+	         $isValid = false;
+	      }
+	      else if ($local[0] == '.' || $local[$localLen-1] == '.')
+	      {
+	         // local part starts or ends with '.'
+	         $isValid = false;
+	      }
+	      else if (preg_match('/\\.\\./', $local))
+	      {
+	         // local part has two consecutive dots
+	         $isValid = false;
+	      }
+	      else if (!preg_match('/^[A-Za-z0-9\\-\\.]+$/', $domain))
+	      {
+	         // character not valid in domain part
+	         $isValid = false;
+	      }
+	      else if (preg_match('/\\.\\./', $domain))
+	      {
+	         // domain part has two consecutive dots
+	         $isValid = false;
+	      }
+	      else if(!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\","",$local)))
+	      {
+	         // character not valid in local part unless 
+	         // local part is quoted
+	         if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\","",$local)))
+	         {
+	            $isValid = false;
+	         }
+	      }
+	      if ($isValid && !(checkdnsrr($domain,"MX") || checkdnsrr($domain,"A")))
+	      {
+	         // domain not found in DNS
+	         $isValid = false;
+	      }
+	   }
+	   return $isValid;
+	}
+	
+	function generatePagingDataFE($baseUrl, $startRec, $pageSize, $pageNumberCount, $recCount) {
+        $credit = intval($pageNumberCount);
+		$hc = $credit/2;
+		$pagination = array();
+		$hc = intval($hc);
+		$currentPageNo = $startRec/$pageSize+1;
+		$maxPage = intval(ceil($recCount/$pageSize));
+        $nextLink = array();
+        $prevLink = array();
+        
+        $startCredit = $currentPageNo-$hc;
+        if($startCredit < 1) $startCredit = 1;
+        $startRecofPaging = ($startCredit-1)*$pageSize;
+        for($i = $startRecofPaging, $j = $startCredit; $credit > 0 && $j <= $maxPage; $i+=$pageSize, $credit--, $j++) {
+            $pagination[] = array(
+                "number"    => $j,
+                "startRec"  => $i,
+                "method"    => $baseUrl."&amp;start_rec=".$i ."&amp;page_size=".$pageSize
+            );
+        }
+        if($credit > 0) {
+            for($i = $startRecofPaging-$pageSize, $j = $startCredit-1; $credit > 0 && $j > 0; $j--, $i-=$pageSize, $credit--){
+                $pagination[] = array(
+                    "number"    => $j,
+                    "startRec"  => $i,
+                    "method"    => $baseUrl."&amp;start_rec=".$i ."&amp;page_size=".$pageSize
+                );
+            }    
+        }
+        if(!empty($pagination) && is_array($pagination))
+            sort($pagination);
+
+		if($startRec == 0 && $recCount < $pageSize) {
+			$nextLink = "";
+			$prevLink = "";
+		}
+		else if($startRec == 0 && $recCount > $pageSize) {
+			$nextLink = array(
+				"startRec"  => $startRec+$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec+$pageSize) ."&amp;page_size=".$pageSize
+			);
+			$prevLink = "";
+		}
+		else if($startRec+$pageSize >= $recCount && $startRec != 0) {
+			$nextLink = "";
+			$prevLink = array(
+				"startRec"  => $startRec-$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec-$pageSize) ."&amp;page_size=".$pageSize
+			);
+		}
+		else if($recCount > $pageSize) {
+			$nextLink = array(
+				"startRec"  => $startRec+$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec+$pageSize) ."&amp;page_size=".$pageSize
+			);
+			$prevLink = array(
+				"startRec"  => $startRec-$pageSize,
+				"method"    => $baseUrl."&amp;start_rec=".($startRec-$pageSize) ."&amp;page_size=".$pageSize
+			);
+		}
+		$firstLink = "";
+		if($startRec > 0 && $startRec >= $pageSize) {
+			$firstLink = array(
+				"startRec"  => 0,
+				"number"	=> 1,
+				"method"    => $baseUrl
+			);
+		}
+		$lastLink = "";
+		if ($startRec+$pageSize < $recCount) {
+			$remaining = $recCount % $pageSize;
+			if($remaining == 0) $remaining = $pageSize;
+			$lastLink = array(
+				"startRec"  => $recCount - $remaining,
+				"number"	=> $maxPage,
+				"method"    => $baseUrl."&amp;start_rec=".($recCount - $remaining) ."&amp;page_size=".$pageSize
+			);
+		}
+		$pagingData = array(
+			"currentPageNo"	=> $currentPageNo,
+			"totalPage"	=> $maxPage,
+			"recCount"	=> $recCount,
+			"startRec"	=> $startRec,
+			"pageSize"	=> $pageSize,
+			"pagination"=> $pagination,
+			"nextLink"	=> $nextLink,
+			"prevLink"	=> $prevLink,
+			"firstLink"	=> $firstLink,
+			"lastLink"	=> $lastLink,
+		);
+		return $pagingData;
+	}
+	
+	function trimHtmlText($str) {
+		$str = stripslashes($str);
+		/*if(ini_get('magic_quotes_gpc') == 0) {
+    		$str = addslashes($str);
+    		//$str = mysql_escape_string($str);
+    	}*/
+		//$str = addslashes($str);
+		$str = str_replace("'", "\\'", $str);
+		$str		= str_replace("\n", "", $str);
+		$str		= str_replace("\r", "", $str);
+		$str		= str_replace("'", "&#039;", $str);
+		$str		= preg_replace("!<script.*?</script>!is", "", $str);
+		$str		= preg_replace("!<style.*?</style>!is", "", $str);
+		$str		= strip_tags($str, "<p><a><img><b><i><u><strong><h1><h2><h3><h4><h5><hr><h6><ul><ol><li><font><br><sup><sub><strike><table><tr><td><th><div><object><param><embed><span><iframe><em><blockquote>");
+		
+		//$str		= preg_replace("/( style\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onmouseover\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onclick\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onmouseout\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onmousemove\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onmousedown\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onmouseup\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( ondblclick\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onkeypress\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onkeyup\=\"(.*?)\")/is", "", $str);
+		$str		= preg_replace("/( onkeydown\=\"(.*?)\")/is", "", $str);
+		$str		= str_replace("javascript:", "", $str);
+		return $str;
+	}
+	
+	function removenonalphanumeric($str) {
+		$str=preg_replace("/[^a-z \d\_\-]/i", "", $str);
+		$str = str_replace(" ", "-", $str);
+		return  $str;
+	}
+	
+	function safefilename($str) {
+		$str=preg_replace("/[^a-z \d\_\-\.]/i", "", $str);
+		$str = str_replace(" ", "-", $str);
+		return  $str;
+	}
+	
+	function safeDisplay($str, $cleanHTML = TRUE) {
+		$str = stripslashes($str);
+		//$str = iconv("UTF-8", "ISO-8859-1//IGNORE", $str);
+		if($cleanHTML) $str = htmlentities($str, ENT_QUOTES, 'utf-8');
+		$str = str_replace("&amp;", "&", $str);
+		$str = str_replace(array("&#226;&#8364;&#162;", "&#226;&#162;"), array("&bull;", "&bull;"), $str);
+		$str = trim($str);
+		return $str;
+	}
+	
+	function safeDisplayInput($str) {
+		$str = stripslashes($str);
+		$str = str_replace("&amp;", "&", $str);
+		$str = str_replace("&", "&amp;", $str);
+		$str = str_replace('"', "&quot;", $str);
+		$str = trim($str);
+		return $str;
+	}
+	
+	function safeUrl($str) {
+		$str = stripslashes($str);
+		$str = removenonalphanumeric($str);
+		$str= preg_replace("/[^a-z \d\_\.\-\/\:]/i", "", $str);
+		$str = str_replace(" ", "-", $str);
+		$str = urlencode($str);
+		return $str;
+	}
+	
+	function safeDisplayEditor($str) {
+		$str = stripslashes($str);
+		$str = str_replace("\n", "", $str);
+		$str = str_replace("\r", "", $str);
+		//$str = str_replace("img style", "img stl", $str);
+		//$str = preg_replace("/( style\=\"(.*?)\")/is", "", $str);
+		//$str = str_replace("img stl", "img style", $str);
+		$str = str_replace(array('?quot;'), array('"'), $str);
+		$str = str_replace(array('?gt;'), array('>'), $str);
+		$str = str_ireplace(array('<p>&nbsp;</p>'), array(''), $str);
+		return $str;
+	}
+	
+	function formatDate($dbDate) {
+		if(empty($dbDate) || $dbDate == '0000-00-00 00:00:00') return '';
+		$dateTimeStamp = convertDateToTimeStamp($dbDate);
+		return date(DATE_FORMAT, $dateTimeStamp);
+	}
+	
+	function formatTime($dbDate) {
+		$dateTimeStamp = convertDateTimeToTimeStamp($dbDate);
+		return date("H:i:s", $dateTimeStamp);
+	}
+	
+	function formatDate1($dbDate) {
+		$dateTimeStamp = convertDateToTimeStamp($dbDate);
+		return date("m/d/Y", $dateTimeStamp);
+	}
+	
+	function formatDate2($dbDate) {
+		$dateTimeStamp = convertDateToTimeStamp($dbDate);
+		return date("F j, Y", $dateTimeStamp);
+	}
+	
+	function formatDateIndo($dbDate) {
+		$dateTimeStamp = convertDateToTimeStamp($dbDate);
+		$weekDays = $GLOBALS['weekdays'];
+		$bulans = $GLOBALS['bulans'];
+		$formattedDate = /* $weekDays[date("w", $dateTimeStamp)].", ". */date("j", $dateTimeStamp)." ".$bulans[date("n", $dateTimeStamp)]." ".date("Y", $dateTimeStamp);
+		return $formattedDate;
+	}
+	
+	function formatDateIndoLong($dbDate, $timeregion = 'WIB') {
+		$dateTimeStamp = convertDateTimeToTimeStamp($dbDate);
+		$weekDays = $GLOBALS['weekdays'];
+		$bulans = $GLOBALS['bulans'];
+		$formattedDate = date("j", $dateTimeStamp)." ".$bulans[date("n", $dateTimeStamp)]." ".date("Y", $dateTimeStamp).' '.date("H:i", $dateTimeStamp).' '.$timeregion;
+		return $formattedDate;
+	}	
+	
+	function formatDateIndoShort($dbDate) {
+		$dateTimeStamp = convertDateToTimeStamp($dbDate);
+		$weekDays = $GLOBALS['weekdays'];
+		$bulans = $GLOBALS['bulans'];
+		$formattedDate = date("j", $dateTimeStamp)." ".$bulans[date("n", $dateTimeStamp)]." ".date("Y", $dateTimeStamp);
+		return $formattedDate;
+	}
+	
+	function formatDateShort($dbDate) {
+		if(empty($dbDate) || $dbDate == '0000-00-00 00:00:00') return '';
+		$dateTimeStamp = convertDateToTimeStamp($dbDate);
+		$formattedDate = date("d.m.y", $dateTimeStamp);
+		return $formattedDate;
+	}
+	
+	function formatDateTime($dbDate) {
+		if(empty($dbDate) || $dbDate == '0000-00-00 00:00:00') return '';
+		$dateTimeStamp = convertDateTimeToTimeStamp($dbDate);
+		return date(DATETIME_FORMAT, $dateTimeStamp);
+	}
+	
+	function doRedirect($url) {
+		$url = str_replace(BASE_URL, "", $url);
+    	header("Location:".$url);
+    	exit();
+    }
+    
+    function getRequestIntParam($params) {
+    	if(isset($_GET[$params])) return intval($_GET[$params]);
+    	if(isset($_POST[$params])) return intval($_POST[$params]);
+    	return 0;
+    }
+    
+    function getRequestFloatParam($params) {
+    	$val = 0;
+    	if(isset($_GET[$params])) $val = $_GET[$params];
+    	if(isset($_POST[$params])) $val = $_POST[$params];
+    	$val = preg_replace("/[^\d\.]/i", "", $val);
+    	return $val;
+    }
+    
+    function getRequestStringParam($params, $length = 0) {
+    	if(isset($_GET[$params])) return trimText($_GET[$params], $length);
+    	if(isset($_POST[$params])) return trimText($_POST[$params], $length);
+    	return "";
+    }
+    
+    function deleter($path) {
+		if($handler = opendir($path)) {
+			while($filename = readdir($handler))  {
+				if ($filename != "." and $filename != "..")  {
+					if(is_dir($path."/".$filename)) deleter($path."/".$filename);
+					else unlink($path."/".$filename);
+				}
+			}
+			closedir($handler);
+			rmdir($path);
+		}
+	}
+    
+	function reformatQS($content, $minify = false){
+		$jcExtClass = new JCExtension();
+		$content = $jcExtClass->reformatQS($content);
+		unset($jcExtClass);
+		
+		if($minify) {
+			require_once BASE_PATH.'/min/lib/Minify/HTML.php';
+			$content = Minify_HTML::minify($content, array());
+		}
+		
+        return $content;
+	}
+	
+	function reformatQSAdmin($content) {
+		$content = preg_replace("!\index\.php\?controller=([a-z|_|-]+)&action=([a-z|0-9|_|-]+)!is", "$1/$2/", $content);
+		$content = preg_replace("!\index\.php\?controller=([a-z|_|-]+)&amp;action=([a-z|0-9|_|-]+)!is", "$1/$2/", $content);
+		$content = str_replace(BASE_URL."/admin/", BASE_URL."/".ADMIN_PATH."/", $content);
+        $content = str_replace("/&amp;", "/?", $content);
+        $content = str_replace("/&", "/?", $content);
+        $content = str_replace(BASE_URL, "", $content);
+        return $content;
+	}
+	
+	function escapestring($str, $limit = 0, $allowHtmlTag = FALSE) {
+		$str = trim($str);
+		$str = stripslashes($str);
+		$str = addslashes($str);
+		if(!empty($limit)) $str = substr($str, 0, $limit);
+		if(!$allowHtmlTag) $str = strip_tags($str);
+		return $str;
+	}
+	
+	function get($key, $arr) {
+		if(!empty($arr[$key."_".$_SESSION["lang"]])) return $arr[$key."_".$_SESSION["lang"]];
+		else return $arr[$key."_".$_SESSION["lang1"]];
+	}
+	
+	function generateuri($str) {
+		$str = str_replace("/", "-", $str);
+		$uri = preg_replace("/[^a-z 0-9\_\-]/i", "", $str);
+		$uri = str_replace("  ", " ", $uri);
+		$uri = str_replace(" ", "-", $uri);
+		$uri = substr($uri, 0, 170);
+		$uri = trim($uri);
+		$uri = strtolower($uri);
+		$uri = iconv("UTF-8", "ISO-8859-1//IGNORE", $uri);
+		return $uri;
+	}
+	
+	function getPreviewContent($content, $wordCount = 10) {
+		$content = str_replace("</li>", " </li>", $content);
+		$content = str_ireplace(array("</p>", "</h1>", "</h2>", "</h3>", "</h4>", "</h5>"), array(" </p>", " </h1>", " </h2>", " </h3>", " </h4>", " </h5>"), $content);
+		$content = str_ireplace("<br", " <br", $content);
+		$content = strip_tags($content);
+		$content = trim($content);
+		$content = str_replace("&nbsp;", " ", $content);
+		$temp = explode(" ", $content);
+		$preview = "";
+		for($i = 0; $i < $wordCount && $i < count($temp); $i++) $preview .= $temp[$i].' ';
+		return trim($preview);
+	}
+	
+	function showPrice($val, $usformat = 0) {
+		if($val <= 0) return '-';
+		if(!empty($usformat))
+			return "Rp&nbsp;". number_format($val, 0) ."";
+		else
+			return "Rp&nbsp;". number_format($val, 0, ",", ".") ."";
+	}
+	
+	function generateRandomPassword($length=10) {
+		$pool = '023456789abcdefghijkmnopqrstuvwxyz';
+        $str = '';
+        for ($i = 0; $i < $length; $i++) {
+            $str .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
+        }
+        return $str;
+	}
+	
+	function getFirstParagraph($str) {
+		preg_match_all("/<p[^>]*>.*?<\/p>/si",$str,$matches);
+		preg_match_all("/<div[^>]*>.*?<\/div>/si",$str,$matches2);
+		if(count($matches[0]) > 1) {
+			$content = strip_tags($matches[0][0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+		}
+		$content = trim($content);
+		if(!empty($content)) return $content;
+		if(count($matches2[0]) > 1) {
+			return strip_tags($matches2[0][0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+		}
+		else if(strpos($str, "\n")) {
+			$temp = explode("\n", $str);
+			return $temp[0];
+		}
+		else if(strpos($str, "<br>")) {
+			$temp = explode("<br>", $str);
+			return $temp[0];
+		}
+		else if(strpos($str, "<br/>")) {
+			$temp = explode("<br/>", $str);
+			return $temp[0];
+		}
+		else if(strpos($str, "<br />")) {
+			$temp = explode("<br />", $str);
+			return $temp[0];
+		}
+		else 
+			return $str;
+	}
+	
+	function getImageWidth($image) {
+		list($width, $height) = getimagesize(BASE_PATH.$image);
+		return $width;
+	}
+	
+	function getImageHeight($image) {
+		list($width, $height) = getimagesize(BASE_PATH.$image);
+		return $height;
+	}
+	
+	function highlight($text, $keyword, $color = '#fdf7bf') {
+		$keyword = preg_replace("/[^a-z \d\_\-]/i", "", $keyword);
+		$temp = explode(" ", $keyword);
+		$text = preg_replace("/(".$keyword.")/i", '<span style="background-color:'.$color.';">$1</span>', $text);
+		/*if(is_array($temp)) foreach ($temp as $word) {
+			if(strpos(' <span style="background-color:'.$color.';">', $word) || strpos(' </span>', $word)) continue;
+			$text = preg_replace("/(".$word.")/i", '<span style="background-color:'.$color.';">$1</span>', $text);
+		}*/
+		return $text;
+	}
+	
+	function get_bthumb_png($im, $thumb_width, $thumb_height, $alignTop = 0, $productName = '', $remote = false) {
+		if(empty($im) || strlen($im) < 3) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-2-".$thumb_width."x".$thumb_height.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+
+		if($remote) {
+			$temp = explode('/', $im);
+			$file_name = array_pop($temp);
+			$video_id = array_pop($temp);
+			$saveto = BASE_PATH."/uploads/cache/".$video_id.'-'.$file_name;
+
+			if(!file_exists($saveto) || filemtime($saveto) < time()-24*3600 ) {
+				$ch = curl_init ($im);
+			    curl_setopt($ch, CURLOPT_HEADER, 0);
+			    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+			    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			    $raw=curl_exec($ch);
+			    curl_close ($ch);
+			    if(file_exists($saveto)){
+			        @unlink($saveto);
+			    }
+			    $fp = fopen($saveto,'x');
+			    fwrite($fp, $raw);
+			    fclose($fp);
+			    $folders = array($file_name);
+			}			
+		    $im = $saveto;
+		}
+		else {
+			$folders = explode('/', $im);
+			$im = BASE_PATH.'/'.$im;
+		}
+		
+		if(!file_exists($im)) return 'about:blank';
+		
+		$cacheFolder = BASE_PATH."/uploads/cache";
+		if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+		/*remove file name*/
+		unset($folders[count($folders)-1]);
+		$pathstocreate = '';
+		for($i = count($folders)-1; $i > 0; $i--) {
+			if($folders[$i] == 'uploads') break;
+			$pathstocreate = $folders[$i].'/'.$pathstocreate;
+		}
+		if(!is_dir($cacheFolder.'/'.$pathstocreate)) @mkdir($cacheFolder.'/'.$pathstocreate, 0775, true);
+		$cacheFolder = $cacheFolder.'/'.$pathstocreate;
+		
+		$filename = basename($im);
+		$temp = explode(".", $filename);
+		$ext = $temp[count($temp)-1];
+		$pureFileName = str_replace(".".$ext, "", $filename);
+		$ext = strtolower($ext);
+		$path = str_replace('/'.$filename, '', $im);
+		$temp = explode('/', $path);
+		
+		$cacheFile = $cacheFolder.$pureFileName."-2-".$thumb_width."x".$thumb_height.".".$ext;
+		
+		if(file_exists($cacheFile) && filemtime($cacheFile) > filemtime($im)) {
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		else if(file_exists($cacheFile)) @unlink($cacheFile);
+		
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+
+		$ratioW = $width / $thumb_width;
+		$ratioH = $height / $thumb_height;
+	
+		$ratioU = ($ratioW < $ratioH) ? $ratioH:$ratioW;
+	
+		$newWidth = ceil($width / $ratioU);
+		$newHeight = ceil($height / $ratioU);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $thumb_height, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+		
+		if(!empty($alignTop))
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		else
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, intval(($newHeight-$thumb_height)/2)*-1, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		
+		$quality = 90;
+		if($thumb_width < 200) $quality = 75;
+		
+		if($ext=="png")
+			imagepng($sm_image, $cacheFile, 5);
+		else
+			imagejpeg($sm_image, $cacheFile, $quality);
+		imagedestroy($sm_image);
+		imagedestroy($orig_image);
+		
+		/*
+		if(in_array($ext, array('jpg', 'jpeg')) && is_dir('/usr/bin') && file_exists('/usr/bin/jpegtran')) {
+			$command = "/usr/bin/jpegtran -copy none -optimize -outfile \"".$cacheFile."\" \"".$cacheFile."\"";
+			exec($command);
+		}
+		*/
+				
+		return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+	}
+	
+	function get_bthumb_png_cover($im, $thumb_width, $thumb_height, $alignTop = 0, $productName = '', $remote = false) {
+		if(empty($im) || strlen($im) < 3) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-3-".$thumb_width."x".$thumb_height.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+	
+		if($remote) {
+			$temp = explode('/', $im);
+			$file_name = array_pop($temp);
+			$video_id = array_pop($temp);
+			$saveto = BASE_PATH."/uploads/cache/".$video_id.'-'.$file_name;
+			if(!file_exists($saveto) || filemtime($saveto) < time()-24*3600 ) {
+				$ch = curl_init ($im);
+			    curl_setopt($ch, CURLOPT_HEADER, 0);
+			    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+			    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			    $raw=curl_exec($ch);
+			    curl_close ($ch);
+			    if(file_exists($saveto)){
+			        @unlink($saveto);
+			    }
+			    $fp = fopen($saveto,'x');
+			    fwrite($fp, $raw);
+			    fclose($fp);
+			    $folders = array($file_name);
+			}
+		    $im = $saveto;
+		}
+		else {
+			$folders = explode('/', $im);
+			$im = BASE_PATH.'/'.$im;
+		}
+	
+		if(!file_exists($im)) return 'about:blank';
+	
+		$cacheFolder = BASE_PATH."/uploads/cache";
+		if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+		/*remove file name*/
+		unset($folders[count($folders)-1]);
+		$pathstocreate = '';
+		for($i = count($folders)-1; $i > 0; $i--) {
+			if($folders[$i] == 'uploads') break;
+			$pathstocreate = $folders[$i].'/'.$pathstocreate;
+		}
+		if(!is_dir($cacheFolder.'/'.$pathstocreate)) @mkdir($cacheFolder.'/'.$pathstocreate, 0775, true);
+		$cacheFolder = $cacheFolder.'/'.$pathstocreate;
+	
+		$filename = basename($im);
+		$temp = explode(".", $filename);
+		$ext = $temp[count($temp)-1];
+		$pureFileName = str_replace(".".$ext, "", $filename);
+		$ext = strtolower($ext);
+		$path = str_replace('/'.$filename, '', $im);
+		$temp = explode('/', $path);
+	
+		$cacheFile = $cacheFolder.$pureFileName."-3-".$thumb_width."x".$thumb_height.".".$ext;
+	
+		if(file_exists($cacheFile) && filemtime($cacheFile) > filemtime($im)) {
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		else if(file_exists($cacheFile)) @unlink($cacheFile);
+	
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+	
+		$ratioW = $width / $thumb_width;
+		$ratioH = $height / $thumb_height;
+	
+		$ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+		//$ratioU = ($ratioW < $ratioH) ? $ratioH:$ratioW;
+	
+		$newWidth = ceil($width / $ratioU);
+		$newHeight = ceil($height / $ratioU);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $thumb_height, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+	
+		if(!empty($alignTop))
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		else
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, intval(($newHeight-$thumb_height)/2)*-1, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+	
+		$quality = 90;
+		if($thumb_width < 200) $quality = 75;
+	
+		if($ext=="png")
+			imagepng($sm_image, $cacheFile, 5);
+		else
+			imagejpeg($sm_image, $cacheFile, $quality);
+		imagedestroy($sm_image);
+		imagedestroy($orig_image);
+	
+		/*
+		if(in_array($ext, array('jpg', 'jpeg')) && is_dir('/usr/bin') && file_exists('/usr/bin/jpegtran')) {
+			$command = "/usr/bin/jpegtran -copy none -optimize -outfile \"".$cacheFile."\" \"".$cacheFile."\"";
+			exec($command);
+		}
+		*/
+	
+		return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+	}
+	
+	function resize_image($im, $thumb_width, $thumb_height, $alignTop = 0, $image_title = '') {
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+	
+		$im = BASE_PATH.'/'.$im;
+		
+		if(!file_exists($im)) return false;
+	
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+	
+		$ratioW = $width / $thumb_width;
+		$ratioH = $height / $thumb_height;
+	
+		//$ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+		$ratioU = ($ratioW < $ratioH) ? $ratioH:$ratioW;
+	
+		$newWidth = ceil($width / $ratioU);
+		$newHeight = ceil($height / $ratioU);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $thumb_height, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+	
+		if(!empty($alignTop))
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		else
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, intval(($newHeight-$thumb_height)/2)*-1, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+	
+		imagedestroy($orig_image);
+	
+		if($ext=="png")
+			imagepng($sm_image, $im, 10);
+		else
+			imagejpeg($sm_image, $im, 90);
+		
+		imagedestroy($sm_image);
+		
+		return true;
+	}
+	
+	function resize_image_cover($im, $thumb_width, $thumb_height, $alignTop = 0, $image_title = '') {
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+	
+		$im = BASE_PATH.'/'.$im;
+		
+		if(!file_exists($im)) return false;
+	
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+		
+		$ratioW = $width / $thumb_width;
+		$ratioH = $height / $thumb_height;
+	
+		$ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+		//$ratioU = ($ratioW < $ratioH) ? $ratioH:$ratioW;
+	
+		$newWidth = ceil($width / $ratioU);
+		$newHeight = ceil($height / $ratioU);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $thumb_height, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+	
+		if(!empty($alignTop))
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		else
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, intval(($newHeight-$thumb_height)/2)*-1, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+	
+		imagedestroy($orig_image);
+	
+		if($ext=="png")
+			imagepng($sm_image, $im, 10);
+		else
+			imagejpeg($sm_image, $im, 90);
+		
+		imagedestroy($sm_image);
+		
+		return true;
+	}
+	
+	function get_thumb_width($im, $thumb_width, $productName = '') {
+		if(empty($im) || strlen($im) < 3) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-4-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+
+		$folders = explode('/', $im);
+		$im = BASE_PATH.'/'.$im;
+				
+		if(!file_exists($im)) return 'about:blank';
+		
+		$cacheFolder = BASE_PATH."/uploads/cache";
+		if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+		/*remove file name*/
+		unset($folders[count($folders)-1]);
+		$pathstocreate = '';
+		for($i = count($folders)-1; $i > 0; $i--) {
+			if($folders[$i] == 'uploads') break;
+			$pathstocreate = $folders[$i].'/'.$pathstocreate;
+		}
+		if(!is_dir($cacheFolder.'/'.$pathstocreate)) @mkdir($cacheFolder.'/'.$pathstocreate, 0775, true);
+		$cacheFolder = $cacheFolder.'/'.$pathstocreate;
+		
+		$filename = basename($im);
+		$temp = explode(".", $filename);
+		$ext = $temp[count($temp)-1];
+		$pureFileName = str_replace(".".$ext, "", $filename);
+		$ext = strtolower($ext);
+		$path = str_replace('/'.$filename, '', $im);
+		$temp = explode('/', $path);
+		
+		$cacheFile = $cacheFolder.$pureFileName."-4-".$thumb_width.".".$ext;
+		
+		/*
+		if(file_exists($cacheFile) && filemtime($cacheFile) > filemtime($im)) {
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		else if(file_exists($cacheFile)) @unlink($cacheFile);
+		*/
+		
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+	
+		$newWidth = $thumb_width;
+		$newHeight = ceil($thumb_width*$height/$width);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $newHeight) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $newHeight, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+		
+		imagecopyresampled($sm_image, $orig_image, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		
+		$quality = 90;
+		if($thumb_width < 200) $quality = 75;
+		
+		if($ext=="png")
+			imagepng($sm_image, $cacheFile, 5);
+		else
+			imagejpeg($sm_image, $cacheFile, $quality);
+		imagedestroy($sm_image);
+		imagedestroy($orig_image);
+		
+		/*
+		if(in_array($ext, array('jpg', 'jpeg')) && is_dir('/usr/bin') && file_exists('/usr/bin/jpegtran')) {
+			$command = "/usr/bin/jpegtran -copy none -optimize -outfile \"".$cacheFile."\" \"".$cacheFile."\"";
+			exec($command);
+		}
+		*/
+				
+		return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+	}
+
+require_once LIB_PATH.'/vendor/autoload.php';
+Twig_Autoloader::register();
+class JCExtension extends Twig_Extension
+{
+    public function getFilters()
+    {
+        return array(
+            'reformatQS' 		=> new Twig_Filter_Method($this, 'reformatQS'),
+            'safeDisplay' 		=> new Twig_Filter_Method($this, 'safeDisplay'),
+            'safeDisplayInput' 	=> new Twig_Filter_Method($this, 'safeDisplayInput'),
+            'safeDisplayEditor'	=> new Twig_Filter_Method($this, 'safeDisplayEditor'),
+            'resizeImageCover'	=> new Twig_Filter_Method($this, 'resizeImageCover'),
+            'resizeImage'		=> new Twig_Filter_Method($this, 'resizeImage'),
+            'resizeImageWidth'	=> new Twig_Filter_Method($this, 'resizeImageWidth'),
+            'format_date'		=> new Twig_Filter_Method($this, 'format_date'),
+            'youtube_embed'		=> new Twig_Filter_Method($this, 'youtube_embed'),
+            'get_preview_content' => new Twig_Filter_Method($this, 'get_preview_content'),
+            'get_first_paragraph' => new Twig_Filter_Method($this, 'get_first_paragraph'),
+            'editor_display'	=> new Twig_Filter_Method($this, 'editor_display'),
+            'format_tags'		=> new Twig_Filter_Method($this, 'format_tags'),
+            'array_to_sentence'	=> new Twig_Filter_Method($this, 'array_to_sentence'),
+            'highlight'			=> new Twig_Filter_Method($this, 'highlight'),
+            'parse_editor_bio'	=> new Twig_Filter_Method($this, 'parse_editor_bio'),
+            'stripslashes'		=> new Twig_Filter_Method($this, 'do_stripslashes'),
+        );
+    }
+
+    public function getFunctions()
+    {
+        return array(
+            'myFunction' => new Twig_Filter_Method($this, 'myFunction'),
+        );
+    }
+
+    public function myFunction($arg1, $arg2 = '') {
+    	return 'bla: '.$arg1.' and '.$arg2;
+    }
+
+    public function reformatQS($content) {
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;detail=([a-z|0-9|_|-]+)&amp;detail1=([a-z|0-9|_|-]+)!is", "$1/$2/$3/", $content);
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;detail=([a-z|0-9|_|-]+)!is", "$1/$2/", $content);
+
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;topic=([a-z|0-9|_|-]+)&amp;subtopic=([a-z|0-9|_|-]+)!is", "$1/topic/$2/$3/", $content);
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;topic=([a-z|0-9|_|-]+)!is", "$1/topic/$2/", $content);
+
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;category=([a-z|0-9|_|-]+)&amp;topic=([a-z|0-9|_|-]+)!is", "$1/category/$2/$3/", $content);
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;category=([a-z|0-9|_|-]+)!is", "$1/category/$2/", $content);
+
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)&amp;type=([a-z|0-9|_|-]+)!is", "$1/type/$2/", $content);
+
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=search&amp;keyword=([^&]+)&amp;start_rec=([0-9]+)&amp;page_size=([0-9]+)!is", "search/$1/$2/$3/", $content);
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=search&amp;keyword=([^&]+)!is", "search/$1/", $content);
+
+		$content = preg_replace("!\index\.php\?controller=page&amp;action=view&amp;page=([a-z|0-9|_|-]+)!is", "$1/", $content);
+
+		$content = preg_replace("!\index\.php\?controller=([a-z|_|-]+)&amp;action=([a-z|0-9|_|-]+)!is", "$1/$2/", $content);
+        
+        $content = str_replace("/&amp;", "/?", $content);        
+        $content = str_replace("/&nbsp;", "/ ", $content);
+        
+	    $content = str_replace("/&amp;", "/?", $content);
+	    $content = str_replace("/&", "/?", $content);
+	    $content = str_replace(array('"../../../', '"../../', '"../'), "\"/", $content);
+
+        $content = str_replace('src="'.BASE_URL.'/', 'src="/', $content);
+
+        $content = str_replace(BASE_URL.'/', '/', $content);
+
+        $content = str_replace('href="'.BASE_URL.'/', 'href="/', $content);        
+		$content = str_replace('data-href="/', 'data-href="'.BASE_URL.'/', $content);
+        $content = str_replace('<base href="" />', '<base href="'.BASE_URL.'/" />', $content);
+				
+        return $content;
+    }
+
+    public function safeDisplay($str, $cleanHTML = TRUE) {
+		$str = stripslashes($str);
+		$str = str_ireplace(array('</br>', '<br>', '<br/>', '<br />'), "\n", $str);
+		if($cleanHTML) $str = htmlentities($str, ENT_QUOTES, 'utf-8');
+		$str = str_replace("&amp;", "&", $str);
+		$str = str_replace(array("&#226;&#8364;&#162;", "&#226;&#162;", '&#65533;'), array("&bull;", "&bull;", "&bull;"), $str);
+		$str = trim($str);
+		$str = nl2br($str);
+		return $str;
+	}
+	
+	public function safeDisplayInput($str) {
+		$str = stripslashes($str);
+		$str = strip_tags($str);
+		$str = str_replace("&amp;", "&", $str);
+		$str = str_replace("&", "&amp;", $str);
+		$str = str_replace('"', "&quot;", $str);
+		$str = trim($str);
+		return $str;
+	}
+		
+	public function safeDisplayEditor($str) {
+		$str = stripslashes($str);
+		$str = str_replace("\n", "", $str);
+		$str = str_replace("\r", "", $str);
+		$str = str_replace(array('?quot;'), array('"'), $str);
+		$str = str_replace(array('?gt;'), array('>'), $str);
+		$str = str_ireplace(array('<p>&nbsp;</p>', '&#65533;'), array('', '&bull;'), $str);
+		return $str;
+	}
+
+	public function resizeImageCover($im, $thumb_width, $thumb_height, $alignTop = 0, $productName = '', $remote = false) {
+		if(empty($im) || strlen($im) < 3) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-3-".$thumb_width."x".$thumb_height.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+	
+		if($remote) {
+			$temp = explode('/', $im);
+			$file_name = array_pop($temp);
+			$video_id = array_pop($temp);
+			$saveto = BASE_PATH."/uploads/cache/".$video_id.'-'.$file_name;
+			if(!file_exists($saveto) || filemtime($saveto) < time()-24*3600 ) {
+				$ch = curl_init ($im);
+			    curl_setopt($ch, CURLOPT_HEADER, 0);
+			    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			    curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+			    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+			    $raw=curl_exec($ch);
+			    curl_close ($ch);
+			    if(file_exists($saveto)){
+			        @unlink($saveto);
+			    }
+			    $fp = fopen($saveto,'x');
+			    fwrite($fp, $raw);
+			    fclose($fp);
+			    $folders = array($file_name);
+			}
+		    $im = $saveto;
+		}
+		else {
+			$folders = explode('/', $im);
+			$im = BASE_PATH.'/'.$im;
+		}
+	
+		if(!file_exists($im)) return 'about:blank';
+	
+		$cacheFolder = BASE_PATH."/uploads/cache";
+		if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+		/*remove file name*/
+		unset($folders[count($folders)-1]);
+		$pathstocreate = '';
+		for($i = count($folders)-1; $i > 0; $i--) {
+			if($folders[$i] == 'uploads') break;
+			$pathstocreate = $folders[$i].'/'.$pathstocreate;
+		}
+		if(!is_dir($cacheFolder.'/'.$pathstocreate)) @mkdir($cacheFolder.'/'.$pathstocreate, 0775, true);
+		$cacheFolder = $cacheFolder.'/'.$pathstocreate;
+	
+		$filename = basename($im);
+		$temp = explode(".", $filename);
+		$ext = $temp[count($temp)-1];
+		$pureFileName = str_replace(".".$ext, "", $filename);
+		$ext = strtolower($ext);
+		$path = str_replace('/'.$filename, '', $im);
+		$temp = explode('/', $path);
+	
+		$cacheFile = $cacheFolder.$pureFileName."-3-".$thumb_width."x".$thumb_height.".".$ext;
+	
+		if(file_exists($cacheFile) && filemtime($cacheFile) > filemtime($im)) {
+			return str_replace(BASE_PATH, '', $cacheFile);
+		}
+		else if(file_exists($cacheFile)) @unlink($cacheFile);
+	
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+
+		if(empty($width)) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-3-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+	
+		$ratioW = $width / $thumb_width;
+		$ratioH = $height / $thumb_height;
+	
+		$ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+		//$ratioU = ($ratioW < $ratioH) ? $ratioH:$ratioW;
+	
+		$newWidth = ceil($width / $ratioU);
+		$newHeight = ceil($height / $ratioU);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $thumb_height) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $thumb_height, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+	
+		if(!empty($alignTop))
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		else
+			imagecopyresampled($sm_image, $orig_image, intval(($newWidth-$thumb_width)/2)*-1, intval(($newHeight-$thumb_height)/2)*-1, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+	
+		$quality = 90;
+		if($thumb_width < 200) $quality = 75;
+	
+		if($ext=="png")
+			imagepng($sm_image, $cacheFile, 5);
+		else
+			imagejpeg($sm_image, $cacheFile, $quality);
+		imagedestroy($sm_image);
+		imagedestroy($orig_image);
+	
+		/*
+		if(in_array($ext, array('jpg', 'jpeg')) && is_dir('/usr/bin') && file_exists('/usr/bin/jpegtran')) {
+			$command = "/usr/bin/jpegtran -copy none -optimize -outfile \"".$cacheFile."\" \"".$cacheFile."\"";
+			exec($command);
+		}
+		*/
+	
+		return str_replace(BASE_PATH, '', $cacheFile);
+	}
+
+	public function resizeImageWidth($im, $thumb_width) {
+		if(empty($im) || strlen($im) < 3) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-4-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+
+		$folders = explode('/', $im);
+		$im = BASE_PATH.'/'.$im;
+				
+		if(!file_exists($im)) return 'about:blank';
+		
+		$cacheFolder = BASE_PATH."/uploads/cache";
+		if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+		/*remove file name*/
+		unset($folders[count($folders)-1]);
+		$pathstocreate = '';
+		for($i = count($folders)-1; $i > 0; $i--) {
+			if($folders[$i] == 'uploads') break;
+			$pathstocreate = $folders[$i].'/'.$pathstocreate;
+		}
+		if(!is_dir($cacheFolder.'/'.$pathstocreate)) @mkdir($cacheFolder.'/'.$pathstocreate, 0775, true);
+		$cacheFolder = $cacheFolder.'/'.$pathstocreate;
+		
+		$filename = basename($im);
+		$temp = explode(".", $filename);
+		$ext = $temp[count($temp)-1];
+		$pureFileName = str_replace(".".$ext, "", $filename);
+		$ext = strtolower($ext);
+		$path = str_replace('/'.$filename, '', $im);
+		$temp = explode('/', $path);
+		
+		$cacheFile = $cacheFolder.$pureFileName."-4-".$thumb_width.".".$ext;
+		
+		if(file_exists($cacheFile) && filemtime($cacheFile) > filemtime($im)) {
+			return str_replace(BASE_PATH, '', $cacheFile);
+		}
+		else if(file_exists($cacheFile)) @unlink($cacheFile);
+		
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+	
+		list($width, $height, $type, $attr) = getimagesize($im);
+	
+		if(empty($width)) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-4-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+
+		$newWidth = $thumb_width;
+		$newHeight = ceil($thumb_width*$height/$width);
+	
+		$sm_image = imagecreatetruecolor($thumb_width, $newHeight) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $thumb_width, $newHeight, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+		
+		imagecopyresampled($sm_image, $orig_image, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		
+		$quality = 90;
+		if($thumb_width < 200) $quality = 75;
+		
+		if($ext=="png")
+			imagepng($sm_image, $cacheFile, 5);
+		else
+			imagejpeg($sm_image, $cacheFile, $quality);
+		imagedestroy($sm_image);
+		imagedestroy($orig_image);
+		
+		/*
+		if(in_array($ext, array('jpg', 'jpeg')) && is_dir('/usr/bin') && file_exists('/usr/bin/jpegtran')) {
+			$command = "/usr/bin/jpegtran -copy none -optimize -outfile \"".$cacheFile."\" \"".$cacheFile."\"";
+			exec($command);
+		}
+		*/
+				
+		return str_replace(BASE_PATH, '', $cacheFile);
+	}
+
+	public function resizeImage($im, $thumb_width, $thumb_height) {
+		if(empty($im) || strlen($im) < 3) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-5-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		if(substr($im, 0, 1) == "/") $im = substr($im, 1, strlen($im)-1);
+
+		$folders = explode('/', $im);
+		$im = BASE_PATH.'/'.$im;
+				
+		if(!file_exists($im)) return 'about:blank';
+		
+		$cacheFolder = BASE_PATH."/uploads/cache";
+		if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+		/*remove file name*/
+		unset($folders[count($folders)-1]);
+		$pathstocreate = '';
+		for($i = count($folders)-1; $i > 0; $i--) {
+			if($folders[$i] == 'uploads') break;
+			$pathstocreate = $folders[$i].'/'.$pathstocreate;
+		}
+		if(!is_dir($cacheFolder.'/'.$pathstocreate)) @mkdir($cacheFolder.'/'.$pathstocreate, 0775, true);
+		$cacheFolder = $cacheFolder.'/'.$pathstocreate;
+		
+		$filename = basename($im);
+		$temp = explode(".", $filename);
+		$ext = $temp[count($temp)-1];
+		$pureFileName = str_replace(".".$ext, "", $filename);
+		$ext = strtolower($ext);
+		$path = str_replace('/'.$filename, '', $im);
+		$temp = explode('/', $path);
+		
+		$cacheFile = $cacheFolder.$pureFileName."-5-".$thumb_width.".".$ext;
+		
+		if(file_exists($cacheFile) && filemtime($cacheFile) > filemtime($im)) {
+			return str_replace(BASE_PATH, '', $cacheFile);
+		}
+		else if(file_exists($cacheFile)) @unlink($cacheFile);
+		
+		$what = getimagesize($im);
+		switch( $what['mime'] ){
+			case 'image/png' : $orig_image = imagecreatefrompng($im);break;
+			case 'image/jpeg': $orig_image = imagecreatefromjpeg($im);break;
+			case 'image/gif' : $orig_image = imagecreatefromgif($im);
+		}
+		if(!$orig_image) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-5-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+		list($width, $height, $type, $attr) = getimagesize($im);
+
+		if(empty($width)) {
+			$cacheFolder = BASE_PATH."/uploads/cache";
+			if(!is_dir($cacheFolder)) @mkdir($cacheFolder, 0775);
+			$cacheFile = $cacheFolder."/blank-5-".$thumb_width.".png";
+			$sm_image = imagecreatetruecolor($thumb_width, $thumb_width) or die ('Cannot Initialize new gd image stream');
+			$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+			imagefill($sm_image, 0, 0, $trans_colour);
+			imagepng($sm_image, $cacheFile, 5);
+			imagedestroy($sm_image);
+			return BASE_URL. str_replace(BASE_PATH, '', $cacheFile);
+		}
+	
+		$ratioW = $width / $thumb_width;
+		$ratioH = $height / $thumb_height;
+
+		$ratioU = ($ratioW < $ratioH) ? $ratioH:$ratioW;
+
+		$newWidth = $width / $ratioU;
+		$newHeight = $height / $ratioU;
+
+		if($newHeight > $thumb_height) {
+			$newHeight = $thumb_height;
+			$newWidth = ceil($thumb_height*$width/$height);
+		}
+	
+		$sm_image = imagecreatetruecolor($newWidth, $newHeight) or die ('Cannot Initialize new gd image stream');
+		imagesavealpha($sm_image, true);
+		$black = imagecolorallocate($sm_image, 0, 0, 0);
+		imagefilledrectangle($sm_image, 0, 0, $newWidth, $newHeight, $black);
+		$trans_colour = imagecolorallocatealpha($sm_image, 255, 255, 255, 127);
+		imagefill($sm_image, 0, 0, $trans_colour);
+		
+		imagecopyresampled($sm_image, $orig_image, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+		
+		$quality = 90;
+		if($newWidth < 200) $quality = 75;
+		
+		if($ext=="png")
+			imagepng($sm_image, $cacheFile, 5);
+		else
+			imagejpeg($sm_image, $cacheFile, $quality);
+		imagedestroy($sm_image);
+		imagedestroy($orig_image);
+		
+		/*
+		if(in_array($ext, array('jpg', 'jpeg')) && is_dir('/usr/bin') && file_exists('/usr/bin/jpegtran')) {
+			$command = "/usr/bin/jpegtran -copy none -optimize -outfile \"".$cacheFile."\" \"".$cacheFile."\"";
+			exec($command);
+		}
+		*/
+				
+		return str_replace(BASE_PATH, '', $cacheFile);
+	}
+
+	public function format_date($date) {
+		$date = strtotime($date);
+		return date('d F Y', $date);
+	}
+
+	public function youtube_embed($url) {
+		if(strpos($url, 'v=')) {
+			$youtube_id = substr($url, strpos($url, 'v=')+2);
+			if(strpos($youtube_id, '&')) $youtube_id = substr($youtube_id, 0, strpos($youtube_id, '&'));
+		}
+		else {
+			$youtube_id = basename($url);
+			$temp = explode("?", $youtube_id);
+			if(count($temp) > 1) $youtube_id = $temp[0];
+		}
+
+		return 'https://www.youtube.com/embed/'.$youtube_id;
+	}
+
+	public function get_preview_content($content, $wordCount = 10) {
+		$content = str_replace("</li>", " </li>", $content);
+		$content = str_replace("</p>", " </p>", $content);
+		$content = str_replace("</h", " </h", $content);
+		$content = str_ireplace("<br", " <br", $content);
+		$content = strip_tags($content);
+		$content = trim($content);
+		$content = str_replace("&nbsp;", " ", $content);
+		$temp = explode(" ", $content);
+		$preview = "";
+		for($i = 0; $i < $wordCount && $i < count($temp); $i++) $preview .= $temp[$i].' ';
+		$preview = str_replace(array('&#65533;'), '&bull;', $preview);
+		return trim($preview).' &hellip;';
+	}
+
+	public function get_first_paragraph($str) {
+		preg_match_all("/<p[^>]*>.*?<\/p>/si",$str,$matches);
+		preg_match_all("/<div[^>]*>.*?<\/div>/si",$str,$matches2);
+		if(count($matches[0]) > 0) {
+			$ret = strip_tags($matches[0][0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+			if(stripos($ret, '<br') !== false) $ret = substr($ret, 0, stripos($ret, '<br'));
+			if(stripos($ret, '</br') !== false) $ret = substr($ret, 0, stripos($ret, '</br'));
+			if(strlen($ret) < 100) $ret = $this->get_preview_content($str, 50);
+			return $ret;
+		}
+		else if(count($matches2[0]) > 0) {
+			$str = strip_tags($matches[0][0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+			if(stripos($str, '<br') !== false) $str = substr($str, 0, stripos($str, '<br'));
+			return $str;
+		}
+		else if(strpos($str, "\n")) {
+			$temp = explode("\n", $str);
+			return $temp[0];
+		}
+		else if(strpos($str, "<br>")) {
+			$temp = explode("<br>", $str);
+			$str = strip_tags($temp[0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+			return $str;
+		}
+		else if(strpos($str, "<br/>")) {
+			$temp = explode("<br/>", $str);
+			$str = strip_tags($temp[0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+			return $str;
+		}
+		else if(strpos($str, "<br />")) {
+			$temp = explode("<br />", $str);
+			$str = strip_tags($temp[0], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+			if(strlen($str) < 10 && count($temp) > 1) $str = strip_tags($temp[1], '<b><strong><i><em><u><a><strike><sup><sub><br>');
+			return $str;
+		}
+		else 
+			return $str;
+	}
+
+	public function editor_display($editors, $page, $list_authors) {
+		$editors = explode(',', $editors);
+		$string_list = '';
+		if(is_array($editors)) foreach($editors as $editor) {
+			$editor = trim($editor);
+			if(empty($editor)) continue;
+			if(is_array($list_authors) && array_key_exists($editor, $list_authors)) {
+				$url = BASE_URL.'/index.php?controller=page&amp;action=view&amp;page='.$page['uri'].'&amp;detail='.$list_authors[$editor];
+				$url = reformatQS($url);
+				$string_list .= '<a class="with-underline" href="'.$url.'" title="'.safeDisplayInput($editor).'">'.safeDisplay($editor).'</a>, ';
+			}
+			else {
+				$string_list .= $editor . ', ';
+			}
+		}
+		$string_list = trim($string_list, ', ');
+		return $string_list;
+	}
+
+	public function parse_editor_bio($editors, $list_authors) {
+		$editors = explode(',', $editors);
+		$string_list = '';
+		if(is_array($editors)) foreach($editors as $editor) {
+			$editor = trim($editor);
+			if(empty($editor)) continue;
+			if(is_array($list_authors) && array_key_exists($editor, $list_authors)) {
+				$editor = safeDisplayInput($editor);
+				$short_bio = safeDisplayEditor($list_authors[$editor][1]);
+				$bioImage = $this->resizeImageWidth($list_authors[$editor][0], 150);
+				$string_list .= <<<DATA
+					<div class="short-bio">
+						<img src="{$bioImage}" alt="{$editor}">
+						<div class="textfloat">
+						{$short_bio}
+						</div>
+						<div class="clearfix">
+					</div>
+DATA;
+			}
+		}
+		return $string_list;
+	}
+
+	public function format_tags($tags, $page, $type = '') {
+		$tags = explode(',', $tags);
+		$string_list = '';
+		if(is_array($tags)) foreach($tags as $tag) {
+			$tag = trim($tag);
+			if(empty($tag)) continue;
+			$url_tag = '"'.$tag.'"';
+			$url = BASE_URL.'/index.php?controller=page&amp;action=view&amp;page='.$page['uri'];
+			if(!empty($type)) $url .= '&amp;type='.$type;
+			$url .= '&amp;keyword='.urlencode($url_tag);
+			$url = reformatQS($url);
+			$string_list .= '<a class="with-underline" href="'.$url.'" title="'.safeDisplayInput($tag).'">'.safeDisplay($tag).'</a>, ';
+		}
+		$string_list = trim($string_list, ', ');
+		return $string_list;
+	}
+
+	public function array_to_sentence($items_separated_by_comma) {
+		$items = explode(',', $items_separated_by_comma);
+		$items_separated_by_comma = str_replace(',', ', ', $items_separated_by_comma);
+		if(count($items) > 1) $items_separated_by_comma = substr_replace($items_separated_by_comma, ', and', strrpos($items_separated_by_comma, ','), 1);
+		return $items_separated_by_comma;
+	}
+
+	public function highlight($text, $keyword, $color = '#fdf7bf') {
+		$keyword = preg_replace("/[^a-z \d\_\-]/i", "", $keyword);
+		$temp = explode(" ", $keyword);
+		$text = preg_replace("/(".$keyword.")/i", '<span style="font-weight:bold; font-style:italic; background-color:'.$color.';">$1</span>', $text);
+		/*if(is_array($temp)) foreach ($temp as $word) {
+			if(strpos(' <span style="font-weight:bold; font-style:italic; background-color:'.$color.';">', $word) || strpos(' </span>', $word)) continue;
+			$text = preg_replace("/(".$word.")/i", '<span style="font-weight:bold; font-style:italic; background-color:'.$color.';">$1</span>', $text);
+		}*/
+		
+		return $text;
+	}
+
+	public function do_stripslashes($string) {
+		return stripslashes($string);
+	}
+}
+?>
