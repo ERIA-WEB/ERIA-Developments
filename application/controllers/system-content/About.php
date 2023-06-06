@@ -944,20 +944,61 @@ class About extends CI_Controller
 
         $this->load->view('back-end/common/template', $data);
     }
-    
 
-    function edit_subpage($id)
+    function listpage()
+    {
+        $data['profile'] = $this->profile->getProfile();
+
+        $users = $this->session->userdata('logged_in');
+        $pri = $this->privilage->login($users['username'], $users['user_id'], 60, $users['group_id']);
+
+        // if ($pri != TRUE) {
+        //     $this->session->set_flashdata('error-message', 'Please Contact Administrator.');
+        //     redirect('system-content/Dashboard');
+        // }
+
+        $data['areaList'] = $this->Page_model->getSub_pages(7);
+        $data['title'] = '  Dashboard';
+        $data['content'] = 'back-end/content/about/all-sub/listpage';
+        $data['active'] = 'about';
+        $data['sub'] = 'lsubpage';
+
+        $this->load->view('back-end/common/template', $data);
+    }
+    
+    function edit_page($id)
     {
         $users = $this->session->userdata('logged_in');
         $data['profile'] = $this->profile->getProfile();
         $data['slider_row'] = $this->Page_model->getPage_content($id);
-        $data['action'] = site_url('system-content/About/editSubdata');
-        $data['title'] = '  Dashboard';
-        $data['content'] = 'back-end/content/about/subpage';
-        $data['active'] = 'about';
-        $data['sub'] = 'subpage';
+        $data['page_sub']   = $this->Page_model->getSubPageContent($id);
+        $data['action']     = site_url('system-content/About/editSubdata');
+        $data['title']      = 'Dashboard';
+        $data['content']    = 'back-end/content/about/all-sub/page';
+        $data['active']     = 'about';
+        $data['sub']        = 'subpage';
 
         $this->load->view('back-end/common/template', $data);
+    }
+
+    function edit_pages_sub($subpage_id)
+    {
+        $users = $this->session->userdata('logged_in');
+        $data['profile'] = $this->profile->getProfile();
+        $data['slider_row'] = $this->Page_model->getOneSubPageData($subpage_id);
+        $data['page_sub_child']   = $this->Page_model->getSubChildPageContent($subpage_id);
+        $data['action']     = site_url('system-content/About/editSubdata');
+        $data['title']      = 'Dashboard';
+        $data['content']    = 'back-end/content/about/all-sub/subpage';
+        $data['active']     = 'about';
+        $data['sub']        = '';
+
+        $this->load->view('back-end/common/template', $data);
+    }
+
+    function edit_pages_sub_child($subpage_id)
+    {
+        echo "subchild";
     }
 
     function subpagechild()
