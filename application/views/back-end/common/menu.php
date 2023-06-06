@@ -181,7 +181,7 @@ if (!isset($sactive))
                             <div class="hidden">
                                 <li>
                                     <a class="<?php if ($sub == 'board') { ?> active <?php } ?>"
-                                        href="<?php echo base_url() ?>system-content/About/board" target=''>
+                                        href="<?php echo base_url() ?>system-content/about/board" target=''>
                                         <i class="fa fa-newspaper-o" aria-hidden="true"></i>
                                         Board Messages
                                     </a>
@@ -190,7 +190,7 @@ if (!isset($sactive))
                             <div class="hidden">
                                 <li>
                                     <a class="<?php if ($sub == 'staff') { ?> active <?php } ?>"
-                                        href="<?php echo base_url() ?>system-content/About/staff" target=''>
+                                        href="<?php echo base_url() ?>system-content/about/staff" target=''>
                                         <i class="fa fa-users" aria-hidden="true"></i>
                                         Key Staffs
                                     </a>
@@ -199,7 +199,7 @@ if (!isset($sactive))
                             <div class="hidden">
                                 <li>
                                     <a class="<?php if ($sub == 'organization') { ?> active <?php } ?>"
-                                        href="<?php echo base_url() ?>system-content/About/organization" target=''>
+                                        href="<?php echo base_url() ?>system-content/about/organization" target=''>
                                         <i class="fa fa-sitemap" aria-hidden="true"></i>
                                         Organization
                                     </a>
@@ -208,7 +208,7 @@ if (!isset($sactive))
                             <div class="hidden">
                                 <li>
                                     <a class="<?php if ($sub == 'ostructure') { ?> active <?php } ?>"
-                                        href="<?php echo base_url() ?>system-content/About/ostructure" target=''>
+                                        href="<?php echo base_url() ?>system-content/about/ostructure" target=''>
                                         <i class="fa fa-circle-o" aria-hidden="true"></i>
                                         Organization Structure
                                     </a>
@@ -217,7 +217,7 @@ if (!isset($sactive))
                             <div class="hidden">
                                 <li>
                                     <a class="<?php if ($sub == 'gb') { ?> active <?php } ?>"
-                                        href="<?php echo base_url() ?>system-content/About/gb" target=''>
+                                        href="<?php echo base_url() ?>system-content/about/gb" target=''>
                                         <i class="fa fa-table" aria-hidden="true"></i>
                                         Governing Board
                                     </a>
@@ -226,7 +226,7 @@ if (!isset($sactive))
                             <div class="hidden">
                                 <li>
                                     <a class="<?php if ($sub == 'career') { ?> active <?php } ?>"
-                                        href="<?php echo base_url() ?>system-content/About/career" target=''>
+                                        href="<?php echo base_url() ?>system-content/about/career" target=''>
                                         <i class="fa fa-list-ul" aria-hidden="true"></i>
                                         Careers
                                     </a>
@@ -239,30 +239,30 @@ if (!isset($sactive))
                                     <span class="arrow <?php if ($sactive == 'time') { ?>open active<?php } ?>"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li>
+                                    <li class="hidden">
                                         <a class="<?php if ($sub == 'subpage') { ?> active <?php } ?>"
-                                            href="<?php echo base_url() ?>system-content/About/subpage" target=''>
+                                            href="<?php echo base_url() ?>system-content/about/subpage" target=''>
                                             <i class="fa fa-file" aria-hidden="true"></i>
                                             Add Page
                                         </a>
                                     </li>
                                     <li>
                                         <a class="<?php if ($sub == 'lsubpage') { ?> active <?php } ?>"
-                                            href="<?php echo base_url() ?>system-content/About/listsubpage" target=''>
+                                            href="<?php echo base_url() ?>system-content/about/listpage" target=''>
                                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                                             List of Pages
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="hidden">
                                         <a class="<?php if ($sub == 'subpagechild') { ?> active <?php } ?>"
-                                            href="<?php echo base_url() ?>system-content/About/subpagechild" target=''>
+                                            href="<?php echo base_url() ?>system-content/about/subpagechild" target=''>
                                             <i class="fa fa-file" aria-hidden="true"></i>
                                             Add Subpage
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="hidden">
                                         <a class="<?php if ($sub == 'listsubpagechild') { ?> active <?php } ?>"
-                                            href="<?php echo base_url() ?>system-content/About/listsubpagechild"
+                                            href="<?php echo base_url() ?>system-content/about/listsubpagechild"
                                             target=''>
                                             <i class="fa fa-lastfm-square" aria-hidden="true"></i>
                                             List of Subpages
