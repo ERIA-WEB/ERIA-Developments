@@ -9,7 +9,46 @@ class Page_model extends CI_Model
             $this->db->where('page_id', $id);
             $query = $this->db->get('pages');
 
-            return   $query->row();
+            return $query->row();
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function getOneSubPageData($id)
+    {
+        try {
+            $this->db->select('*');
+            $this->db->where('id', $id);
+            $query = $this->db->get('pages_sub');
+
+            return $query->row();
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function getSubPageContent($page_id)
+    {
+        try {
+            $this->db->select('*');
+            $this->db->where('page_id', $page_id);
+            $query = $this->db->get('pages_sub');
+
+            return $query->result();
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function getSubChildPageContent($page_sub_id)
+    {
+        try {
+            $this->db->select('*');
+            $this->db->where('page_sub_id', $page_sub_id);
+            $query = $this->db->get('pages_sub_child');
+
+            return $query->result();
         } catch (Exception $err) {
             return show_error($err->getMessage());
         }
@@ -726,6 +765,7 @@ class Page_model extends CI_Model
         try {
             $this->db->select('*');
             $this->db->where('parent_id', $pid);
+            $this->db->where('is_delete !=', '1');
             $data = $this->db->get('pages');
 
             return $data->result();
