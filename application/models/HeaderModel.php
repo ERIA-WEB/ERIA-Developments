@@ -1226,9 +1226,11 @@ class headerModel extends CI_Model
             $typeData = array();
 
             $g = explode(',', $data->sub_heading);
-
+            
             $this->db->select('article_type, tags, pub_type, posted_date, uri, title, video_url, sub_experts');
             $this->db->where_in('article_id', $g);
+            $this->db->where('sub_experts', 'multimedia');
+            $this->db->where('sub_experts !=', '21');
             $queryd = $this->db->get('articles')->result();
 
             foreach ($queryd as $aid => $queryim) {
@@ -1260,6 +1262,8 @@ class headerModel extends CI_Model
 
             $this->db->select('article_type, tags, pub_type, posted_date, uri, title, video_url, sub_experts');
             $this->db->where_in('article_id', $g);
+            $this->db->where('sub_experts', 'multimedia');
+            $this->db->where('sub_experts !=', '21');
             $queryd = $this->db->get('articles')->result();
 
             foreach ($queryd as $aid => $queryim) {
