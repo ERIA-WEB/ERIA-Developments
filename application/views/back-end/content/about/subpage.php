@@ -9,7 +9,7 @@
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <div class="page-title">
                 <div class="pull-left">
-                    <h1 class="title"> Add Page </h1>
+                    <h1 class="title"><?= ucwords($slider_row->menu_title); ?> Page </h1>
                 </div>
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
@@ -28,7 +28,7 @@
         <div class="col-lg-12"><?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
-                    <h2 class="title pull-left"> Add page </h2>
+                    <h2 class="title pull-left"><?= ucwords($slider_row->menu_title); ?></h2>
                     <div class="actions panel_actions pull-right">
                         <i class="box_toggle fa fa-chevron-down"></i>
                         <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -158,6 +158,72 @@
                     </div>
                 </div>
             </section>
+            <section class="box ">
+                <header class="panel_header">
+                    <h2 class="title pull-left"> List Sub Page "<?= ucwords($slider_row->menu_title); ?>"</h2>
+                    <div class="actions panel_actions pull-right">
+                        <a class="btn btn-success <?php if ($sub == 'subpage') { ?> active <?php } ?>"
+                            href="<?php echo base_url() ?>system-content/about/subpage">
+                            <i class="fa fa-plus bold" aria-hidden="true" style="color:#fff;"></i>
+                        </a>
+                        <i class="box_toggle fa fa-chevron-down" style="color:#fff;"></i>
+                        <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"
+                            style="color:#fff;"></i>
+                        <i class="box_close fa fa-times" style="color:#fff;"></i>
+                    </div>
+                </header>
+                <div class="content-body">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <table id="examples" style="font-size:12px;"
+                                class="display table table-hover table-condensed" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th> Page Title </th>
+                                        <th> Sort Order </th>
+                                        <th> Published </th>
+                                        <th class="hidden-print">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php  foreach ($page_sub as $key => $value) { ?>
+                                    <tr>
+                                        <td><?php echo ++$key; ?> </td>
+                                        <td><?php echo $value->title; ?></td>
+                                        <td><?php echo $value->order_id; ?></td>
+                                        <td>
+                                            <?php $session_user = $this->session->userdata('logged_in'); ?>
+                                            <?php
+                                                if ($value->published == 0) {
+                                                    $btnstatus = 'data-btn-ok-class="btn btn-success" data-status="1" data-btn-ok-label="Published" data-placement="left" class="btn btn-warning  pub-callback"';
+                                                } else {
+                                                    $btnstatus = 'data-btn-ok-class="btn btn-warrning" data-status="0" data-btn-ok-label="Un Published" data-placement="left" class="btn btn-success pub-callback"';
+                                                }
+
+                                                $status_action = $this->privilage->status('status', $session_user['user_id'], $value->page_id, $btnstatus);
+                                                // get action status published
+                                                echo $status_action['status'];
+                                                ?>
+                                        </td>
+                                        <td class="hidden-print">
+                                            <?php
+                                                $edit_action = $this->privilage->edit('edit', $session_user['user_id'], 'about/edit_pages_sub_child/', $value->id);
+                                                $delete_action = $this->privilage->delete('delete', $session_user['user_id'], $value->page_id);
+                                                // get action edit
+                                                echo $edit_action['edit'];
+                                                // get action delete
+                                                echo $delete_action['delete'];                                                
+                                                ?>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </section>
 </section>
@@ -226,10 +292,6 @@ $(function() {
     });
 });
 </script>
-
-
-
-
 <script>
 $('#photo').change(function() {
     var input = this;
@@ -246,13 +308,8 @@ $('#photo').change(function() {
     }
 });
 </script>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 <script>
 $(document).ready(function() {
-    // $('#summernote').summernote();
-    // $('#article_keywords').summernote();
+    $('#examples').DataTable();
 });
 </script>
