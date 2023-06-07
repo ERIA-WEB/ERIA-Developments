@@ -25,10 +25,10 @@
                                 if (strlen($response_articles)) {
                                     $img = "https://www.eria.org" . $related[$c]->image_name;
                                 } else {
-                                    $img = base_url() . "/upload/news.jpg";
+                                    $img = base_url() . "/upload/Article.jpg";
                                 }
                             } else {
-                                $img = base_url() . "/upload/news.jpg";
+                                $img = base_url() . "/upload/Article.jpg";
                             }
                         }
             ?>
