@@ -16,6 +16,75 @@ iframe {
     width: 100%;
 }
 
+/* 
+** hero Image
+*/
+
+.highlights-hero {
+    height: 485px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #124797;
+}
+
+.highlights-hero img {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+}
+
+.highlights-hero::before {
+    -webkit-box-shadow: inset 0 0 140px 45px #000;
+    box-shadow: inset 0 0 140px 45px #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 1;
+}
+
+
+.menu-position {
+    bottom: 35px;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+div.scrollmenu {
+    background-color: transparent;
+    overflow: auto;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 0px 10px;
+    text-decoration: none;
+    font-weight: 600;
+    border-right: 2px solid #fff;
+    margin: 15px auto;
+}
+
+div.scrollmenu a:hover {
+    color: #0f3979;
+}
+
+/* 
+** End
+*/
 @media (max-width: 767.98px) {
     .sticky_cha {
         top: 0px !important;
@@ -80,32 +149,59 @@ if ($contentData->uri != 'presidents-office') {
         </style>';
 }
 ?>
-<section>
+<?php 
+    $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+    $urlArray = explode('/', $parse_url);
 
-</section>
+    $end_urls = ['history', 'networks', 'leadership-and-staff', 'career-opportunities', 'logo-use-standards'];
+?>
 <div class="bg-light-blue pt-5">
     <div class="container-fluid px-0">
-        <div class="row">
-            <div class="research-topic-cover w-100">
+        <div class="row position-relative">
+            <div class="highlights-hero research-topic-cover w-100">
                 <img src="<?= base_url(); ?>v6/assets/Images/About/cover_2.png">
+
+            </div>
+            <div id="menuAbout" class="position-absolute menu-position">
+                <div class="container">
+                    <div class="row mx-3">
+                        <div class="col-lg-8  col-12 mb-3 contentHeroBanner">
+                            <h2 class="main-title mb-3" style="color:#fff;">Logo Use Standards</h2>
+                            <p class="description mb-4" style="color:#fff;">
+                                when an unknown printer took a galley of type and
+                                scrambled it to
+                                make a type
+                                specimen book. It has survived not only five centuries, but also the leap into
+                                electronic typesetting, remaining essentially unchanged.
+                            </p>
+                        </div>
+                        <div class="col-lg-12 col-12 pl-0 pr-0">
+                            <div class="scrollmenu">
+                                <a href="<?= base_url().'about-us/history'; ?>">History</a>
+                                <a href="<?= base_url().'about-us/leadership-and-staff'; ?>">Leadership and Staff</a>
+                                <a href="<?= base_url().'about-us/networks'; ?>">Networks</a>
+                                <a href="<?= base_url().'about-us/career-opportunities'; ?>">Career Opportunities</a>
+                                <a href="<?= base_url().'about-us/logo-use-standards'; ?>">Logo Standards Use</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div class="container mt-5 experts-detail-page history-page mb-5">
     <div class="row">
-        <div class="col-md-4 mb-4 px-0">
-            <?php $this->load->view('front-end/common/left'); ?>
-        </div>
         <!-- right section -->
-        <div class="test col-md-8 col-12 author-detail">
+        <div class="col-md-12 col-12 author-detail">
             <div class="experts-page-title pb-3 mb-3"><?= ucfirst($contentData->title); ?></div>
             <div class="about-content">
 
                 <?php
-                $content_details = $contentData->content;
-            ?>
-                <?= $content_details; ?>
+                    $content_details = $contentData->content;
+
+                    echo $content_details;
+                ?>
             </div>
 
             <!-- If organisational-structure showing -->
