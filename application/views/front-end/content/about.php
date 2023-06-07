@@ -529,71 +529,9 @@ a#forward {
     </div>
 
     <!-- Latest Publications -->
-    <div class="container related-article my-4 mb-5">
-        <h3 class="main-title text-blue">Latest Publications</h3>
-        <div class="page-content py-3">
-            <div class="row">
-                <?php foreach ($publications as $publications) { ?>
-                <div class="col-md-6 d-lg-flex align-items-lg-start">
-                    <div class="publications-image">
-                        <?php
-                        if (file_exists(FCPATH . $publications['image_name'])) {
-                            $img = base_url() . $publications['image_name'];
-                        } else if ($publications['image_name']) {
-                            $img = "https://www.eria.org" . $publications['image_name'];
-                        } else {
-
-                            if ($publications['article_type'] == 'publications') {
-                                $img = "upload/Publication.jpg";
-                            } else {
-                                $img = "upload/Article.jpg";
-                            }
-                        }
-                        ?>
-                        <a href="<?php echo base_url() ?>publications/<?php echo $publications['uri'] ?>">
-                            <img class="responsive" src="<?php echo $img ?>">
-                        </a>
-                    </div>
-                    <div class="mt-3 pl-lg-4">
-                        <div class="d-none category"><?php echo $publications['tags'] ?></div>
-                        <div class="card-title text-blue">
-                            <a href="<?php echo base_url() ?>publications/<?php echo $publications['uri'] ?>">
-                                <?php echo str_replace(array('â€™'), "'", $publications['title']); ?>
-                            </a>
-                        </div>
-                        <div class="py-2">
-                            <span class="date">Editors(s)/Author(s): </span>
-                            <span class="author">
-                                <?php
-                                        $nc =  count($publications['editornew']) + count($publications['authornew']);
-                                        if ($nc != 0) {
-                                            $nresult = '';
-                                            foreach ($publications['editornew'] as $ed) {
-                                                $nresult .= "<a style=' '  href='" . base_url() . "Experts/detail/$ed->uri' target='_blank'>" . $ed->title . "</a>, ";
-                                            }
-
-                                            echo rtrim($nresult, ', ');  ?>
-
-                                <?php $_result = '';
-                                            foreach ($publications['authornew'] as $ed) {
-                                                $_result .= "<a style=' '  href='" . base_url() . "Experts/detail/$ed->uri' target='_blank'>" . $ed->title . "</a>, ";
-                                            }
-                                            echo rtrim($_result, ', ');
-                                        } else {
-                                            echo $publications['author'] . $publications['editor'];
-                                        }
-                                        ?>
-                            </span>
-                            </span>
-                            <span class="date hori-line"> </span>
-                            <span class="date"><br><?php echo $publications['posted_date'] ?></span>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
-            </div>
-        </div>
-    </div>
+    <!-- Related Articles -->
+    <?php $this->load->view('front-end/content/relateds/publications_related'); ?>
+    <!-- END -->
 </div>
 
 
