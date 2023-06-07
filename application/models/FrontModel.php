@@ -97,6 +97,58 @@ class FrontModel extends CI_Model
         return $results;
     }
 
+    function getAboutUsSubPagesByURI($uri)
+    {
+        $key_cache = "getAboutUsSubPagesByURI-_".time();
+        $CachedString = $this->InstanceCache->getItem($key_cache);
+        
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('*');
+                $this->db->where('published', '1');
+                $this->db->where('uri', $uri);
+                $query = $this->db->get('pages_sub');
+                $results = $query->row();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+                $this->InstanceCache->save($CachedString);
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+            
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+    }
+
+    function getAboutUsSubChildPagesByURI($uri)
+    {
+        $key_cache = "getAboutUsSubChildPagesByURI-_".time();
+        $CachedString = $this->InstanceCache->getItem($key_cache);
+        
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('*');
+                $this->db->where('published', '1');
+                $this->db->where('uri', $uri);
+                $query = $this->db->get('pages_sub_child');
+                $results = $query->row();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+                $this->InstanceCache->save($CachedString);
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+            
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+    }
+
     function getAboutUsSubPagesDetailByURI($uri)
     {
         $key_cache = "getAboutUsSubPagesDetailByURI-_".time();
@@ -108,6 +160,37 @@ class FrontModel extends CI_Model
                 $this->db->where('published', 1);
                 $this->db->where('uri', urldecode($uri));
                 $query = $this->db->get('pages_sub');
+                $results = $query->row();
+    
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+                $this->InstanceCache->save($CachedString);
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+            
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+        try {
+            
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function getAboutUsSubChildPagesDetailByURI($uri)
+    {
+        $key_cache = "getAboutUsSubChildPagesDetailByURI-_".time();
+        $CachedString = $this->InstanceCache->getItem($key_cache);
+        
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('*');
+                $this->db->where('published', 1);
+                $this->db->where('uri', urldecode($uri));
+                $query = $this->db->get('pages_sub_child');
                 $results = $query->row();
     
                 $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
