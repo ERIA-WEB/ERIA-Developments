@@ -82,7 +82,7 @@ class Experts extends CI_Controller
         } else {
             $catogery_id = '';
         }
-
+        
         $data['m_menu'] = 'about';
         $data['catogery'] = $catogery;
         $data['key'] = $key;
