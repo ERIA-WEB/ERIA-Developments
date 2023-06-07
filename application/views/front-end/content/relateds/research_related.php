@@ -9,17 +9,39 @@
         ?>
         <div class="row">
             <?php for ($t = 0; $t <= 2; $t++) {
+                
                 if (isset($publ[$t])) {
-                    if (file_exists(FCPATH . $publ[$t]->image_name)) {
-                        $img = base_url() . $publ[$t]->image_name;
-                    } else if ($publ[$t]->image_name) {
-                        $img = "https://www.eria.org" . $publ[$t]->image_name;
-                    } else {
-
-                        if ($publ[$t]->article_type == 'publications') {
-                            $img = "upload/Publication.jpg";
+                    if (!empty($publ[$t]->image_name)) {
+                        if (file_exists(FCPATH . $publ[$t]->image_name) && $publ[$t]->image_name != '') {
+                            $img = base_url() . $publ[$t]->image_name;
+                        } elseif (file_exists(FCPATH . '/resources/images' . $publ[$t]->image_name) && $publ[$t]->image_name != '') {
+                            $img = base_url() . 'resources/images' . $publ[$t]->image_name;
                         } else {
-                            $img = "upload/Article.jpg";
+                            $url_pub = "https://www.eria.org" . $publ[$t]->image_name;
+                            $response_pub = @get_headers($url_pub, 1);
+                            $file_exists_pub = (strpos($response_pub[0], "404") === false);
+
+                            if ($file_exists_pub == 1) {
+                                $img = "https://www.eria.org" . $publ[$t]->image_name;
+                            } else {
+                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                            }
+                        }
+                    } else {
+                        $url_pub = "https://www.eria.org" . $publ[$t]->image_name;
+                        $response_pub = @get_headers($url_pub, 1);
+                        $file_exists_pub = (strpos($response_pub[0], "404") === false);
+                        
+                        if ($file_exists_pub == 1) {
+                            $img = "https://www.eria.org" . $publ[$t]->image_name;
+                            if (file_exists($img)) {
+                                $img = $img;
+                            } else {
+                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                            }
+                            
+                        } else {
+                            $img = base_url() . "/upload/thumbnails-pub.jpg";
                         }
                     }
             ?>
