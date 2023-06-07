@@ -29,7 +29,7 @@ class About extends CI_Controller
         $data['slider_row'] = $slider_row;
         $data['ns'] = $slider_nrow;
         $data['nsr'] = $nsr;
-        $data['action'] = site_url('system-content/About/editPublic');
+        $data['action'] = site_url('system-content/about/editPublic');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/index';
         $data['active'] = 'about';
@@ -92,6 +92,10 @@ class About extends CI_Controller
                 'hig_menu_h2' => $this->input->post('hig_menu_h2'),
                 'hig_menu_b2' => $this->input->post('hig_menu_b2'),
                 'hig_menu_b2_link' => $this->input->post('hig_menu_b2_link'),
+                'hig_menu3' => $this->input->post('hig_menu3'),
+                'hig_menu_h3' => $this->input->post('hig_menu_h3'),
+                'hig_menu_b3' => $this->input->post('hig_menu_b3'),
+                'hig_menu_b3_link' => $this->input->post('hig_menu_b3_link'),
             );
 
             $newR = array(
@@ -152,7 +156,7 @@ class About extends CI_Controller
 
         $data['profile'] = $this->profile->getProfile();
         $data['areaList'] = $this->Page_model->getPage_allarticle('boardmessages', 200);
-        $data['action'] = site_url('system-content/About/createBo');
+        $data['action'] = site_url('system-content/about/createBo');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/board';
         $data['active'] = 'about';
@@ -201,10 +205,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Board Message has been created.');
-                redirect('system-content/About/board');
+                redirect('system-content/about/board');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/board');
+                redirect('system-content/about/board');
             }
         }
     }
@@ -215,7 +219,7 @@ class About extends CI_Controller
         $data['profile'] = $this->profile->getProfile();
         $data['areaList'] = $this->Page_model->getPage_allarticle('boardmessages', 200);
         $data['slider_row'] = $this->Page_model->getPage_article($id);
-        $data['action'] = site_url('system-content/About/editBoard');
+        $data['action'] = site_url('system-content/about/editBoard');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/board';
         $data['active'] = 'about';
@@ -273,10 +277,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', ' Board Message has been updated.');
-                redirect('system-content/About/board');
+                redirect('system-content/about/board');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/board');
+                redirect('system-content/about/board');
             }
         }
     }
@@ -298,7 +302,7 @@ class About extends CI_Controller
 
         $data['areaList'] = $this->Page_model->getPage_allarticle('organizations', 200);
         $data['slider_row'] = $this->Page_model->getPage_article($id);
-        $data['action'] = site_url('system-content/About/editOrg');
+        $data['action'] = site_url('system-content/about/editOrg');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/organization';
         $data['active'] = 'about';
@@ -359,10 +363,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', ' Organization has been updated.');
-                redirect('system-content/About/organization');
+                redirect('system-content/about/organization');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/organization');
+                redirect('system-content/about/organization');
             }
         }
     }
@@ -384,7 +388,7 @@ class About extends CI_Controller
 
         $data['areaList'] = $this->Page_model->getPage_allarticle('keystaffs', 200);
         $data['slider_row'] = $this->Page_model->getPage_article($id);
-        $data['action'] = site_url('system-content/About/editStaff');
+        $data['action'] = site_url('system-content/about/editStaff');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/staff';
         $data['active'] = 'about';
@@ -442,10 +446,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', ' Key Staff has been updated.');
-                redirect('system-content/About/staff');
+                redirect('system-content/about/staff');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/staff');
+                redirect('system-content/about/staff');
             }
         }
     }
@@ -462,7 +466,7 @@ class About extends CI_Controller
 
         $data['profile'] = $this->profile->getProfile();
         $data['areaList'] = $this->Page_model->getPage_allarticle('keystaffs', 200);
-        $data['action'] = site_url('system-content/About/createStaff');
+        $data['action'] = site_url('system-content/about/createStaff');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/staff';
         $data['active'] = 'about';
@@ -512,10 +516,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Key Staff has been created.');
-                redirect('system-content/About/staff');
+                redirect('system-content/about/staff');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/staff');
+                redirect('system-content/about/staff');
             }
         }
     }
@@ -532,7 +536,7 @@ class About extends CI_Controller
 
         $data['profile'] = $this->profile->getProfile();
         $data['areaList'] = $this->Page_model->getPage_allarticle('organizations', 200);
-        $data['action'] = site_url('system-content/About/createOrg');
+        $data['action'] = site_url('system-content/about/createOrg');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/organization';
         $data['active'] = 'about';
@@ -579,10 +583,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Organization has been created.');
-                redirect('system-content/About/organization');
+                redirect('system-content/about/organization');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/organization');
+                redirect('system-content/about/organization');
             }
         }
     }
@@ -602,7 +606,7 @@ class About extends CI_Controller
         $data['departements']   = $this->Page_model->getAllDepartementByActive();
         $data['peoples']        = $this->Page_model->getAllPeoplesByActive();
         $data['areaList']       = $this->Page_model->get_OG();
-        $data['action']         = site_url('system-content/About/create_Org');
+        $data['action']         = site_url('system-content/about/create_Org');
         $data['title']          = 'Dashboard';
         $data['content']        = 'back-end/content/about/orgn';
         $data['active']         = 'about';
@@ -665,10 +669,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'New Structure has been created.');
-                redirect('system-content/About/ostructure');
+                redirect('system-content/about/ostructure');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/ostructure');
+                redirect('system-content/about/ostructure');
             }
         }
     }
@@ -692,7 +696,7 @@ class About extends CI_Controller
         $data['peoples']        = $this->Page_model->getAllPeoplesByActive();
         $data['areaList'] = $this->Page_model->get_OG();
         $data['slider_row'] = $this->Page_model->get_organization($id);
-        $data['action'] = site_url('system-content/About/editOrga');
+        $data['action'] = site_url('system-content/about/editOrga');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/orgn';
         $data['active'] = 'about';
@@ -743,10 +747,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Structure has been updated.');
-                redirect('system-content/About/ostructure');
+                redirect('system-content/about/ostructure');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/ostructure');
+                redirect('system-content/about/ostructure');
             }
         }
     }
@@ -779,7 +783,7 @@ class About extends CI_Controller
         }
 
         $data['member_govern_board']    = $member_govern_board;
-        $data['action']                 = site_url('system-content/About/edit_Subdata');
+        $data['action']                 = site_url('system-content/about/edit_Subdata');
         $data['title']                  = 'Dashboard';
         $data['content']                = 'back-end/content/about/sub_page';
         $data['active']                 = 'about';
@@ -801,7 +805,7 @@ class About extends CI_Controller
         // }
 
         $data['areaList'] = $this->Page_model->getPage_allarticle('careers', 200);
-        $data['action'] = site_url('system-content/About/createCar');
+        $data['action'] = site_url('system-content/about/createCar');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/career';
         $data['active'] = 'about';
@@ -846,10 +850,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Career has been created.');
-                redirect('system-content/About/Career');
+                redirect('system-content/about/Career');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/Career');
+                redirect('system-content/about/Career');
             }
         }
     }
@@ -870,7 +874,7 @@ class About extends CI_Controller
 //        } 
         $data['areaList'] = $this->Page_model->getPage_allarticle('careers', 200);
         $data['slider_row'] = $this->Page_model->getPage_article($id);
-        $data['action'] = site_url('system-content/About/editCa');
+        $data['action'] = site_url('system-content/about/editCa');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/career';
         $data['active'] = 'about';
@@ -916,35 +920,15 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Career has been updated.');
-                redirect('system-content/About/Career');
+                redirect('system-content/about/Career');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/Career');
+                redirect('system-content/about/Career');
             }
         }
     }
 
-    function subpage()
-    {
-        $data['profile'] = $this->profile->getProfile();
-
-        $users = $this->session->userdata('logged_in');
-        $pri = $this->privilage->login($users['username'], $users['user_id'], 13, $users['group_id']);
-
-        // if ($pri != TRUE) {
-        //     $this->session->set_flashdata('error-message', 'Please Contact Administrator.');
-        //     redirect('system-content/Dashboard');
-        // }
-
-        $data['action'] = site_url('system-content/About/createSub');
-        $data['title'] = '  Dashboard';
-        $data['content'] = 'back-end/content/about/subpage';
-        $data['active'] = 'about';
-        $data['sub'] = 'subpage';
-
-        $this->load->view('back-end/common/template', $data);
-    }
-
+    
     function listpage()
     {
         $data['profile'] = $this->profile->getProfile();
@@ -966,13 +950,13 @@ class About extends CI_Controller
         $this->load->view('back-end/common/template', $data);
     }
     
-    function edit_page($id)
+    function add_page()
     {
         $users = $this->session->userdata('logged_in');
         $data['profile'] = $this->profile->getProfile();
-        $data['slider_row'] = $this->Page_model->getPage_content($id);
-        $data['page_sub']   = $this->Page_model->getSubPageContent($id);
-        $data['action']     = site_url('system-content/About/editSubdata');
+        $data['slider_row'] = $this->Page_model->getPage_content("");
+        $data['page_sub']   = $this->Page_model->getSubPageContent("");
+        $data['action']     = site_url('system-content/about/createPage');
         $data['title']      = 'Dashboard';
         $data['content']    = 'back-end/content/about/all-sub/page';
         $data['active']     = 'about';
@@ -981,36 +965,461 @@ class About extends CI_Controller
         $this->load->view('back-end/common/template', $data);
     }
 
-    function edit_pages_sub($subpage_id)
+    function createPage()
+    {
+        $this->form_validation->set_rules('title', 'title', 'trim|required');
+        $validate = $this->form_validation->run();
+        if ($validate == FALSE) {
+            $this->subpage();
+        } else {
+
+            
+            if ($this->input->post('published')) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+
+            $users = $this->session->userdata('logged_in');
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $banner_image = '/uploads/abouts/'.$this->setUploadAbout();
+            } else {
+                $banner_image = '';
+            }
+            
+            $data = array(
+                'parent_id'         => 7,
+                'menu_title'        => $this->input->post('menu_title'),
+                'title'             => $this->input->post('title'),
+                'order_id'          => $this->input->post('order_id'),
+                'short_desc'        => $this->input->post('short_desc'),
+                'content'           => $this->input->post('content'),
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('title'))),
+                'template'          => 'page',
+                'banner_image'      => $banner_image,
+                'published'         => $published,
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s')
+
+            );
+            
+            $query = $this->Page_model->insertPage($data);
+
+            $this->HistoryModel->insertHistory("Associates", "Associates", "Sub Page has been Created : " . $this->input->post('title'));
+
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', 'Page has been created.');
+                redirect('system-content/about/listpage');
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+                redirect('system-content/about/listpage');
+            }
+        }
+    }
+
+    public function setUploadAbout()
+    {
+        //upload and update the file
+        $config['upload_path'] = './uploads/abouts';
+        $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF
+        $config['overwrite'] = false;
+        $config['remove_spaces'] = true;
+        $config['max_size'] = '5000000'; // in KB
+        $config['file_name'] = 'Hero-' . uniqid();
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('photo')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+    
+    function edit_page($id)
     {
         $users = $this->session->userdata('logged_in');
         $data['profile'] = $this->profile->getProfile();
-        $data['slider_row'] = $this->Page_model->getOneSubPageData($subpage_id);
-        $data['page_sub_child']   = $this->Page_model->getSubChildPageContent($subpage_id);
-        $data['action']     = site_url('system-content/About/editSubdata');
+        $data['slider_row'] = $this->Page_model->getPage_content($id);
+        $data['page_sub']   = $this->Page_model->getSubPageContent($id);
+        $data['action']     = site_url('system-content/about/updatePage');
         $data['title']      = 'Dashboard';
-        $data['content']    = 'back-end/content/about/all-sub/subpage';
+        $data['content']    = 'back-end/content/about/all-sub/page';
         $data['active']     = 'about';
-        $data['sub']        = '';
+        $data['sub']        = 'subpage';
 
         $this->load->view('back-end/common/template', $data);
     }
 
-    function edit_pages_sub_child($subpage_id)
+    function updatePage()
     {
-        echo "subchild";
+        $id = $this->input->post('id');
+        $this->form_validation->set_rules('content', 'content', 'trim|required');
+
+        $validate = $this->form_validation->run();
+
+        if ($validate == FALSE) {
+            $this->gb();
+        } else {
+            
+            if (!empty($this->input->post('published'))) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $banner_image = '/uploads/abouts/'.$this->setUploadAbout();
+            } else {
+                $banner_image = $this->input->post('image');
+            }
+
+            $users = $this->session->userdata('logged_in');
+            $data = array(
+                'parent_id'         => 7,
+                'menu_title'        => $this->input->post('menu_title'),
+                'title'             => $this->input->post('title'),
+                'order_id'          => $this->input->post('order_id'),
+                'short_desc'        => $this->input->post('short_desc'),
+                'content'           => $this->input->post('content'),
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('title'))),
+                'template'          => 'page',
+                'banner_image'      => $banner_image,
+                'published'         => $published,
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s')
+            );
+            
+            $query = $this->Page_model->updatePage($id, $data);
+
+            $this->HistoryModel->insertHistory($id, $id, "  Content has been Edited   ");
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', ' Content has been updated.');
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+            }
+            redirect('system-content/about/edit_page/' . $id);
+        }
     }
 
+    function subpage()
+    {
+        $users = $this->session->userdata('logged_in');
+        $data['profile'] = $this->profile->getProfile();
+        $pri = $this->privilage->login($users['username'], $users['user_id'], 13, $users['group_id']);
+
+        // if ($pri != TRUE) {
+        //     $this->session->set_flashdata('error-message', 'Please Contact Administrator.');
+        //     redirect('system-content/Dashboard');
+        // }
+
+        $data['slider_row']         = $this->Page_model->getOneSubPageData("");
+        $data['page_sub_child']     = $this->Page_model->getSubChildPageContent("");
+        $data['action']             = site_url('system-content/about/createSubPage');
+        $data['title']              = 'Dashboard';
+        $data['content']            = 'back-end/content/about/all-sub/subpage';
+        $data['active']             = 'about';
+        $data['sub']                = 'subpage';
+
+        $this->load->view('back-end/common/template', $data);
+    }
+
+    function createSubPage()
+    {
+        $this->form_validation->set_rules('title', 'title', 'trim|required');
+        $validate = $this->form_validation->run();
+        if ($validate == FALSE) {
+            $this->subpage();
+        } else {
+
+            
+            if ($this->input->post('published')) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+
+            $users = $this->session->userdata('logged_in');
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $banner_image = '/uploads/abouts/'.$this->setUploadAbout();
+            } else {
+                $banner_image = '';
+            }
+            
+            $data = array(
+                'parent_id'         => $this->input->post('parent_id'),
+                'page_id'           => $this->input->post('page_id'),
+                'menu_title'        => $this->input->post('menu_title'),
+                'title'             => $this->input->post('title'),
+                'order_id'          => $this->input->post('order_id'),
+                'short_desc'        => $this->input->post('short_desc'),
+                'content'           => $this->input->post('content'),
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('title'))),
+                'template'          => 'subpage',
+                'banner_image'      => $banner_image,
+                'published'         => $published,
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s')
+
+            );
+            
+            $query = $this->Page_model->insertSubPage($data);
+
+            $this->HistoryModel->insertHistory("Sub Pages About", "Sub Pages About", "Sub Page has been Created : " . $this->input->post('title'));
+
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', 'Sub Page has been created.');
+                redirect('system-content/about/edit_page/'.$this->input->post('page_id').'');
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+                redirect('system-content/about/edit_page/'.$this->input->post('page_id').'');
+            }
+        }
+    }
+
+    function edit_pages_sub($subpage_id)
+    {
+        $users                      = $this->session->userdata('logged_in');
+        $data['profile']            = $this->profile->getProfile();
+        $data['slider_row']         = $this->Page_model->getOneSubPageData($subpage_id);
+        $data['page_sub_child']     = $this->Page_model->getSubChildPageContent($subpage_id);
+        $data['action']             = site_url('system-content/about/updatePageSub');
+        $data['title']              = 'Dashboard';
+        $data['content']            = 'back-end/content/about/all-sub/subpage';
+        $data['active']             = 'about';
+        $data['sub']                = '';
+
+        $this->load->view('back-end/common/template', $data);
+    }
+
+    function updatePageSub()
+    {
+        $this->form_validation->set_rules('content', 'content', 'trim|required');
+
+        $validate = $this->form_validation->run();
+
+        if ($validate == FALSE) {
+            $this->gb();
+        } else {
+
+            if (!empty($this->input->post('published'))) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+
+            $users = $this->session->userdata('logged_in');
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $banner_image = '/uploads/abouts/'.$this->setUploadAbout();
+            } else {
+                $banner_image = $this->input->post('image');
+            }
+
+            $id = $this->input->post('id');
+            
+            $data = array(
+                'parent_id'         => $this->input->post('parent_id'),
+                'page_id'           => $this->input->post('page_id'),
+                'menu_title'        => $this->input->post('menu_title'),
+                'title'             => $this->input->post('title'),
+                'order_id'          => $this->input->post('order_id'),
+                'short_desc'        => $this->input->post('short_desc'),
+                'content'           => $this->input->post('content'),
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('title'))),
+                'template'          => 'subpage',
+                'banner_image'      => $banner_image,
+                'published'         => $published,
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s')
+            );
+            
+            $query = $this->Page_model->updateSubPage($id, $data);
+
+            $this->HistoryModel->insertHistory($id, $id, "  Content has been Edited");
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', ' Content has been updated.');
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+            }
+            redirect('system-content/about/edit_pages_sub/' . $id);
+        }
+    }
+
+    function add_sub_child_page()
+    {
+        $users = $this->session->userdata('logged_in');
+        $data['profile'] = $this->profile->getProfile();
+        
+        $data['slider_row']         = $this->Page_model->getOneSubPageData("");
+        $data['page_sub_child']     = $this->Page_model->getSubChildPageContent("");
+        $data['action']             = site_url('system-content/about/createSubChildPage');
+        $data['title']              = 'Dashboard';
+        $data['content']            = 'back-end/content/about/all-sub/subchildpage';
+        $data['active']             = 'about';
+        $data['sub']                = 'subpage';
+
+        $this->load->view('back-end/common/template', $data);
+    }
+    
+    function createSubChildPage()
+    {
+        $this->form_validation->set_rules('title', 'title', 'trim|required');
+        $validate = $this->form_validation->run();
+        if ($validate == FALSE) {
+            $this->add_sub_child_page();
+        } else {
+
+            if ($this->input->post('published')) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+
+            $users = $this->session->userdata('logged_in');
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $banner_image = '/uploads/abouts/'.$this->setUploadAbout();
+            } else {
+                $banner_image = '';
+            }
+            
+            $parent_id  = $this->input->post('parent_id');
+            $page_id    = $this->input->post('page_id');
+            $page_sub_id = $this->input->post('page_sub_id');
+
+            $data = array(
+                'parent_id'         => $this->input->post('parent_id'),
+                'page_id'           => $this->input->post('page_id'),
+                'page_sub_id'       => $this->input->post('page_sub_id'),
+                'menu_title'        => $this->input->post('menu_title'),
+                'title'             => $this->input->post('title'),
+                'order_id'          => $this->input->post('order_id'),
+                'short_desc'        => $this->input->post('short_desc'),
+                'content'           => $this->input->post('content'),
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('title'))),
+                'template'          => 'subchildpage',
+                'banner_image'      => $banner_image,
+                'published'         => $published,
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s')
+            );
+            
+            $query = $this->Page_model->insertSubChildPage($data);
+
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', 'Sub Child Page has been created.');
+                redirect('system-content/about/edit_pages_sub/'.$page_id.'');
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+                redirect('system-content/about/edit_pages_sub/'.$page_id.'');
+            }
+        }
+    }
+
+    function edit_pages_sub_child($id)
+    {
+        $users = $this->session->userdata('logged_in');
+        $data['profile'] = $this->profile->getProfile();
+        
+        $data['slider_row']         = $this->Page_model->getOneSubChildPageData($id);
+        $data['action']             = site_url('system-content/about/updateSubChildPage');
+        $data['title']              = 'Dashboard';
+        $data['content']            = 'back-end/content/about/all-sub/subchildpage';
+        $data['active']             = 'about';
+        $data['sub']                = 'subpage';
+
+        $this->load->view('back-end/common/template', $data);
+    }
+
+    function updateSubChildPage()
+    {
+        $this->form_validation->set_rules('title', 'title', 'trim|required');
+        $validate = $this->form_validation->run();
+        if ($validate == FALSE) {
+            $this->add_sub_child_page();
+        } else {
+
+            if ($this->input->post('published')) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+
+            $users = $this->session->userdata('logged_in');
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $banner_image = '/uploads/abouts/'.$this->setUploadAbout();
+            } else {
+                $banner_image = $this->input->post('image');
+            }
+
+            $id = $this->input->post('id');
+            $parent_id  = $this->input->post('parent_id');
+            $page_id    = $this->input->post('page_id');
+            $page_sub_id = $this->input->post('page_sub_id');
+
+            $data = array(
+                'parent_id'         => $this->input->post('parent_id'),
+                'page_id'           => $this->input->post('page_id'),
+                'page_sub_id'       => $this->input->post('page_sub_id'),
+                'menu_title'        => $this->input->post('menu_title'),
+                'title'             => $this->input->post('title'),
+                'order_id'          => $this->input->post('order_id'),
+                'short_desc'        => $this->input->post('short_desc'),
+                'content'           => $this->input->post('content'),
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('title'))),
+                'template'          => 'subchildpage',
+                'banner_image'      => $banner_image,
+                'published'         => $published,
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s')
+            );
+            
+            $query = $this->Page_model->updateSubChildPage($id, $data);
+
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', 'Sub Child Page has been created.');
+                redirect('system-content/about/edit_pages_sub_child/'.$id.'');
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+                redirect('system-content/about/edit_pages_sub_child/'.$id.'');
+            }
+        }
+    }
+    
     function subpagechild()
     {
-        $data['profile'] = $this->profile->getProfile();
-
         $users = $this->session->userdata('logged_in');
+        $data['profile'] = $this->profile->getProfile();
         $pri = $this->privilage->login($users['username'], $users['user_id'], 13, $users['group_id']);
 
         $data['parent_data'] = array();
         $data['page_parent'] = $this->Page_model->getAllPageByParentID(7);
-        $data['action'] = site_url('system-content/About/createSubChild');
+        $data['action'] = site_url('system-content/about/createSubChild');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/subpagechild';
         $data['active'] = 'about';
@@ -1049,10 +1458,10 @@ class About extends CI_Controller
 
         if ($result == TRUE) {
             $this->session->set_flashdata('success-message', 'Submenu page has been updated.');
-            redirect('system-content/About/listsubpagechild');
+            redirect('system-content/about/listsubpagechild');
         } else {
             $this->session->set_flashdata('error-message', $result);
-            redirect('system-content/About/listsubpagechild');
+            redirect('system-content/about/listsubpagechild');
         }
     }
 
@@ -1066,48 +1475,13 @@ class About extends CI_Controller
         $data['parent_data'] = $this->Page_model->getSubPagesById($submenu_data->page_id);
         $data['slider_row'] = $submenu_data;
         $data['page_parent'] = $this->Page_model->getAllPageParents();
-        $data['action'] = site_url('system-content/About/updatesubchildpage');
+        $data['action'] = site_url('system-content/about/updatesubchildpage');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/about/subpagechild';
         $data['active'] = 'about';
         $data['sub'] = 'subpagechild';
 
         $this->load->view('back-end/common/template', $data);
-    }
-
-    function updatesubchildpage()
-    {
-        $input = $this->input->post();
-        $users = $this->session->userdata('logged_in');
-        
-        if (isset($input['published'])) {
-            $published = $input['published'];
-        } else {
-            $published = 0;
-        }
-
-        $id = $input['id'];
-        $data = [
-            'page_id'   => $input['page_id'],
-            'menu_title'    => $input['menu_title'],
-            'title'         => $input['title'],
-            'content'       => $input['content'],
-            'order_id'      => $input['order_id'],
-            'published'     => $published,
-            'meta_keywords'     => $input['meta_keywords'],
-            'meta_description'  => $input['meta_description'],
-            'modified_date'     => date('Y-m-d H:i:s'),
-            'modified_by'       => $users['user_id'],
-        ];
-
-        $result = $this->Page_model->update_submenu_child($id, $data);
-        if ($result == TRUE) {
-            $this->session->set_flashdata('success-message', ' Content has been updated.');
-        } else {
-            $this->session->set_flashdata('error-message', $result);
-        }
-
-        redirect('system-content/About/editsubchildpage/' . $id);
     }
 
     function publishR()
@@ -1158,7 +1532,7 @@ class About extends CI_Controller
             } else {
                 $this->session->set_flashdata('error-message', $query);
             }
-            redirect('system-content/About/edit_subpage/' . $id);
+            redirect('system-content/about/edit_subpage/' . $id);
         }
     }
 
@@ -1202,7 +1576,7 @@ class About extends CI_Controller
                 $this->session->set_flashdata('error-message', $query);
             }
 
-            redirect('system-content/About/gb');
+            redirect('system-content/about/gb');
         }
     }
 
@@ -1244,10 +1618,10 @@ class About extends CI_Controller
 
             if ($query == TRUE) {
                 $this->session->set_flashdata('success-message', 'Sub Page has been created.');
-                redirect('system-content/About/listsubpage');
+                redirect('system-content/about/listsubpage');
             } else {
                 $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/About/listsubpage');
+                redirect('system-content/about/listsubpage');
             }
         }
     }
