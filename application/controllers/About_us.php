@@ -39,7 +39,6 @@ class About_us extends CI_Controller {
         
         $data['contentData'] = $content;
         $slider_nrow = $this->Page_model->getPage_subcontent(1);
-
         $nsr = $this->Page_model->getPage_r_subcontent(1);
         
         $data['pc'] = $content;
@@ -104,10 +103,10 @@ class About_us extends CI_Controller {
         }
         
         $data['contentData']                = $content; //$this->frontModel->get_Gboard_content(12);
-        $data['careers']                    = $this->frontModel->get_article(null, 'careers', null, 'career');
-        $data['organizationWeWorksWith']    = $this->frontModel->getWeWorksWithcontent('organizations');
-        $data['areaList']                   = $this->frontModel->get_OG();
-        $data['time']                       = $this->frontModel->getTimeline();
+        // $data['careers']                    = $this->frontModel->get_article(null, 'careers', null, 'career');
+        // $data['organizationWeWorksWith']    = $this->frontModel->getWeWorksWithcontent('organizations');
+        // $data['areaList']                   = $this->frontModel->get_OG();
+        // $data['time']                       = $this->frontModel->getTimeline();
         $data['m_menu']                     = $menu_title;
         if ($content->uri == 'contact-us') {
             $data['action'] = site_url('contact/create');
@@ -116,6 +115,129 @@ class About_us extends CI_Controller {
             $data['content']                = 'front-end/content/aboutus_details';
         }
         
+        $data['m_menu']                     = $slug;
+        $data['left']                       = $slug;
+        $this->load->view('front-end/common/template', $data);
+    }
+
+    function page_sub_detail()
+    {
+        $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+        $urlArray = explode('/', $parse_url);
+        
+        $uri = end($urlArray);
+        
+        $content = $this->frontModel->getAboutUsSubPagesByURI($uri);
+        
+        if (!empty($content)) {
+            $slug = $content->uri;
+            
+            $image_meta = 'v6/assets/logo.png';
+            $title_meta = ucfirst($content->menu_title);
+            $menu_title = $content->menu_title ? $content->menu_title : "ERIA: Economic Research Institute for ASEAN and East Asia";
+            $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
+            $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
+
+            $meta_data_contents = $this->header->getMetaDataContents($image_meta, $title_meta, $keyword_meta, $description_meta);
+            
+            $data['contentData'] = $content;
+            $data['md'] = $meta_data_contents['description_meta'];
+            $data['mk'] = $meta_data_contents['keyword_meta'];
+            $data['image_meta'] = $meta_data_contents['image_meta'];
+            $data['title'] = 'ERIA: '. $meta_data_contents['title_meta'];
+        } else {
+            $content_subpage = $this->frontModel->getAboutUsSubPagesDetailByURI($uri);
+            
+            $content = $content_subpage;
+
+            $slug = $content->uri;
+            $title = $content->title ? $content->title: "ERIA: Economic Research Institute for ASEAN and East Asia";
+            
+            $image_meta = 'v6/assets/logo.png';
+            $title_meta = ucfirst($content->menu_title);
+            $menu_title = $content->menu_title ? $content->menu_title : "ERIA: Economic Research Institute for ASEAN and East Asia";
+            $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
+            $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
+
+            $meta_data_contents = $this->header->getMetaDataContents($image_meta, $title_meta, $keyword_meta, $description_meta);
+            
+            $data['contentData'] = $content;
+            $data['md'] = $meta_data_contents['description_meta'];
+            $data['mk'] = $meta_data_contents['keyword_meta'];
+            $data['image_meta'] = $meta_data_contents['image_meta'];
+            $data['title'] = 'ERIA: '. $meta_data_contents['title_meta'];
+        }
+        
+        $data['contentData']                = $content; //$this->frontModel->get_Gboard_content(12);
+        // $data['careers']                    = $this->frontModel->get_article(null, 'careers', null, 'career');
+        // $data['organizationWeWorksWith']    = $this->frontModel->getWeWorksWithcontent('organizations');
+        // $data['areaList']                   = $this->frontModel->get_OG();
+        // $data['time']                       = $this->frontModel->getTimeline();
+        $data['m_menu']                     = $menu_title;
+        $data['content']                    = 'front-end/content/aboutus_sub_pages';
+        $data['m_menu']                     = $slug;
+        $data['left']                       = $slug;
+        $data['experts']                    = $this->frontModel->get_pageexperts('experts', '', '');
+        $data['keystaffs']                  = $this->frontModel->get_pageexperts('keystaffs', '', '');
+
+        $this->load->view('front-end/common/template', $data);
+    }
+
+    function page_subchild_detail()
+    {
+        $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+        $urlArray = explode('/', $parse_url);
+        
+        $uri = end($urlArray);
+        
+        $content = $this->frontModel->getAboutUsSubChildPagesByURI($uri);
+        
+        if (!empty($content)) {
+            $slug = $content->uri;
+            
+            $image_meta = 'v6/assets/logo.png';
+            $title_meta = ucfirst($content->menu_title);
+            $menu_title = $content->menu_title ? $content->menu_title : "ERIA: Economic Research Institute for ASEAN and East Asia";
+            $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
+            $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
+
+            $meta_data_contents = $this->header->getMetaDataContents($image_meta, $title_meta, $keyword_meta, $description_meta);
+            
+            $data['contentData'] = $content;
+            $data['md'] = $meta_data_contents['description_meta'];
+            $data['mk'] = $meta_data_contents['keyword_meta'];
+            $data['image_meta'] = $meta_data_contents['image_meta'];
+            $data['title'] = 'ERIA: '. $meta_data_contents['title_meta'];
+        } else {
+            $content_subpage = $this->frontModel->getAboutUsSubChildPagesDetailByURI($uri);
+            
+            $content = $content_subpage;
+
+            $slug = $content->uri;
+            $title = $content->title ? $content->title: "ERIA: Economic Research Institute for ASEAN and East Asia";
+            
+            $image_meta = 'v6/assets/logo.png';
+            $title_meta = ucfirst($content->menu_title);
+            $menu_title = $content->menu_title ? $content->menu_title : "ERIA: Economic Research Institute for ASEAN and East Asia";
+            $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
+            $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
+
+            $meta_data_contents = $this->header->getMetaDataContents($image_meta, $title_meta, $keyword_meta, $description_meta);
+            
+            $data['contentData'] = $content;
+            $data['md'] = $meta_data_contents['description_meta'];
+            $data['mk'] = $meta_data_contents['keyword_meta'];
+            $data['image_meta'] = $meta_data_contents['image_meta'];
+            $data['title'] = 'ERIA: '. $meta_data_contents['title_meta'];
+        }
+        
+        $data['contentData']                = $content; //$this->frontModel->get_Gboard_content(12);
+        // $data['careers']                    = $this->frontModel->get_article(null, 'careers', null, 'career');
+        // $data['organizationWeWorksWith']    = $this->frontModel->getWeWorksWithcontent('organizations');
+        // $data['areaList']                   = $this->frontModel->get_OG();
+        // $data['time']                       = $this->frontModel->getTimeline();
+        // $data['m_menu']                     = $menu_title;
+        $data['content']                    = 'front-end/content/aboutus_sub_child_pages';
         $data['m_menu']                     = $slug;
         $data['left']                       = $slug;
         
