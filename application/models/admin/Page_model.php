@@ -28,6 +28,19 @@ class Page_model extends CI_Model
         }
     }
 
+    function getOneSubChildPageData($id)
+    {
+        try {
+            $this->db->select('*');
+            $this->db->where('id', $id);
+            $query = $this->db->get('pages_sub_child');
+
+            return $query->row();
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
     function getSubPageContent($page_id)
     {
         try {
@@ -237,6 +250,26 @@ class Page_model extends CI_Model
         }
     }
 
+    function insertSubPage($data)
+    {
+        try {
+            $this->db->insert('pages_sub', $data);
+            return TRUE;
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function insertSubChildPage($data)
+    {
+        try {
+            $this->db->insert('pages_sub_child', $data);
+            return TRUE;
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
     function getPage_expertCat($id)
     {
         try {
@@ -329,6 +362,30 @@ class Page_model extends CI_Model
             $this->db->set($data);
             $this->db->where('page_id', $id);
             $this->db->update('pages');
+            return TRUE;
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function updateSubPage($id, $data)
+    {
+        try {
+            $this->db->set($data);
+            $this->db->where('id', $id);
+            $this->db->update('pages_sub');
+            return TRUE;
+        } catch (Exception $err) {
+            return show_error($err->getMessage());
+        }
+    }
+
+    function updateSubChildPage($id, $data)
+    {
+        try {
+            $this->db->set($data);
+            $this->db->where('id', $id);
+            $this->db->update('pages_sub_child');
             return TRUE;
         } catch (Exception $err) {
             return show_error($err->getMessage());
