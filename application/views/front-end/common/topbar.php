@@ -60,6 +60,74 @@ function limit_words($text, $limit)
                             ?>
                             <div class="dropdown-menu-container">
                                 <ul class="dropdown-menu-items mb-0 list-unstyled">
+                                    <li class="mb-3">
+                                        <a href="<?= base_url(); ?>about-us/history">
+                                            History
+                                        </a>
+                                    </li>
+                                    <li class="mb-3">
+                                        <a href="<?= base_url(); ?>about-us/history" class="mb-2">
+                                            Leadership and Staff
+                                        </a>
+                                        <ul class="mt-2" style="list-style-type: none;">
+                                            <li class="mb-2">
+                                                <a href="#">Organizational Structure</a>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">President’s Office</a>
+                                                <ul class="mt-2" style="list-style-type: none;">
+                                                    <li class="mb-2">
+                                                        <a href="#">Message from the President</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">Governing Board</a>
+                                                <ul class="mt-2" style="list-style-type: none;">
+                                                    <li class="mb-2">
+                                                        <a href="#">Messages from the Board</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">Academic Advisory Council</a>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">Experts</a>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">Key Staff</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="mb-3">
+                                        <a href="<?= base_url(); ?>about-us/networks" class="mb-2">
+                                            Networks
+                                        </a>
+                                        <ul class="mt-2" style="list-style-type: none;">
+                                            <li class="mb-2">
+                                                <a href="#">Research Institutes Network</a>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">ERIN</a>
+                                            </li>
+                                            <li class="mb-2">
+                                                <a href="#">Organization We Work With</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="mb-3">
+                                        <a href="<?= base_url(); ?>about-us/networks" class="mb-2">
+                                            Career Opportunities
+                                        </a>
+                                    </li>
+                                    <li class="mb-3">
+                                        <a href="<?= base_url(); ?>about-us/networks" class="mb-2">
+                                            Logo Standards Use
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="dropdown-menu-items mb-0 list-unstyled d-none">
                                     <?php foreach ($aboutus as $key => $value) { ?>
                                     <?php $submenu_aboutus = $this->header->getPageAllAboutSubMenu($value->page_id); ?>
                                     <li <?php if (count($submenu_aboutus) == 0) { echo 'class="mb-3"'; } ?>>
@@ -246,6 +314,8 @@ function limit_words($text, $limit)
                                                         <div class="row pb-4">
                                                             <div class="col-md-2">
                                                                 <?php
+                                                                    
+                                                                    if (!empty($publication_->image_name)) {
                                                                         if (file_exists(FCPATH . $publication_->image_name) && $publication_->image_name != '') {
                                                                             $img = base_url() . $publication_->image_name;
                                                                         } elseif (file_exists(FCPATH . '/resources/images' . $publication_->image_name) && $publication_->image_name != '') {
@@ -258,12 +328,29 @@ function limit_words($text, $limit)
                                                                             if ($file_exists_pub == 1) {
                                                                                 $img = "https://www.eria.org" . $publication_->image_name;
                                                                             } else {
-                                                                                $img = base_url() . "/resources/images/default-image.jpg";
+                                                                                $img = base_url() . "/upload/thumbnails-pub.jpg";
                                                                             }
                                                                         }
-                                                                        ?>
-                                                                <img class="img-fluid" style="border: 1px solid #000;"
-                                                                    src="<?= $img ?>">
+                                                                    } else {
+                                                                        $url_pub = "https://www.eria.org" . $publication_->image_name;
+                                                                        $response_pub = @get_headers($url_pub, 1);
+                                                                        $file_exists_pub = (strpos($response_pub[0], "404") === false);
+                                                                        
+                                                                        if ($file_exists_pub == 1) {
+                                                                            $img = "https://www.eria.org" . $publication_->image_name;
+                                                                            if (file_exists($img)) {
+                                                                                $img = $img;
+                                                                            } else {
+                                                                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                                                                            }
+                                                                            
+                                                                        } else {
+                                                                            $img = base_url() . "/upload/thumbnails-pub.jpg";
+                                                                        }
+                                                                    }
+                                                                    
+                                                                    echo '<img class="img-fluid" style="border: 1px solid #000;" src="'.$img .'">';
+                                                                ?>
                                                             </div>
                                                             <div class="col-md-10">
                                                                 <div
