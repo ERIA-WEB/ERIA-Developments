@@ -30,8 +30,7 @@
                 <header class="panel_header">
                     <h2 class="title pull-left"> Page List</h2>
                     <div class="actions panel_actions pull-right">
-                        <a class="btn btn-success <?php if ($sub == 'subpage') { ?> active <?php } ?>"
-                            href="<?php echo base_url() ?>system-content/about/subpage">
+                        <a class="btn btn-success" href="<?php echo base_url() ?>system-content/about/add_page">
                             <i class="fa fa-plus bold" aria-hidden="true" style="color:#fff;"></i>
                         </a>
                         <i class="box_toggle fa fa-chevron-down" style="color:#fff;"></i>
