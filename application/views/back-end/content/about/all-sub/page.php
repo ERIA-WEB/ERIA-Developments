@@ -4,12 +4,13 @@
 }
 </style>
 
-<section id="main-content" class=" ">
+<section id="main-content">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <div class="page-title">
                 <div class="pull-left">
-                    <h1 class="title"><?= ucwords($slider_row->menu_title); ?> Page </h1>
+                    <h1 class="title"><?= !empty($slider_row) ? ucwords($slider_row->menu_title) : "ADD"; ?> Page
+                    </h1>
                 </div>
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
@@ -17,7 +18,7 @@
                             <a href=" "><i class="fa fa-globe"></i><strong>About US </strong></a>
                         </li>
                         <li class="active">
-                            Page
+                            <?= !empty($slider_row) ? ucwords($slider_row->menu_title) : "ADD"; ?> Page
                         </li>
                     </ol>
                 </div>
@@ -25,10 +26,12 @@
         </div>
         <!--my comment-->
         <div class="clearfix"></div>
-        <div class="col-lg-12"><?php $this->load->view('back-end/common/message'); ?>
+        <div class="col-lg-12">
+            <?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
-                    <h2 class="title pull-left"><?= ucwords($slider_row->menu_title); ?></h2>
+                    <h2 class="title pull-left"><?= !empty($slider_row) ? ucwords($slider_row->menu_title) : "ADD"; ?>
+                    </h2>
                     <div class="actions panel_actions pull-right">
                         <i class="box_toggle fa fa-chevron-down"></i>
                         <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -50,6 +53,35 @@
                                     value="<?php echo $csrf['hash']; ?>" />
                                 <input type="hidden" name="id"
                                     value="<?php echo (isset($slider_row)) ? $slider_row->page_id : '' ?>" />
+                                <div class="form-group">
+                                    <?php 
+                                        $path = (!isset($slider_row->banner_image)) ? "/uploads/events/slider.jpg" : $slider_row->banner_image;
+                                        if ($path == "") {
+                                            $path = base_url()."/uploads/events/slider.jpg";
+                                        } else {
+                                            $path = base_url().$path;
+                                    }
+                                    ?>
+                                    <img id="placeholder" class="img img-fluid" src="<?php echo $path; ?>"
+                                        style="width:50%;">
+                                </div>
+                                <div class="form-group">
+                                    <?php
+                                        $error = (form_error('image') === '') ? '' : 'error';
+                                        $image = (set_value('image') == false && isset($slider_row)) ? $slider_row->banner_image : set_value('image');
+                                    ?>
+                                    <label class="form-label" for="formfield1"> Hero Image </label>
+                                    <span style="font-size: 9px;font-style: italic;color: red;">
+                                        (Please Using Dimensions 1564 × 485 PX*)
+                                    </span>
+                                    <div class="controls">
+                                        <input type="hidden" id="image" name="image" value="<?= $image ?>" />
+                                        <input class="input-file form-control uniform_on focused" id="photo"
+                                            value="<?php echo $image; ?>" name="photo" type="file" accept="image/*"
+                                            placeholder="photo">
+                                        <?php echo form_error('photo', '<span class="help-inline">', '</span>'); ?>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <?php
                                     $error = (form_error('menu_title') === '') ? '' : 'error';
@@ -76,6 +108,20 @@
                                         <input type="text" required="required" value="<?php echo $title ?>"
                                             class="form-control" id="title" name="title">
                                         <?php echo form_error('title', '<span class="help-inline">', '</span>'); ?>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <?php
+                                    $error = (form_error('short_desc') === '') ? '' : 'error';
+                                    $short_desc = (set_value('short_desc') == false && isset($slider_row)) ? $slider_row->short_desc : set_value('content');
+                                    ?>
+                                    <label class="form-label" for="formfield1"> Short Description </label>
+                                    <div class="controls">
+                                        <i class=""></i>
+                                        <textarea rows="5" style="height: 150px" id="summernote"
+                                            class="form-control mytextarea"
+                                            name="short_desc"><?= $short_desc ?></textarea>
+                                        <?php echo form_error('short_desc', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -152,18 +198,28 @@
                                         <i class="bImg fa fa-save "></i>
                                         Save
                                     </button>
+                                    <a href="<?= base_url().'system-content/about/listpage' ?>" class="btn btn-danger">
+                                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                                        Back
+                                    </a>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
-            <section class="box ">
+            <?php 
+                $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+                $urlArray = explode('/', $parse_url);
+            ?>
+            <?php if (end($urlArray) != 'add_page') {?>
+            <section class="box">
                 <header class="panel_header">
-                    <h2 class="title pull-left"> List Sub Page "<?= ucwords($slider_row->menu_title); ?>"</h2>
+                    <h2 class="title pull-left"> List Sub Page
+                        <?= !empty($slider_row) ? '"'.ucwords($slider_row->menu_title).'"' : ""; ?></h2>
                     <div class="actions panel_actions pull-right">
-                        <a class="btn btn-success <?php if ($sub == 'subpage') { ?> active <?php } ?>"
-                            href="<?php echo base_url() ?>system-content/about/subpage">
+                        <a class="btn btn-success"
+                            href="<?php echo base_url() ?>system-content/about/subpage?parent_id=<?= !empty($slider_row) ? $slider_row->parent_id :''; ?>&page_id=<?= !empty($slider_row) ? $slider_row->page_id :''; ?>">
                             <i class="fa fa-plus bold" aria-hidden="true" style="color:#fff;"></i>
                         </a>
                         <i class="box_toggle fa fa-chevron-down" style="color:#fff;"></i>
@@ -224,6 +280,7 @@
                     </div>
                 </div>
             </section>
+            <?php } ?>
         </div>
     </section>
 </section>
@@ -254,36 +311,7 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-var delete_id = null;
-var delete_tr = null;
-var name = null;
 
-$('.confirmation-callback').click(function() {
-    delete_id = $(this).data("id");
-    name = $(this).data("area");
-    delete_tr = $(this).closest('tr');
-});
-
-$('.confirmation-callback').confirmation({
-    singleton: true,
-    onConfirm: function(event, element) {
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>system-content/user/deleteUser",
-            data: {
-                id: delete_id,
-                name: name
-            }
-        }).done(function(json) {
-            delete_tr.css("background-color", "#FF0000");
-            delete_tr.fadeOut(1200, function() {
-                delete_tr.remove();
-            });
-        })
-    }
-});
-</script>
 <script>
 $(function() {
     $('.pop').on('click', function() {
