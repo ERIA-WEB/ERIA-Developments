@@ -85,42 +85,45 @@ if(!empty($multimedia_cards)) {
     ?>
     <h4 class="font-merriweather font-weight-bold text-blue mb-3"><?= $title; ?></h4>
     <div class="accordion" id="multimediaCardAccordion">
-        <?php foreach ($multimedia_data as $key => $value):?>
+        <?php 
+            foreach ($multimedia_data as $key => $value) {
+                $tools = $category_multimedia[$value['category']];
 
-        <?php
-            $tools = $category_multimedia[$value['category']];
+                if ($key == 0 ) {
+                    $collapsed = 'collapsed';
+                } else {
+                    $collapsed = '';
+                }
+
+                echo '<div class="'.$value['category'].'">
+                        <div id="heading'.$key.'">
+                        <button class="btn multimedia-card-collapse-button text-left px-0 w-100 d-flex justify-content-between align-items-center '.$collapsed.'"
+        type="button" data-toggle="collapse" data-target="#'.$key.'" aria-expanded="false"
+        aria-controls="'.$key.'">
+                            <div class="multimedia-card-header d-flex align-items-center">
+                                <div class="d-flex justify-content-center align-items-center text-light p-2 '.$tools['class'].'">
+                                    '.$tools['icon'].'
+                                </div>
+                                <span class="font-merriweather ml-2">'.$tools['name'].'</span>
+                            </div>
+                            <i class="bi bi-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div id="'.$key.'" class="collapse" aria-labelledby="accordion'.$key.'"
+                            data-parent="#multimediaCardAccordion">
+                            <div class="iframe-container my-2">
+                                '.$value['video_url'].'
+                    </div>
+                    <a href="'.base_url().'multimedia/'.strtolower($value['category']).'/'.$value['uri'].'"
+                        class="mt-1 font-weight-semibold">
+                        '.str_replace('â€”', "-", substr($value['title'], 0, 200)).'
+                    </a>
+                </div>
+                <hr>
+                </div>';
+            }
         ?>
 
-        <div class="<?php echo $value['category']; ?>">
-            <div id="heading<?php echo $key; ?>">
-                <button
-                    class="btn multimedia-card-collapse-button text-left px-0 w-100 d-flex justify-content-between align-items-center <?php echo ($key == 0 ? "" : "collapsed")  ?>"
-                    type="button" data-toggle="collapse" data-target="#<?php echo $key; ?>" aria-expanded="false"
-                    aria-controls="<?php echo $key; ?>">
-                    <div class="multimedia-card-header d-flex align-items-center">
-                        <div
-                            class="d-flex justify-content-center align-items-center text-light p-2 <?= $tools['class']; ?>">
-                            <?= $tools['icon']?>
-                        </div>
-                        <span class="font-merriweather ml-2"><?= $tools['name'];?></span>
-                    </div>
-                    <i class="bi bi-chevron-down"></i>
-                </button>
-            </div>
-
-            <div id="<?php echo $key; ?>" class="collapse" aria-labelledby="accordion<?php echo $key; ?>"
-                data-parent="#multimediaCardAccordion">
-                <div class="iframe-container my-2">
-                    <?php echo $value['video_url']; ?>
-                </div>
-                <a href="<?= base_url() ?>multimedia/<?php echo strtolower($value['category']); ?>/<?php echo $value['uri']; ?>"
-                    class="mt-1 font-weight-semibold">
-                    <?php echo str_replace('â€”', "-", substr($value['title'], 0, 200)); ?>
-                </a>
-            </div>
-            <hr>
-        </div>
-        <?php endforeach;?>
     </div>
 </div>
 <?php } ?>
