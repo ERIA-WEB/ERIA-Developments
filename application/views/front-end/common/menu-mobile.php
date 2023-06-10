@@ -348,7 +348,8 @@
                         data-parent="#accordionMobile">
                         <div class="card-body p-0">
                             <?php
-                            $aboutus = $this->header->getPageAllAboutMenu();
+                            $aboutus = $this->header->getPageAllAboutPage();
+                            
                             ?>
                             <ul class="list-unstyled">
                                 <li style="padding: 10px;">
@@ -359,25 +360,13 @@
                                     </a>
                                 </li>
                                 <?php foreach ($aboutus as $key => $value) { ?>
-                                <?php $submenu_aboutus = $this->header->getPageAllAboutSubMenu($value->page_id); ?>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>about-us/<?= $value->uri; ?>" class="p-1">
                                         <?= ucfirst($value->menu_title) ?>
                                         <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
                                             style="right:24px;font-size: 12px;"></i>
                                     </a>
-                                    <?php if (!empty($submenu_aboutus)) { ?>
-                                    <ul
-                                        style="padding: 10px 20px;font-size: 14px;font-weight: 500;color: var(--primaryBlue);">
-                                        <?php
-                                                foreach ($submenu_aboutus as $i => $val) {
-                                                    echo '<li>
-                                                        <a href="'. base_url() .'about-us/'. $val->uri .'">'. $val->menu_title .'</a>
-                                                    </li>';
-                                                }
-                                            ?>
-                                    </ul>
-                                    <?php } ?>
+
                                 </li>
                                 <?php } ?>
                             </ul>
