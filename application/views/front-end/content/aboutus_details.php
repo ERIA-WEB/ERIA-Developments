@@ -5,9 +5,7 @@
     background-color: #F3F3F3;
     overflow-y: auto;
 }
-</style>
 
-<style>
 .titleRelatedLinks {
     margin-bottom: 20px;
 }
@@ -16,9 +14,64 @@ iframe {
     width: 100%;
 }
 
+.orange-text {
+    color: #f88125;
+}
+
+@media screen and (max-width: 767px) {
+    .breadcrumb {
+        margin-top: 20px;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    .highlights-hero {
+        height: 550px !important;
+    }
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    color: #f88125;
+    content: "/";
+}
+
+.breadcrumb-item {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.breadcrumb-item>a,
+.orange-text {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.breadcrumb-item>a:hover,
+.orange-text:hover {
+    color: #fff;
+}
+
+.contentHeroAbout {
+    background: #0f3979ad;
+    padding: 20px;
+    font-size: 1.1em;
+}
+
+.main-title-abouts {
+    font-size: 32px;
+    font-weight: 600;
+}
+
 /* 
 ** hero Image
 */
+
+.not-highlights-hero::before {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
 
 .highlights-hero {
     height: 485px;
@@ -29,7 +82,7 @@ iframe {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    background: #124797;
+    background: #0f3979;
 }
 
 .highlights-hero img {
@@ -41,8 +94,6 @@ iframe {
 }
 
 .highlights-hero::before {
-    -webkit-box-shadow: inset 0 0 140px 45px #000;
-    box-shadow: inset 0 0 140px 45px #000;
     position: absolute;
     top: 0;
     left: 0;
@@ -62,9 +113,9 @@ iframe {
 
 div.scrollmenu {
     background-color: transparent;
-    overflow: auto;
-    border-top: 2px solid #fff;
-    border-bottom: 2px solid #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    width: 1024px;
 }
 
 div.scrollmenu a {
@@ -74,12 +125,13 @@ div.scrollmenu a {
     padding: 0px 10px;
     text-decoration: none;
     font-weight: 600;
-    border-right: 2px solid #fff;
-    margin: 15px auto;
+    border-right: 1px solid #fff;
+    margin: 5px auto;
+    font-size: 14px;
 }
 
 div.scrollmenu a:hover {
-    color: #0f3979;
+    background: #0f3979;
 }
 
 /* 
@@ -150,38 +202,146 @@ if ($contentData->uri != 'presidents-office') {
 }
 ?>
 <?php 
-    $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
-    $urlArray = explode('/', $parse_url);
+    $whitelist = array('127.0.0.1', "::1", "localhost");
+    if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+        $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+        $urlArray = explode('/', $parse_url);
 
-    $end_urls = ['history', 'networks', 'leadership-and-staff', 'career-opportunities', 'logo-use-standards'];
+        $getUrlArray = array_slice($urlArray, 4, 5);
+
+        $urlString = implode('/', $getUrlArray);
+        
+    } else {
+        $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+        $urlArray = explode('/', $parse_url);
+
+        $getUrlArray = array_slice($urlArray, 1, 5);
+
+        $urlString = implode('/', $getUrlArray);
+    }
+    
 ?>
 <div class="bg-light-blue pt-5">
-    <div class="container-fluid px-0">
+    <div class="container-fluid px-0 mt-2">
         <div class="row position-relative">
-            <div class="highlights-hero research-topic-cover w-100">
-                <img src="<?= base_url(); ?>v6/assets/Images/About/cover_2.png">
+            <?php 
+                if (!empty($contentData->banner_image)) {
+                    $img_banner = '<img src="'.base_url().$contentData->banner_image.'">';
+                    $highlight_shadow = 'highlights-hero';
+                    $box_content_shadow = '';
+                    $media_query_css = '<style>
+                        @media screen and (max-width: 767px) {
+                            .contentHeroAbout {
+                                background: none;
+                                padding: 0;
+                                font-size: 1.1em;
+                                margin-bottom: 15% !important;
+                            }
 
-            </div>
+                            #menuAbout {
+                                background: #0f397942;
+                                height: auto;
+                                bottom: 0;
+                                top: 0;
+                            }
+
+                            #rowMenu {
+                                margin-top: 15%;
+                                padding-right: 15px;
+                                padding-left: 15px;
+                            }
+
+                        }
+                    </style>';
+                } else {
+                    $img_banner = '';
+                    $highlight_shadow = 'not-highlights-hero highlights-hero';
+                    $box_content_shadow = '<style>
+                        .contentHeroAbout {
+                            background: none;
+                            padding: 20px 0;
+                            font-size: 1.1em;
+                        }
+                    </style>';
+                    $media_query_css = '<style>
+                        @media screen and (max-width: 767px) {
+                            #menuAbout {
+                                background: none;
+                                height: auto;
+                                top: 0;
+                                bottom: 0;
+                            }
+
+                            #rowMenu {
+                                margin-top: 25%;
+                                padding-right: 10px;
+                                padding-left: 10px;
+                            }
+                        }
+                    </style>';
+                }
+
+                echo $media_query_css;
+                echo $box_content_shadow;
+                echo '<div class="'.$highlight_shadow.' research-topic-cover w-100">';
+                    echo $img_banner;
+                echo '</div>';
+            ?>
             <div id="menuAbout" class="position-absolute menu-position">
                 <div class="container">
-                    <div class="row mx-3">
-                        <div class="col-lg-8  col-12 mb-3 contentHeroBanner">
-                            <h2 class="main-title mb-3" style="color:#fff;">Logo Use Standards</h2>
-                            <p class="description mb-4" style="color:#fff;">
-                                when an unknown printer took a galley of type and
-                                scrambled it to
-                                make a type
-                                specimen book. It has survived not only five centuries, but also the leap into
-                                electronic typesetting, remaining essentially unchanged.
-                            </p>
+                    <div class="row mx-0">
+                        <div class="col-md-8 mx-0 px-1">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb bg-transparent px-0">
+                                    <li class="breadcrumb-item align-items-center">
+                                        <a href="<?= base_url(); ?>" class="orange-text text-uppercase">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                fill="currentColor" class="bi bi-house mb-1" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        <a href="<?= base_url().'about-us/'; ?>" class="orange-text text-uppercase">
+                                            ABOUT US
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="<?= base_url().'about-us/'.$getUrlArray[count($getUrlArray)-1]; ?>"
+                                            class="orange-text text-uppercase">
+                                            <?= str_replace('-', ' ', strtoupper($getUrlArray[count($getUrlArray)-1])); ?>
+                                        </a>
+                                    </li>
+                                </ol>
+                            </nav>
                         </div>
-                        <div class="col-lg-12 col-12 pl-0 pr-0">
+                    </div>
+                    <div id="rowMenu" class="row mx-1">
+                        <div class="col-lg-8 col-12 mb-3 contentHeroAbout" style="color:#fff !important;">
+                            <h2 class="main-title-abouts mb-3" style="color:#fff;">
+                                <?= $contentData->title; ?>
+                            </h2>
+                            <?= ucwords($contentData->short_desc); ?>
+                        </div>
+                        <div class="col-lg-12 col-12 pl-0 pr-0" style="overflow:auto;width:100%;">
                             <div class="scrollmenu">
-                                <a href="<?= base_url().'about-us/history'; ?>">History</a>
-                                <a href="<?= base_url().'about-us/leadership-and-staff'; ?>">Leadership and Staff</a>
-                                <a href="<?= base_url().'about-us/networks'; ?>">Networks</a>
-                                <a href="<?= base_url().'about-us/career-opportunities'; ?>">Career Opportunities</a>
-                                <a href="<?= base_url().'about-us/logo-use-standards'; ?>">Logo Standards Use</a>
+                                <?php 
+                                    $pages_sub = $this->header->getSubPageByPageId($contentData->page_id);
+                                    
+                                    if (!empty($pages_sub)) {
+                                        foreach ($pages_sub as $key => $value) {
+                                            echo '<a href="'.base_url().$urlString.'/'.$value->uri.'">'.$value->title.'</a>';
+                                        }
+                                    } else {
+                                        $aboutus = $this->header->getPageAllAboutPage();
+
+                                        foreach ($aboutus as $key => $value) {
+                                            echo '<a href="'.base_url().'about-us/'.$value->uri.'">'.$value->title.'</a>';
+                                        }
+                                    }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -190,112 +350,18 @@ if ($contentData->uri != 'presidents-office') {
         </div>
     </div>
 </div>
-<div class="container mt-5 experts-detail-page history-page mb-5">
+<div class="container mt-4 experts-detail-page history-page mb-5">
     <div class="row">
         <!-- right section -->
-        <div class="col-md-12 col-12 author-detail">
-            <div class="experts-page-title pb-3 mb-3"><?= ucfirst($contentData->title); ?></div>
+        <div class="col-md-8 col-12">
+            <div class="experts-page-title pb-3 mb-3 d-none"><?= ucwords($contentData->title); ?></div>
             <div class="about-content">
-
                 <?php
                     $content_details = $contentData->content;
 
                     echo $content_details;
                 ?>
             </div>
-
-            <!-- If organisational-structure showing -->
-            <?php if ($contentData->uri == 'organisational-structure') { ?>
-            <?php foreach ($areaList as $key => $value) { ?>
-            <?php
-                $departement = $this->frontModel->getDepartementByID($value->departement_id);
-                
-            ?>
-            <div style="position: relative;">
-                <button
-                    class="career-op-collapse pub-tc d-flex justify-content-between"><?= strtoupper($departement->name); ?>
-                    <i class="fa fa-angle-down"></i>
-                </button>
-                <div style="padding-left: 12px; " class="careeropcontent pt-2">
-                    <?php 
-                        $all_peoples[$key] = $this->frontModel->getPeopleInOrganizationStructure($value->oid);
-                        
-                        foreach ($all_peoples[$key] as $i => $value) {
-                            echo '<p><a href="'.base_url().'experts/'.$value->uri.'" style="text-decoration: underline;color:var(--primaryBlue);">'.ucfirst($value->title).'</a>, '.ucfirst($value->major).'</p>';
-                        }
-                    ?>
-                </div>
-            </div>
-            <?php } ?>
-            <?php } ?>
-            <!-- If career-opportunities showing -->
-            <?php if ($contentData->uri == 'career-opportunities') { ?>
-            <?php
-
-                $Url = (@$_SERVER["HTTPS"] == "on") ? "https://" : "http://";
-                $Url .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
-
-                ?>
-            <?php foreach ($careers as $careers) { ?>
-            <!-- Collapse one -->
-            <button class="career-op-collapse pub-tc"> <?= $careers['title'] ?>
-                <i class="fa fa-angle-down float-right"></i>
-                <div style="clear:both;"></div>
-            </button>
-            <div style="padding-left: 12px; " class="careeropcontent pt-2">
-                <?= $careers['content'] ?>
-                <div class="row mt-4 authors mb-3">
-                    <div class="col-md-12">
-                        <div class="social-media-icons">
-                            <span>Shared article</span>
-                            <span>
-                                <a href="http://www.facebook.com/sharer.php?u=<?php echo $Url ?>" target="_blank">
-                                    <img src="<?= base_url() ?>resources/images/SocialMedia/facebook-icon.png">
-                                </a>
-                            </span>
-                            <span>
-                                <a target="_blank" href="https://twitter.com/share?url=<?php echo $Url; ?>">
-                                    <img src="<?= base_url() ?>resources/images/SocialMedia/twitter-icon.png">
-                                </a>
-                            </span>
-                            <span>
-                                <a target="_blank"
-                                    href="http://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $Url; ?>">
-                                    <img src="<?= base_url() ?>resources/images/SocialMedia/linkdin-icon.png">
-                                </a>
-                            </span>
-                            <span>
-                                <a target="_blank" href="https://www.instagram.com/sharer.php?u=<?php echo $Url; ?>">
-                                    <img src="<?= base_url() ?>resources/images/SocialMedia/instagram-icon.png">
-                                </a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-            <?php } ?>
-
-            <!-- If organisations-we-work-with showing -->
-            <?php if ($contentData->uri == 'organisations-we-work-with') { ?>
-            <div class="container">
-                <div class="row">
-                    <?php foreach ($organizationWeWorksWith as $value) { ?>
-                    <div class="col-md-6">
-                        <figure class="bg-light-blue p-3">
-                            <img src="<?php echo base_url().$value->image_name; ?>" style="width:auto;height:54px;"
-                                alt="Association of Southeast Asian Nations">
-                            <div class="upcoming-card-body bottom-0 pt-3 bg-light-blue">
-                                <h5 style="font-size: 14px;font-weight: bold;color: #0f3979;">
-                                    <?= ucfirst($value->title); ?></h5>
-
-                            </div>
-                        </figure>
-                    </div>
-                    <?php } ?>
-                </div>
-            </div>
-            <?php } ?>
         </div>
     </div>
 </div>
