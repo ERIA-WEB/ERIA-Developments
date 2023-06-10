@@ -56,76 +56,19 @@ function limit_words($text, $limit)
                                 </svg>
                             </a>
                             <?php
-                            $aboutus = $this->header->getPageAllAboutMenu();
+                            $aboutus = $this->header->getPageAllAboutPage();
                             ?>
                             <div class="dropdown-menu-container">
                                 <ul class="dropdown-menu-items mb-0 list-unstyled">
-                                    <li class="mb-3">
-                                        <a href="<?= base_url(); ?>about-us/history">
-                                            History
-                                        </a>
-                                    </li>
-                                    <li class="mb-3">
-                                        <a href="<?= base_url(); ?>about-us/history" class="mb-2">
-                                            Leadership and Staff
-                                        </a>
-                                        <ul class="mt-2" style="list-style-type: none;">
-                                            <li class="mb-2">
-                                                <a href="#">Organizational Structure</a>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">President’s Office</a>
-                                                <ul class="mt-2" style="list-style-type: none;">
-                                                    <li class="mb-2">
-                                                        <a href="#">Message from the President</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">Governing Board</a>
-                                                <ul class="mt-2" style="list-style-type: none;">
-                                                    <li class="mb-2">
-                                                        <a href="#">Messages from the Board</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">Academic Advisory Council</a>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">Experts</a>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">Key Staff</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="mb-3">
-                                        <a href="<?= base_url(); ?>about-us/networks" class="mb-2">
-                                            Networks
-                                        </a>
-                                        <ul class="mt-2" style="list-style-type: none;">
-                                            <li class="mb-2">
-                                                <a href="#">Research Institutes Network</a>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">ERIN</a>
-                                            </li>
-                                            <li class="mb-2">
-                                                <a href="#">Organization We Work With</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="mb-3">
-                                        <a href="<?= base_url(); ?>about-us/networks" class="mb-2">
-                                            Career Opportunities
-                                        </a>
-                                    </li>
-                                    <li class="mb-3">
-                                        <a href="<?= base_url(); ?>about-us/networks" class="mb-2">
-                                            Logo Standards Use
-                                        </a>
-                                    </li>
+                                    <?php 
+                                    foreach ($aboutus as $key => $value) {
+                                        echo '<li class="mb-3">
+                                                <a href="'.base_url().'about-us/'.$value->uri.'">
+                                                    '.$value->title.'
+                                                </a>
+                                            </li>';
+                                    }
+                                    ?>
                                 </ul>
                                 <ul class="dropdown-menu-items mb-0 list-unstyled d-none">
                                     <?php foreach ($aboutus as $key => $value) { ?>
