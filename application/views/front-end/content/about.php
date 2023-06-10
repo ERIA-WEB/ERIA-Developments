@@ -322,7 +322,7 @@ a#forward {
     <div class="container-fluid anual-report mb-5">
         <div class="container">
             <div class="row pt-5">
-                <div class="col-md-6 col-12">
+                <div class="col-md-4 col-12">
                     <div class="anual-report-card text-white">
                         <div style="opacity: 0.5" class="title mb-3">
                             <?php echo $ac->hig_menu1 ?>
@@ -334,7 +334,7 @@ a#forward {
                         </a>
                     </div>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-md-4 col-12">
                     <div class="anual-report-card text-white">
                         <div style="opacity: 0.5" class="title mb-3">
                             <?php echo $ac->hig_menu2 ?>
@@ -342,6 +342,18 @@ a#forward {
                         <h3 class="main-title pb-4"> <?php echo $ac->hig_menu_h2 ?> </h3>
                         <a style="color: #fff;" href="<?php echo $ac->hig_menu_b2_link ?>">
                             <div class="view-more"> <?php echo $ac->hig_menu_b2 ?> <span
+                                    class="fa fa-angle-right"></span></div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <div class="anual-report-card text-white">
+                        <div style="opacity: 0.5" class="title mb-3">
+                            <?php echo $ac->hig_menu3 ?>
+                        </div>
+                        <h3 class="main-title pb-4"> <?php echo $ac->hig_menu_h3 ?> </h3>
+                        <a style="color: #fff;" href="<?php echo $ac->hig_menu_b3_link ?>">
+                            <div class="view-more"> <?php echo $ac->hig_menu_b3 ?> <span
                                     class="fa fa-angle-right"></span></div>
                         </a>
                     </div>
