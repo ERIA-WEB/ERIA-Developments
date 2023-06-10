@@ -2063,6 +2063,136 @@ class headerModel extends CI_Model
         return $results;
     }
 
+    function getPageAllAboutPage()
+    {
+        $key = "get_Page_All_About_Page_".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('pages.*');
+                $this->db->where('parent_id', '7');
+                $this->db->where('published', '1');
+                $this->db->where('is_delete !=', '1');
+                $this->db->order_by('order_id', 'ASC');
+                $data = $this->db->get('pages');
+                
+                $results = $data->result();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+        
+    }
+
+    function getPageAllSubAboutPage($page_id)
+    {
+        $key = "get_Page_All_About_Page_".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('pages_sub.*');
+                $this->db->where('parent_id', '7');
+                $this->db->where('page_id', $page_id);
+                $this->db->where('published', '1');
+                $this->db->order_by('order_id', 'ASC');
+                $data = $this->db->get('pages_sub');
+                
+                $results = $data->result();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+    }
+
+    function getPageAllSubChildAboutPage($page_sub_id)
+    {
+        $key = "get_Page_All_About_Page_".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('pages_sub_child.*');
+                $this->db->where('parent_id', '7');
+                $this->db->where('page_sub_id', $page_sub_id);
+                $this->db->where('published', '1');
+                $this->db->order_by('order_id', 'ASC');
+                $data = $this->db->get('pages_sub_child');
+                
+                $results = $data->result();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+    }
+
+    function getSubPageByPageId($page_id)
+    {
+        $key = "getSubPageByPageId_".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('pages_sub.*');
+                $this->db->where('page_id', $page_id);
+                $this->db->where('parent_id', '7');
+                $this->db->where('published', '1');
+                $this->db->order_by('order_id', 'ASC');
+                $data = $this->db->get('pages_sub');
+                
+                $results = $data->result();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+    }
+
+    function getSubChildPageBySubPageId($page_sub_id)
+    {
+        $key = "getSubChildPageBySubPageId_".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            try {
+                $this->db->select('pages_sub_child.*');
+                $this->db->where('page_sub_id', $page_sub_id);
+                $this->db->where('published', '1');
+                $this->db->order_by('order_id', 'ASC');
+                $data = $this->db->get('pages_sub_child');
+                
+                $results = $data->result();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
+    }
+
     function getPageAllAboutMenu()
     {
         try {
