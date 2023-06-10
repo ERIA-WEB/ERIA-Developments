@@ -85,15 +85,17 @@ section.box {
                                         <fieldset>
                                             <div class="masonry-gallery">
                                                 <div class="masonry-thumb">
-                                                    <?php $path = (!isset($slider_row->image_name)) ? "/uploads/events/slider.jpg" : $slider_row->image_name;
+                                                    <?php 
+                                                    $path = (!isset($slider_row->image_name)) ? "/uploads/events/slider.jpg" : $slider_row->image_name;
+                                                    
                                                     if ($path == "") {
-                                                        $path = "/uploads/events/slider.jpg";
+                                                        $path = base_url() . "/uploads/events/slider.jpg";
                                                     } else {
-                                                        $path = $path;
+                                                        $path = base_url() . $path;
                                                     }
                                                     ?>
-                                                    <img id="placeholder" class="grayscale"
-                                                        src="<?php echo base_url(); ?><?php echo $path; ?>">
+                                                    <img id="placeholder" class="img grayscale"
+                                                        src="<?php echo $path; ?>" style="width:100%;">
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -124,13 +126,15 @@ section.box {
                                             <div class="controls">
                                                 <label for="upload_image">
                                                     <?php 
-                                                        if (!empty($slider_row->image_name_2)) {
-                                                            $path = $slider_row->image_name_2;
+                                                        
+                                                        if (file_exists(FCPATH . $slider_row->image_name_2) AND !empty($slider_row->image_name_2)) {
+                                                            $path_thumbnail = base_url() . $slider_row->image_name_2;
                                                         } else {
-                                                            $path = "/uploads/slides/slider.jpg";
+                                                            $path_thumbnail = base_url() . "/uploads/slides/slider.jpg";
                                                         }
+
                                                     ?>
-                                                    <img src="<?= base_url() . $path ?>" id="uploaded_image"
+                                                    <img src="<?= $path_thumbnail ?>" id="uploaded_image"
                                                         class="img-responsive" style="width:350px;height:200px;" />
                                                     <div class="overlay">
                                                         <div class="text">Click to Upload Image thumbnails</div>
