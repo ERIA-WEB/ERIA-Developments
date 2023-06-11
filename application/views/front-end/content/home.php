@@ -73,7 +73,9 @@ function limit_text($text, $limit, $link = null)
             </style>
 
             <div class="imgCov">
-                <img class="img-fluid imgBanner" src="<?= "." . $slider->image_name; ?>" alt="<?= $slider->heading; ?>">
+                <img class="img-fluid imgBanner"
+                    src="<?= base_url() .'get_compress_slider.php?im='. $slider->image_name; ?>"
+                    alt="<?= $slider->heading; ?>">
                 <div class="mobileCarouselCaption text-left">
                     <div class="mobileBoxCarouselCaption">
                         <div class="container pl-1">
@@ -224,12 +226,12 @@ function limit_text($text, $limit, $link = null)
                         <?php
                             if (!empty($news['image_name'])) {
                                 if (file_exists(FCPATH . $news['image_name'])) {
-                                    $img = base_url() . $news['image_name'];
+                                    $img = base_url() .'get_share_image.php?im='. $news['image_name'];
                                 } else {
                                     $img = "https://www.eria.org" . $news['image_name'];
                                 }
                             } else {
-                                $img = base_url() . 'upload/news.jpg';
+                                $img = base_url() .'get_share_image.php?im='. 'upload/news.jpg';
                             }
                         ?>
                         <div class="col-md-6 recent-update-wrapper">
@@ -433,7 +435,7 @@ function limit_text($text, $limit, $link = null)
                         ?>
                         <?php
                             if (file_exists(FCPATH . $categories->image_name)) {
-                                $img = base_url() . $categories->image_name;
+                                $img = base_url() .'get_share_image.php?im='. $categories->image_name;
                             } else {
                                 $img = "https://www.eria.org" . $categories->image_name;
                             }
@@ -541,7 +543,7 @@ function limit_text($text, $limit, $link = null)
                         ?>
                         <?php
                             if (file_exists(FCPATH . $pub['image_name'])) {
-                                $img = base_url() . $pub['image_name'];
+                                $img = base_url() .'get_thumbs.php?im='. $pub['image_name'];
                             } else {
                                 $img = "https://www.eria.org" . $pub['image_name'];
                             }
