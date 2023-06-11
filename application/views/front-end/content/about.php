@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/about-update.css">
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/history-update.css">
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/dabase-update.css">
+<link href="<?php echo base_url() ?>v6/css/about-update.css">
+<link href="<?php echo base_url() ?>v6/css/history-update.css">
+<link href="<?php echo base_url() ?>v6/css/dabase-update.css">
 <style>
 .active_ {
     background: #0e3680 !important;
@@ -193,21 +193,300 @@ a#forward {
     }
 }
 </style>
+<style>
+.orange-text {
+    color: #f88125;
+}
 
-<div class="research-page about-page section-top">
-    <!-- head title and cards -->
-    <div class="about-topic bg-light-blue py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h3 class="second-title text-blue">
-                        <?php echo $pc->content ?>
-                    </h3>
+.about-content {
+    overflow: auto;
+}
+
+@media screen and (max-width: 767px) {
+    .breadcrumb {
+        margin-top: 20px;
+        padding-right: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    .highlights-hero {
+        height: 550px !important;
+    }
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    color: #f88125;
+    content: "/";
+}
+
+.breadcrumb-item {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.breadcrumb-item>a,
+.orange-text {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.breadcrumb-item>a:hover,
+.orange-text:hover {
+    color: #fff;
+}
+
+.contentHeroAbout {
+    background: #0f3979ad;
+    padding: 20px;
+    font-size: 1.1em;
+}
+
+.main-title-abouts {
+    font-size: 32px;
+    font-weight: 600;
+}
+
+/* 
+** hero Image
+*/
+
+.not-highlights-hero::before {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+.highlights-hero {
+    height: 485px;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background: #0f3979;
+}
+
+.highlights-hero img {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+}
+
+.highlights-hero::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 1;
+}
+
+
+.menu-position {
+    bottom: 35px;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+div.scrollmenu {
+    background-color: transparent;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    width: 1024px;
+}
+
+div.scrollmenu a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 0px 10px;
+    text-decoration: none;
+    font-weight: 600;
+    border-right: 1px solid #fff;
+    margin: 5px auto;
+    font-size: 14px;
+}
+
+div.scrollmenu a:hover {
+    background: #0f3979;
+}
+
+/* 
+** End
+*/
+</style>
+<?php 
+    $whitelist = array('127.0.0.1', "::1", "localhost");
+    if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+        $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+        $urlArray = explode('/', $parse_url);
+
+        $getUrlArray = array_slice($urlArray, 4, 5);
+
+        $urlString = implode('/', $getUrlArray);
+        
+    } else {
+        $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+        $urlArray = explode('/', $parse_url);
+
+        $getUrlArray = array_slice($urlArray, 1, 5);
+
+        $urlString = implode('/', $getUrlArray);
+    }
+    
+?>
+<div class="research-page about-page">
+    <div class="bg-light-blue pt-5">
+        <div class="container-fluid px-0 mt-2">
+            <div class="row position-relative">
+                <?php 
+                if (!empty($contentData->banner_image)) {
+                    $img_banner = '<img src="'.base_url().$contentData->banner_image.'">';
+                    $highlight_shadow = 'highlights-hero';
+                    $box_content_shadow = '';
+                    $media_query_css = '<style>
+                        div.scrollmenu a:hover {
+                            background: #0f3979;
+                        }
+                        
+                        @media screen and (max-width: 767px) {
+                            .contentHeroAbout {
+                                background: none;
+                                padding: 0;
+                                font-size: 1.1em;
+                                margin-bottom: 15% !important;
+                            }
+
+                            #menuAbout {
+                                background: #0f397942;
+                                height: auto;
+                                bottom: 0;
+                                top: 0;
+                            }
+
+                            #rowMenu {
+                                margin-top: 15%;
+                                padding-right: 15px;
+                                padding-left: 15px;
+                            }
+
+                        }
+                    </style>';
+                } else {
+                    $img_banner = '';
+                    $highlight_shadow = 'not-highlights-hero highlights-hero';
+                    $box_content_shadow = '<style>
+                        div.scrollmenu a:hover {
+                            background: #fff;
+                            color: #0f3979;
+                        }
+                        
+                        .contentHeroAbout {
+                            background: none;
+                            padding: 20px 0;
+                            font-size: 1.1em;
+                        }
+                    </style>';
+                    $media_query_css = '<style>
+                        @media screen and (max-width: 767px) {
+                            #menuAbout {
+                                background: none;
+                                height: auto;
+                                top: 0;
+                                bottom: 0;
+                            }
+
+                            #rowMenu {
+                                margin-top: 25%;
+                                padding-right: 10px;
+                                padding-left: 10px;
+                            }
+                        }
+                    </style>';
+                }
+
+                echo $media_query_css;
+                echo $box_content_shadow;
+                echo '<div class="'.$highlight_shadow.' research-topic-cover w-100">';
+                    echo $img_banner;
+                echo '</div>';
+            ?>
+                <div id="menuAbout" class="position-absolute menu-position">
+                    <div class="container">
+                        <div class="row mx-0">
+                            <div class="col-md-8 mx-0 px-1">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb bg-transparent px-0">
+                                        <li class="breadcrumb-item align-items-center">
+                                            <a href="<?= base_url(); ?>" class="orange-text text-uppercase">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    fill="currentColor" class="bi bi-house mb-1" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a href="<?= base_url().'about-us/'.$getUrlArray[count($getUrlArray)-1]; ?>"
+                                                class="orange-text text-uppercase">
+                                                <?= str_replace('-', ' ', strtoupper($getUrlArray[count($getUrlArray)-1])); ?>
+                                            </a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                        <div id="rowMenu" class="row mx-1">
+                            <div class="col-lg-8 col-12 mb-3 contentHeroAbout" style="color:#fff !important;">
+                                <h2 class="main-title-abouts mb-3" style="color:#fff;">
+                                    <?= $contentData->title; ?>
+                                </h2>
+                                <?= $contentData->content; ?>
+                            </div>
+                            <div class="col-lg-12 col-12 pl-0 pr-0" style="overflow:auto;width:100%;">
+                                <div class="scrollmenu">
+                                    <?php 
+                                    $pages_sub = $this->header->getSubPageByPageId($contentData->page_id);
+                                    
+                                    if (!empty($pages_sub)) {
+                                        $numItems = count($pages_sub);
+                                        foreach ($pages_sub as $key => $value) {
+                                            if(++$key === $numItems) {
+                                                $style_css = 'style="border-right: none;"';
+                                            } else {
+                                                $style_css = '';
+                                            }
+                                            echo '<a href="'.base_url().$urlString.'/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
+                                        }
+                                    } else {
+                                        $aboutus = $this->header->getPageAllAboutPage();
+                                        $numItems = count($aboutus);
+                                        foreach ($aboutus as $key => $value) {
+                                            if(++$key === $numItems) {
+                                                $style_css = 'style="border-right: none;"';
+                                            } else {
+                                                $style_css = '';
+                                            }
+                                            echo '<a href="'.base_url().'about-us/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
+                                        }
+                                    }
+                                ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- content -->
     <div class="container about-content py-4 my-4">
         <div class="row main-content">
@@ -227,7 +506,8 @@ a#forward {
                     </p>
                 </div>
                 <div class="center-button">
-                    <a href="<?php echo base_url() ?>presidents-office" class="btn third-button mb-4 px-4 mt-4">Read
+                    <a href="<?php echo base_url() ?>about-us/leadership-and-staff/presidents-office/message-from-the-president"
+                        class="btn third-button mb-4 px-4 mt-4">Read
                         more</a>
                 </div>
             </div>
@@ -275,7 +555,7 @@ a#forward {
                     <p class="px-lg-5 mx-0">
                         <?php echo $ac->discription ?>
                     </p>
-                    <a href="<?php echo base_url() ?>History" class="btn second-button mb-4 mt-2">
+                    <a href="<?php echo base_url() ?>about-us/history" class="btn second-button mb-4 mt-2">
                         <?php echo $ac->buttonn ?></a>
                 </div>
             </div>
@@ -287,7 +567,8 @@ a#forward {
                             <div class="details mb-3"> <?php echo $ac->he1_dis ?> </div>
                             <a href="<?php echo $ac->he1_link ?> ">
                                 <div class="view-more"> <?php echo $ac->he1_butt ?> <span
-                                        class="fa fa-angle-right"></span> </div>
+                                        class="fa fa-angle-right"></span>
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -330,7 +611,8 @@ a#forward {
                         <h3 class="main-title pb-4"> <?php echo $ac->hig_menu_h1 ?> </h3>
                         <a style="color: #fff;" href="<?php echo $ac->hig_menu_b1_link ?>">
                             <div class="view-more"> <?php echo $ac->hig_menu_b1 ?> <span
-                                    class="fa fa-angle-right"></span></div>
+                                    class="fa fa-angle-right"></span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -342,7 +624,8 @@ a#forward {
                         <h3 class="main-title pb-4"> <?php echo $ac->hig_menu_h2 ?> </h3>
                         <a style="color: #fff;" href="<?php echo $ac->hig_menu_b2_link ?>">
                             <div class="view-more"> <?php echo $ac->hig_menu_b2 ?> <span
-                                    class="fa fa-angle-right"></span></div>
+                                    class="fa fa-angle-right"></span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -354,7 +637,8 @@ a#forward {
                         <h3 class="main-title pb-4"> <?php echo $ac->hig_menu_h3 ?> </h3>
                         <a style="color: #fff;" href="<?php echo $ac->hig_menu_b3_link ?>">
                             <div class="view-more"> <?php echo $ac->hig_menu_b3 ?> <span
-                                    class="fa fa-angle-right"></span></div>
+                                    class="fa fa-angle-right"></span>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -539,11 +823,11 @@ a#forward {
             </div>
         </div>
     </div>
-
-    <!-- Latest Publications -->
-    <!-- Related Articles -->
-    <?php $this->load->view('front-end/content/relateds/publications_related'); ?>
-    <!-- END -->
+</div>
+<!-- Latest Publications -->
+<!-- Related Articles -->
+<?php $this->load->view('front-end/content/relateds/publications_related'); ?>
+<!-- END -->
 </div>
 
 
