@@ -91,23 +91,52 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                     if (!empty($breadcrumb)) {
                         if ($breadcrumb == 'research') {
                             echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="' . base_url() . $breadcrumb .'/">
+                                        <a href="' . base_url() . $breadcrumb .'/" class="text-uppercase">
                                             Research
                                         </a>
                                     </li>';
                             
+                            if (in_array('asean', $urlArray)) {
+                                echo '<li class="breadcrumb-item" aria-current="page">
+                                        <a href="' . base_url() . $breadcrumb .'/topic/asean/all" class="text-uppercase">
+                                            ASEAN
+                                        </a>
+                                    </li>';
+                                $asean = 'asean/';
+                                $slug_research = ucfirst(end($urlArray));
+                                $text_breadcrumb = ucfirst(end($urlArray));
+                            } else {
+                                $asean = '';
+                                $slug_research = strtolower(end($urlArray));
+                                $text_breadcrumb = ucwords(end($urlArray));
+                            }
+                            
+                            if (end($urlArray) != 'all') {
+                                if (!isset($article) AND empty($article)) {
+                                    
+                                    if (end($urlArray) != 'index.php' AND end($urlArray) != 'research') {
+                                        echo '<li class="breadcrumb-item" aria-current="page">
+                                                    <a href="'.base_url() .'research/topic/'. $asean . $slug_research .'" class="text-uppercase">
+                                                        '.str_replace(array('%20', '-'), ' ', $text_breadcrumb).'
+                                                    </a>
+                                                </li>';
+                                    }
+                                }
+                            }
+                            
+                            
                         } elseif ($breadcrumb == 'database-and-programmes') {
                             
                             echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="' . base_url() . 'database-and-programmes/' . '">
+                                        <a href="' . base_url() . 'database-and-programmes/' . '" class="text-uppercase">
                                             Programmes 
-                                            </a>
+                                        </a>
                                     </li>';
 
                             if (!isset($article) AND empty($article)) {
                                 if (end($urlArray) != 'index.php' AND end($urlArray) != 'database-and-programmes') {
                                     echo '<li class="breadcrumb-item" aria-current="page">
-                                                <a href="'.base_url() .'database-and-programmes/topic/' . strtolower(end($urlArray)).'">
+                                                <a href="'.base_url() .'database-and-programmes/topic/' . strtolower(end($urlArray)).'" class="text-uppercase">
                                                     '.ucfirst(str_replace('-', ' ', end($urlArray))).'
                                                 </a>
                                             </li>';
@@ -116,7 +145,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                             
                         } elseif ($breadcrumb == 'publications') {
                             echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="' . base_url() . 'publications/">
+                                        <a href="' . base_url() . 'publications/" class="text-uppercase">
                                             Publications
                                         </a>
                                     </li>';
@@ -124,7 +153,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                             if (!isset($article) AND empty($article)) {
                                 if (end($urlArray) != 'index.php' AND end($urlArray) != 'publications') {
                                     echo '<li class="breadcrumb-item" aria-current="page">
-                                                <a href="'.base_url() .'publications/category/' . strtolower(end($urlArray)).'">
+                                                <a href="'.base_url() .'publications/category/' . strtolower(end($urlArray)).'" class="text-uppercase">
                                                     '.ucfirst(str_replace('-', ' ', end($urlArray))).'
                                                 </a>
                                             </li>';
@@ -133,7 +162,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                             
                         } elseif ($breadcrumb == 'news-and-views') {
                             echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="' . base_url() . 'news-and-views/' . '">
+                                        <a href="' . base_url() . 'news-and-views/' . '" class="text-uppercase">
                                             Updates 
                                             </a>
                                     </li>';
@@ -146,7 +175,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                         $url_category = 'news-and-views/category/';
                                     }
                                     echo '<li class="breadcrumb-item" aria-current="page">
-                                                <a href="'.base_url() . $url_category . strtolower(end($urlArray)).'">
+                                                <a href="'.base_url() . $url_category . strtolower(end($urlArray)).'" class="text-uppercase">
                                                     '.ucfirst(str_replace('-', ' ', end($urlArray))).'
                                                 </a>
                                             </li>';
@@ -154,38 +183,38 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                             }
                         } elseif ($breadcrumb == 'press-room') {
                                 echo '<li class="breadcrumb-item" aria-current="page">
-                                            <a href="' . base_url() . 'news/press-room/' . '">
+                                            <a href="' . base_url() . 'news/press-room/' . '" class="text-uppercase">
                                                 Press Room 
                                                 </a>
                                         </li>';
                         } elseif ($breadcrumb == 'experts') {
                                 echo '<li class="breadcrumb-item" aria-current="page">
-                                            <a href="' . base_url() . 'experts/' . '">
+                                            <a href="' . base_url() . 'experts/' . '" class="text-uppercase">
                                                 Our People 
                                             </a>
                                         </li>';
                         } elseif ($breadcrumb == 'contact-us') {
                                 echo '<li class="breadcrumb-item" aria-current="page">
-                                            <a href="' . base_url() . 'contact-us/' . '">
+                                            <a href="' . base_url() . 'contact-us/' . '" class="text-uppercase">
                                                 Contact Us
                                             </a>
                                         </li>';
                         } elseif ($breadcrumb == 'events') {
                             echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="' . base_url() . 'events/' . '">
+                                        <a href="' . base_url() . 'events/' . '" class="text-uppercase">
                                             Events 
                                             </a>
                                     </li>';
                         } elseif ($breadcrumb == 'multimedia') {
                             echo '<li class="breadcrumb-item" aria-current="page">
-                                        <a href="' . base_url() . 'multimedia/' . '">
+                                        <a href="' . base_url() . 'multimedia/' . '" class="text-uppercase">
                                             Multimedia 
                                             </a>
                                     </li>';
                             if (end($urlArray) != 'index.php' AND end($urlArray) != 'multimedia') {
                                 if (!isset($article) || empty($article)) {
                                 echo '<li class="breadcrumb-item" aria-current="page">
-                                            <a href="'.base_url() .'multimedia/' . strtolower(end($urlArray)).'">
+                                            <a href="'.base_url() .'multimedia/' . strtolower(end($urlArray)).'" class="text-uppercase">
                                                 '.ucfirst(end($urlArray)).'
                                             </a>
                                         </li>';
@@ -199,7 +228,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                 }
 
                                 echo '<li class="breadcrumb-item" aria-current="page">
-                                            <a href="'.base_url() . strtolower($article->article_type).'/' . strtolower($article->category).'">
+                                            <a href="'.base_url() . strtolower($article->article_type).'/' . strtolower($article->category).'" class="text-uppercase">
                                                 '.ucfirst($category_multimedia).'
                                             </a>
                                         </li>';
@@ -211,7 +240,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                     <?php 
                         if (isset($article) AND !empty($article)) {
                             echo '<li class="breadcrumb-item">
-                                        '.limit_text(str_replace(array('â€™', 'â€˜'), "'", $article->title), 7).'
+                                        <span>'.limit_text(str_replace(array('â€™', 'â€˜'), "'", $article->title), 7).'</span>
                                     </li>';
                         }
                     ?>
