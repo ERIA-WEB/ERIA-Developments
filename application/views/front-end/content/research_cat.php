@@ -18,19 +18,19 @@ function RemoveBS($Str)
     return $NewStr;
 }
 
-function limit_text($text, $limit, $link = null)
-{
-    if (str_word_count($text, 0) > $limit) {
-        $words = str_word_count($text, 2);
-        $pos   = array_keys($words);
-        if ($link) {
-            $text  = substr($text, 0, $pos[$limit]) . '<a href="' . base_url() . $link . '" >[...]</a>';
-        } else {
-            $text  = substr($text, 0, $pos[$limit]) . '[...]';
-        }
-    }
-    return $text;
-}
+// function limit_text($text, $limit, $link = null)
+// {
+//     if (str_word_count($text, 0) > $limit) {
+//         $words = str_word_count($text, 2);
+//         $pos   = array_keys($words);
+//         if ($link) {
+//             $text  = substr($text, 0, $pos[$limit]) . '<a href="' . base_url() . $link . '" >[...]</a>';
+//         } else {
+//             $text  = substr($text, 0, $pos[$limit]) . '[...]';
+//         }
+//     }
+//     return $text;
+// }
 
 ?>
 <style>
@@ -45,9 +45,9 @@ function limit_text($text, $limit, $link = null)
     }
 }
 </style>
+
 <?php if (!empty($research_categories_data)) { ?>
 <!-- Banner Category -->
-
 <section class="research-hero-section position-relative overflow-hidden section-top">
     <div class="research-hero-background">
         <img class="h-100 w-100" src="<?php echo base_url() ?><?= $research_categories_data->image_name ?>"
@@ -65,11 +65,11 @@ function limit_text($text, $limit, $link = null)
     </div>
 
 </section>
-
 <!-- End -->
-<div class="research-page research-topic-page px-3 px-md-0">
-    <div class="container pt-4 pb-4">
-        <h3 class="main-title text-blue py-4">Publications</h3>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="research-page research-topic-page mt-0 px-3 px-md-0">
+    <div class="container pt-0 pb-4">
+        <h3 class="main-title text-blue pt-0 pb-2">Publications</h3>
         <?php $this->load->view('front-end/content/search-publications/searchResearchCategories'); ?>
         <!-- Result Search -->
         <div id="searchResult" class="container-fluid px-0"></div>
