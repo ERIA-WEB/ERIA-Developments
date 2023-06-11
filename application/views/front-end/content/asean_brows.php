@@ -18,23 +18,16 @@
 
 
 @media (min-width: 1200px) {
-
-
     div.loadButton {
         padding-top: 25px !important;
-
     }
-
-
 }
 
 @media only screen and (min-device-width: 869px) and (max-device-width: 1190px) {
 
     div.loadButton {
         padding-top: 25px !important;
-
     }
-
 }
 
 @media only screen and (min-width: 768px) and (max-width: 868px) {
@@ -42,7 +35,6 @@
     div.loadButton {
         padding-top: 25px !important;
         margin-bottom: -30px !important;
-
     }
 
 }
@@ -51,54 +43,36 @@
 
     div.loadButton {
         padding-top: 25px !important;
-
         margin-bottom: -25px !important;
-
     }
 
     .publication-browse-tittle.mb-3 {
-
         padding-top: 27px !important;
     }
 
     .col-md-6.col-xs-12.mb-md-0.mb-2 {
-
         margin-top: -26px !important;
     }
 
     .publication-browsing-heading {
-
         margin-top: 25px !important;
     }
 }
 
 
 .new_publication {
-
-
     position: absolute;
     z-index: 9999;
-
-
-
-
     height: 310px;
-
     overflow: auto;
-
-
-
 }
 
 .new_publication_inside {
-
     border: solid 1px #ced4da;
     border-radius: 8px;
-
 }
 
 .check-btns {
-
     padding: 10px;
 }
 
@@ -121,7 +95,6 @@
 
 
 .publication-collapsible:after {
-
     background-image: url('../../resources/images/SocialMedia/down.png');
     background-size: 20px 20px;
     display: inline-block;
@@ -132,7 +105,6 @@
 }
 
 .publicationactive:after {
-
     background-image: url('../../resources/images/SocialMedia/up.png');
     background-size: 20px 20px;
     display: inline-block;
@@ -142,11 +114,30 @@
     margin-top: 4px !important;
 }
 </style>
+<section class="section-top bg-blue">
+    <div class="container py-3 py-lg-5">
+        <?php 
+            $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+            
+            $urlCategories = explode('/', $parse_url);
+            
+            if (isset($urlArray) || !empty($urlCategories)) {
+                if (end($urlCategories) == 'all') {
+                    $title_head = 'ASEAN';
+                } else {
+                    $g = ucwords(str_replace("_", " ", end($urlCategories)));
+                    $title_head = str_replace(array("-", "%20"), " ", $g);
+                }
+            } else {
+                $title_head = 'ASEAN';
+            }
 
-
-
-
-<div class="container experts-detail-page mb-5 pr-md-5 pr-1 section-top" style="margin-top:50px;">
+            echo '<h1 class="event-title text-white font-merriweather">'.$title_head.'</h1>';
+        ?>
+    </div>
+</section>
+<?php $this->load->view('front-end/content/breadcrumb/breadcrumb'); ?>
+<div class="container experts-detail-page mt-3 mb-5 pr-md-5 pr-1">
     <div class="row">
         <div class="col-md-4 col-12">
             <div class="profile-overView ">
