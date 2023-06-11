@@ -18,6 +18,10 @@ iframe {
     color: #f88125;
 }
 
+.about-content {
+    overflow: auto;
+}
+
 @media screen and (max-width: 767px) {
     .breadcrumb {
         margin-top: 20px;
@@ -226,10 +230,14 @@ if ($contentData->uri != 'presidents-office') {
         <div class="row position-relative">
             <?php 
                 if (!empty($contentData->banner_image)) {
-                    $img_banner = $contentData->banner_image;
+                    $img_banner = '<img src="'.base_url().$contentData->banner_image.'">';
                     $highlight_shadow = 'highlights-hero';
                     $box_content_shadow = '';
                     $media_query_css = '<style>
+                        div.scrollmenu a:hover {
+                            background: #0f3979;
+                        }
+
                         @media screen and (max-width: 767px) {
                             .contentHeroAbout {
                                 background: none;
@@ -257,6 +265,11 @@ if ($contentData->uri != 'presidents-office') {
                     $img_banner = '';
                     $highlight_shadow = 'not-highlights-hero highlights-hero';
                     $box_content_shadow = '<style>
+                        div.scrollmenu a:hover {
+                            background: #fff;
+                            color: #0f3979;
+                        }
+                        
                         .contentHeroAbout {
                             background: none;
                             padding: 20px 0;
@@ -284,7 +297,7 @@ if ($contentData->uri != 'presidents-office') {
                 echo $box_content_shadow;
                 echo $media_query_css;
                 echo '<div class="'.$highlight_shadow.' research-topic-cover w-100">';
-                    echo '<img src="'.base_url().$img_banner.'">';
+                    echo $img_banner;
                 echo '</div>';
             ?>
             <div id="menuAbout" class="position-absolute menu-position">
@@ -327,26 +340,45 @@ if ($contentData->uri != 'presidents-office') {
                     <div id="rowMenu" class="row mx-1">
                         <div class="col-lg-8  col-12 mb-3 contentHeroAbout" style="color:#fff !important;">
                             <h2 class="main-title mb-3" style="color:#fff;">
-                                <?= ucwords($contentData->title); ?>
+                                <?= $contentData->title; ?>
                             </h2>
-                            <?= ucwords($contentData->short_desc); ?>
+                            <?= $contentData->short_desc; ?>
                         </div>
                         <?php 
-                            echo '<div class="col-lg-12 col-12 pl-0 pr-0" style="overflow:auto;width:100%;">
-                                    <div class="scrollmenu">';
                             $pages_sub_child = $this->header->getSubChildPageBySubPageId($contentData->id);
+                            if (!empty($pages_sub_child)) {
+                                $class_d_none = '';
+                            } else {
+                                $class_d_none = 'd-none';
+                            }
+                            
+                            echo '<div class="col-lg-12 col-12 pl-0 pr-0 '.$class_d_none.'" style="overflow:auto;width:100%;">
+                                    <div class="scrollmenu">';
+                            
                             
                             if (count($pages_sub_child) > 0) {
+                                $numItems = count($pages_sub_child);
                                 foreach ($pages_sub_child as $key => $value) {
-                                    echo '<a href="'.base_url().$urlString.'/'.$value->uri.'">'.$value->title.'</a>';
-                                }
-                            } else {
-                                $aboutus = $this->header->getPageAllSubAboutPage($contentData->page_id);
-
-                                foreach ($aboutus as $key => $value) {
-                                    echo '<a href="'.base_url().'about-us/'.$getUrlArray[count($getUrlArray)-2].'/'.$value->uri.'">'.$value->title.'</a>';
+                                    if(++$key === $numItems) {
+                                        $style_css = 'style="border-right: none;"';
+                                    } else {
+                                        $style_css = '';
+                                    }
+                                    echo '<a href="'.base_url().$urlString.'/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
                                 }
                             }
+                            //  else {
+                            //     $aboutus = $this->header->getPageAllSubAboutPage($contentData->page_id);
+                            //     $numItems = count($aboutus);
+                            //     foreach ($aboutus as $key => $value) {
+                            //         if(++$key === $numItems) {
+                            //             $style_css = 'style="border-right: none;"';
+                            //         } else {
+                            //             $style_css = '';
+                            //         }
+                            //         echo '<a href="'.base_url().'about-us/'.$getUrlArray[count($getUrlArray)-2].'/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
+                            //     }
+                            // }
                             
                             echo '  </div>
                                 </div>';
@@ -359,8 +391,14 @@ if ($contentData->uri != 'presidents-office') {
 </div>
 <div class="container mt-4 experts-detail-page history-page mb-5">
     <div class="row">
-        <!-- right section -->
-        <div class="col-md-8 col-12">
+        <?php
+            if (end($getUrlArray) == 'experts' OR end($getUrlArray) == 'key-staff') {
+                $class_content = 'col-md-12 col-12';
+            } else {
+                $class_content = 'col-md-8 col-12';
+            }
+        ?>
+        <div class="<?= $class_content; ?>">
             <div class="experts-page-title pb-3 mb-3 d-none"><?= ucwords($contentData->title); ?></div>
             <div class="about-content">
                 <?php
@@ -370,7 +408,7 @@ if ($contentData->uri != 'presidents-office') {
                 ?>
             </div>
             <?php if (end($getUrlArray) == 'experts') { ?>
-            <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5">
                 <?php foreach ($experts as $content) { ?>
                 <div class="col mb-4">
                     <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
@@ -421,7 +459,7 @@ if ($contentData->uri != 'presidents-office') {
             </div>
             <?php } ?>
             <?php if (end($getUrlArray) == 'key-staff') { ?>
-            <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 mb-4 mt-3">
+            <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5">
                 <?php foreach ($keystaffs as $content) { ?>
                 <div class="col mb-4">
                     <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
