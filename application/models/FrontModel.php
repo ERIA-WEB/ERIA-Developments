@@ -1097,13 +1097,23 @@ class FrontModel extends CI_Model
 
     function getPage_timeline()
     {
-        $this->db->select('*');
-        $this->db->from('eria_timeline');
-        $this->db->where('published', 1);
+        $key = "getPage_timeline".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            $this->db->select('*');
+            $this->db->from('eria_timeline');
+            $this->db->where('published', 1);
 
-        $this->db->order_by('year', 'ASC');
-        $queryT = $this->db->get();
-        return $queryT->result();
+            $this->db->order_by('year', 'ASC');
+            $queryT = $this->db->get();
+            $results = $queryT->result();
+
+                $CachedString->set($results)->expiresAfter($this->timeExpired());
+        } else {
+            $results = $CachedString->get();
+        }
+
+        return $results;
     }
 
     function getPerson($aid, $type, $place)
@@ -3634,16 +3644,26 @@ class FrontModel extends CI_Model
 
     function getPage_content($id)
     {
-        try {
+        $key = "getPage_content".time();
+        $CachedString = $this->InstanceCache->getItem($key);
+        if (!$CachedString->isHit()) {
+            try {
             $this->db->select('*');
             $this->db->where('page_id', $id);
 
             $query = $this->db->get('pages');
 
-            return $query->row();
-        } catch (Exception $err) {
-            return show_error($err->getMessage());
+            $results = $query->row();
+
+            $CachedString->set($results)->expiresAfter($this->timeExpired());
+            } catch (Exception $err) {
+                return show_error($err->getMessage());
+            }
+        } else {
+            $results = $CachedString->get();
         }
+
+        return $results;
     }
 
     function getMultimediaContent($article_type)
