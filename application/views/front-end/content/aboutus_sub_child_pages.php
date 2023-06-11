@@ -18,6 +18,10 @@ iframe {
     color: #f88125;
 }
 
+.about-content {
+    overflow: auto;
+}
+
 @media screen and (max-width: 767px) {
     .breadcrumb {
         margin-top: 20px;
@@ -226,10 +230,14 @@ if ($contentData->uri != 'presidents-office') {
         <div class="row position-relative">
             <?php 
                 if (!empty($contentData->banner_image)) {
-                    $img_banner = $contentData->banner_image;
+                    $img_banner = '<img src="'.base_url().$contentData->banner_image.'">';
                     $highlight_shadow = 'highlights-hero';
                     $box_content_shadow = '';
                     $media_query_css = '<style>
+                        div.scrollmenu a:hover {
+                            background: #0f3979;
+                        }
+
                         @media screen and (max-width: 767px) {
                             .contentHeroAbout {
                                 background: none;
@@ -257,6 +265,11 @@ if ($contentData->uri != 'presidents-office') {
                     $img_banner = '';
                     $highlight_shadow = 'not-highlights-hero highlights-hero';
                     $box_content_shadow = '<style>
+                        div.scrollmenu a:hover {
+                            background: #fff;
+                            color: #0f3979;
+                        }
+                        
                         .contentHeroAbout {
                             background: none;
                             padding: 20px 0;
@@ -284,7 +297,7 @@ if ($contentData->uri != 'presidents-office') {
                 echo $box_content_shadow;
                 echo $media_query_css;
                 echo '<div class="'.$highlight_shadow.' research-topic-cover w-100">';
-                    echo '<img src="'.base_url().$img_banner.'">';
+                    echo $img_banner;
                 echo '</div>';
             ?>
             <div id="menuAbout" class="position-absolute menu-position">
@@ -331,19 +344,24 @@ if ($contentData->uri != 'presidents-office') {
                     <div id="rowMenu" class="row mx-1">
                         <div class="col-lg-8  col-12 mb-3 contentHeroAbout" style="color:#fff !important;">
                             <h2 class="main-title mb-3" style="color:#fff;">
-                                <?= ucwords($contentData->title); ?>
+                                <?= $contentData->title; ?>
                             </h2>
-                            <?= ucwords($contentData->short_desc); ?>
+                            <?= $contentData->short_desc; ?>
                         </div>
                         <?php 
-                            echo '<div class="col-lg-12 col-12 pl-0 pr-0" style="overflow:auto;width:100%;">
+                            echo '<div class="col-lg-12 col-12 pl-0 pr-0 d-none" style="overflow:auto;width:100%;">
                                     <div class="scrollmenu">';
 
-                                $aboutus = $this->header->getPageAllAboutPage();
-
-                                foreach ($aboutus as $key => $value) {
-                                    echo '<a href="'.base_url().'about-us/'.$value->uri.'">'.$value->title.'</a>';
-                                }
+                                // $aboutus = $this->header->getPageAllAboutPage();
+                                // $numItems = count($aboutus);
+                                // foreach ($aboutus as $key => $value) {
+                                //     if(++$key === $numItems) {
+                                //         $style_css = 'style="border-right: none;"';
+                                //     } else {
+                                //         $style_css = '';
+                                //     }
+                                //     echo '<a href="'.base_url().'about-us/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
+                                // }
                             
                             echo '  </div>
                                 </div>';
