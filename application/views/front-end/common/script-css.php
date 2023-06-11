@@ -8,5 +8,5 @@
 <link rel="stylesheet" href="<?php echo base_url() ?>v6/css/header.css">
 <link rel="stylesheet" href="<?php echo base_url() ?>v6/css/custome_wyiswg.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/swiper-bundle.min.css" />
+<script src="<?php echo base_url() ?>v6/assets/js/swiper-bundle.min.js"></script>
