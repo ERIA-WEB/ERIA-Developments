@@ -18,6 +18,10 @@ iframe {
     color: #f88125;
 }
 
+.about-content {
+    overflow: auto;
+}
+
 @media screen and (max-width: 767px) {
     .breadcrumb {
         margin-top: 20px;
@@ -230,6 +234,10 @@ if ($contentData->uri != 'presidents-office') {
                     $highlight_shadow = 'highlights-hero';
                     $box_content_shadow = '';
                     $media_query_css = '<style>
+                        div.scrollmenu a:hover {
+                            background: #0f3979;
+                        }
+
                         @media screen and (max-width: 767px) {
                             .contentHeroAbout {
                                 background: none;
@@ -257,6 +265,11 @@ if ($contentData->uri != 'presidents-office') {
                     $img_banner = '';
                     $highlight_shadow = 'not-highlights-hero highlights-hero';
                     $box_content_shadow = '<style>
+                        div.scrollmenu a:hover {
+                            background: #fff;
+                            color: #0f3979;
+                        }
+                        
                         .contentHeroAbout {
                             background: none;
                             padding: 20px 0;
@@ -323,24 +336,43 @@ if ($contentData->uri != 'presidents-office') {
                             <h2 class="main-title-abouts mb-3" style="color:#fff;">
                                 <?= $contentData->title; ?>
                             </h2>
-                            <?= ucwords($contentData->short_desc); ?>
+                            <?= $contentData->short_desc; ?>
                         </div>
-                        <div class="col-lg-12 col-12 pl-0 pr-0" style="overflow:auto;width:100%;">
+                        <?php 
+                            $pages_sub = $this->header->getSubPageByPageId($contentData->page_id);
+                            if (!empty($pages_sub)) {
+                                $class_d_none = '';
+                            } else {
+                                $class_d_none = 'd-none';
+                            }
+                        ?>
+                        <div class="col-lg-12 col-12 pl-0 pr-0 <?= $class_d_none; ?>" style="overflow:auto;width:100%;">
                             <div class="scrollmenu">
                                 <?php 
-                                    $pages_sub = $this->header->getSubPageByPageId($contentData->page_id);
-                                    
                                     if (!empty($pages_sub)) {
-                                        foreach ($pages_sub as $key => $value) {
-                                            echo '<a href="'.base_url().$urlString.'/'.$value->uri.'">'.$value->title.'</a>';
-                                        }
-                                    } else {
-                                        $aboutus = $this->header->getPageAllAboutPage();
 
-                                        foreach ($aboutus as $key => $value) {
-                                            echo '<a href="'.base_url().'about-us/'.$value->uri.'">'.$value->title.'</a>';
+                                        $numItems = count($pages_sub);
+                                        foreach ($pages_sub as $key => $value) {
+                                            if(++$key === $numItems) {
+                                                $style_css = 'style="border-right: none;"';
+                                            } else {
+                                                $style_css = '';
+                                            }
+                                            echo '<a href="'.base_url().$urlString.'/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
                                         }
                                     }
+                                    //  else {
+                                    //     $aboutus = $this->header->getPageAllAboutPage();
+                                    //     $numItems = count($aboutus);
+                                    //     foreach ($aboutus as $key => $value) {
+                                    //         if(++$key === $numItems) {
+                                    //             $style_css = 'style="border-right: none;"';
+                                    //         } else {
+                                    //             $style_css = '';
+                                    //         }
+                                    //         echo '<a href="'.base_url().'about-us/'.$value->uri.'" '.$style_css.'>'.$value->title.'</a>';
+                                    //     }
+                                    // }
                                 ?>
                             </div>
                         </div>
