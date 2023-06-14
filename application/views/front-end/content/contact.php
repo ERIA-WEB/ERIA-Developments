@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<?php echo base_url() ?>v6/css/about-update.css">
 <link rel="stylesheet" href="<?php echo base_url() ?>v6/css/history-update.css">
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/dabase-update.css">
+<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/database-update.css">
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
 @media (max-width: 767.98px) {
