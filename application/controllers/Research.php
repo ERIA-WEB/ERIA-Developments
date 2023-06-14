@@ -591,7 +591,7 @@ class Research extends CI_Controller
                 ** Get Image
                 */
                 if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                    $img_thumb = base_url() . $mm['image_name'];
+                    $img_thumb = base_url() .'get_share_image.php?im='. $mm['image_name'];
                 } else {
                     $url_image = "https://www.eria.org" . $mm['image_name'];
                     $get_headers = @get_headers($url_image, 1);
@@ -600,10 +600,10 @@ class Research extends CI_Controller
                         if (!empty($mm['image_name'])) {
                             $img_thumb = "https://www.eria.org" . $mm['image_name'];
                         } else {
-                            $img_thumb = base_url() . "upload/Publication.jpg";
+                            $img_thumb = base_url() .'get_share_image.php?im='. "upload/Publication.jpg";
                         }
                     } else {
-                        $img_thumb = base_url() . "upload/Publication.jpg";
+                        $img_thumb = base_url() .'get_share_image.php?im='. "upload/Publication.jpg";
                     }
                 }
                 // if (!empty($mm['image_name'])) {
@@ -669,7 +669,7 @@ class Research extends CI_Controller
                                 <div class="row pt-3 pb-3 pr-3 pl-3">
                                     <div class="col-md-4 col-xs-12 mr-md-2 m-0 p-0" style="text-align: center">
                                         <a href="'. base_url() . "research/" . $mm['uri'] .'">
-                                            <div style=" position: absolute; z-index: -1; top: 0; bottom: unset; left: 0; right: 0; background: url(' . base_url() . $img_thumb . ') center center; opacity: 0.1; width: 100%; height: auto;" class="bg"></div>
+                                            <div style=" position: absolute; z-index: -1; top: 0; bottom: unset; left: 0; right: 0; background: url(' . $img_thumb . ') center center; opacity: 0.1; width: 100%; height: auto;" class="bg"></div>
                                             <img style="width: 100%;height: auto;" class="responsive" src="'. $img_thumb .'">
                                         </a>
                                     </div>
@@ -839,39 +839,39 @@ class Research extends CI_Controller
             
             if (file_exists(FCPATH . $value['image_name'])) {
                 if (!empty($value['image_name'])) {
-                    $img = base_url() . $value['image_name'];
+                    $img = base_url() .'get_share_image.php?im='. $value['image_name'];
                 } else {
-                    $img = base_url() . '/upload/news.jpg';
+                    $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                 }
             } else if (empty($value['image_name'])) {
-                $img = base_url() . '/upload/news.jpg';
+                $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                 if ($value['article_type'] == 'articles') {
-                    $img = base_url() . 'upload/Article.jpg';
+                    $img = base_url() .'get_share_image.php?im='.'/upload/Article.jpg';
                 }
 
                 if ($value['article_type'] == 'publications') {
                     if ($value['pub_type'] == 1) {
-                        $img = base_url() . 'upload/Research_b.jpg';
+                        $img = base_url() .'get_share_image.php?im='.'/upload/Research_b.jpg';
                         $at = "Research";
                     } else {
-                        $img = base_url() . 'upload/Publication.jpg';
+                        $img = base_url() .'get_share_image.php?im='.'/upload/Publication.jpg';
                         $at = "Publications";
                     }
                 }
             } else if ("https://www.eria.org/" . $value['image_name']) {
                 $img = "https://www.eria.org/" . $value['image_name'];
             } else {
-                $img = base_url() . '/upload/news.jpg';
+                $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                 if ($value['article_type'] == 'articles') {
                     $img = base_url() . 'upload/Article.jpg';
                 }
 
                 if ($value['article_type'] == 'publications') {
                     if ($value['pub_type'] == 1) {
-                        $img = base_url() . 'upload/Research_b.jpg';
+                        $img = base_url() .'get_share_image.php?im='.'upload/Research_b.jpg';
                         $at = "Research";
                     } else {
-                        $img = base_url() . 'upload/Publication.jpg';
+                        $img = base_url() .'get_share_image.php?im='.'upload/Publication.jpg';
                         $at = "Publications";
                     }
                 }
