@@ -63,6 +63,11 @@ $route['privacy-policy']                            = 'Privacy/index';
 ** Routing URL About US
 */
 $route['about-us']                                  = 'About_us/index';
+$route['about-us/(:any)']                           = 'About_us/details/$1';
+$route['about-us/(:any)/(:any)']                    = 'About_us/page_sub_detail/$1/$1';
+$route['about-us/(:any)/(:any)/(:any)']             = 'About_us/page_subchild_detail/$1/$1/$1';
+$route['contact-us']                                = 'Contact/index';
+
 $route['governing-board']                           = 'Governing_board/index';
 $route['advisors-to-the-president']                 = 'Advisors_to_the_president/index';
 $route['organisational-structure']                  = 'Organisational_structure/index';
@@ -73,29 +78,26 @@ $route['eria-energy-research-institutes-network']   = 'Rin/energy';
 $route['message-from-secretary-general-of-asean']   = 'Message/details/message-from-secretary-general-of-asean';
 $route['presidents-office']                         = 'Message/president';
 
-$route['about-us/message-from-secretary-general-of-asean']   = 'Message/details/message-from-secretary-general-of-asean';
-$route['about-us/message-from-the-chairman-of-the-governing-board']     = 'About_us/Message_from_the_chairman_of_the_governing_board';
-$route['about-us/messages-from-the-board']                              = 'About_us/Messages_from_the_board';
-$route['about-us/key-staff']                                            = 'Staff/index';
-$route['about-us/(:any)']                                               = 'About_us/details/$1';
-$route['about-us/academic-advisory-council']                            = 'About_us/Academic_advisory_council';
-$route['about-us/logo-use-standards']                                   = 'About_us/Logo_use_standards';
+// $route['about-us/message-from-secretary-general-of-asean']   = 'Message/details/message-from-secretary-general-of-asean';
+// $route['about-us/message-from-the-chairman-of-the-governing-board']     = 'About_us/Message_from_the_chairman_of_the_governing_board';
+// $route['about-us/messages-from-the-board']                              = 'About_us/Messages_from_the_board';
+// $route['about-us/key-staff']                                            = 'Staff/index';
+// $route['about-us/academic-advisory-council']                            = 'About_us/Academic_advisory_council';
+// $route['about-us/logo-use-standards']                                   = 'About_us/Logo_use_standards';
+// $route['about-us/organisations-we-work-with']                = 'About_us/Organisations_we_work_with';
+// $route['about-us/history']                                   = 'History/index';
+// $route['about-us/governing-board']                           = 'Governing_board/index';
+// $route['about-us/advisors-to-the-president']                 = 'Advisors_to_the_president/index';
+// $route['about-us/organisational-structure']                  = 'Organisational_structure/index';
+// $route['about-us/key-staff']                                 = 'Staff/index';
+// $route['about-us/partners-and-networks']                     = 'Partners_and_networks/index';
+// $route['about-us/eria-research-institutes-network']          = 'Rin/index';
+// $route['about-us/eria-energy-research-institutes-network']   = 'Rin/energy';
 
+// $route['about-us/presidents-office']                         = 'Message/president';
+// $route['about-us/career-opportunities']                      = 'Career/index';
+// $route['about-us/contact-us']                                = 'Contact/index';
 
-$route['about-us/organisations-we-work-with']                = 'About_us/Organisations_we_work_with';
-$route['about-us/history']                                   = 'History/index';
-$route['about-us/governing-board']                           = 'Governing_board/index';
-$route['about-us/advisors-to-the-president']                 = 'Advisors_to_the_president/index';
-$route['about-us/organisational-structure']                  = 'Organisational_structure/index';
-$route['about-us/key-staff']                                 = 'Staff/index';
-$route['about-us/partners-and-networks']                     = 'Partners_and_networks/index';
-$route['about-us/eria-research-institutes-network']          = 'Rin/index';
-$route['about-us/eria-energy-research-institutes-network']   = 'Rin/energy';
-
-$route['about-us/presidents-office']                         = 'Message/president';
-$route['about-us/career-opportunities']                      = 'Career/index';
-$route['about-us/contact-us']                                = 'Contact/index';
-$route['contact-us']                                         = 'Contact/index';
 /*
 ** News and views
 */
