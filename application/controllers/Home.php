@@ -212,7 +212,7 @@ class Home extends CI_Controller
         }
 
         $num = $this->frontModel->searchCombine_count($kword, $sdate, $fdate, $ptop, $country, $research, $sort);
-
+        
         $config = array();
         $config["per_page"] = 10;
         $config['page_query_string'] = TRUE;
@@ -232,7 +232,9 @@ class Home extends CI_Controller
         $config['prev_tag_close'] = '</li>';
 
         $r = $this->frontModel->searchCombine($kword, $sdate, $fdate, $ptop, $country, $research, 10, $offset, $sort);
-        
+        // echo "<pre>";
+        // print_r($r);
+        // exit();
         $this->pagination->initialize($config);
 
         $data["links"] = $this->pagination->create_links();
