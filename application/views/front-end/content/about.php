@@ -1,6 +1,6 @@
 <link href="<?php echo base_url() ?>v6/css/about-update.css">
 <link href="<?php echo base_url() ?>v6/css/history-update.css">
-<link href="<?php echo base_url() ?>v6/css/dabase-update.css">
+<link href="<?php echo base_url() ?>v6/css/database-update.css">
 <style>
 .active_ {
     background: #0e3680 !important;
