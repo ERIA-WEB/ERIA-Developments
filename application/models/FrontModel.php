@@ -2262,6 +2262,7 @@ class FrontModel extends CI_Model
                         $out[$bid]['uri'] = $bquery->uri;
                         $out[$bid]['title'] = $bquery->title;
                         $out[$bid]['content'] = $bquery->content;
+                        $out[$bid]['sub_experts'] = $bquery->sub_experts;
                         $out[$bid]['posted_date'] = $bquery->posted_date;
                         $out[$bid]['article_type'] = $bquery->article_type;
                         $x++;
@@ -2277,6 +2278,7 @@ class FrontModel extends CI_Model
                         $out[$x]['uri'] = $bquery->uri;
                         $out[$x]['title'] = $bquery->title;
                         $out[$x]['content'] = $bquery->content;
+                        $out[$x]['sub_experts'] = $bquery->sub_experts;
                         $out[$x]['posted_date'] = $bquery->posted_date;
                         $out[$x]['article_type'] = $bquery->article_type;
                         $x++;
@@ -2297,6 +2299,7 @@ class FrontModel extends CI_Model
                         $out[$x]['uri'] = $bquery->uri;
                         $out[$x]['title'] = $bquery->title;
                         $out[$x]['content'] = $bquery->content;
+                        $out[$x]['sub_experts'] = $bquery->sub_experts;
                         $out[$x]['posted_date'] = $bquery->posted_date;
                         $out[$x]['article_type'] = $bquery->article_type;
                         $x++;
@@ -2311,6 +2314,7 @@ class FrontModel extends CI_Model
                             $out[$x]['uri'] = $bquery->uri;
                             $out[$x]['title'] = $bquery->title;
                             $out[$x]['content'] = $bquery->content;
+                            $out[$x]['sub_experts'] = $bquery->sub_experts;
                             $out[$x]['posted_date'] = $bquery->posted_date;
                             $out[$x]['article_type'] = $bquery->article_type;
                             $x++;
@@ -2321,10 +2325,12 @@ class FrontModel extends CI_Model
                 $out = array_slice($out, $start, 10);
             } else {
                 if ($kword != '') {
+                    // echo "<pre>";
+                    // print_r($kword);
+                    // exit();
+                    // $k = "title LIKE '$kword%' AND";
 
-                    $k = "title LIKE '$kword%' AND";
-
-                    $l = "content LIKE '$kword%' AND";
+                    // $l = "content LIKE '$kword%' AND";
 
                     $this->db->select('articles.article_id,uri,title,content,posted_date,article_type,sub_experts,sub_dep_experts');
 
@@ -2365,7 +2371,8 @@ class FrontModel extends CI_Model
 
                     $query = $this->db->get('articles');
                     $lastQuery = $query->result();
-                    $k = "CONCAT(title, ' ', content) LIKE '%$kword%' AND";
+                    // $k = "CONCAT(title, ' ', content) LIKE '%$kword%' AND";
+                    $k = "IF(`articles`.`title` > 0, `articles`.`title`, `articles`.`content`) LIKE '%".$kword."%' AND";
                 }
 
                 if ($sort == 'as') {
@@ -2420,6 +2427,7 @@ class FrontModel extends CI_Model
                             $out[$x]['uri'] = $bquery->uri;
                             $out[$x]['title'] = $bquery->title;
                             $out[$x]['content'] = $bquery->content;
+                            $out[$x]['sub_experts'] = $bquery->sub_experts;
                             $out[$x]['posted_date'] = $bquery->posted_date;
                             $out[$x]['article_type'] = $bquery->article_type;
                             
@@ -2458,8 +2466,8 @@ class FrontModel extends CI_Model
 
                     usort($out, 'date_compare');
                 } else {
-                    // $od = "posted_date DESC";
-                    $od = "title='$kword' DESC";
+                    $od = "posted_date DESC";
+                    // $od = "title='$kword' DESC";
 
                     $sql = "SELECT articles.article_id,uri,title,content,posted_date,article_type,sub_experts,sub_dep_experts FROM articles $j $t WHERE $jj $tt $d $e $k $c published = 1 GROUP BY article_id ORDER BY $od";
 
@@ -2494,6 +2502,7 @@ class FrontModel extends CI_Model
                         $out[$x]['uri'] = $bquery->uri;
                         $out[$x]['title'] = $bquery->title;
                         $out[$x]['content'] = $bquery->content;
+                        $out[$x]['sub_experts'] = $bquery->sub_experts;
                         $out[$x]['posted_date'] = $bquery->posted_date;
                         $out[$x]['article_type'] = $bquery->article_type;
                         
@@ -2511,6 +2520,7 @@ class FrontModel extends CI_Model
                             $out[$x]['uri'] = $bquery->uri;
                             $out[$x]['title'] = $bquery->title;
                             $out[$x]['content'] = $bquery->content;
+                            $out[$x]['sub_experts'] = $bquery->sub_experts;
                             $out[$x]['posted_date'] = $bquery->posted_date;
                             $out[$x]['article_type'] = $bquery->article_type;
     
