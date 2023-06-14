@@ -231,9 +231,9 @@ class Programmes extends CI_Controller
                 //  echo $mm->image_name."<br>";
                 if ($mm->image_name != '') {
                     if (file_exists(FCPATH . $mm->image_name) && $mm->image_name != '') {
-                        $img = base_url() . $mm->image_name;
+                        $img = base_url() .'get_share_image.php?im='. $mm->image_name;
                     } elseif (file_exists(FCPATH . $mm->image_name) && $mm->image_name != '') {
-                        $img = base_url() . $mm->image_name;
+                        $img = base_url() .'get_share_image.php?im='. $mm->image_name;
                     } else {
                         $url_img_detail = "https://www.eria.org" . $mm->image_name;
                         $response_img_detail = get_headers($url_img_detail, 1);
@@ -242,12 +242,12 @@ class Programmes extends CI_Controller
                         if ($file_exists_img_detail == 1) {
                             $img = "https://www.eria.org" . $mm->image_name;
                         } else {
-                            $img = base_url() . "upload/Article.jpg";
+                            $img = base_url() . 'get_share_image.php?im='.'/upload/Article.jpg';
                         }
                     }
                 } else {
 
-                    $img = base_url() . "upload/Article.jpg";
+                    $img = base_url() . 'get_share_image.php?im='.'upload/Article.jpg';
                 }
 
                 if ($mm->article_type == 'articles') {
