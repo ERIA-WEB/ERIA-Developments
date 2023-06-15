@@ -14,9 +14,9 @@
 
                     if ($related[$c]->article_id) {
                         if (file_exists(FCPATH . $related[$c]->image_name) && $related[$c]->image_name != '') {
-                            $img = base_url() . $related[$c]->image_name;
+                            $img = base_url() .'get_share_image.php?im='. $related[$c]->image_name;
                         } elseif (file_exists(FCPATH . '/resources/images' . $related[$c]->image_name) && $related[$c]->image_name != '') {
-                            $img = base_url() . 'resources/images' . $related[$c]->image_name;
+                            $img = base_url() .'get_share_image.php?im='.'/resources/images' . $related[$c]->image_name;
                         } else {
                             if (!empty($related[$c]->image_name)) {
                                 $url_articles = "https://www.eria.org" . $related[$c]->image_name;
@@ -24,10 +24,10 @@
                                 if (strlen($response_articles)) {
                                     $img = "https://www.eria.org" . $related[$c]->image_name;
                                 } else {
-                                    $img = base_url() . "/upload/news.jpg";
+                                    $img = base_url() .'get_share_image.php?im='.'/upload/Article.jpg';
                                 }
                             } else {
-                                $img = base_url() . "/upload/news.jpg";
+                                $img = base_url() .'get_share_image.php?im='.'/upload/Article.jpg';
                             }
                         }
             ?>
