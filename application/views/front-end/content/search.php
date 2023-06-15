@@ -206,11 +206,52 @@ a.active {
         </div> -->
         <!-- drop downs -->
         <div class="main-search-tittle mb-4">
-            Search result for “<?php echo $kword ?>”
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-12">
+                        Search result for “<?php echo $kword ?>”
+                    </div>
+
+                    <div class="col-lg-2 col-12 ">
+                        <input type="hidden" id="sort" name="sort" value="<?php echo $sort ?>">
+                        <div class="text-right">
+                            <label style="font-size: 10px;">Sort by</label>
+                            <button class="btn bg-white dis_p w-100" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="font-size: 11px;width: auto !important;height: auto !important;">
+                                <?php         
+                                if ($sort == "rel") {
+                                    echo "Relevance";
+                                } else if ($sort == 'des') {
+                                    echo "Date Descending";
+                                } else {
+                                    echo "Date Ascending"; // as for parameter
+                                }
+                                ?>
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a href="#" data-sort="as" class=" from_s sortByPrice dropdown-item"
+                                    style="font-size: 12px;">
+                                    Date Ascending
+                                </a>
+                                <a href="#" data-sort="des" class=" from_s sortByPrice dropdown-item"
+                                    style="font-size: 12px;">
+                                    Date Descending
+                                </a>
+                                <a data-sort="rel" class="from_s dropdown-item sortByA" href="#"
+                                    style="font-size: 12px;">
+                                    Relevance
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row mt-4 searc-main-sec">
             <div class=" col-md-4">
-                <div style="z-index: 1;margin-top: 57px;" class="top_search sticky-top">
+                <div style="z-index: 1;" class="top_search sticky-top">
                     <input type="hidden" id="limit" name="limit" value="<?php echo $lim ?>">
                     <div class="input-group ">
                         <div class="input-group-prepend">
@@ -375,180 +416,144 @@ a.active {
             </div>
             <!-- topics -->
             <div class="col-md-8" style="display: inline-block">
-                <div class="row">
-                    <div class="col-md-8">
-                    </div>
-                    <div class="col-md-4">
-                        <!-- <button class="btn text-light w-100 drop-btn" type="button">
-                          Search
-                        </button> -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="co-lg-8 col-12">
+                            <?php
+                                // this is remove special character in html
+                                function RemoveBS($Str)
+                                {
+                                    $StrArr = str_split($Str);
+                                    $NewStr = '';
+                                    foreach ($StrArr as $Char) {
+                                        $CharNo = ord($Char);
+                                        if ($CharNo == 163) {
+                                            $NewStr .= $Char;
+                                            continue;
+                                        } // keep £ 
+                                        if ($CharNo > 31 && $CharNo < 127) {
+                                            $NewStr .= $Char;
+                                        }
+                                    }
+                                    return $NewStr;
+                                }
+
+                                if ($searchData) {
+                                    $num = 0;
+                                    foreach ($searchData as $f) {
+                                        $num++;
+                                        $n = strip_tags($f['content']);
+                                        $string = $n;
+                                        $ku = strtolower($kword);
+                                        $kl = strtoupper($kword);
+                                        //var_dump($string."<br>");
+
+                                        $ti = RemoveBS($f['title']);
+                                        
+                                        // echo $ti."<br>";
+                                        if ($f['article_type'] == 'publications') {
+
+                                            $url = base_url() . "publications/" . $f['uri'];
+
+                                        } else if ($f['article_type'] == 'experts') {
+
+                                            $url = base_url() . "experts/" . $f['uri'];
+
+                                        } elseif ($f['article_type'] == 'keystaffs') {
+                                            
+                                            $url = base_url() . "experts/" . $f['uri'];
+                                            
+                                        } else if ($f['article_type'] == 'associates') {
+                                            
+                                            $url = base_url() . "experts/" . $f['uri'];
+
+                                        } else if ($f['article_type'] == 'fellows') {
+                                            
+                                            $url = base_url() . "experts/" . $f['uri'];
+
+                                        } else if ($f['article_type'] == 'events') {
+
+                                            $url = base_url() . "events/" . $f['uri'];
+
+                                        } elseif ($f['article_type'] == 'organizations') {
+
+                                            $url = base_url() . "database-and-programmes/topics/" . $f['uri'];
+                                            
+                                        } else if ($f['article_type'] == 'articles') { 
+
+                                            $url = base_url() . "database-and-programmes/" . $f['uri'];
+                                            
+                                        } else if ($f['article_type'] == 'multimedia') { 
+
+                                            $ec_id = $f['sub_experts'];
+                                            // echo "<pre>";
+                                            // print_r($ec_id);
+                                            // exit();
+                                            $this->db->select('*');
+                                            $this->db->where('parent', 'multimedia');
+                                            $this->db->where('ec_id', $ec_id);
+                                            $query = $this->db->get('eria_expert_categories');
+                                            $multimedia = $query->row();
+                                            
+                                            $url = base_url() . "multimedia/" . $multimedia->slug .'/'. $f['uri'];
+
+                                        }  else if ($f['article_type'] == 'news') {
+
+                                            $url = base_url() . "news-and-views/" . $f['uri'];
+
+                                        } else {
+
+                                            $url = '#';
+                                        }
+
+                                        $mccou = 0;
+
+                                        $fd =  str_replace(["â€˜", "‘", "â€™"], "'", $ti);
+
+                                        $text_param = $_GET['msearch'];
+                                        $bold_text_search = str_replace($text_param, "<span style='background:#efefef;font-style: italic;'>" . $text_param . "</span>", $fd);
+                                        $result_bold_text_search = $bold_text_search;
+
+                                        $textparam = $_GET['msearch'];
+                                        $bold_text_desc_search = str_replace($textparam, "<span style='background:#efefef;font-style: italic;'>" . $textparam . "</span>", $f['content']);
+
+                                        echo '<div class="results-row search-section" data-nh="'.$mccou.'">
+                                                    <div class="new-high search-tittle ">
+                                                        <a href="'.$url.'">
+                                                            '.str_replace(["â€˜", "‘", "â€™"], "-", $result_bold_text_search).'
+                                                        </a>
+                                                    </div>
+                                                    <div class="date pb-2">
+                                                        '.date('l jS \of F Y', strtotime($f['posted_date'])).'
+                                                    </div>
+                                                    <p class="new-high">
+                                                        '.strip_tags(substr($bold_text_desc_search, 0, 310), '<br><hr>').'
+                                                        <a href="'.$url.'">[...]</a>
+                                                    </p>
+                                                    <span style="display: none" class="link">
+                                                        <a href="'.$url.'">'.substr($url, 0, 100).'</a>
+                                                    </span>
+                                                    <hr>
+                                                </div>';
+                                    }
+                                } else {
+                                    echo '<div class="search-section" style=" margin-top:50px;  display: inline-block">
+                                            <div class="search-tittle "> Result Not Found </div>
+                                            <hr>
+                                        </div>';
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
                 <div class="rgt">
                     <div style="padding: 0">
                         <div class="row">
-                            <input type="hidden" id="sort" name="sort" value="<?php echo $sort ?>">
-                            <div class="sorrt-tittle-db sort-section">
-                                Sort by
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn bg-white border dis_p w-100" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                    style="font-size: 12px;">
-                                    <?php
-                                    
-                                    if ($sort == "rel") {
-                                        echo "Relevance";
-                                    } else if ($sort == 'des') {
-                                        echo "Date Descending";
-                                    } else {
-                                        echo "Date Ascending"; // as for parameter
-                                    }
-                                    ?>
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a href="#" data-sort="as" class=" from_s sortByPrice dropdown-item"
-                                        style="font-size: 12px;">
-                                        Date Ascending
-                                    </a>
-                                    <a href="#" data-sort="des" class=" from_s sortByPrice dropdown-item"
-                                        style="font-size: 12px;">
-                                        Date Descending
-                                    </a>
-                                    <a data-sort="rel" class="from_s dropdown-item sortByA" href="#"
-                                        style="font-size: 12px;">
-                                        Relevance
-                                    </a>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
-                <div id="test" class="sorteren">
-                    <?php
-                    // this is remove special character in html
-                    function RemoveBS($Str)
-                    {
-                        $StrArr = str_split($Str);
-                        $NewStr = '';
-                        foreach ($StrArr as $Char) {
-                            $CharNo = ord($Char);
-                            if ($CharNo == 163) {
-                                $NewStr .= $Char;
-                                continue;
-                            } // keep £ 
-                            if ($CharNo > 31 && $CharNo < 127) {
-                                $NewStr .= $Char;
-                            }
-                        }
-                        return $NewStr;
-                    }
-                    ?>
-                    <?php if ($searchData) { ?>
-                    <?php $num = 0; ?>
-                    <?php foreach ($searchData as $f) { ?>
-                    <?php
-                            $num++;
-                            $n = strip_tags($f['content']);
-                            $string = $n;
-                            $ku = strtolower($kword);
-                            $kl = strtoupper($kword);
-                            //var_dump($string."<br>");
 
-                            $ti = RemoveBS($f['title']);
-                            
-                            // echo $ti."<br>";
-                            if ($f['article_type'] == 'publications') {
-
-                                $url = base_url() . "publications/" . $f['uri'];
-
-                            } else if ($f['article_type'] == 'experts') {
-
-                                $url = base_url() . "experts/" . $f['uri'];
-
-                            } elseif ($f['article_type'] == 'keystaffs') {
-                                
-                                $url = base_url() . "experts/" . $f['uri'];
-                                
-                            } else if ($f['article_type'] == 'associates') {
-                                
-                                $url = base_url() . "experts/" . $f['uri'];
-
-                            } else if ($f['article_type'] == 'fellows') {
-                                
-                                $url = base_url() . "experts/" . $f['uri'];
-
-                            } else if ($f['article_type'] == 'events') {
-
-                                $url = base_url() . "events/" . $f['uri'];
-
-                            } elseif ($f['article_type'] == 'organizations') {
-
-                                $url = base_url() . "database-and-programmes/topics/" . $f['uri'];
-                                
-                            } else if ($f['article_type'] == 'articles') { 
-
-                                $url = base_url() . "database-and-programmes/" . $f['uri'];
-                                
-                            } else if ($f['article_type'] == 'multimedia') { 
-
-                                $ec_id = $f['sub_experts'];
-
-                                $this->db->select('*');
-                                $this->db->where('parent', 'multimedia');
-                                $this->db->where('ec_id', $ec_id);
-                                $query = $this->db->get('eria_expert_categories');
-                                $multimedia = $query->row();
-                                
-                                $url = base_url() . "multimedia/" . $multimedia->slug .'/'. $f['uri'];
-
-                            }  else if ($f['article_type'] == 'news') {
-
-                                $url = base_url() . "news-and-views/" . $f['uri'];
-
-                             } else {
-
-                                $url = '#';
-                            }
-
-                            $mccou = 0;
-
-                            $fd =  str_replace(["â€˜", "‘", "â€™"], "'", $ti);
-                            ?>
-                    <div class="results-row search-section" data-nh="<?php echo $mccou ?>"
-                        style="display: inline-block">
-                        <div class="new-high search-tittle ">
-                            <?php
-                            $text_param = $_GET['msearch'];
-                            $bold_text_search = str_replace($text_param, "<span style='background:#efefef;font-style: italic;'>" . $text_param . "</span>", $fd);
-                            $result_bold_text_search = $bold_text_search;
-                            ?>
-                            <a href="<?php echo $url ?>">
-                                <?php echo str_replace(["â€˜", "‘", "â€™"], "-", $result_bold_text_search); ?> </a>
-                        </div>
-                        <div class="date pb-2"><?php echo date('l jS \of F Y', strtotime($f['posted_date'])); ?></div>
-                        <p class="new-high">
-                            <?php
-                            $textparam = $_GET['msearch'];
-                            $bold_text_desc_search = str_replace($textparam, "<span style='background:#efefef;font-style: italic;'>" . $textparam . "</span>", $f['content']);
-                            ?>
-                            <?php echo strip_tags(substr($bold_text_desc_search, 0, 310), '<br><hr>'); ?>
-                            <a href="<?php echo $url ?>">[...]</a>
-                        </p>
-                        <span style="display: none" class="link">
-                            <a href="<?php echo $url ?>"><?php echo substr($url, 0, 100); ?></a>
-                        </span>
-                        <hr>
-                    </div>
-                    <?php } ?>
-                    <?php } else { ?>
-                    <div class="search-section" style=" margin-top:50px;  display: inline-block">
-                        <div class="search-tittle "> Result Not Found </div>
-                        <hr>
-                    </div>
-                    <?php } ?>
-                </div>
                 <nav aria-label="Page navigation example " style="padding-bottom: 100px">
                     <?php echo $links; ?>
                 </nav>
