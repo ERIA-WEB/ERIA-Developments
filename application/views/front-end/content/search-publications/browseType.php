@@ -8,7 +8,7 @@
                     class="text-blue"><?= $ptype->category_name ?></a>
             </div>
             <div class="pub-td">
-                <?php echo $ptype->meta_description; ?>
+                <?= $ptype->meta_description; ?>
             </div>
         </div>
         <?php } ?>
