@@ -50,15 +50,22 @@ function RemoveBS($Str)
 <!-- Banner Category -->
 <section class="research-hero-section position-relative overflow-hidden section-top">
     <div class="research-hero-background">
-        <img class="h-100 w-100" src="<?php echo base_url() ?><?= $research_categories_data->image_name ?>"
-            alt="<?php echo ucfirst($research_categories_data->category_name) ?>">
+        <?php 
+            // get_thumbs.php?im=
+            if (file_exists(FCPATH . $research_categories_data->image_name)) {
+                $img = base_url().'get_thumbs.php?im='.$research_categories_data->image_name;
+            } else {
+                $img = base_url().'get_thumbs.php?im=upload/Research_baer.jpg';
+            }
+        ?>
+        <img class="h-100 w-100" src="<?= $img ?>" alt="<?= ucfirst($research_categories_data->category_name) ?>">
     </div>
 
     <div class="container-fluid h-100 position-relative px-0 py-xl-5">
         <div class="research-hero-content">
             <p class="mb-3 text-uppercase font-weight-medium">Research</p>
-            <h2 class="main-title"><?php echo ucfirst($research_categories_data->category_name) ?></h1>
-                <?php echo ucwords(str_replace(',', ' | ', ucfirst($research_categories_data->meta_keywords))) ?>
+            <h2 class="main-title"><?= ucfirst($research_categories_data->category_name) ?></h1>
+                <?= ucwords(str_replace(',', ' | ', ucfirst($research_categories_data->meta_keywords))) ?>
                 <p class="description"><?= $research_categories_data->description ?></p>
 
         </div>
@@ -182,13 +189,13 @@ function RemoveBS($Str)
                                     '. $s .'
                                         <span class="date">'. date('j  F Y', strtotime($mm['posted_date'])) .'</span>
                                     </div>
-                                    '.$people_link.'
+                                    
                                     <div class="description d-none">
                                         '. $cn .'
                                     </div>
                                 </div>
                             </div>
-                        </div>';
+                        </div>'; // '.$people_link.'
                 }
                 ?>
             </div>
@@ -261,91 +268,11 @@ function RemoveBS($Str)
     </div>
     <?php } ?>
 </div>
-<input type="hidden" id="uri" value="<?php echo $res; ?>">
-<input type="hidden" id="slug" value="<?php echo $slug; ?>">
+<input type="hidden" id="uri" value="<?= $res; ?>">
+<input type="hidden" id="slug" value="<?= $slug; ?>">
 
-<script type="text/javascript"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    var topic_publication = $('#slug').val();
-
-    var start_publications = 0;
-    var limit_publications = 2;
-
-    getPostPublicationData();
-
-    $('#ldmrPublications').on('click', function() {
-        getPostPublicationData();
-    });
-
-    function getPostPublicationData() {
-        var url_publication = '<?= base_url() ?>Research/loadPublicationData';
-        $.ajax({
-            url: url_publication,
-            method: 'POST',
-            dataType: 'text',
-            cache: false,
-            data: {
-                'topics': topic_publication,
-                'start': start_publications,
-                'limit': limit_publications,
-            },
-            success: function(response) {
-                if (response == "") {
-                    $('#ldmrPublications').addClass('d-none');
-                } else {
-                    $("#ldmrPublications").html("Load more");
-                    start_publications += limit_publications;
-                    $('#resultPublicationsData').append(response);
-
-                }
-            }
-        });
-    }
-    var article_type = 'news';
-    var uri = $('#uri').val();
-
-    var start_recent = 0;
-    var limit_recent = 4;
-    getPostDataRecentArticle(article_type, uri, start_recent, limit_recent);
-
-    $('#loadMoreRecentArticle').on('click', function() {
-        var article_type = 'news';
-        var uri = $('#uri').val();
-
-        start_recent += limit_recent;
-        getPostDataRecentArticle(article_type, uri, start_recent, limit_recent);
-    });
-
-    function getPostDataRecentArticle(article_type, uri, start_recent, limit_recent) {
-        var url_recent = '<?= base_url() ?>Research/loadRecentArticles'
-        $.ajax({
-            url: url_recent,
-            method: 'POST',
-            dataType: 'text',
-            cache: false,
-            data: {
-                article_type: article_type,
-                uri: uri,
-                start: start_recent,
-                limit: limit_recent,
-            },
-            success: function(response) {
-                if (response == "") {
-                    // $(".loader-image").hide();
-                    $('#loadMoreRecentArticle').addClass('d-none');
-                } else {
-                    $("#loadMoreRecentArticle").html("Load more");
-                    start_recent += limit_recent;
-                    // $(".loader-image").show();
-                    $("#searchResultRecentArticle").append(response);
-                }
-            }
-        });
-    }
-});
-</script>
-
+<input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/research/research-categories.js"></script>
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
 <?php } ?>
