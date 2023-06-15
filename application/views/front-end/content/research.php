@@ -486,7 +486,7 @@
                         ERIA
                         invites
                         submission of original research proposals for various projects through open <a
-                            href="https://test-www-eria-org.azurewebsites.net/research/topic/call-for-proposals">calls
+                            href="<?= base_url() ?>research/topic/call-for-proposals">calls
                             for proposals.</a>
                     </p>
                 </div>
@@ -508,21 +508,21 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                     <div class="d-flex align-items-center">
                         <img class="small-card-image"
-                            src="<?php echo base_url() ?>resources/images/Research-page/card-icon_1.png">
+                            src="<?= base_url() ?>resources/images/Research-page/card-icon_1.png">
                         <div class="ml-3 card-title text-blue ">Deepening Economic Integration</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3 mb-md-0">
                     <div class="d-flex align-items-center">
                         <img class="small-card-image"
-                            src="<?php echo base_url() ?>resources/images/Research-page/card-icon_2.png">
+                            src="<?= base_url() ?>resources/images/Research-page/card-icon_2.png">
                         <div class="ml-3 card-title text-blue ">Narrowing <br> Development Gaps</div>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3 mb-md-0">
                     <div class="d-flex align-items-center">
                         <img class="small-card-image"
-                            src="<?php echo base_url() ?>resources/images/Research-page/card-icon_3.png">
+                            src="<?= base_url() ?>resources/images/Research-page/card-icon_3.png">
                         <div class="ml-3 card-title text-blue ">Achieving Sustainable Economic Development</div>
                     </div>
                 </div>
@@ -536,122 +536,24 @@
             <!-- content left section -->
             <div class="col-lg-8">
                 <div class="container-fluid px-0">
-                    <form style="display: none" id="form_id" method="post">
-                        <div class="row mb-2">
-                            <div class="col-md-12">
-                                <div class="p-1 rounded my-md-0 my-2">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <button id="button-addon2" type="submit"
-                                                class="btn btn-link text-secondary border border-right-0">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </div>
-                                        <input id="key" name="key" type="search" placeholder="Keywords"
-                                            aria-describedby="button-addon2" class="search form-control border-left-0">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-md-2 mb-0">
-                            <div class="col-md-6 col-xs-12 mb-md-0 mb-2">
-                                <input type="hidden" id="topic" value="all">
-                                <button type="button"
-                                    class="publication-collapsible  profile-overView1 search-result-btn ">
-                                    &emsp; Topics &nbsp;
-                                </button>
-                                <div style="width: 92%" class="new_publication publicationcontent">
-                                    <div class="new_publication_inside">
-                                        <div class="check-btns">
-                                            <?php foreach ($topics as $ptypes) {
-                                                if ($ptypes->category_name != 'Call for Proposals' && $ptypes->category_name != 'Co-Publications') { ?>
-                                            <label class="container-check"> <?= $ptypes->category_name ?>
-                                                <input type="checkbox" name="research[]" id=""
-                                                    value="<?= $ptypes->category_id ?>">
-                                                <span class="checkmark"></span>
-                                            </label>
-                                            <?php }
-                                            }  ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-12 mb-md-0 mb-4">
-                                <button id="_msearch" class="btn text-light w-100 drop-btn" type="button">
-                                    Search
-                                </button>
-                            </div>
-                            <div style="display: none" class="col-md-6 col-xs-12 mb-md-0 mb-2">
-                                <div class="dropdown">
-                                    <button class="btn bg-white border w-100" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Publication type<i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <div style="height: 500px; overflow: auto" class="dropdown-menu"
-                                        aria-labelledby="dropdownMenuButton">
-                                        <a data-type="all" class="dropdown-item type "> All </a>
-                                        <?php foreach ($ptype as $pub) { ?>
-                                        <a data-type="<?php echo $pub->category_name; ?>" class="dropdown-item type">
-                                            <?php echo $pub->category_name; ?> </a>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="display: none" class="row">
-                            <div class="col-md-4 col-xs-12 mb-md-0 mb-2">
-                                <div class="dropdown">
-                                    <button class="btn bg-white border w-100" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Region<i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item cnty" data-cnt="Brunei Darussalam"> Brunei Darussalam
-                                        </a>
-                                        <a class="dropdown-item cnty" data-cnt="Cambodia"> Cambodia </a>
-                                        <a class="dropdown-item cnty" data-cnt="Indonesia"> Indonesia </a>
-                                        <a class="dropdown-item cnty" data-cnt="Malaysia"> Malaysia </a>
-                                        <a class="dropdown-item cnty" data-cnt="Lao PDR"> Lao PDR </a>
-                                        <a class="dropdown-item cnty" data-cnt="Myanmar"> Myanmar </a>
-                                        <a class="dropdown-item cnty" data-cnt="Phillippines"> Phillippines </a>
-                                        <a class="dropdown-item cnty" data-cnt="Singapore"> Singapore </a>
-                                        <a class="dropdown-item cnty" data-cnt="Vietnam"> Viet Nam </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-md-4 col-xs-12 mb-md-0 mb-2">
-                                <div class="dropdown">
-                                    <button class="btn bg-white border w-100" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Year<i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <?php for ($x = 2016; $x <= 2022; $x++) { ?>
-                                        <a class="dropdown-item" href="#"><?= $x ?></a>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                     <!-- card section -->
                     <div class="row my-0 card-section">
                         <?php foreach ($research_data as $research) { ?>
                         <?php
                             if (file_exists(FCPATH . $research->image_name)) {
-                                $img = $research->image_name;
+                                $img = base_url().'get_thumbs.php?im='.$research->image_name;
                             } else {
-                                $img = 'upload/Research_baer.jpg';
+                                $img = base_url().'get_thumbs.php?im=upload/Research_baer.jpg';
                             }
                             ?>
                         <?php if ($research->uri != 'Call_for_Proposals' and $research->uri != 'co-publications') { ?>
                         <div class="col-md-4 research-card-wrapper">
-                            <a href="<?php echo base_url(); ?>research/topic/<?php echo $research->uri; ?>">
+                            <a href="<?= base_url(); ?>research/topic/<?= $research->uri; ?>">
                                 <div class="img-container">
-                                    <img src="<?php echo base_url() . $img; ?>">
+                                    <img src="<?= $img ?>">
                                     <div class="overlay-effect h-100 w-100">
                                         <div class="text-white overlay-text">
-                                            <?php echo $research->category_name; ?>
+                                            <?= $research->category_name; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -661,10 +563,6 @@
                         <?php } ?>
                     </div>
                 </div>
-                <!-- <div id="searchResult" class="row my-0 card-section"></div>
-                <div class="loadButton" style="text-align: center">
-                    <button id="ldmr" class="btn third-button">Load more</button>
-                </div> -->
             </div>
             <!-- Content section right -->
             <div class="content-section-right latest-news col-md-4 d-none d-lg-block">
@@ -773,7 +671,7 @@
                                             <h6 class="font-merriweather font-weight-bold text-blue mb-1">
                                                 <?= $experts['title'] ?></h6>
                                             <small class="text-secondary"><?= $experts['major'] ?></small>
-                                            <!-- <h5 class="description my-3"><?php echo substr(strip_tags($experts['content']), 0, 50); ?></h5> -->
+                                            <!-- <h5 class="description my-3"><?= substr(strip_tags($experts['content']), 0, 50); ?></h5> -->
                                             <!-- <div class="d-flex justify-content-between"> -->
                                             <!-- <small class="publications">Publications</small> -->
                                             <!-- <small class="ml-auto font-montserrat"><?= $experts['posted_date'] ?></small> -->
@@ -808,95 +706,6 @@
     <!-- Research area -->
     <?php $this->load->view('front-end/content/sections/research-areas'); ?>
     <!-- END Research area -->
-
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript">
-    $('.profile-overView1').click(function() {
-        $('.publicationcontent').show();
-    });
-
-    $(document).ready(function() {
-        var start = 11;
-        var limit = 10;
-        var reachedMax = false;
-        // getPost_searchData();
-
-        $('#form_id').keypress(function(e) {
-            if (e.keyCode == 13) {
-                $('#_msearch').trigger('click');
-            }
-        });
-
-        $('#_msearch').click(function() {
-
-            $('.publicationcontent').hide();
-            start = 0;
-            limit = 11;
-            $('#searchResult').html('');
-
-            getPost_searchData();
-        });
-
-        $('#ldmr').click(function() {
-            getPost_searchData();
-        });
-
-        function getPost_searchData() {
-            var publication = $('#publication').val();
-            var topic = $('#topic').val();
-            var region = $('#region').val();
-            var url = '<?= base_url() ?>Research/loadmSearch';
-            var key = $('#key').val();
-
-            $.ajax({
-                url: url,
-                method: 'POST',
-                dataType: 'text',
-                cache: false,
-                data: $("#form_id").serialize() + "&start=" + start + "&limit=" + limit,
-                success: function(response) {
-                    if (response == "") {
-                        $(".loader-image").hide();
-                        $("#ldmr").addClass("d-none");
-                    } else {
-                        $("#ldmr").html("Load more");
-                        $('#normals').show();
-                        $('#normal').hide();
-                        start += limit;
-                        $(".loader-image").show();
-                        $("#searchResult").append(response);
-                    }
-                }
-            });
-        }
-    });
-
-    $('.type').click(function() {
-
-        var to = $(this).data("type");
-        $('#dropdownMenuButton').html(to);
-        $('#topic').val(to);
-    });
-    </script>
-    <script>
-    const ourExpertSwiper = new Swiper('.our-expert-swiper', {
-        slidesPerView: 1,
-        loop: true,
-        spaceBetween: 20,
-        pagination: {
-            el: '#our-expert-pagination'
-        },
-        navigation: {
-            nextEl: '#our-expert-button-next',
-            prevEl: '#our-expert-button-prev',
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 2,
-            },
-            1024: {
-                slidesPerView: 5
-            }
-        }
-    });
-    </script>
+    <input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
+    <script src="<?= base_url(); ?>v6/js/research/research-main.js"></script>
