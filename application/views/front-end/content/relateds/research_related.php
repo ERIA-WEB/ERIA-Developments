@@ -13,9 +13,9 @@
                 if (isset($publ[$t])) {
                     if (!empty($publ[$t]->image_name)) {
                         if (file_exists(FCPATH . $publ[$t]->image_name) && $publ[$t]->image_name != '') {
-                            $img = base_url() . $publ[$t]->image_name;
+                            $img = base_url() .'get_share_image.php?im='. $publ[$t]->image_name;
                         } elseif (file_exists(FCPATH . '/resources/images' . $publ[$t]->image_name) && $publ[$t]->image_name != '') {
-                            $img = base_url() . 'resources/images' . $publ[$t]->image_name;
+                            $img = base_url() .'get_share_image.php?im='.'/resources/images' . $publ[$t]->image_name;
                         } else {
                             $url_pub = "https://www.eria.org" . $publ[$t]->image_name;
                             $response_pub = @get_headers($url_pub, 1);
@@ -24,7 +24,7 @@
                             if ($file_exists_pub == 1) {
                                 $img = "https://www.eria.org" . $publ[$t]->image_name;
                             } else {
-                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                                $img = base_url() .'get_share_image.php?im='.'/upload/thumbnails-pub.jpg';
                             }
                         }
                     } else {
@@ -37,11 +37,11 @@
                             if (file_exists($img)) {
                                 $img = $img;
                             } else {
-                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                                $img = base_url() .'get_share_image.php?im='.'/upload/thumbnails-pub.jpg';
                             }
                             
                         } else {
-                            $img = base_url() . "/upload/thumbnails-pub.jpg";
+                            $img = base_url() .'get_share_image.php?im='.'/upload/thumbnails-pub.jpg';
                         }
                     }
             ?>
