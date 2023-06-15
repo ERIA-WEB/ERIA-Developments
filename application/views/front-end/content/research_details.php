@@ -1,4 +1,8 @@
 <style>
+p {
+    text-align: left !important;
+}
+
 .page-content {
     z-index: 1;
 }
@@ -269,19 +273,19 @@ iframe {
                             <div class="col-12 col-md-5 mb-3 mb-md-0">
                                 <?php if (!empty($article->image_name)) {
                                         if (file_exists(FCPATH . $article->image_name)) {
-                                            $img = base_url() . $article->image_name;
+                                            $img = base_url() .'get_share_image.php?im='. $article->image_name;
                                         } else if ($article->image_name) {
                                             $img = "https://www.eria.org" . $article->image_name;
                                         } else {
 
                                             if ($article->article_type == 'publications') {
-                                                $img = base_url() . "upload/Publication.jpg";
+                                                $img = base_url() .'get_share_image.php?im='.'/upload/Publication.jpg';
                                             } else {
-                                                $img = base_url() . "upload/Article.jpg";
+                                                $img = base_url() .'get_share_image.php?im='.'/upload/Article.jpg';
                                             }
                                         }
                                     } else {
-                                        $img = base_url() . "upload/Publication.jpg";
+                                        $img = base_url() .'get_share_image.php?im='.'/upload/Publication.jpg';
                                     }
                                     ?>
                                 <img src="<?php echo $img ?>" class="img-fluid w-100">
@@ -547,87 +551,9 @@ iframe {
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-    $("#btnPrint").click(function() {
+<input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/research/research-detail.js"></script>
 
-        var contents = $("#dvContents").html();
-        var frame1 = $('<iframe />');
-        frame1[0].name = "frame1";
-
-        $("body").append(frame1);
-        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument
-            .document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-        frameDoc.document.open();
-        //Create a new HTML document.
-        frameDoc.document.write('<html><head><title>DIV Contents</title>');
-        frameDoc.document.write('</head><body>');
-        //Append the external CSS file.
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/style.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/animate.min.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/responsive.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />'
-        );
-        //Append the DIV contents.
-        frameDoc.document.write(contents);
-        frameDoc.document.write('</body></html>');
-        frameDoc.document.close();
-        setTimeout(function() {
-            window.frames["frame1"].focus();
-            window.frames["frame1"].print();
-            frame1.remove();
-        }, 500);
-    });
-});
-</script>
-<script>
-$('.n_related').click(function() {
-    var dat = $(this).data('key');
-    var ct = $('#ct').val();
-    if (ct != '') {
-        var n = ct;
-    } else {
-        var n = 'all';
-
-    }
-    var url = '<?php echo base_url() ?>Publications/Brows/' + n + '/' + dat;
-    window.location.replace(url);
-});
-</script>
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
 <?php } ?>
