@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/about-update.css">
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/history-update.css">
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/dabase-update.css">
+<link rel="stylesheet" href="<?= base_url() ?>v6/css/about-update.css">
+<!-- <link rel="stylesheet" href="<?= base_url() ?>v6/css/history-update.css"> -->
+<link rel="stylesheet" href="<?= base_url() ?>v6/css/database-update.css">
 
 <style>
 .card-img-top {
@@ -29,18 +29,21 @@
                                 $uri = $categories->uri;
                             }
                             ?>
-                        <a href="<?php echo base_url() ?>database-and-programmes/topic/<?php echo $uri; ?>">
+                        <a href="<?= base_url() ?>database-and-programmes/topic/<?= $uri; ?>">
                             <div class="card border-0">
-                                <img src="<?php echo base_url() ?><?php echo $categories->image_name ?>"
-                                    class="card-img-top db-image-top border"
-                                    alt="<?php echo $categories->image_name ?>">
+                                <img src="<?= base_url().'get_share_image.php?im='.$categories->image_name ?>"
+                                    class="card-img-top db-image-top border" alt="<?= $categories->image_name ?>">
                                 <div class="card-body px-0 bg-transparent">
-                                    <h5 class="card-title "> <?php echo $categories->category_name ?>
+                                    <h5 class="card-title "> <?= $categories->category_name ?>
                                     </h5>
-                                    <!-- <p class="card-text db-crd-text"> <?php echo substr(strip_tags($categories->description), 0, 180) ?><a href="<?php echo base_url() ?>programmes/category/<?php echo $categories->uri ?>"> [...]</a></p> -->
-                                    <!-- <div class="up-search-db mt-  ">
-                                        <a href="<?php echo base_url() ?>programmes/category/<?php echo $categories->uri ?>"> FIND OUT MORE &nbsp; &nbsp; <i class="db-arrow fa fa-angle-right"></i> </a>
-                                    </div> -->
+                                    <p class="card-text db-crd-text d-none">
+                                        <?= substr(strip_tags($categories->description), 0, 180) ?><a
+                                            href="<?= base_url() ?>programmes/category/<?= $categories->uri ?>">
+                                            [...]</a></p>
+                                    <div class="up-search-db mt- d-none">
+                                        <a href="<?= base_url() ?>programmes/category/<?= $categories->uri ?>"> FIND OUT
+                                            MORE &nbsp; &nbsp; <i class="db-arrow fa fa-angle-right"></i> </a>
+                                    </div>
                                 </div>
                             </div>
                         </a>
