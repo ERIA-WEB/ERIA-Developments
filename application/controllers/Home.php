@@ -43,6 +43,7 @@ class Home extends CI_Controller
 
     public function index()
     {
+        $this->output->cache(30); 
         $content = $this->Content_model->getContent();
         
         if (!empty($content)) {
