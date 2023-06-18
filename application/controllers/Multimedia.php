@@ -168,28 +168,28 @@ class Multimedia extends CI_Controller
 
         foreach ($mm_data as $mm) {
             if ($mm->published == 1) {
-                if (file_exists(FCPATH . "uploads/news/" . $mm->image_name)) {
-                    $img = $mm->image_name;
+                if (file_exists(FCPATH . $mm->image_name)) {
+                    $img = base_url().'get_share_image.php?im='.$mm->image_name;
                 } elseif (file_exists(FCPATH . "resources/images" . $mm->image_name)) {
-                    $img = "resources/images" . $mm->image_name;
+                    $img = base_url().'get_share_image.php?im='."/resources/images" . $mm->image_name;
                 } else {
                     if ($mm->category == 'Webinar') {
-                        $img = 'upload/webinar.jpg';
+                        $img = base_url().'get_share_image.php?im='.'/upload/webinar.jpg';
                     } else {
-                        $img = 'upload/video.jpg';
+                        $img = base_url().'get_share_image.php?im='.'/upload/video.jpg';
                     }
                 }
 
                 $nd = preg_replace("/<h2(.*)<\/h2>/iUs", " ", $mm->content);
                 $nsd = strip_tags($nd);
-                $str = $this->limit_text($nsd, 24, "NewsMultimedia/detail/" . $mm->uri);
+                $str = $this->limit_text($nsd, 24, "multimedia/" . $mm->uri);
 
                 $tag = $this->frontModel->tag_topic($mm->article_id);
 
                 $output .= "<div class='medi row pt-4 pb-4 bottom-section-divider'><div class='col-md-5 col-xs-12 m-0 pr-md-1'>";
                 $output .= "<img class='responsive' src='" . $img . "' ></div>";
                 $output .= "<div class='col-md-7 col-xs-12'><div class='category'>" . ucfirst($mm->article_type) . $tag . "</div>";
-                $output .= "<div class='card-title text-blue'><a href='" . base_url() . "NewsMultimedia/detail/" . $mm->uri . "'>" . $mm->title . "</a></div><div>";
+                $output .= "<div class='card-title text-blue'><a href='" . base_url() . "multimedia/" . $mm->uri . "'>" . $mm->title . "</a></div><div>";
                 $output .= "<span class='date'>" . date('j F Y', strtotime($mm->posted_date)) . "</span></div>";
                 $output .= "<div class='description'>" . str_replace("â€™", "'", $str) . "</div>";
                 $output .= "</div></div>";
@@ -211,19 +211,19 @@ class Multimedia extends CI_Controller
 
         foreach ($mm as $mm) {
             if (file_exists(FCPATH . $mm->image_name)) {
-                $img = $mm->image_name;
+                $img = base_url().'get_share_image.php?im='.$mm->image_name;
             } else {
-                $img = 'upload/podcast.jpg';
+                $img = base_url().'get_share_image.php?im='.'upload/podcast.jpg';
             }
 
             $ns = substr(strip_tags($mm->content), 0, 200);
-            $str = substr($ns, 0, strrpos($ns, ' ')) . "<a href='" . base_url() . "NewsMultimedia/detail/" . $mm->uri . "'>[...]</a>";
+            $str = substr($ns, 0, strrpos($ns, ' ')) . "<a href='" . base_url() . "multimedia/" . $mm->uri . "'>[...]</a>";
             $tag = $this->frontModel->tag_topic($mm->article_id);
 
             $output .= "<div class=' col-md-4 col-12 mb-4 '>";
-            $output .= "<img class='responsive' src='" . base_url() . $img . "' >";
+            $output .= "<img class='responsive' src='" . $img . "' >";
             $output .= "<div class='category mt-3'>" . ucfirst($mm->article_type) . $tag . "</div>";
-            $output .= "<div class='card-title text-blue'><a href='" . base_url() . "NewsMultimedia/detail/" . $mm->uri . "'>" . $mm->title . "</a></div>";
+            $output .= "<div class='card-title text-blue'><a href='" . base_url() . "multimedia/" . $mm->uri . "'>" . $mm->title . "</a></div>";
             $output .= "<div><span class='date'>" . date('j F Y', strtotime($mm->posted_date)) . "</span></div>";
             $output .= "</div>";
         }
@@ -251,21 +251,21 @@ class Multimedia extends CI_Controller
         foreach ($mm as $mm) {
             //echo base_url().$mm->image_name."<br>";
             if (file_exists(FCPATH . $mm->image_name)) {
-                $img = $mm->image_name;
+                $img = base_url().'get_share_image.php?im='.$mm->image_name;
             } else {
                 if ($mm->sub_experts == 7)
-                    $img = 'upload/webinar.jpg';
+                    $img = base_url().'get_share_image.php?im='.'upload/webinar.jpg';
                 else
-                    $img = 'upload/video.jpg';
+                    $img = base_url().'get_share_image.php?im='.'upload/video.jpg';
             }
 
             $ns = substr(strip_tags($mm->content), 0, 200);
-            $str = substr($ns, 0, strrpos($ns, ' ')) . "<a href='" . base_url() . "NewsMultimedia/detail/" . $mm->uri . "'>[...]</a>";
+            $str = substr($ns, 0, strrpos($ns, ' ')) . "<a href='" . base_url() . "multimedia/" . $mm->uri . "'>[...]</a>";
 
             $output .= "<div class='medi row pt-4 pb-4 bottom-section-divider'><div class='col-md-5 col-xs-12 m-0 pr-md-1'>";
-            $output .= "<img class='responsive' src='" . base_url() . $img . "' ></div>";
+            $output .= "<img class='responsive' src='" . $img . "' ></div>";
             $output .= "<div class='col-md-7 col-xs-12'><div class='category'>" . ucfirst($mm->article_type) . "</div>";
-            $output .= "<div class='card-title text-blue'><a href='" . base_url() . "NewsMultimedia/detail/" . $mm->uri . "'>" . $mm->title . "</a></div><div>";
+            $output .= "<div class='card-title text-blue'><a href='" . base_url() . "multimedia/" . $mm->uri . "'>" . $mm->title . "</a></div><div>";
             $output .= "<span class='date'>" . date('j F Y', strtotime($mm->posted_date)) . "</span></div>";
             $output .= "<div class='description'>" . str_replace("â€™", "'", $str) . "</div>";
             $output .= "</div></div>";
