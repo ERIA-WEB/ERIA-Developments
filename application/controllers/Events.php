@@ -238,13 +238,13 @@ class Events extends CI_Controller
                     if (!$get_headers) {
                         $img_temporary = "https://www.eria.org/" . $past->image_name_2;
                     } else {
-                        $img_temporary = base_url() . "upload/Event.jpg";
+                        $img_temporary = base_url() .'get_share_image.php?im='.'upload/Event.jpg';
                     }
                 } else {
                     if (!empty($past->image_name_2)) {
-                        $img_temporary = base_url() . $past->image_name_2;
+                        $img_temporary = base_url() .'get_share_image.php?im='.$past->image_name_2;
                     } else {
-                        $img_temporary = base_url() . "upload/Event.jpg";
+                        $img_temporary = base_url() .'get_share_image.php?im='.'upload/Event.jpg';
                     }
                 }
                 
@@ -374,13 +374,13 @@ class Events extends CI_Controller
                     if (!empty($past->image_name_2)) {
                         $img_temporary = "https://www.eria.org" . $past->image_name_2;
                     } else {
-                        $img_temporary = base_url() . "upload/Event.jpg";
+                        $img_temporary = base_url() .'get_share_image.php?im='.'upload/Event.jpg';
                     }
                 } else {
                     if (!empty($past->image_name_2)) {
-                        $img_temporary = base_url() . $past->image_name_2;
+                        $img_temporary = base_url() .'get_share_image.php?im='.$past->image_name_2;
                     } else {
-                        $img_temporary = base_url() . "upload/Event.jpg";
+                        $img_temporary = base_url() .'get_share_image.php?im='.'upload/Event.jpg';
                     }
                 }
                 
