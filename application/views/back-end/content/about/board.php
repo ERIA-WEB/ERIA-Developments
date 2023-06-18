@@ -3,7 +3,6 @@
     margin-top: 0px !important;
 }
 </style>
-
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -49,17 +48,12 @@
                                 ]; ?>
                                 <input type="hidden" name="<?php echo $csrf['name']; ?>"
                                     value="<?php echo $csrf['hash']; ?>" />
-                                <input type="hidden" name="id" value="<?php echo isset(
-                                                                            $slider_row
-                                                                        )
-                                                                            ? $slider_row->article_id
-                                                                            : ''; ?>" />
+                                <input type="hidden" name="id"
+                                    value="<?php echo isset($slider_row) ? $slider_row->article_id : ''; ?>" />
                                 <fieldset>
                                     <div class="masonry-gallery">
                                         <div class="masonry-thumb" style="margin-left: 30%;">
-                                            <?php $path = !isset($slider_row->image_name)
-                                                ? '/uploads/boardmessages/slider.jpg'
-                                                : $slider_row->image_name; ?>
+                                            <?php $path = !isset($slider_row->image_name) ? '/uploads/boardmessages/slider.jpg' : $slider_row->image_name; ?>
                                             <!--   <img id="placeholder" class="grayscale" src="<?php echo base_url(); ?>resources/images<?php echo $path; ?>" width="142"   alt="Sample Image">-->
                                             <img id="placeholder" class="grayscale"
                                                 src="<?= base_url() ?>get_thumbs.php?im=<?php echo $path; ?>"
@@ -69,16 +63,8 @@
                                 </fieldset>
                                 <div class="form-group">
                                     <?php
-                                    $error =
-                                        form_error('image') === ''
-                                        ? ''
-                                        : 'error';
-                                    $image =
-                                        set_value('image') ==
-                                        false &&
-                                        isset($slider_row)
-                                        ? $slider_row->image_name
-                                        : set_value('image');
+                                    $error = form_error('image') === '' ? '' : 'error';
+                                    $image = set_value('image') == false && isset($slider_row) ? $slider_row->image_name : set_value('image');
                                     ?>
                                     <label class="form-label" for="formfield1"> Image </label>
                                     <span class="desc">Dimensions "240 X 340 PX"</span>
@@ -96,17 +82,8 @@
                                 </div>
                                 <div class="form-group">
                                     <?php
-                                    $error =
-                                        form_error('menu_title') ===
-                                        ''
-                                        ? ''
-                                        : 'error';
-                                    $major =
-                                        set_value('major') ==
-                                        false &&
-                                        isset($slider_row)
-                                        ? $slider_row->major
-                                        : set_value('major');
+                                    $error = form_error('menu_title') === '' ? '' : 'error';
+                                    $major = set_value('major') == false && isset($slider_row) ? $slider_row->major : set_value('major');
                                     ?>
                                     <label class="form-label" for="formfield1"> Title </label>
                                     <span class="desc">e.g. "Secretary-General of ASEAN"</span>
@@ -122,17 +99,8 @@
                                 </div>
                                 <div class="form-group">
                                     <?php
-                                    $error =
-                                        form_error('menu_title') ===
-                                        ''
-                                        ? ''
-                                        : 'error';
-                                    $title =
-                                        set_value('title') ==
-                                        false &&
-                                        isset($slider_row)
-                                        ? $slider_row->title
-                                        : set_value('title');
+                                    $error = form_error('menu_title') === '' ? '' : 'error';
+                                    $title = set_value('title') == false && isset($slider_row) ? $slider_row->title : set_value('title');
                                     ?>
                                     <label class="form-label" for="formfield1"> Name </label>
                                     <span class="desc">e.g. "Dato Paduka Lim Jock Hoi"</span>
@@ -149,16 +117,8 @@
                                 </div>
                                 <div class="form-group">
                                     <?php
-                                    $error =
-                                        form_error('content') === ''
-                                        ? ''
-                                        : 'error';
-                                    $content =
-                                        set_value('content') ==
-                                        false &&
-                                        isset($slider_row)
-                                        ? $slider_row->content
-                                        : set_value('content');
+                                    $error = form_error('content') === '' ? '' : 'error';
+                                    $content = set_value('content') == false && isset($slider_row) ? $slider_row->content : set_value('content');
                                     ?>
                                     <label class="form-label" for="formfield1"> Content </label>
                                     <div class="controls">
@@ -173,17 +133,8 @@
                                 </div>
                                 <div class="form-group">
                                     <?php
-                                    $error =
-                                        form_error('order_id') ===
-                                        ''
-                                        ? ''
-                                        : 'error';
-                                    $order_id =
-                                        set_value('order_id') ==
-                                        false &&
-                                        isset($slider_row)
-                                        ? $slider_row->order_id
-                                        : set_value('order_id');
+                                    $error = form_error('order_id') === '' ? '' : 'error';
+                                    $order_id = set_value('order_id') == false && isset($slider_row) ? $slider_row->order_id : set_value('order_id');
                                     ?>
                                     <label class="form-label" for="formfield1"> Sort Order </label>
                                     <span class="desc">e.g. "100"</span>
@@ -199,19 +150,8 @@
                                 </div>
                                 <div class="form-group">
                                     <?php
-                                    $error =
-                                        form_error('published') ===
-                                        ''
-                                        ? ''
-                                        : 'error';
-                                    $published =
-                                        set_value('published') ==
-                                        false &&
-                                        isset($slider_row)
-                                        ? $slider_row->published
-                                        : set_value(
-                                            'published'
-                                        );
+                                    $error = form_error('published') === '' ? '' : 'error';
+                                    $published = set_value('published') == false && isset($slider_row) ? $slider_row->published : set_value('published');
                                     ?>
                                     <label class="form-label" for="formfield1"> Published </label>
                                     <div style="width: 30px" class="controls">
@@ -354,124 +294,6 @@
 <script src="<?php echo base_url(); ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url(); ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-var delete_id = null;
-var delete_tr = null;
-var name = null;
 
-$('.confirmation-callback').click(function() {
-    delete_id = $(this).data("id");
-    name = $(this).data("area");
-    delete_tr = $(this).closest('tr');
-    confirmationCallbackDelete(delete_id, name, delete_tr);
-});
-
-function confirmationCallbackDelete(delete_id, name, delete_tr) {
-    $('.confirmation-callback').confirmation({
-        singleton: true,
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/About/deleter",
-                data: {
-                    id: delete_id,
-                    name: name
-
-                }
-            }).done(function(json) {
-
-
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                });
-            })
-        }
-    });
-}
-</script>
-<script>
-$(function() {
-    $('.pop').on('click', function() {
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#imagemodal').modal('show');
-    });
-});
-</script>
-<script>
-$('#photo').change(function() {
-    var input = this;
-    var name = $(this).val();
-
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-<script>
-$(document).ready(function() {
-    // $('#summernote').summernote();
-    // $('#article_keywords').summernote();
-});
-</script>
-
-<script>
-var delete_id = null;
-var delete_tr = null;
-var status = null;
-
-$('.pub-callback').click(function() {
-    delete_id = $(this).data("id");
-    status = $(this).data("status");
-    delete_tr = $(this).closest('tr');
-
-    publishR(delete_id, status, delete_tr);
-});
-
-function publishR(delete_id, status, delete_tr) {
-    $('.pub-callback').confirmation({
-        singleton: true,
-        title: "Publish confirmation",
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/research/publishR",
-                data: {
-                    id: delete_id,
-                    pub: status
-
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "yellow");
-                delete_tr.fadeOut(1200, function() {
-                    location.reload();
-                });
-            })
-        }
-    });
-}
-
-
-
-
-$(document).ready(function() {
-
-
-
-    $('#examples').DataTable({
-        order: [
-            [2, 'desc']
-        ],
-    });
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/abouts/board.js" type="text/javascript"></script>
