@@ -3,7 +3,6 @@
     margin-top: -50px !important;
 }
 </style>
-
 <section id="main-content">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -312,34 +311,5 @@
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
 
-<script>
-$(function() {
-    $('.pop').on('click', function() {
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#imagemodal').modal('show');
-    });
-});
-</script>
-<script>
-$('#photo').change(function() {
-    var input = this;
-    var name = $(this).val();
-
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
-<script>
-$(document).ready(function() {
-    $('#examplesPageTables').DataTable({
-        "bInfo": false
-    });
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/abouts/all-sub/page.js" type="text/javascript"></script>
