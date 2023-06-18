@@ -235,9 +235,9 @@ class News extends CI_Controller
             */
             if (!empty($news_['image_name'])) {
                 if (file_exists(FCPATH . $news_['image_name']) && $news_['image_name'] != '') {
-                    $img = base_url() . $news_['image_name'];
+                    $img = base_url() .'get_share_image.php?im='.$news_['image_name'];
                 } elseif (file_exists(FCPATH . '/resources/images' . $news_['image_name']) && $news_['image_name'] != '') {
-                    $img = base_url() . 'resources/images' . $news_['image_name'];
+                    $img = base_url() .'get_share_image.php?im='.'/resources/images' . $news_['image_name'];
                 } else {
                     if (!empty($news_['image_name'])) {
                         $url_ = "https://www.eria.org" . $news_['image_name'];
@@ -245,14 +245,14 @@ class News extends CI_Controller
                         if (strlen($response)) {
                             $img = "https://www.eria.org" . $news_['image_name'];
                         } else {
-                            $img = base_url() . "/upload/news.jpg";
+                            $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                         }
                     } else {
-                        $img = base_url() . "/upload/news.jpg";
+                        $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                     }
                 }
             } else {
-                $img = base_url() . "/upload/news.jpg";
+                $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
             }
 
             /*
@@ -271,7 +271,7 @@ class News extends CI_Controller
             if (!empty($news_['tags'])) {
                 $taging = $news_['tags'];
             } else {
-                $taging = $this->frontModel->tag_topic($news_['article_id']);
+                $taging = $this->frontModel->tag_topic_news_and_views($news_['article_id']); // tag_topic
             }
 
             /*
@@ -328,7 +328,7 @@ class News extends CI_Controller
             $str = substr($ns, 0, strrpos($ns, ' ')) . "(...)";
 
             if (file_exists(FCPATH . $mm->image_name)) {
-                $img = base_url() . $mm->image_name;
+                $img = base_url() .'get_share_image.php?im='.$mm->image_name;
 
                 $output .= "<div style='  ' class='   medi row py-4 mt-1 bottom-section-divider'>";
                 $output .= "<div class='col-md-5 col-xs-12 m-0 pr-md-1'>";
@@ -342,7 +342,7 @@ class News extends CI_Controller
                 $output .= "<div class='description'>" . $str . "</div></div></div>";
             } else {
 
-                $img = "upload/news.jpg";
+                $img = base_url().'get_share_image.php?im='.'upload/news.jpg';
 
                 $output .= "<div class='medi row py-4 mt-1 bottom-section-divider'>";
                 $output .= "<div class='col-md-5 col-xs-12 m-0 pr-md-1'>";
