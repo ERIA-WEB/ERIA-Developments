@@ -297,11 +297,11 @@ class Update extends CI_Controller
                 $t = str_replace('â€˜', "-", $this->limit_text($mm['title'], 50)); // $this->RemoveBS($mm['title'])
 
                 if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                    $img = base_url() . $mm['image_name'];
+                    $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                 } else if ($mm['image_name']) {
                     $img = "https://www.eria.org" . $mm['image_name'];
                 } else {
-                    $img = base_url() . "upload/news.jpg";
+                    $img = base_url() .'get_share_image.php?im='.'upload/news.jpg';
                 }
 
                 if (!empty($mm['by_editor'])) {
