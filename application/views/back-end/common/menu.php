@@ -151,7 +151,7 @@ if (!isset($sactive))
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            <li class="hidden">
                                 <a class="<?php if ($sub == 'rupd') { ?> active <?php } ?>"
                                     href="<?php echo base_url() ?>system-content/Mmenu/recent" target=''> Recent Updates
                                 </a>
@@ -679,35 +679,4 @@ if (!isset($sactive))
     </div>
     <!-- MAIN MENU - END -->
 </div>
-<script type="text/javascript">
-function date_time(id) {
-    date = new Date;
-    year = date.getFullYear();
-    month = date.getMonth();
-    months = new Array('January', 'February', 'March', 'April', 'May', 'June', 'Jully', 'August', 'September',
-        'October', 'November', 'December');
-    d = date.getDate();
-    day = date.getDay();
-    days = new Array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-    h = date.getHours();
-    if (h < 10) {
-        h = "0" + h;
-    }
-    m = date.getMinutes();
-    if (m < 10) {
-        m = "0" + m;
-    }
-    s = date.getSeconds();
-    if (s < 10) {
-        s = "0" + s;
-    }
-    result = ' ' + months[month] + ' ' + d + ' ' + year + ' ' + h + ':' + m + ':' + s;
-    //result = ''+d+' '+h+':'+m+':'+s;
-    document.getElementById(id).innerHTML = result;
-    setTimeout('date_time("' + id + '");', '1000');
-    return true;
-}
-</script>
-<script type="text/javascript">
-window.onload = date_time('date_time');
-</script>
+<script src="<?= base_url(); ?>v6/js/admin/menu.js"></script>
