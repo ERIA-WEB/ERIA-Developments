@@ -405,9 +405,9 @@ class Publications extends CI_Controller
                 $str = $this->limit_text($nsd, 25, base_url() . "publications/" . $mm->uri);
 
                 if (file_exists(FCPATH . $mm->image_name) && $mm->image_name != '') {
-                    $img = base_url() . $mm->image_name;
+                    $img = base_url() .'get_share_image.php?im='.$mm->image_name;
                 } elseif (file_exists(FCPATH . '/resources/images' . $mm->image_name) && $mm->image_name != '') {
-                    $img = base_url() . 'resources/images' . $mm->image_name;
+                    $img = base_url() .'get_share_image.php?im='.'/resources/images' . $mm->image_name;
                 } else {
                     $url = "https://www.eria.org" . $mm->image_name;
                     $response = get_headers($url, 1);
@@ -416,7 +416,7 @@ class Publications extends CI_Controller
                     if ($file_exists == 1) {
                         $img = "https://www.eria.org" . $mm->image_name;
                     } else {
-                        $img = base_url() . "/resources/images/default-image.jpg";
+                        $img = base_url() .'get_share_image.php?im='.'/resources/images/default-image.jpg';
                     }
                 }
 
@@ -554,13 +554,13 @@ class Publications extends CI_Controller
             }
                  
             if ($mm['thumbnail_image'] != '') {
-                $img = base_url() . $mm['thumbnail_image'];
+                $img = base_url() .'get_share_image.php?im='.$mm['thumbnail_image'];
             } else {
                 if ($mm['image_name'] != '') {
                     if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                        $img = base_url() . $mm['image_name'];
+                        $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                     } elseif (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                        $img = base_url() . $mm['image_name'];
+                        $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                     } else {
                         $url_img_detail = "https://www.eria.org" . $mm['image_name'];
                         $response_img_detail = get_headers($url_img_detail, 1);
@@ -569,12 +569,12 @@ class Publications extends CI_Controller
                         if ($file_exists_img_detail == 1) {
                             $img = "https://www.eria.org" . $mm['image_name'];
                         } else {
-                            $img = base_url() . "/upload/thumbnails-pub.jpg";
+                            $img = base_url() .'get_share_image.php?im='.'/upload/thumbnails-pub.jpg';
                         }
                     }
                 } else {
 
-                    $img = base_url() . "/upload/thumbnails-pub.jpg";
+                    $img = base_url() .'get_share_image.php?im='.'/upload/thumbnails-pub.jpg';
                 }
             }
             
@@ -827,38 +827,21 @@ class Publications extends CI_Controller
                 
                 if (!empty($mm['image_name'])) {
                     if (file_exists(FCPATH . $mm['image_name'])) {
-                        $img_thumb = base_url() . $mm['image_name'];
+                        $img_thumb = base_url() .'get_share_image.php?im='.$mm['image_name'];
                     } else if ($mm['image_name']) {
                         $img_thumb = "https://www.eria.org" . $mm['image_name'];
                     } else {
 
                         if ($mm['article_type'] == 'publications') {
-                            $img_thumb = base_url() . "upload/Publication.jpg";
+                            $img_thumb = base_url() .'get_share_image.php?im='.'upload/Publication.jpg';
                         } else {
-                            $img_thumb = base_url() . "upload/Article.jpg";
+                            $img_thumb = base_url() .'get_share_image.php?im='.'upload/Article.jpg';
                         }
                     }
                 } else {
-                    $img_thumb = base_url() . "upload/Publication.jpg";
+                    $img_thumb = base_url() .'get_share_image.php?im='.'upload/Publication.jpg';
                 }
 
-                // if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                //     $img_thumb = base_url() . $mm['image_name'];
-                // } else {
-                //     $url_image = "https://www.eria.org" . $mm['image_name'];
-                //     $get_headers = @get_headers($url_image, 1);
-                    
-                //     if ($get_headers == 1) {
-                //         if (!empty($mm['image_name'])) {
-                //             $img_thumb = "https://www.eria.org" . $mm['image_name'];
-                //         } else {
-                //             $img_thumb = base_url() . "upload/Publication.jpg";
-                //         }
-                //     } else {
-                //         $img_thumb = base_url() . "upload/Publication.jpg";
-                //     }
-                // }
-                
                 if ($mm['article_type'] === 'publications') {
                     $output .= '<div class="col-md-6 d-lg-flex align-items-lg-start mb-4 mb-lg-5nborder">
                                 <div class="publications-image">
@@ -987,9 +970,9 @@ class Publications extends CI_Controller
 
                 if ($mm['image_name'] != '') {
                     if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                        $img = base_url() . $mm['image_name'];
+                        $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                     } elseif (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                        $img = base_url() . $mm['image_name'];
+                        $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                     } else {
                         $url_img_detail = "https://www.eria.org" . $mm['image_name'];
                         $response_img_detail = get_headers($url_img_detail, 1);
@@ -998,12 +981,12 @@ class Publications extends CI_Controller
                         if ($file_exists_img_detail == 1) {
                             $img = "https://www.eria.org" . $mm['image_name'];
                         } else {
-                            $img = base_url() . "/resources/images/default-image.jpg";
+                            $img = base_url() .'get_share_image.php?im='.'/resources/images/default-image.jpg';
                         }
                     }
                 } else {
 
-                    $img = base_url() . "/resources/images/default-image.jpg";
+                    $img = base_url() .'get_share_image.php?im='.'/resources/images/default-image.jpg';
                 }
 
                 $c = str_replace('â€™', "-", $mm['title']);
@@ -1132,14 +1115,14 @@ class Publications extends CI_Controller
             if ($file_exists == 1) {
                 $img = "https://www.eria.org" . $mm['image_name'];
             } else {
-                $img = base_url() . "/resources/images/default-image.jpg";
+                $img = base_url() . '/resources/images/default-image.jpg';
             }
         }*/
             if ($mm['image_name'] != '') {
                 if (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                    $img = base_url() . $mm['image_name'];
+                    $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                 } elseif (file_exists(FCPATH . $mm['image_name']) && $mm['image_name'] != '') {
-                    $img = base_url() . $mm['image_name'];
+                    $img = base_url() .'get_share_image.php?im='.$mm['image_name'];
                 } else {
                     $url_img_detail = "https://www.eria.org" . $mm['image_name'];
                     $response_img_detail = get_headers($url_img_detail, 1);
@@ -1148,12 +1131,12 @@ class Publications extends CI_Controller
                     if ($file_exists_img_detail == 1) {
                         $img = "https://www.eria.org" . $mm['image_name'];
                     } else {
-                        $img = base_url() . "/resources/images/default-image.jpg";
+                        $img = base_url() .'get_share_image.php?im='.'/resources/images/default-image.jpg';
                     }
                 }
             } else {
 
-                $img = base_url() . "/resources/images/default-image.jpg";
+                $img = base_url() .'get_share_image.php?im='.'/resources/images/default-image.jpg';
             }
 
             $c = str_replace(array('â€’','â€™', 'â€“', 'â€”', 'â€˜'), "'", $mm['title']);
