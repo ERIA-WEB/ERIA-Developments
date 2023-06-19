@@ -192,14 +192,6 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" type="text/javascript">
 </script>
-<script>
-$('.change_f').change(function() {
-    var heading = $(this).find(':selected').data('title');
-    var tasean = $(this).find(':selected').data('class');
-    var img = $(this).find(':selected').data('img');
-    var iclass = $(this).find(':selected').data('iclass');
 
-    $('.' + iclass).attr('src', img);
-    $('.' + tasean).html(heading);
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/cards/menu.js" type="text/javascript"></script>
