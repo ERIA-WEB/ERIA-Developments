@@ -1,7 +1,7 @@
 <style>
-    .dataTables_info {
-        margin-top: -50px !important;
-    }
+.dataTables_info {
+    margin-top: -50px !important;
+}
 </style>
 
 <section id="main-content" class=" ">
@@ -24,17 +24,15 @@
                 </div>
             </div>
         </div>
-
         <!--my comment-->
-
         <div class="clearfix"></div>
-
         <div class="col-lg-12"><?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
                     <h2 class="title pull-left"> Governing Board </h2>
                     <div class="actions panel_actions pull-right">
-                        <a data-toggle="modal" data-aid="10" style="color: white !important; " class="btn btn-info _pdf " href="#myModal1">
+                        <a data-toggle="modal" data-aid="10" style="color: white !important; "
+                            class="btn btn-info _pdf " href="#myModal1">
                             <i style="color: white !important;" class="  fa fa-file-pdf-o "></i>
                         </a>
                         <i class="box_toggle fa fa-chevron-down"></i>
@@ -45,15 +43,18 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo $action; ?>">
+                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+                                action="<?php echo $action; ?>">
                                 <?php
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
                                 );
                                 ?>
-                                <input type="hidden" name="<?php echo $csrf['name']; ?>" value="<?php echo $csrf['hash']; ?>" />
-                                <input type="hidden" name="id" value="<?php echo (isset($slider_row)) ? $slider_row->page_id : '' ?>" />
+                                <input type="hidden" name="<?php echo $csrf['name']; ?>"
+                                    value="<?php echo $csrf['hash']; ?>" />
+                                <input type="hidden" name="id"
+                                    value="<?php echo (isset($slider_row)) ? $slider_row->page_id : '' ?>" />
                                 <div style="display: none" class="form-group">
                                     <?php
                                     $error = (form_error('menu_title') === '') ? '' : 'error';
@@ -62,7 +63,8 @@
                                     <label class="form-label" for="formfield1"> Menu Title </label>
                                     <span class="desc">e.g. "Title"</span>
                                     <div class="controls">
-                                        <input type="text" required="required" value="<?php echo $menu_title ?>" class="form-control" id="menu_title" name="menu_title">
+                                        <input type="text" required="required" value="<?php echo $menu_title ?>"
+                                            class="form-control" id="menu_title" name="menu_title">
                                         <?php echo form_error('menu_title', '<span class="help-inline">', '</span>'); ?>
 
                                     </div>
@@ -75,7 +77,8 @@
                                     <label class="form-label" for="formfield1"> Page Title </label>
                                     <span class="desc">e.g. "Title"</span>
                                     <div class="controls">
-                                        <input type="text" required="required" value="<?php echo $title ?>" class="form-control" id="title" name="title">
+                                        <input type="text" required="required" value="<?php echo $title ?>"
+                                            class="form-control" id="title" name="title">
                                         <?php echo form_error('title', '<span class="help-inline">', '</span>'); ?>
 
                                     </div>
@@ -87,7 +90,9 @@
                                     ?>
                                     <label class="form-label" for="formfield1"> Governing Board Content </label>
                                     <div class="controls">
-                                        <textarea rows="5" style="height: 500px" id="summernote" class="form-control mytextarea" name="content"><?php echo $content; ?></textarea>
+                                        <textarea rows="5" style="height: 500px" id="summernote"
+                                            class="form-control mytextarea"
+                                            name="content"><?php echo $content; ?></textarea>
                                         <?php echo form_error('content', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -98,9 +103,10 @@
                                     <div class="controls">
                                         <select class="" id="s2example-8" name="member_id[]" multiple>
                                             <?php foreach ($members as $member) { ?>
-                                                <?php if (isset($member_govern_board)) { ?>
-                                                    <option <?php if (in_array($member->article_id, $member_govern_board)) { ?> selected="" <?php  } ?> value="<?php echo $member->article_id; ?>">
-                                                        <?php
+                                            <?php if (isset($member_govern_board)) { ?>
+                                            <option <?php if (in_array($member->article_id, $member_govern_board)) { ?>
+                                                selected="" <?php  } ?> value="<?php echo $member->article_id; ?>">
+                                                <?php
                                                         if ($member->title == 'Message from Secretary General of ASEAN') {
                                                             $title = $member->major;
                                                         } else {
@@ -108,10 +114,11 @@
                                                         }
                                                         echo $title;
                                                         ?>
-                                                    </option>
-                                                <?php } else { ?>
-                                                    <option value="<?php echo $member->article_id; ?>"><?php echo $member->title; ?></option>
-                                                <?php } ?>
+                                            </option>
+                                            <?php } else { ?>
+                                            <option value="<?php echo $member->article_id; ?>">
+                                                <?php echo $member->title; ?></option>
+                                            <?php } ?>
                                             <?php } ?>
                                         </select>
                                         <?php echo form_error('member_id', '<span class="help-inline">', '</span>'); ?>
@@ -125,7 +132,8 @@
                                     <label class="form-label" for="formfield1"> Sort Order </label>
                                     <span class="desc">e.g. "100"</span>
                                     <div class="controls">
-                                        <input type="number" required="required" value="<?php echo $order_id ?>" class="form-control" id="order_id" name="order_id">
+                                        <input type="number" required="required" value="<?php echo $order_id ?>"
+                                            class="form-control" id="order_id" name="order_id">
                                         <?php echo form_error('order_id', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -137,7 +145,8 @@
                                     <label class="form-label" for="formfield1"> Published </label>
                                     <div style="width: 30px" class="controls">
                                         <i class=""></i>
-                                        <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked <?php } ?> class="form-control" id="published" name="published">
+                                        <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked
+                                            <?php } ?> class="form-control" id="published" name="published">
                                         <?php echo form_error('published', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -149,7 +158,8 @@
                                     <label class="form-label" for="formfield1"> Meta Keywords </label>
                                     <span class="desc">e.g. "Eria"</span>
                                     <div class="controls">
-                                        <input type="text" value="<?php echo $meta_keywords ?>" class="form-control" id="meta_keywords" name="meta_keywords">
+                                        <input type="text" value="<?php echo $meta_keywords ?>" class="form-control"
+                                            id="meta_keywords" name="meta_keywords">
                                         <?php echo form_error('meta_keywords', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -161,7 +171,8 @@
                                     <label class="form-label" for="formfield1"> Meta Description </label>
                                     <span class="desc">e.g. "Title"</span>
                                     <div class="controls">
-                                        <input type="text" value="<?php echo $meta_description ?>" class="form-control" id="meta_description" name="meta_description">
+                                        <input type="text" value="<?php echo $meta_description ?>" class="form-control"
+                                            id="meta_description" name="meta_description">
                                         <?php echo form_error('meta_description', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -209,7 +220,8 @@
                         </tr>
                         <tr>
                             <td colspan="2" id="error"> </td>
-                            <td style="text-align:right"> <input type='button' class='btn btn-info' value='Upload' id='btn_upload'></td>
+                            <td style="text-align:right"> <input type='button' class='btn btn-info' value='Upload'
+                                    id='btn_upload'></td>
                         </tr>
                     </table>
                 </form>
@@ -228,14 +240,20 @@
 <script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 
 <!-- CORE TEMPLATE JS - START -->
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
@@ -243,245 +261,11 @@
 <script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
 
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
 
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-    });
-
-    $('.confirmation-callback').confirmation({
-
-        singleton: true,
-
-        onConfirm: function(event, element) {
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/user/deleteUser",
-                data: {
-                    id: delete_id,
-                    name: name
-
-                }
-            }).done(function(json) {
-
-
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                });
-
-
-            })
-
-
-        }
-    });
-</script>
-
-
-<script>
-    $(function() {
-        $('.pop').on('click', function() {
-            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-            $('#imagemodal').modal('show');
-        });
-    });
-</script>
-
-
-
-
-<script>
-    $('#photo').change(function() {
-        var input = this;
-        var name = $(this).val();
-
-        $('#image').val(name);
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#placeholder').attr('src', e.target.result).attr('width', 142);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
-</script>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // $('#summernote').summernote();
-        // $('#article_keywords').summernote();
-    });
-</script>
-
-
-<script>
-    $(document).ready(function() {
-
-
-        $('._pdf').click(function() {
-
-            loadPDF(10);
-
-        })
-
-
-
-
-        $('#btn_upload').click(function() {
-
-
-
-            var fd = new FormData();
-            var files = $('#file')[0].files[0];
-
-
-
-
-
-            var pdf_title = $('#pdf_title').val();
-            var pdf_dis = $('#pdf_dis').val();
-            var aid = $('#aid').val();
-            var ptype = $('#ptype').val();
-
-
-
-            fd.append('file', files);
-            fd.append('pdf_title', pdf_title);
-            fd.append('pdf_dis', pdf_dis);
-            fd.append('aid', aid);
-            fd.append('ptype', ptype);
-
-
-
-
-            if (pdf_title != '') {
-
-                $(this).closest('form').find("input[type=text],input[type=file], textarea").val("");
-
-                // AJAX request
-                $.ajax({
-                    url: '<?php echo base_url(); ?>system-content/About/pdf',
-                    type: 'post',
-                    data: fd,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-
-
-                        if (response != 0) {
-
-                            loadPDF(aid);
-
-                        } else {
-
-                            $('#error').html('<span style="color:red" >Please Check the pdf</span>');
-
-                        }
-                    }
-                });
-            } else {
-
-                $('#error').html('<span style="color:red" >Please Enter the pdf Details</span>');
-
-            }
-        });
-    });
-
-
-    function loadPDF(id) {
-
-
-
-        var tablede = '<img src="<?php echo base_url() ?>upload/loading-bar-1.gif" width="200"  >';
-
-        $('.pdf_dis').html(tablede);
-
-        $('.pdf_dis').html(tablede);
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url() ?>system-content/About/viewPdf",
-            data: {
-                id: id,
-
-
-            },
-        }).done(function(json) {
-
-
-            var retuenValue = $.parseJSON(json);
-
-
-            if (retuenValue.length != 0) {
-                var tablede = '';
-                tablede += "<table id='example' style='font-size:12px;' class='    display table data' cellspacing='0' width='100%'><thead><tr><th>#</th><th>Title</th><th>PDF</th><th>Action</th></tr></thead><tbody>";
-
-                var a = 0;
-                for (var b = 0; b < retuenValue.length; b++) {
-                    a++;
-
-                    tablede += "<tr><td>" + a + "</td><td>" + retuenValue[b]['heading'] + "</td><td><a target='_blank' href='<?php echo base_url() ?>" + retuenValue[b]['pdf'] + "' >pdf</a></td><td><a data-pid='" + retuenValue[b]['pid'] + "' class='pdf_del btn btn-danger'><i class='fa fa-times'  ></i></a></td></tr>";
-
-                }
-                tablede += "</tbody></table>";
-
-            } else {
-                var tablede = '';
-            }
-
-            $('.pdf_dis').html(tablede);
-
-
-
-        })
-
-    }
-
-
-
-    $(document).on("click", ".pdf_del", function() {
-
-        var pid = $(this).data('pid');
-
-        delete_tr = $(this).closest('tr');
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>system-content/About/deletepdf",
-            data: {
-                pid: pid
-
-            }
-        }).done(function(json) {
-
-
-            delete_tr.css("background-color", "#FF0000");
-            delete_tr.fadeOut(1200, function() {
-                delete_tr.remove();
-            });
-
-
-
-        })
-
-        loadPDF(10);
-
-    })
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/abouts/sub_page.js" type="text/javascript"></script>
