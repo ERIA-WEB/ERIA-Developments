@@ -3,7 +3,6 @@
     margin-top: 0px !important;
 }
 </style>
-
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -135,21 +134,19 @@
                                                             <?php if ($val->uri != 'about-us' and $val->uri != 'experts') { ?>
                                                             <div class="controls">
                                                                 <?php
-                                                                    
-                                                                    $getPage = $this->privilage->getCardPage($val->page_id, $area->c_id);
-                                                                    
-                                                                    if (isset($getPage->page_id) and $getPage->page_id == $val->page_id) {
-                                                                        $checked = 'checked';
-                                                                    } else {
-                                                                        $checked = '';
-                                                                    }
-                                                                    
-                                                                    if ($val->menu_title == 'Updates') {
-                                                                        $aliasTitle = ' / news & views';
-                                                                    } else {
-                                                                        $aliasTitle = '';
-                                                                    }
-                                                                    ?>
+                                                                $getPage = $this->privilage->getCardPage($val->page_id, $area->c_id);
+                                                                if (isset($getPage->page_id) and $getPage->page_id == $val->page_id) {
+                                                                    $checked = 'checked';
+                                                                } else {
+                                                                    $checked = '';
+                                                                }
+                                                                
+                                                                if ($val->menu_title == 'Updates') {
+                                                                    $aliasTitle = ' / news & views';
+                                                                } else {
+                                                                    $aliasTitle = '';
+                                                                }
+                                                                ?>
                                                                 <input
                                                                     style="width: 25px;float: left;margin-right: 15px;margin-top: -6px;"
                                                                     type="checkbox" value="<?= $val->page_id ?>"
@@ -358,104 +355,6 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-var delete_id = null;
-var delete_tr = null;
-var name = null;
 
-$('.confirmation-callback').click(function() {
-    delete_id = $(this).data("id");
-    name = $(this).data("area");
-    delete_tr = $(this).closest('tr');
-
-    confirmationCallbackDelete(delete_id, name, delete_tr);
-});
-
-function confirmationCallbackDelete(delete_id, name, delete_tr) {
-    $('.confirmation-callback').confirmation({
-        singleton: true,
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/card/deleteCardRandoms",
-                data: {
-                    id: delete_id,
-                    name: name
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                    location.reload();
-                });
-            })
-        }
-    });
-}
-</script>
-<script>
-var delete_id = null;
-var delete_tr = null;
-var status = null;
-
-$('.pub-callback').click(function() {
-    delete_id = $(this).data("id");
-    status = $(this).data("status");
-    delete_tr = $(this).closest('tr');
-
-    publishR(delete_id, status, delete_tr);
-});
-
-function publishR(delete_id, status, delete_tr) {
-    $('.pub-callback').confirmation({
-        singleton: true,
-        title: "Publish confirmation",
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/Card/publishRandom",
-                data: {
-                    id: delete_id,
-                    pub: status
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "yellow");
-                delete_tr.fadeOut(1200, function() {
-                    location.reload();
-                });
-            })
-        }
-    });
-}
-</script>
-<script>
-$(function() {
-    $('.pop').on('click', function() {
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#imagemodal').modal('show');
-    });
-});
-</script>
-<script>
-$('#photo').change(function() {
-    var input = this;
-    var name = $(this).val();
-
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
-
-<script>
-$(document).ready(function() {
-    // $('#pageCard').DataTable();
-    $('#examples').DataTable();
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/cards/random_cards.js" type="text/javascript"></script>
