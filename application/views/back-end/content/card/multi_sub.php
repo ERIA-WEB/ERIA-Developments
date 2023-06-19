@@ -1,14 +1,11 @@
 <?php
-
 $areaList = $areaList;
-
 ?>
 <style>
 .dataTables_info {
     margin-top: -50px !important;
 }
 </style>
-
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
