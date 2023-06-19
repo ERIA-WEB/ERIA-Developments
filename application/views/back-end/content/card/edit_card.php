@@ -19,15 +19,16 @@
         </div>
         <!--my comment-->
         <div class="clearfix"></div>
-        <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo base_url(); ?>/system-content/card/update_card">
+        <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+            action="<?php echo base_url(); ?>/system-content/card/update_card">
             <div class="col-lg-12">
                 <!-- start: Alert Message -->
                 <style>
-                    .help-inline {
-                        color: rgba(240, 80, 80, 1.0);
-                        font-weight: 400;
-                        font-size: 13px;
-                    }
+                .help-inline {
+                    color: rgba(240, 80, 80, 1.0);
+                    font-weight: 400;
+                    font-size: 13px;
+                }
                 </style>
                 <!-- end: Alert Message -->
                 <section class="box">
@@ -48,7 +49,8 @@
                                     <label class="form-label" for="formfield1"> Title Card </label>
                                     <span class="desc">e.g. "Card template 1"</span>
                                     <div class="controls">
-                                        <input type="text" required="required" value="<?php echo $cards->c_name; ?>" class="form-control" id="title" name="title" required>
+                                        <input type="text" required="required" value="<?php echo $cards->c_name; ?>"
+                                            class="form-control" id="title" name="title" required>
                                     </div>
                                 </div>
                                 <!-- <div class="form-group">
@@ -63,22 +65,27 @@
                                     </div>
                                 </div> -->
                                 <?php if (!empty($cards->file)) { ?>
-                                    <div id="templateCardFile" class="form-group">
-                                        <label class="form-label" for="formfield1"> Upload File Template Cards </label>
-                                        <br>
-                                        <span style="font-size: 9px;font-style: italic;color: red;">(Please using extension .php*)</span>
-                                        <div class="controls">
-                                            <span style="font-size: 14px;font-style: italic;">Path Card : <?php echo $cards->path . '' . $cards->file; ?></span>
-                                            <input type="hidden" name="file_card_old" value="<?php echo $cards->file; ?>">
-                                            <input class="input-file form-control uniform_on focused" id="file_card" name="file_card" type="file" accept=".php/*" placeholder="Upload file card ext .php">
-                                        </div>
+                                <div id="templateCardFile" class="form-group">
+                                    <label class="form-label" for="formfield1"> Upload File Template Cards </label>
+                                    <br>
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please using extension
+                                        .php*)</span>
+                                    <div class="controls">
+                                        <span style="font-size: 14px;font-style: italic;">Path Card :
+                                            <?php echo $cards->path . '' . $cards->file; ?></span>
+                                        <input type="hidden" name="file_card_old" value="<?php echo $cards->file; ?>">
+                                        <input class="input-file form-control uniform_on focused" id="file_card"
+                                            name="file_card" type="file" accept=".php/*"
+                                            placeholder="Upload file card ext .php">
                                     </div>
+                                </div>
                                 <?php } ?>
                                 <?php if (!empty($cards->template)) { ?>
-                                    <div class="form-group">
-                                        <label class="form-label" for="formfield1"> Template Code Card </label>
-                                        <textarea rows="5" id="summernoteTextArea" class="form-control mytextarea" name="template_content"><?php echo $cards->template; ?></textarea>
-                                    </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="formfield1"> Template Code Card </label>
+                                    <textarea rows="5" id="summernoteTextArea" class="form-control mytextarea"
+                                        name="template_content"><?php echo $cards->template; ?></textarea>
+                                </div>
                                 <?php } ?>
                                 <div class="form-group">
                                     <label class="form-label" for="formfield1"> Published </label>
@@ -90,7 +97,8 @@
                                             $checked = 'checked';
                                         }
                                         ?>
-                                        <input type="checkbox" class="form-control" id="published" name="published" <?php echo $checked; ?>>
+                                        <input type="checkbox" class="form-control" id="published" name="published"
+                                            <?php echo $checked; ?>>
                                     </div>
                                 </div>
                                 <div class="pull-right">
@@ -113,57 +121,31 @@
 <script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 <!-- CORE TEMPLATE JS - START -->
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-    $('#chooseSelectTemplate').on('change', function() {
-        var value = $(this).val();
-        if (value == 'template_file') {
-            $('#templateCardFile').removeClass('hidden');
-            $('#templateCardCode').addClass('hidden');
 
-            $('#file_card').attr("required", "true");
-            $('#summernoteTextArea').prop('required', false);
-        } else {
-            $('#templateCardCode').removeClass('hidden');
-            $('#templateCardFile').addClass('hidden');
-
-            $('#file_card').prop('required', false);
-            $('#summernoteTextArea').attr("required", "true");
-
-            // $('.summernote').on('summernote.init', function() {
-            //     $('.summernote').summernote('codeview.activate');
-            // }).summernote({
-            //     height: 1024,
-            //     placeholder: 'Paste content here...',
-            //     codemirror: {
-            //         theme: 'monokai'
-            //     }
-            // });
-        }
-    });
-</script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script>
-    $('.summernote').summernote({
-        height: 1024,
-        placeholder: 'Paste content here...',
-        codemirror: {
-            theme: 'monokai'
-        }
-    });
-</script>
+
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/cards/edit_card.js" type="text/javascript"></script>
