@@ -55,7 +55,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="formfield1"> Upload Image</label>
-                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions 1000 X 563 PX*)</span> 
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
+                                        1000 X 563 PX*)</span>
                                     <div class="controls">
                                         <input type="file" name="file_card" class="form-control">
                                     </div>
@@ -147,42 +148,6 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-$('#chooseSelectTemplate').on('change', function() {
-    var value = $(this).val();
-    if (value == 'template_file') {
-        $('#templateCardFile').removeClass('hidden');
-        $('#templateCardCode').addClass('hidden');
 
-        $('#file_card').attr("required", "true");
-        // $('#summernoteTextArea').prop('required', false);
-    } else {
-        $('#templateCardCode').removeClass('hidden');
-        $('#templateCardFile').addClass('hidden');
-
-        $('#file_card').prop('required', false);
-        // $('#summernoteTextArea').attr("required", "true");
-
-        // $('.summernote').on('summernote.init', function() {
-        //     $('.summernote').summernote('codeview.activate');
-        // }).summernote({
-        //     height: 1024,
-        //     placeholder: 'Paste content here...',
-        //     codemirror: {
-        //         theme: 'monokai'
-        //     }
-        // });
-    }
-});
-</script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script>
-// $('.summernote').summernote({
-//     height: 1024,
-//     placeholder: 'Paste content here...',
-//     codemirror: {
-//         theme: 'monokai'
-//     }
-// });
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/cards/randoms/create_card_random.js" type="text/javascript"></script>
