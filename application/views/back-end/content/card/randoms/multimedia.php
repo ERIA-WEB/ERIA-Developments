@@ -1,14 +1,11 @@
 <?php
-
 $areaList = $areaList;
-
 ?>
 <style>
 .dataTables_info {
     margin-top: -50px !important;
 }
 </style>
-
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -46,7 +43,6 @@ $areaList = $areaList;
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <?php
-
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
