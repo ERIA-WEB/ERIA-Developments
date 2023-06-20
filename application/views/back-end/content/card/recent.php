@@ -1,7 +1,7 @@
 <style>
-    .dataTables_info {
-        margin-top: -50px !important;
-    }
+.dataTables_info {
+    margin-top: -50px !important;
+}
 </style>
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
@@ -39,21 +39,23 @@
                     <div class="content-body">
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo $action ?>">
+                                <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+                                    action="<?php echo $action ?>">
                                     <?php if (count($rs) < 6) { ?>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <?php
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <?php
                                                     $error = (form_error('home_title') === '') ? '' : 'error';
                                                     $home_title = (set_value('home_title') == false && isset($contentData)) ? $contentData->home_title : set_value('home_title');
                                                     ?>
-                                                    <label class="form-label" for="formfield1"> Select Article/Publication/Programme </label>
-                                                    <span class="desc">e.g. "News/Publications"</span>
-                                                    <div class="controls">
-                                                        <i class=""></i>
-                                                        <select name="asean" class="change_f" id="s2example-2">
-                                                            <?php
+                                                <label class="form-label" for="formfield1"> Select
+                                                    Article/Publication/Programme </label>
+                                                <span class="desc">e.g. "News/Publications"</span>
+                                                <div class="controls">
+                                                    <i class=""></i>
+                                                    <select name="asean" class="change_f" id="s2example-2">
+                                                        <?php
                                                             if ($asean_t->article_id) {
                                                                 $s = $asean_t->article_id;
                                                             } else {
@@ -61,32 +63,37 @@
                                                             }
                                                             ?>
 
-                                                            <?php foreach ($asean as $as) { ?>
-                                                                <option data-class="tasean" data-iclass="timg" <?php if ($s == $as->article_id) { ?> selected <?php } ?> data-img="<?php echo $as->image_name ?>" data-title="<?php echo $as->title ?>" value="<?php echo $as->article_id ?>"> <?php echo $as->title ?> </option>
-                                                            <?php } ?>
-                                                        </select>
-                                                        <?php echo form_error('home_title', '<span class="help-inline">', '</span>'); ?>
-                                                    </div>
+                                                        <?php foreach ($asean as $as) { ?>
+                                                        <option data-class="tasean" data-iclass="timg"
+                                                            <?php if ($s == $as->article_id) { ?> selected <?php } ?>
+                                                            data-img="<?php echo $as->image_name ?>"
+                                                            data-title="<?php echo $as->title ?>"
+                                                            value="<?php echo $as->article_id ?>">
+                                                            <?php echo $as->title ?> </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <?php echo form_error('home_title', '<span class="help-inline">', '</span>'); ?>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <label class="form-label" for="formfield1"> Sort Order </label>
-                                                    <span class="desc">e.g. "100"</span>
-                                                    <div class="controls">
-                                                        <i class=""></i>
-                                                        <input name="sort" class="form-control" type="number">
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label" for="formfield1"> Sort Order </label>
+                                                <span class="desc">e.g. "100"</span>
+                                                <div class="controls">
+                                                    <i class=""></i>
+                                                    <input name="sort" class="form-control" type="number">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class="pull-right">
-                                                <button type="submit" class="btn btn-success">
-                                                    <i class="bImg fa fa-save "></i>
-                                                    Assign </button>
-                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="pull-right">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="bImg fa fa-save "></i>
+                                                Assign </button>
                                         </div>
+                                    </div>
                                     <?php } else { ?>
-                                        <b> Allowed Only 6 Article If you want to add please delete below article. </b>
+                                    <b> Allowed Only 6 Article If you want to add please delete below article. </b>
                                     <?php } ?>
                                 </form>
                             </div>
@@ -120,23 +127,23 @@
                                     </tr>
                                     <?php $x = 0; ?>
                                     <?php foreach ($rs as $key => $rs) { ?>
-                                        <tr>
-                                            <td><?php echo ++$key ?></td>
-                                            <td><?php echo $rs->title ?></td>
-                                            <td>
-                                                <?php
+                                    <tr>
+                                        <td><?php echo ++$key ?></td>
+                                        <td><?php echo $rs->title ?></td>
+                                        <td>
+                                            <?php
                                                 if (file_exists(FCPATH . $rs->image_name)) {
                                                     $img = base_url() . $rs->image_name;
                                                 } else {
                                                     $img = "https://www.eria.org" . $rs->image_name;
                                                 }
                                                 ?>
-                                                <img width="200" src="<?php echo $img; ?>">
-                                            </td>
-                                            <td><?php echo $rs->sort ?></td>
-                                            <td>
-                                                <?php $session_user = $this->session->userdata('logged_in'); ?>
-                                                <?php
+                                            <img width="200" src="<?php echo $img; ?>">
+                                        </td>
+                                        <td><?php echo $rs->sort ?></td>
+                                        <td>
+                                            <?php $session_user = $this->session->userdata('logged_in'); ?>
+                                            <?php
 
                                                 $edit_action = $this->privilage->edit('edit', $session_user['user_id'], 'News/editA/', $rs->article_id);
                                                 $delete_action = $this->privilage->delete('delete', $session_user['user_id'], $rs->article_id);
@@ -148,11 +155,13 @@
                                                 echo $delete_action['delete'];
                                                 echo "&nbsp; &nbsp;";
                                                 ?>
-                                                <a class="btn btn-success" href="<?php echo base_url(); ?>system-content/Card/assignCard_article/<?php echo $rs->article_id; ?>" target="_blank">
-                                                    <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                            <a class="btn btn-success"
+                                                href="<?php echo base_url(); ?>system-content/Card/assignCard_article/<?php echo $rs->article_id; ?>"
+                                                target="_blank">
+                                                <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                     <?php } ?>
                                 </table>
                             </div>
@@ -170,65 +179,32 @@
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 
 <!-- CORE TEMPLATE JS - START -->
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
 
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
 
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-    });
-
-    $('.confirmation-callback').confirmation({
-
-        singleton: true,
-
-        onConfirm: function(event, element) {
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/Mmenu/deleteR",
-                data: {
-                    id: delete_id,
-                    name: name
-
-                }
-            }).done(function(json) {
-
-
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                    location.reload();
-                });
-
-
-            })
-
-
-        }
-    });
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/cards/recent.js" type="text/javascript"></script>
