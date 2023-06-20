@@ -3,7 +3,6 @@
     margin-top: -50px !important;
 }
 </style>
-
 <section id="main-content">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -58,7 +57,6 @@
                                     <label class="form-label" for="formfield1"> Form Title </label>
                                     <span class="desc">e.g. "PROGRAMS"</span>
                                     <div class="controls">
-                                        <i class=""></i>
                                         <input type="text" value="<?= $home_title ?>" class="form-control"
                                             id="home_title" name="home_title">
                                         <?php echo form_error('home_title', '<span class="help-inline">', '</span>'); ?>
@@ -103,7 +101,6 @@
                                     ?>
                                     <label class="form-label" for="formfield3"> Number of Data </label>
                                     <div class="controls">
-                                        <i class=""></i>
                                         <input type="number" value="<?= $contentData->content ?>" class="form-control"
                                             id="headinng" name="headinng">
                                         <?php echo form_error('headinng', '<span class="help-inline">', '</span>'); ?>
@@ -158,11 +155,6 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-$("#other_topics").select2({
-    placeholder: 'Choose Other Topics',
-    allowClear: true
-}).on('select2-open', function() {
-    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-});
-</script>
+
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/cards/randoms/related-categories.js" type="text/javascript"></script>
