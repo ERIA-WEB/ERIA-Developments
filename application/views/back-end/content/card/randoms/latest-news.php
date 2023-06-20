@@ -1,14 +1,11 @@
 <?php
-
 $areaList = $areaList;
-
 ?>
 <style>
 .dataTables_info {
     margin-top: -50px !important;
 }
 </style>
-
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -65,7 +62,6 @@ $areaList = $areaList;
                                     <label class="form-label" for="formfield1"> Form Title </label>
                                     <span class="desc">e.g. "PROGRAMS"</span>
                                     <div class="controls">
-                                        <i class=""></i>
                                         <input type="text" value="<?= $home_title ?>" class="form-control"
                                             id="home_title" name="home_title">
                                         <?php echo form_error('home_title', '<span class="help-inline">', '</span>'); ?>
