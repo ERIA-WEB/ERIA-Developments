@@ -55,7 +55,8 @@
                                         $image = (set_value('image') == false && isset($contentData)) ? $contentData->logo : set_value('image');
                                     ?>
                                     <label class="form-label" for="formfield1"> Logo </label>
-                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions 109 X 38 PX*)</span>
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
+                                        109 X 38 PX*)</span>
                                     <div class="controls">
                                         <input type="hidden" id="image" name="image" value="" />
                                         <input class="input-file form-control uniform_on focused" id="photo"
@@ -145,19 +146,6 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-$('#photo').change(function() {
-    var input = this;
-    var name = $(this).val();
 
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/logo.js"></script>
