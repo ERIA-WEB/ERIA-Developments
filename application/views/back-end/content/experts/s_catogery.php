@@ -1,7 +1,7 @@
 <style>
-    .dataTables_info {
-        margin-top: 0px !important;
-    }
+.dataTables_info {
+    margin-top: 0px !important;
+}
 </style>
 
 <section id="main-content">
@@ -43,15 +43,18 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo $action; ?>">
+                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+                                action="<?php echo $action; ?>">
                                 <?php
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
                                 );
                                 ?>
-                                <input type="hidden" name="<?php echo $csrf['name']; ?>" value="<?php echo $csrf['hash']; ?>" />
-                                <input type="hidden" name="id" value="<?php echo (isset($slider_row)) ? $slider_row->id : '' ?>" />
+                                <input type="hidden" name="<?php echo $csrf['name']; ?>"
+                                    value="<?php echo $csrf['hash']; ?>" />
+                                <input type="hidden" name="id"
+                                    value="<?php echo (isset($slider_row)) ? $slider_row->id : '' ?>" />
                                 <div class="form-group">
                                     <?php
                                     $error = (form_error('s_catogery') === '') ? '' : 'error';
@@ -61,19 +64,23 @@
                                     <br>
                                     <span class="desc" style="margin-left: 0;">e.g. "Energy Unit"</span>
                                     <div class="controls">
-                                        <input type="text" id="s_catogery" value="<?= $s_catogery ?>" name="s_catogery" class="form-control">
+                                        <input type="text" id="s_catogery" value="<?= $s_catogery ?>" name="s_catogery"
+                                            class="form-control">
                                         <?php echo form_error('s_catogery', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="formfield1"> Select Relevant People Categories</label>
+                                    <label class="form-label" for="formfield1"> Select Relevant People
+                                        Categories</label>
                                     <br>
-                                    <span class="desc" style="margin-left: 0;">Type in Relevant People Categories and press enter </span>
+                                    <span class="desc" style="margin-left: 0;">Type in Relevant People Categories and
+                                        press enter </span>
                                     <div class="controls">
                                         <?php
                                         $error = (form_error('category_name') === '') ? '' : 'error';
                                         ?>
-                                        <select class="" id="selectCategoryinDepartement" name="category_name[]" required multiple>
+                                        <select class="" id="selectCategoryinDepartement" name="category_name[]"
+                                            required multiple>
                                             <?php
                                             if (isset($this->uri->segment_array()[4])) {
                                                 $departement_id = $this->uri->segment_array()[4];
@@ -132,7 +139,8 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12" id="dvContents">
-                            <table id="examples" style="font-size:12px;" class="display table table-hover table-condensed" cellspacing="0" width="100%">
+                            <table id="examples" style="font-size:12px;"
+                                class="display table table-hover table-condensed" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -144,11 +152,11 @@
                                 <tbody>
                                     <?php
                                     foreach ($areaList as $key => $area) { ?>
-                                        <tr>
-                                            <td> <?php echo ++$key; ?> </td>
-                                            <td> <?php echo $area->name; ?></td>
-                                            <td>
-                                                <?php
+                                    <tr>
+                                        <td> <?php echo ++$key; ?> </td>
+                                        <td> <?php echo $area->name; ?></td>
+                                        <td>
+                                            <?php
                                                 $departement_id = $area->id;
                                                 
                                                 $get__departement_category = $this->Page_model->getExpertDepartementRelatedCategories($area->id);
@@ -168,11 +176,11 @@
                                                 
 
                                                 ?>
-                                                <?php echo $departement_name; ?>
-                                            </td>
-                                            <td class="hidden-print">
-                                                <?php $session_user = $this->session->userdata('logged_in'); ?>
-                                                <?php
+                                            <?php echo $departement_name; ?>
+                                        </td>
+                                        <td class="hidden-print">
+                                            <?php $session_user = $this->session->userdata('logged_in'); ?>
+                                            <?php
                                                 $edit_action = $this->privilage->edit('edit', $session_user['user_id'], 'Experts/editscat/', $area->id);
                                                 $delete_action = $this->privilage->delete('delete', $session_user['user_id'], $area->id);
                                                 // get action edit
@@ -180,8 +188,8 @@
                                                 // get action delete
                                                 echo $delete_action['delete'];
                                                 ?>
-                                            </td>
-                                        </tr>
+                                        </td>
+                                    </tr>
                                     <?php }  ?>
                                 </tbody>
                             </table>
@@ -196,7 +204,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <img src="" class="imagepreview" style="width: 100%;">
             </div>
         </div>
@@ -207,82 +216,33 @@
 <script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 <!-- CORE TEMPLATE JS - START -->
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
 <script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
-<script>
-    $(document).ready(function() {
-        $("#selectCategoryinDepartement").select2({
-            placeholder: 'Choose your Categories',
-            allowClear: true
-        }).on('select2-open', function() {
-            // Adding custome select
-            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-        });
-    });
-</script>
+
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
 
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-    });
-
-    $('.confirmation-callback').confirmation({
-
-        singleton: true,
-
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/Experts/deleteEsc",
-                data: {
-                    id: delete_id,
-                    name: name
-
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                });
-
-
-            })
-
-
-        }
-    });
-</script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote();
-        $('#article_keywords').summernote();
-    });
-
-
-    $(document).ready(function() {
-
-        $('#examples').DataTable();
-    });
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/experts/s_category.js" type="text/javascript"></script>
