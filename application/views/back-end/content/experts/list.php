@@ -1,7 +1,7 @@
 <style>
-    .dataTables_info {
-        margin-top: -0px !important;
-    }
+.dataTables_info {
+    margin-top: -0px !important;
+}
 </style>
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
@@ -45,7 +45,9 @@
                                         <select class="form-control" id="title" name="title">
                                             <option value="">All</option>
                                             <?php foreach ($areaList_cat as $areaList_cat) { ?>
-                                                <option <?php if (set_value('title') == $areaList_cat->ec_id) { ?> selected <?php } ?> value="<?= $areaList_cat->ec_id ?>"><?= $areaList_cat->category ?></option>
+                                            <option <?php if (set_value('title') == $areaList_cat->ec_id) { ?> selected
+                                                <?php } ?> value="<?= $areaList_cat->ec_id ?>">
+                                                <?= $areaList_cat->category ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -73,7 +75,8 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12" id="dvContents">
                             <?php $this->load->view('back-end/common/message'); ?>
-                            <table id="examples" style="font-size:12px;" class="display table table-hover table-condensed" cellspacing="0" width="100%">
+                            <table id="examples" style="font-size:12px;"
+                                class="display table table-hover table-condensed" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -90,27 +93,29 @@
                                     <?php
                                     $x = 0;
                                     foreach ($areaList->result() as $id => $area) : $x++; ?>
-                                        <tr>
-                                            <td><?php echo $x; ?></td>
-                                            <td><?php echo $area->title; ?></td>
-                                            <td class="text-center"> <a href="#" class="pop"> <img src="<?= base_url() ?><?php echo $area->image_name; ?>" width="50"> </a> </td>
-                                            <td> <?php echo $area->major; ?><br>
-                                                <?php //echo $area->s_catogery; 
+                                    <tr>
+                                        <td><?php echo $x; ?></td>
+                                        <td><?php echo $area->title; ?></td>
+                                        <td class="text-center"> <a href="#" class="pop"> <img
+                                                    src="<?= base_url() ?><?php echo $area->image_name; ?>" width="50">
+                                            </a> </td>
+                                        <td> <?php echo $area->major; ?><br>
+                                            <?php //echo $area->s_catogery; 
                                                 ?>
-                                            </td>
-                                            <td>
-                                                <?php
+                                        </td>
+                                        <td>
+                                            <?php
                                                 if ($area->article_type == $area->article_types) {
                                                     echo ucfirst($area->category); //  . ' - ' . ucfirst($area->article_type)
                                                 } else {
                                                     echo ucfirst($area->article_type);
                                                 }
                                                 ?>
-                                            </td>
-                                            <td> <?php echo $area->posted_date; ?></td>
-                                            <td class="text-center">
-                                                <?php $session_user = $this->session->userdata('logged_in'); ?>
-                                                <?php
+                                        </td>
+                                        <td> <?php echo $area->posted_date; ?></td>
+                                        <td class="text-center">
+                                            <?php $session_user = $this->session->userdata('logged_in'); ?>
+                                            <?php
                                                 if ($area->published == 0) {
                                                     $btnstatus = 'data-btn-ok-class="btn btn-success" data-status="1" data-btn-ok-label="Published" data-placement="left" class="btn btn-warning  pub-callback"';
                                                 } else {
@@ -121,10 +126,10 @@
                                                 // get action status published
                                                 echo $status_action['status'];
                                                 ?>
-                                            </td>
+                                        </td>
 
-                                            <td class="hidden-print text-center">
-                                                <?php
+                                        <td class="hidden-print text-center">
+                                            <?php
                                                 $edit_action = $this->privilage->edit('edit', $session_user['user_id'], 'Experts/edit/', $area->article_id);
                                                 $delete_action = $this->privilage->delete('delete', $session_user['user_id'], $area->article_id);
                                                 // get action edit
@@ -132,8 +137,8 @@
                                                 // get action delete
                                                 echo $delete_action['delete'];
                                                 ?>
-                                            </td>
-                                        </tr>
+                                        </td>
+                                    </tr>
                                     <?php endforeach  ?>
                                 </tbody>
                             </table>
@@ -148,7 +153,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <img src="" class="imagepreview" style="width: 100%;">
             </div>
         </div>
@@ -159,125 +165,30 @@
 <script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
-
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 <!-- CORE TEMPLATE JS - START -->
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
 
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
 
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-
-        confirmationCallbackDelete(delete_id, name, delete_tr);
-    });
-
-    function confirmationCallbackDelete(delete_id, name, delete_tr) {
-        $('.confirmation-callback').confirmation({
-            singleton: true,
-            onConfirm: function(event, element) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>system-content/Experts/deleteRese",
-                    data: {
-                        id: delete_id,
-                        name: name
-
-                    }
-                }).done(function(json) {
-                    delete_tr.css("background-color", "#FF0000");
-                    delete_tr.fadeOut(1200, function() {
-                        delete_tr.remove();
-                        location.reload();
-                    });
-                })
-            }
-        });
-    }
-</script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var status = null;
-
-    $('.pub-callback').click(function() {
-        delete_id = $(this).data("id");
-        status = $(this).data("status");
-        delete_tr = $(this).closest('tr');
-
-        publishR(delete_id, status, delete_tr);
-    });
-
-    function publishR(delete_id, status, delete_tr) {
-        $('.pub-callback').confirmation({
-            singleton: true,
-            title: "Publish confirmation",
-            onConfirm: function(event, element) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>system-content/research/publishR",
-                    data: {
-                        id: delete_id,
-                        pub: status
-                    }
-                }).done(function(json) {
-                    delete_tr.css("background-color", "yellow");
-                    delete_tr.fadeOut(1200, function() {
-                        location.reload();
-                    });
-                })
-            }
-        });
-    }
-</script>
-<script>
-    $(function() {
-        $('.pop').on('click', function() {
-            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-            $('#imagemodal').modal('show');
-        });
-    });
-</script>
-<script>
-    $('#photo').change(function() {
-        var input = this;
-        var name = $(this).val();
-
-        $('#image').val(name);
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#placeholder').attr('src', e.target.result).attr('width', 142);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#examples').DataTable({
-            order: [
-                [2, 'desc']
-            ],
-        });
-    });
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/experts/index.js" type="text/javascript"></script>
