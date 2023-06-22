@@ -3,7 +3,6 @@
     margin-top: 0px !important;
 }
 </style>
-
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
@@ -81,7 +80,8 @@
                                     $image = (set_value('image') == false && isset($slider_row)) ? $slider_row->image_name : set_value('image');
                                     ?>
                                     <label class="form-label" for="formfield1"> Image </label>
-                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions 300 X 200 PX*)</span>
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
+                                        300 X 200 PX*)</span>
                                     <div class="controls">
                                         <input type="hidden" id="image" name="image" value="" />
                                         <input class="input-file form-control uniform_on focused" id="photo"
@@ -277,117 +277,6 @@
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-var delete_id = null;
-var delete_tr = null;
-var name = null;
 
-$('.confirmation-callback').click(function() {
-    delete_id = $(this).data("id");
-    name = $(this).data("area");
-    delete_tr = $(this).closest('tr');
-
-    confirmationCallbackDelete(delete_id, name, delete_tr);
-});
-
-function confirmationCallbackDelete(delete_id, name, delete_tr) {
-    $('.confirmation-callback').confirmation({
-        singleton: true,
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/Research/deletetopic",
-                data: {
-                    id: delete_id,
-                    name: name
-
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                    location.reload();
-                });
-            })
-        }
-    });
-}
-</script>
-<script>
-$(function() {
-    $('.pop').on('click', function() {
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#imagemodal').modal('show');
-    });
-});
-</script>
-<script>
-$('#photo').change(function() {
-    var input = this;
-    var name = $(this).val();
-
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-<script>
-$(document).ready(function() {
-    // $('#summernote').summernote();
-    // $('#article_keywords').summernote();
-});
-</script>
-<script>
-var delete_id = null;
-var delete_tr = null;
-var status = null;
-
-$('.pub-callback').click(function() {
-    delete_id = $(this).data("id");
-    status = $(this).data("status");
-    delete_tr = $(this).closest('tr');
-
-    publishCategory(delete_id, status, delete_tr);
-});
-
-function publishCategory(delete_id, status, delete_tr) {
-    $('.pub-callback').confirmation({
-        singleton: true,
-        title: "Publish confirmation",
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/research/publish",
-                data: {
-                    id: delete_id,
-                    pub: status
-
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "yellow");
-                delete_tr.fadeOut(1200, function() {
-                    location.reload();
-                });
-            })
-        }
-    });
-}
-
-$(document).ready(function() {
-    $('#examples').DataTable({
-        order: [
-            [2, 'desc']
-        ],
-    });
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/research/topic.js" type="text/javascript"></script>
