@@ -1,7 +1,7 @@
 <style>
-    .dataTables_info {
-        margin-top: 0px !important;
-    }
+.dataTables_info {
+    margin-top: 0px !important;
+}
 </style>
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
@@ -37,15 +37,18 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo $action; ?>">
+                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+                                action="<?php echo $action; ?>">
                                 <?php
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
                                 );
                                 ?>
-                                <input type="hidden" name="<?php echo $csrf['name']; ?>" value="<?php echo $csrf['hash']; ?>" />
-                                <input type="hidden" name="id" value="<?php echo (isset($slider_row)) ? $slider_row->category_id : '' ?>" />
+                                <input type="hidden" name="<?php echo $csrf['name']; ?>"
+                                    value="<?php echo $csrf['hash']; ?>" />
+                                <input type="hidden" name="id"
+                                    value="<?php echo (isset($slider_row)) ? $slider_row->category_id : '' ?>" />
                                 <div class="form-group">
                                     <?php
                                     $error = (form_error('menu_title') === '') ? '' : 'error';
@@ -56,7 +59,9 @@
                                     <div class="controls">
                                         <select required="required" class="form-control" id="parent" name="parent">
                                             <?php foreach ($catogery->result() as $catogery) { ?>
-                                                <option <?php if ($parent == $catogery->category_id) { ?> selected="" <?php } ?> value="<?= $catogery->category_id ?>"><?= $catogery->category_name ?></option>
+                                            <option <?php if ($parent == $catogery->category_id) { ?> selected=""
+                                                <?php } ?> value="<?= $catogery->category_id ?>">
+                                                <?= $catogery->category_name ?></option>
                                             <?php } ?>
                                         </select>
                                         <?php echo form_error('parent', '<span class="help-inline">', '</span>'); ?>
@@ -71,7 +76,8 @@
                                     <span class="desc">e.g. "ASEAN@50"</span>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <input type="text" required="required" value="<?php echo $menu_title ?>" class="form-control" id="category_name" name="category_name">
+                                        <input type="text" required="required" value="<?php echo $menu_title ?>"
+                                            class="form-control" id="category_name" name="category_name">
                                         <?php echo form_error('menu_title', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -84,7 +90,8 @@
                                     <span class="desc">e.g. "100"</span>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <input type="number" required="required" value="<?php echo $order_id ?>" class="form-control" id="order_id" name="order_id">
+                                        <input type="number" required="required" value="<?php echo $order_id ?>"
+                                            class="form-control" id="order_id" name="order_id">
                                         <?php echo form_error('order_id', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -95,7 +102,8 @@
                                     ?>
                                     <label class="form-label" for="formfield1"> Published </label>
                                     <div style="width: 30px" class="controls">
-                                        <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked <?php } ?> class="form-control" id="published" name="published">
+                                        <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked
+                                            <?php } ?> class="form-control" id="published" name="published">
                                         <?php echo form_error('published', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -107,7 +115,8 @@
                                     <label class="form-label" for="formfield1"> Meta Keywords </label>
                                     <span class="desc">e.g. "new "</span>
                                     <div class="controls">
-                                        <input type="text" value="<?= $meta_keywords ?>" class="form-control" id="meta_keywords" name="meta_keywords">
+                                        <input type="text" value="<?= $meta_keywords ?>" class="form-control"
+                                            id="meta_keywords" name="meta_keywords">
                                         <?php echo form_error('meta_keywords', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -119,7 +128,8 @@
                                     <label class="form-label" for="formfield1"> Meta Description </label>
                                     <span class="desc">e.g. "new "</span>
                                     <div class="controls">
-                                        <input type="text" value="<?= $meta_description ?>" class="form-control" id="meta_description" name="meta_description">
+                                        <input type="text" value="<?= $meta_description ?>" class="form-control"
+                                            id="meta_description" name="meta_description">
                                         <?php echo form_error('meta_description', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -147,7 +157,8 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12" id="dvContents">
-                            <table id="examples" style="font-size:12px;" class="display table table-hover table-condensed" cellspacing="0" width="100%">
+                            <table id="examples" style="font-size:12px;"
+                                class="display table table-hover table-condensed" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -160,15 +171,15 @@
                                 <tbody>
                                     <?php $x = 0;
                                     foreach ($areaList->result() as $id => $area) : $x++; ?>
-                                        <tr>
-                                            <td> <?php echo $x; ?> </td>
-                                            <td> <?php echo $area->category_name; ?></td>
-                                            <td>
-                                                <?php echo $area->parent; ?>
-                                            </td>
-                                            <td>
-                                                <?php $session_user = $this->session->userdata('logged_in'); ?>
-                                                <?php
+                                    <tr>
+                                        <td> <?php echo $x; ?> </td>
+                                        <td> <?php echo $area->category_name; ?></td>
+                                        <td>
+                                            <?php echo $area->parent; ?>
+                                        </td>
+                                        <td>
+                                            <?php $session_user = $this->session->userdata('logged_in'); ?>
+                                            <?php
                                                 if ($area->published == 0) {
                                                     $btnstatus = 'data-btn-ok-class="btn btn-success" data-status="1" data-btn-ok-label="Published" data-placement="left" class="btn btn-warning  pub-callback"';
                                                 } else {
@@ -179,9 +190,9 @@
                                                 // get action status published
                                                 echo $status_action['status'];
                                                 ?>
-                                            </td>
-                                            <td class="hidden-print">
-                                                <?php
+                                        </td>
+                                        <td class="hidden-print">
+                                            <?php
                                                 $edit_action = $this->privilage->edit('edit', $session_user['user_id'], 'programmes/edit_subcat/', $area->category_id);
                                                 $delete_action = $this->privilage->delete('delete', $session_user['user_id'], $area->category_id);
                                                 // get action edit
@@ -189,8 +200,8 @@
                                                 // get action delete
                                                 echo $delete_action['delete'];
                                                 ?>
-                                            </td>
-                                        </tr>
+                                        </td>
+                                    </tr>
                                     <?php endforeach  ?>
                                 </tbody>
                             </table>
@@ -205,7 +216,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <img src="" class="imagepreview" style="width: 100%;">
             </div>
         </div>
@@ -216,124 +228,31 @@
 <script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 <!-- CORE TEMPLATE JS - START -->
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/bootstrap-confirmation.min.js"></script>
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
 
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-    });
-
-    $('.confirmation-callback').confirmation({
-        singleton: true,
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/Programmes/deleteCat",
-                data: {
-                    id: delete_id,
-                    name: name
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                });
-            })
-        }
-    });
-</script>
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var status = null;
-
-    $('.pub-callback').click(function() {
-        delete_id = $(this).data("id");
-        status = $(this).data("status");
-        delete_tr = $(this).closest('tr');
-
-        publishSub(delete_id, status, delete_tr);
-    });
-
-    function publishSub(delete_id, status, delete_tr) {
-        $('.pub-callback').confirmation({
-            singleton: true,
-            title: "Publish confirmation",
-            onConfirm: function(event, element) {
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url(); ?>system-content/Programmes/publishProgrammes",
-                    data: {
-                        id: delete_id,
-                        pub: status
-
-                    }
-                }).done(function(json) {
-                    delete_tr.css("background-color", "yellow");
-                    delete_tr.fadeOut(1200, function() {
-                        location.reload();
-                    });
-                })
-            }
-        });
-    }
-</script>
-<script>
-    $(function() {
-        $('.pop').on('click', function() {
-            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-            $('#imagemodal').modal('show');
-        });
-    });
-</script>
-<script>
-    $('#photo').change(function() {
-        var input = this;
-        var name = $(this).val();
-
-        $('#image').val(name);
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#placeholder').attr('src', e.target.result).attr('width', 142);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
-</script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote();
-        $('#article_keywords').summernote();
-    });
 
-    $(document).ready(function() {
-        $('#examples').DataTable({
-            order: [
-                [2, 'desc']
-            ],
-        });
-    });
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/programmes/subcategory.js" type="text/javascript"></script>
