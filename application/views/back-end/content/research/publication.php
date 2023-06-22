@@ -97,7 +97,8 @@ $aut_d = $author_->result();
                                     $image = (set_value('image') == false && !empty($slider_row)) ? $slider_row->image_name : set_value('image');
                                     ?>
                                     <label class="form-label" for="formfield1"> Image </label>
-                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions 800px x 450px*)</span>
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
+                                        800px x 450px*)</span>
                                     <div class="controls">
                                         <input type="hidden" id="image_old" name="image_old"
                                             value="<?php echo $image; ?>" />
@@ -150,7 +151,8 @@ $aut_d = $author_->result();
                                     ?>
                                     <label class="form-label" for="formfield1"> Thumbnail </label>
 
-                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions 490 X 280 PX*)</span> 
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
+                                        490 X 280 PX*)</span>
                                     <div class="controls">
                                         <input type="hidden" id="thumbnail_image_old" name="thumbnail_image_old"
                                             value="<?= $thumbnail_image; ?>" />
@@ -217,7 +219,7 @@ $aut_d = $author_->result();
                                     <label class="form-label" for="formfield1"> Topics </label>
                                     <span class="desc" style="font-style:italic;">*Type in topics and press enter</span>
                                     <div class="controls">
-                                        <select class="" id="s2example-3" name="topics[]" multiple>
+                                        <select class="" id="topicPublications" name="topics[]" multiple>
                                             <?php foreach ($topics->result() as $areaList) { ?>
                                             <?php if ($areaList->published == 1) { ?>
                                             <option <?php if (in_array($areaList->category_id, $topData)) { ?>
@@ -231,9 +233,10 @@ $aut_d = $author_->result();
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="formfield1"> Publication Types </label>
-                                    <span class="desc" style="font-style:italic;">*Type in publication types and press enter</span>
+                                    <span class="desc" style="font-style:italic;">*Type in publication types and press
+                                        enter</span>
                                     <div class="controls">
-                                        <select class="" id="s2example-2" name="catogery[]" multiple>
+                                        <select class="" id="PublicationTypes" name="catogery[]" multiple>
                                             <?php foreach ($pubtypes->result() as $areaList) { ?>
                                             <?php if ($areaList->published == 1) { ?>
                                             <option <?php if (in_array($areaList->category_id, $catData)) { ?>
@@ -323,7 +326,7 @@ $aut_d = $author_->result();
                                     ?>
                                     <label class="form-label" for="formfield1">Highlighted Editor(s)</label>
                                     <div class="controls">
-                                        <select id="h_editor" name="h_editor[]" class="" multiple>
+                                        <select id="h_editor" name="h_editor[]" class="h_editor" multiple>
                                             <?php foreach ($editor_d as $areaList) { ?>
                                             <option <?php if (in_array($areaList->article_id, $ehData)) { ?> selected=""
                                                 <?php  } ?> value="<?= $areaList->article_id ?>"><?= $areaList->title ?>
@@ -340,7 +343,7 @@ $aut_d = $author_->result();
                                     ?>
                                     <label class="form-label" for="formfield1"> Authors </label>
                                     <div class="controls">
-                                        <select id="author" name="author[]" class="" multiple>
+                                        <select id="author" name="author[]" class="select_multiple1" multiple>
                                             <?php
                                             if (!empty($author)) {
                                                 $author_data = explode(', ', $author);
@@ -484,7 +487,8 @@ $aut_d = $author_->result();
                                 </div>
                                 <div class="form-group hidden">
                                     <label class="form-label" for="formfield1"> Related Article</label>
-                                    <span class="desc" style="font-style:italic;">*Type in article title and press enter</span>
+                                    <span class="desc" style="font-style:italic;">*Type in article title and press
+                                        enter</span>
                                     <div class="controls">
                                         <select class="" id="s2example-1" name="related[]" multiple>
                                             <?php foreach ($related->result() as $areaList) { ?>
@@ -498,9 +502,10 @@ $aut_d = $author_->result();
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="formfield1"> Related Publication</label>
-                                    <span class="desc" style="font-style:italic;">*Type in article title and press enter</span>
+                                    <span class="desc" style="font-style:italic;">*Type in article title and press
+                                        enter</span>
                                     <div class="controls">
-                                        <select id="s2example-4" name="related_publication[]" multiple>
+                                        <select id="relatedPublication" name="related_publication[]" multiple>
                                             <?php foreach ($publicationList->result() as $publicationlist) { ?>
                                             <option
                                                 <?php if (in_array($publicationlist->article_id, $relatedPublicationsData)) { ?>
@@ -579,6 +584,7 @@ $aut_d = $author_->result();
 
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
 
 
@@ -589,136 +595,12 @@ $aut_d = $author_->result();
 
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" type="text/javascript">
 </script>
-
-
-<script>
-
-</script>
-
-<script>
-var delete_id = null;
-var delete_tr = null;
-var name = null;
-
-$('.confirmation-callback').click(function() {
-    delete_id = $(this).data("id");
-    name = $(this).data("area");
-    delete_tr = $(this).closest('tr');
-});
-
-$('.confirmation-callback').confirmation({
-
-    singleton: true,
-
-    onConfirm: function(event, element) {
-
-
-
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url(); ?>system-content/user/deleteUser",
-            data: {
-                id: delete_id,
-                name: name
-
-            }
-        }).done(function(json) {
-
-
-            delete_tr.css("background-color", "#FF0000");
-            delete_tr.fadeOut(1200, function() {
-                delete_tr.remove();
-            });
-
-
-        })
-
-
-    }
-});
-</script>
-
-
-<script>
-$(function() {
-    $('.pop').on('click', function() {
-        $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-        $('#imagemodal').modal('show');
-    });
-});
-</script>
-
-
-
-
-<script>
-$('#photo').change(function() {
-
-    var input = this;
-    var name = $(this).val();
-
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-</script>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-<script>
-$(document).ready(function() {
-    // $('#summernote').summernote();
-    // $('#article_keywords').summernote();
-});
-
-$("#author").select2({
-    placeholder: 'Choose Author',
-    allowClear: true
-}).on('select2-open', function() {
-    // Adding Custom Scrollbar
-    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-});
-
-
-$("#h_author").select2({
-    placeholder: 'Choose Author',
-    allowClear: true
-}).on('select2-open', function() {
-    // Adding Custom Scrollbar
-    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-});
-
-
-
-$("#h_editor").select2({
-    placeholder: 'Choose Editor',
-    allowClear: true
-}).on('select2-open', function() {
-    // Adding Custom Scrollbar
-    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-});
-
-
-$("#venue").select2({
-    placeholder: 'Choose Country',
-    allowClear: true
-}).on('select2-open', function() {
-    // Adding Custom Scrollbar
-    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-});
-
-$("#s2example-7").select2({
-    placeholder: 'Choose Multimedia',
-    allowClear: true
-}).on('select2-open', function() {
-    // Adding Custom Scrollbar
-    $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-});
-</script>
+<!-- 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css"
+    integrity="sha512-0V10q+b1Iumz67sVDL8LPFZEEavo6H/nBSyghr7mm9JEQkOAm91HNoZQRvQdjennBb/oEuW+8oZHVpIKq+d25g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"
+    integrity="sha512-zP5W8791v1A6FToy+viyoyUUyjCzx+4K8XZCKzW28AnCoepPNIXecxh9mvGuy3Rt78OzEsU+VCvcObwAMvBAww=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/research/publication.js" type="text/javascript"></script>
