@@ -1,13 +1,14 @@
 <style>
-    @media (min-width: 768px) {
-        .modal-dialog {
-            max-width: 1330px;
-            margin: 30px auto;
-            width: 100%;
-        }
+@media (min-width: 768px) {
+    .modal-dialog {
+        max-width: 1330px;
+        margin: 30px auto;
+        width: 100%;
     }
+}
 </style>
-<div style="z-index: 8888;padding-right:0 !important;" class="modal modal-wide fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div style="z-index: 8888;padding-right:0 !important;" class="modal modal-wide fade" id="myModal1" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -15,7 +16,6 @@
                 <h4 class="modal-title" id="myModalLabel"> Manage PDF </h4>
             </div>
             <div class="modal-body">
-
                 <form method='post' action='' enctype="multipart/form-data" id="formUploadFilePDF">
                     <table class="table">
                         <tr>
@@ -31,8 +31,8 @@
                             <td>Description</td>
                             <td>:</td>
                             <td>
-                                <textarea id="pdf_dis" name="pdf_dis" class="form-control" style="height:80px;" placeholder="Desription"></textarea>
-                                <!-- <input type="text" id="pdf_dis" name="pdf_dis" class="form-control"> -->
+                                <textarea id="pdf_dis" name="pdf_dis" class="form-control" style="height:80px;"
+                                    placeholder="Desription"></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -41,7 +41,8 @@
                             <td>
                                 <input type='file' name='file' id='file' class='form-control'>
                                 <br>
-                                <span style="color: red; font-style:italic;">Size file pdf must be < 30 MB or You can divide it into parts.</span>
+                                <span style="color: red; font-style:italic;">Size file pdf must be < 30 MB or You can
+                                        divide it into parts.</span>
                             </td>
                         </tr>
                         <tr>
@@ -51,7 +52,8 @@
                                 <!-- <input type="text" id="author_editor" class="form-control" readonly> -->
                                 <select id="author" name="author[]" class="" multiple>
                                     <?php foreach ($editor_->result() as $areaList) { ?>
-                                        <option value="<?php echo $areaList->article_id ?>"><?php echo $areaList->title ?></option>
+                                    <option value="<?php echo $areaList->article_id ?>"><?php echo $areaList->title ?>
+                                    </option>
                                     <?php } ?>
                                 </select>
                             </td>
@@ -65,7 +67,8 @@
                         </tr>
                         <tr>
                             <td colspan="2" id="error"> </td>
-                            <td style="text-align:right"> <input type='button' class='btn btn-info' value='Upload' id='btn_upload'></td>
+                            <td style="text-align:right"> <input type='button' class='btn btn-info' value='Upload'
+                                    id='btn_upload'></td>
                         </tr>
                     </table>
                 </form>
