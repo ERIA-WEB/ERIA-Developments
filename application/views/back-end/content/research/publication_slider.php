@@ -1,7 +1,7 @@
 <style>
-    .dataTables_info {
-        margin-top: 0px !important;
-    }
+.dataTables_info {
+    margin-top: 0px !important;
+}
 </style>
 
 <section id="main-content" class=" ">
@@ -40,31 +40,38 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo $action; ?>">
+                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+                                action="<?php echo $action; ?>">
                                 <?php
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
                                 );
                                 ?>
-                                <input type="hidden" name="<?php echo $csrf['name']; ?>" value="<?php echo $csrf['hash']; ?>" />
-                                <input type="hidden" name="id" value="<?php echo (isset($slider_row)) ? $slider_row->np_id : '' ?>" />
+                                <input type="hidden" name="<?php echo $csrf['name']; ?>"
+                                    value="<?php echo $csrf['hash']; ?>" />
+                                <input type="hidden" name="id"
+                                    value="<?php echo (isset($slider_row)) ? $slider_row->np_id : '' ?>" />
                                 <div class="form-group">
                                     <?php
                                     $error = (form_error('pub_id') === '') ? '' : 'error';
                                     $pub_id = (set_value('pub_id') == false && isset($slider_row)) ? $slider_row->pub_id : set_value('pub_id');
                                     ?>
                                     <label class="form-label" for="formfield1"> Select Publication </label>
-                                    <span class="desc" style="font-style:italic;">*Type in article title and press enter</span>
+                                    <span class="desc" style="font-style:italic;">*Type in article title and press
+                                        enter</span>
                                     <div class="controls">
                                         <i class=""></i>
                                         <select class="  " id="publication" name="publication" required>
                                             <option value="">--select--</option>
 
                                             <?php foreach ($related->result() as $areaList) { ?>
-                                                <?php if ($areaList->published == '1') { ?>
-                                                    <option <?php if ($pub_id == $areaList->article_id) { ?> selected <?php } ?> value="<?php echo $areaList->article_id; ?>" data-text="<?php echo $areaList->title; ?>"> <?php echo $areaList->title; ?></option>
-                                                <?php } ?>
+                                            <?php if ($areaList->published == '1') { ?>
+                                            <option <?php if ($pub_id == $areaList->article_id) { ?> selected <?php } ?>
+                                                value="<?php echo $areaList->article_id; ?>"
+                                                data-text="<?php echo $areaList->title; ?>">
+                                                <?php echo $areaList->title; ?></option>
+                                            <?php } ?>
                                             <?php } ?>
                                         </select>
                                         <?php echo form_error('publication', '<span class="help-inline">', '</span>'); ?>
@@ -76,10 +83,13 @@
                                     $titles = (set_value('n_title') == false && isset($slider_row)) ? $slider_row->n_title : set_value('n_title');
                                     ?>
                                     <label class="form-label" for="formfield1"> Title </label>
-                                    <span class="desc">e.g. "Comprehensive Mapping of FTAs in ASEAN and East Asia"</span>
+                                    <span class="desc">e.g. "Comprehensive Mapping of FTAs in ASEAN and East
+                                        Asia"</span>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <input type="text" required="required" value="<?php echo str_replace('"', '', $titles);     ?>" class="form-control" id="n_title" name="n_title">
+                                        <input type="text" required="required"
+                                            value="<?php echo str_replace('"', '', $titles);     ?>"
+                                            class="form-control" id="n_title" name="n_title">
                                         <?php echo form_error('n_title', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -91,7 +101,9 @@
                                     <label class="form-label" for="formfield1"> Content </label>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <textarea rows="5" style="height: 250px" id="summernote" class="form-control mytextarea" name="n_content"><?php echo $content ?></textarea>
+                                        <textarea rows="5" style="height: 250px" id="summernote"
+                                            class="form-control mytextarea"
+                                            name="n_content"><?php echo $content ?></textarea>
                                         <?php echo form_error('n_content', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -104,7 +116,8 @@
                                     <!-- <span class="desc">e.g. "100"</span> -->
                                     <div style="width: 30px" class="controls">
                                         <i class=""></i>
-                                        <input type="checkbox" value="1" <?php if ($highlight == 1) { ?> checked <?php } ?> class="form-control" id="home" name="home">
+                                        <input type="checkbox" value="1" <?php if ($highlight == 1) { ?> checked
+                                            <?php } ?> class="form-control" id="home" name="home">
                                         <?php echo form_error('home', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -116,7 +129,8 @@
                                     <label class="form-label" for="formfield1"> Publication Page ? </label>
                                     <div style="width: 30px" class="controls">
                                         <i class=""></i>
-                                        <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked <?php } ?> class="form-control" id="inside" name="inside">
+                                        <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked
+                                            <?php } ?> class="form-control" id="inside" name="inside">
                                         <?php echo form_error('inside', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
@@ -138,7 +152,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
                 <img src="" class="imagepreview" style="width: 100%;">
             </div>
         </div>
@@ -148,12 +163,15 @@
 <script src="<?php echo base_url() ?>resources/js/jquery.easing.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 
 
-<script src="<?php echo base_url() ?>resources/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/jquery-validation/js/jquery.validate.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/jquery-validation/js/additional-methods.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
@@ -162,120 +180,12 @@
 
 
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 
-<script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" type="text/javascript"></script>
-
-
-<script>
-
+<script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" type="text/javascript">
 </script>
 
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
-
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-    });
-
-    $('.confirmation-callback').confirmation({
-        singleton: true,
-        onConfirm: function(event, element) {
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/user/deleteUser",
-                data: {
-                    id: delete_id,
-                    name: name
-                }
-            }).done(function(json) {
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                });
-            })
-        }
-    });
-</script>
-
-<script>
-    $(function() {
-        $('.pop').on('click', function() {
-            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-            $('#imagemodal').modal('show');
-        });
-    });
-</script>
-
-
-
-
-<script>
-    $('#photo').change(function() {
-
-        var input = this;
-        var name = $(this).val();
-
-        $('#image').val(name);
-
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#placeholder').attr('src', e.target.result).attr('width', 142);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    });
-</script>
-
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // $('#summernote').summernote();
-        // $('#article_keywords').summernote();
-
-        $("#publication").select2({
-            placeholder: 'Choose Publication',
-            allowClear: true
-        }).on('select2-open', function() {
-            // Adding Custom Scrollbar
-            $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-        });
-
-
-
-
-    });
-
-
-
-
-
-
-    $("#author").select2({
-        placeholder: 'Choose Author',
-        allowClear: true
-    }).on('select2-open', function() {
-        // Adding Custom Scrollbar
-        $(this).data('select2').results.addClass('overflow-hidden').perfectScrollbar();
-    });
-
-
-
-
-
-    $('#publication').change(function() {
-
-        var text = $(this).find(':selected').data('text')
-
-        $('#n_title').val(text);
-
-    })
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/research/publication_slider.js" type="text/javascript"></script>
