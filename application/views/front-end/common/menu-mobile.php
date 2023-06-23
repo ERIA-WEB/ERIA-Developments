@@ -141,8 +141,6 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>research" class="p-1">
                                         All Research Areas
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php $menuPub = $this->header->get_menuTopic('topics', null); ?>
@@ -151,8 +149,6 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>research/topic/<?= $publicationtype->uri ?>" class="p-1">
                                         <?= $publicationtype->category_name ?>
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php } ?>
@@ -189,8 +185,6 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>publications" class="p-1">
                                         All Publications
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php
@@ -198,8 +192,6 @@
                                         echo '<li style="padding: 10px;">
                                                 <a href="'.base_url().'publications/category/'.$value->uri.'" class="p-1">
                                                     '.ucfirst($value->category_name).'
-                                                    <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                                        style="right:24px;font-size: 12px;"></i>
                                                 </a>
                                             </li>';
                                     }
@@ -227,10 +219,8 @@
                             ?>
                             <ul class="list-unstyled">
                                 <li style="padding: 10px;">
-                                    <a href="<?= base_url() ?>update/type/all" class="p-1">
+                                    <a href="<?= base_url() ?>news-and-views" class="p-1">
                                         All Updates
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php
@@ -238,8 +228,6 @@
                                         echo '<li style="padding: 10px;">
                                                 <a href="'.base_url().'news-and-views/category/'.$value->uri.'" class="p-1">
                                                     '.ucfirst($value->category_name).'
-                                                    <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                                        style="right:24px;font-size: 12px;"></i>
                                                 </a>
                                             </li>';
                                     }
@@ -266,22 +254,16 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>events" class="p-1">
                                         All Events
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>events/browse/past" class="p-1">
                                         Past Events
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>events/browse/up" class="p-1">
                                         Upcoming Events
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -305,29 +287,21 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>multimedia" class="p-1">
                                         All Multimedia
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>multimedia/webinar" class="p-1">
                                         Webinars
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>multimedia/video" class="p-1">
                                         Videos
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>multimedia/podcasts" class="p-1">
                                         Podcasts
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -355,16 +329,12 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>about-us" class="p-1">
                                         All
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php foreach ($aboutus as $key => $value) { ?>
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>about-us/<?= $value->uri; ?>" class="p-1">
                                         <?= ucfirst($value->menu_title) ?>
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
 
                                 </li>
@@ -390,8 +360,6 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>experts" class="p-1">
                                         All
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php
@@ -402,8 +370,6 @@
                                 <li style="padding: 10px;">
                                     <a href="<?= base_url() ?>experts?category=<?= $people->slug; ?>" class="p-1">
                                         <?= $people->category; ?>
-                                        <i class="fa fa-arrow-right position-absolute" aria-hidden="true"
-                                            style="right:24px;font-size: 12px;"></i>
                                     </a>
                                 </li>
                                 <?php } ?>
