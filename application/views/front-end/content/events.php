@@ -135,7 +135,7 @@ function limit_text($text, $limit, $link = null)
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent px-0">
                 <li class="breadcrumb-item align-items-center">
-                    <a href="<?php echo base_url() ?>">
+                    <a href="<?= base_url() ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                             class="bi bi-house mb-1" viewBox="0 0 16 16">
                             <path
@@ -197,99 +197,6 @@ function limit_text($text, $limit, $link = null)
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 <script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
-<script>
-$(document).ready(function() {
-    var start = 0;
-    var limit = 9;
-    var start_future = 0;
-    var limit_future = 9;
-    var reachedMax = false;
 
-    getFuturesearchData();
-    getPost_searchData();
-
-    $('#ldmrFuture').on('click', function() {
-        getFuturesearchData();
-    });
-
-    // $('#pills-profile-tab').on('click', function() {
-    //     getPost_searchData();
-    // });
-
-    function getFuturesearchData() {
-        var type = $('#paramFuture').val();
-        var url = '<?= base_url() ?>Events/loadmSearchFuture';
-        $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'text',
-            cache: false,
-            data: {
-                getData: 1,
-                start: start_future,
-                limit: limit_future,
-                type: type
-            },
-            beforeSend: function() {
-                $("#loadingFutureEvents").removeClass('d-none');
-                $("#ldmrFuture").addClass('d-none');
-            },
-            complete: function() {
-                $("#loadingFutureEvents").addClass('d-none');
-            },
-            success: function(response) {
-                if (response == "") {
-                    $("#ldmrFuture").hide();
-                } else {
-                    $("#ldmrFuture").removeClass('d-none');
-                    start_future += limit_future;
-                    // $(".loader-image").show();
-                    $(".future-events").append(response);
-                }
-            }
-        });
-    }
-
-    $('#ldmr').click(function() {
-        getPost_searchData();
-    });
-
-    function getPost_searchData() {
-        var type = $('#paramPast').val();
-        var url = '<?= base_url() ?>Events/loadmSearch';
-        $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'text',
-            cache: false,
-            data: {
-                getData: 1,
-                start: start,
-                limit: limit,
-                type: type
-            },
-            beforeSend: function() {
-                $("#loadingPastEvents").removeClass('d-none');
-                $("#ldmr").addClass('d-none');
-            },
-            complete: function() {
-                $("#loadingPastEvents").addClass('d-none');
-            },
-            success: function(response) {
-                if (response == "") {
-                    $(".loader-image").hide();
-                    $("#ldmr").hide();
-                } else {
-                    $("#ldmr").removeClass('d-none');
-                    $('#normals').show();
-                    $('#normal').hide();
-                    start += limit;
-                    // $(".loader-image").show();
-                    $("#loadingPastEvents").addClass('d-none');
-                    $(".upcoming-events").append(response);
-                }
-            }
-        });
-    }
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/events/events.js"></script>
