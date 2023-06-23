@@ -78,7 +78,7 @@ iframe {
 }
 
 .highlights-hero {
-    height: 485px;
+    height: 400px;
     padding: 0;
     position: relative;
     overflow: hidden;
@@ -230,7 +230,7 @@ if ($contentData->uri != 'presidents-office') {
         <div class="row position-relative">
             <?php 
                 if (!empty($contentData->banner_image)) {
-                    $img_banner = '<img src="'.base_url().$contentData->banner_image.'">';
+                    $img_banner = '<img src="'.base_url().'get_share_image.php?im='.$contentData->banner_image.'">';
                     $highlight_shadow = 'highlights-hero';
                     $box_content_shadow = '';
                     $media_query_css = '<style>
