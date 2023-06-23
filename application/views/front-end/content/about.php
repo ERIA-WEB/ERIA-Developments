@@ -258,7 +258,7 @@ a#forward {
 }
 
 .highlights-hero {
-    height: 485px;
+    height: 400px;
     padding: 0;
     position: relative;
     overflow: hidden;
@@ -348,7 +348,7 @@ div.scrollmenu a:hover {
             <div class="row position-relative">
                 <?php 
                 if (!empty($contentData->banner_image)) {
-                    $img_banner = '<img src="'.base_url().$contentData->banner_image.'">';
+                    $img_banner = '<img src="'.base_url().'get_share_image.php?im='.$contentData->banner_image.'">';
                     $highlight_shadow = 'highlights-hero';
                     $box_content_shadow = '';
                     $media_query_css = '<style>
@@ -514,7 +514,7 @@ div.scrollmenu a:hover {
             <!-- Content section right -->
             <div class="col-md-4 col-xs-12 pl-md-5 m-0">
                 <div class="img-container pr-md-5">
-                    <img src="<?php echo base_url() ?>v6/assets/Images/About/about_1.png">
+                    <img src="<?php echo base_url() ?>get_share_image.php?im=/v6/assets/Images/About/about_1.png">
                 </div>
             </div>
         </div>
@@ -547,7 +547,7 @@ div.scrollmenu a:hover {
     <div class="container-fluid">
         <div class="row mt-5 about-row">
             <div class="research-topic-cover w-100">
-                <img src="<?php echo base_url() ?>v6/assets/Images/About/cover_2.png">
+                <img src="<?php echo base_url() ?>get_share_image.php?im=/v6/assets/Images/About/cover_2.png">
                 <div class="overlay-effect h-100 w-100">
                 </div>
                 <div class="text-light overlay-text margin-top">
@@ -722,7 +722,7 @@ div.scrollmenu a:hover {
     <div class="container-fluid">
         <div class="row mt-5 about-row">
             <div class="research-topic-cover w-100">
-                <img src="<?php echo base_url() ?>v6/assets/Images/About/cover_2.png">
+                <img src="<?php echo base_url() ?>get_share_image.php?im=/v6/assets/Images/About/cover_2.png">
                 <div class="overlay-effect h-100 w-100">
                 </div>
                 <div class="text-light overlay-text">
@@ -830,29 +830,5 @@ div.scrollmenu a:hover {
 <!-- END -->
 </div>
 
-
-<script>
-const swiper = new Swiper('.author-swiper', {
-    // Optional parameters
-    slidesPerView: 1,
-    spaceBetween: 16,
-    loop: false,
-    breakpoints: {
-        768: {
-            spaceBetween: 24,
-            slidesPerView: 2
-        },
-        1024: {
-            spaceBetween: 24,
-            slidesPerView: 3
-        }
-    },
-    pagination: {
-        el: '#author-pagination',
-    },
-    navigation: {
-        nextEl: '#author-button-next',
-        prevEl: '#author-button-prev',
-    }
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/abouts/abouts.js"></script>
