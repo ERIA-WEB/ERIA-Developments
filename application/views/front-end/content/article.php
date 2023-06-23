@@ -1,4 +1,5 @@
-<div class="modal downloadPdfModal1 fade" id="downloadPdfModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal downloadPdfModal1 fade" id="downloadPdfModal1" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -14,13 +15,15 @@
                     <div class="card border-0">
                         <div class="card-header border-0 p-0" id="headingOne">
                             <h5 class="mb-0 p-4">
-                                <div class="toggle-btn panel-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="toggle-btn panel-title" data-toggle="collapse" data-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
                                     Full Report
                                 </div>
                             </h5>
                         </div>
 
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion">
                             <div class="container p-0">
                                 <div class="row py-3 p-4">
                                     <div class="col-md-9 toggle-content">
@@ -40,13 +43,15 @@
                     <div class="card border-0">
                         <div class="card-header border-0 p-0" id="headingOne">
                             <h5 class="mb-0 p-4">
-                                <div class="toggle-btn panel-title" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                <div class="toggle-btn panel-title" data-toggle="collapse" data-target="#collapseTwo"
+                                    aria-expanded="true" aria-controls="collapseTwo">
                                     Content
                                 </div>
                             </h5>
                         </div>
 
-                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion2">
+                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingOne"
+                            data-parent="#accordion2">
                             <div class="container p-0">
                                 <div class="row py-3 p-4">
                                     <div class="col-md-9 toggle-content">
@@ -109,9 +114,9 @@
                     <h2 class="heading"> <?= $article->title ?> </h2>
                     <div>
                         <?php if ($article->author != '') { ?>
-                            <span class="date">by</span>
-                            <span class="author"><?= $article->author ?></span>
-                            <span class="date hori-line">---</span>
+                        <span class="date">by</span>
+                        <span class="author"><?= $article->author ?></span>
+                        <span class="date hori-line">---</span>
                         <?php } ?>
                         <span class="date"> <?php echo date('j  F Y', strtotime($article->posted_date)) ?> </span>
                     </div>
@@ -237,7 +242,8 @@
                                     <div class="py-3">
                                         <input type="text" class="form-control" placeholder="Enter your email address">
                                     </div>
-                                    <button class="btn btn-subscribe mt-1 py-2" data-toggle="modal" data-target="#subscribeModal">Subscribe</button>
+                                    <button class="btn btn-subscribe mt-1 py-2" data-toggle="modal"
+                                        data-target="#subscribeModal">Subscribe</button>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +264,8 @@
                                 creation, but also in growth. And we’re going to be looking for different ways to
                                 grow our economy.”
                             </p>
-                            <div class="author-name mt-4">by <span class="font-weight-bold">Robert D. Blackwill</span></div>
+                            <div class="author-name mt-4">by <span class="font-weight-bold">Robert D. Blackwill</span>
+                            </div>
                         </div>
                         <p>
                             This gender gap is even wider when it comes to long-term care (LTC) because the idea of
@@ -299,15 +306,18 @@
                         <div class="related-topic">
                             <div class="topic">Related topic</div>
                             <h6>Call for Proposals: ERIA Microdata Research Fiscal Year 2020</h6>
-                            <div class="author-name mt-4"><span class="topic">by </span><span class="name">Robert D. Blackwill</span></div>
+                            <div class="author-name mt-4"><span class="topic">by </span><span class="name">Robert D.
+                                    Blackwill</span></div>
                         </div>
                         <div class="related-topic mt-1">
                             <h6>Call for Proposals: ERIA Microdata Research Fiscal Year 2020</h6>
-                            <div class="author-name mt-4"><span class="topic">by </span><span class="name">Robert D. Blackwill</span></div>
+                            <div class="author-name mt-4"><span class="topic">by </span><span class="name">Robert D.
+                                    Blackwill</span></div>
                         </div>
                         <div class="related-topic mt-1">
                             <h6>Call for Proposals: ERIA Microdata Research Fiscal Year 2020</h6>
-                            <div class="author-name mt-4"><span class="topic">by </span><span class="name">Robert D. Blackwill</span></div>
+                            <div class="author-name mt-4"><span class="topic">by </span><span class="name">Robert D.
+                                    Blackwill</span></div>
                         </div>
                     </div>
                 </div>
@@ -344,21 +354,21 @@
                 ?>
 
 
-                    <div class="col-md-4 col-12 mb-4">
-                        <img class="responsive" src="<?= base_url() ?><?= $related[$c]->image_name ?>">
-                        <div class="category mt-3"> <?= $related[$c]->article_type ?> </div>
-                        <div class="heading"> <?= $related[$c]->title ?> </div>
-                        <div>
+                <div class="col-md-4 col-12 mb-4">
+                    <img class="responsive" src="<?= base_url() ?><?= $related[$c]->image_name ?>">
+                    <div class="category mt-3"> <?= $related[$c]->article_type ?> </div>
+                    <div class="heading"> <?= $related[$c]->title ?> </div>
+                    <div>
 
-                            <?php if ($related[$c]->author != '') { ?>
-                                <span class="date">by</span>
-                                <span class="author"><?= $related[$c]->author ?></span>
-                                <span class="date hori-line">---</span>
-                            <?php } ?>
+                        <?php if ($related[$c]->author != '') { ?>
+                        <span class="date">by</span>
+                        <span class="author"><?= $related[$c]->author ?></span>
+                        <span class="date hori-line">---</span>
+                        <?php } ?>
 
-                            <span class="date"> <?php echo date('j  F Y', strtotime($related[$c]->posted_date)) ?> </span>
-                        </div>
+                        <span class="date"> <?php echo date('j  F Y', strtotime($related[$c]->posted_date)) ?> </span>
                     </div>
+                </div>
 
                 <?php } ?>
             </div>
@@ -369,7 +379,8 @@
 
 <!-- subscribe popup modal -->
 <!-- Modal -->
-<div class="modal fade subscribe-modal p-4" id="subscribeModal" tabindex="-1" role="dialog" aria-labelledby="subscribeModal" aria-hidden="true">
+<div class="modal fade subscribe-modal p-4" id="subscribeModal" tabindex="-1" role="dialog"
+    aria-labelledby="subscribeModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header border-0">
