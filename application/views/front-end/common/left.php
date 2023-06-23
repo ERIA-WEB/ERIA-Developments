@@ -281,32 +281,7 @@ table {
         ?>
     </ul>
 </div>
-
-
 <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
-$(document).ready(function() {
-    const path = window.location.href;
-    // because the 'href' property of the DOM element is the absolute path
-    $('.sidebar-item-link').each(function() {
-        if (this.href === path) {
-            $(this).addClass('active');
-        }
-    });
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-    var scrollpos = sessionStorage.getItem('scrollpos');
-    if (scrollpos) {
-        window.scrollTo(0, scrollpos);
-        sessionStorage.removeItem('scrollpos');
-    }
-});
-
-window.addEventListener("beforeunload", function(e) {
-    sessionStorage.setItem('scrollpos', window.scrollY);
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/left.js"></script>
