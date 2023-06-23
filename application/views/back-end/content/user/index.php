@@ -1,16 +1,10 @@
 <section id="main-content" class=" ">
     <section class="wrapper main-wrapper">
-
-
-
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <div class="page-title">
-
                 <div class="pull-left">
                     <h1 class="title">Manage Users </h1>
                 </div>
-
-
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
                         <li>
@@ -22,22 +16,10 @@
                         </li>
                     </ol>
                 </div>
-
-
-
-
-
-
-
             </div>
         </div>
-
-
-
         <!--my comment-->
-
         <div class="clearfix"></div>
-
         <div class="col-lg-4"><?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
@@ -51,53 +33,31 @@
                 <div class="content-body">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
-
-
-
-
-
-                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8" action="<?php echo $action; ?>">
-
-
+                            <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
+                                action="<?php echo $action; ?>">
                                 <?php
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
                                 );
                                 ?>
-                                <input type="hidden" name="<?php echo $csrf['name']; ?>" value="<?php echo $csrf['hash']; ?>" />
-                                <input type="hidden" name="id" value="<?php echo (isset($user_row)) ? $user_row->user_id : '' ?>" />
-
-
-
-
-
-
+                                <input type="hidden" name="<?php echo $csrf['name']; ?>"
+                                    value="<?php echo $csrf['hash']; ?>" />
+                                <input type="hidden" name="id"
+                                    value="<?php echo (isset($user_row)) ? $user_row->user_id : '' ?>" />
                                 <div class="form-group">
-
-
                                     <?php
                                     $error = (form_error('username') === '') ? '' : 'error';
                                     $group = (set_value('username') == false && isset($user_row)) ? $user_row->group_id : set_value('group');
                                     ?>
-
-
-
                                     <label class="form-label" for="formfield1">Group Name</label>
                                     <span class="desc">e.g. "AH"</span>
                                     <div class="controls">
                                         <i class=""></i>
                                         <select class="form-control" id="group" name="group">
-
-                                            <?php foreach ($glist->result() as $area) {
-
-                                            ?>
-
-                                                <option value="<?= $area->group_id ?>"><?= $area->group_name ?></option>
-
-                                            <?php
-
-                                            } ?>
+                                            <?php foreach ($glist->result() as $area) { ?>
+                                            <option value="<?= $area->group_id ?>"><?= $area->group_name ?></option>
+                                            <?php } ?>
 
                                         </select>
                                         <?php echo form_error('group', '<span class="help-inline">', '</span>'); ?>
@@ -123,7 +83,8 @@
                                     <span class="desc">e.g. "Avi Hazuria"</span>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <input type="text" required="required" value="<?php echo $user ?>" class="form-control" id="username" name="username">
+                                        <input type="text" required="required" value="<?php echo $user ?>"
+                                            class="form-control" id="username" name="username">
                                         <?php echo form_error('username', '<span class="help-inline">', '</span>'); ?>
 
                                     </div>
@@ -172,7 +133,8 @@
                                     <span class="desc">e.g. "info@company.com"</span>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <input type="email" required="required" value="<?php echo $email ?>" class="form-control" id="email" name="email">
+                                        <input type="email" required="required" value="<?php echo $email ?>"
+                                            class="form-control" id="email" name="email">
                                         <?php echo form_error('email', '<span class="help-inline">', '</span>'); ?>
 
                                     </div>
@@ -194,7 +156,8 @@
                                     <span class="desc">e.g. "system-content"</span>
                                     <div class="controls">
                                         <i class=""></i>
-                                        <input type="text" required="required" value="<?php echo $full_name ?>" class="form-control" id="full_name" name="full_name">
+                                        <input type="text" required="required" value="<?php echo $full_name ?>"
+                                            class="form-control" id="full_name" name="full_name">
                                         <?php echo form_error('full_name', '<span class="help-inline">', '</span>'); ?>
 
                                     </div>
@@ -257,7 +220,8 @@
                         <div class="col-md-12 col-sm-12 col-xs-12" id="dvContents">
 
 
-                            <table id="example " style="font-size:12px;" class="nt display table table-hover table-condensed" cellspacing="0" width="100%">
+                            <table id="example " style="font-size:12px;"
+                                class="nt display table table-hover table-condensed" cellspacing="0" width="100%">
 
 
                                 <thead>
@@ -290,43 +254,46 @@
 
 
 
-                                        <tr>
-                                            <td> <?php echo $x; ?> </td>
-                                            <td> <?php echo $area->username; ?></td>
-                                            <td> <?php echo $area->group_name; ?></td>
-                                            <td> <?php echo $area->full_name; ?></td>
-                                            <td> <?php echo $area->email; ?></td>
-                                            <td> <?php echo $area->modified_date; ?></td>
+                                    <tr>
+                                        <td> <?php echo $x; ?> </td>
+                                        <td> <?php echo $area->username; ?></td>
+                                        <td> <?php echo $area->group_name; ?></td>
+                                        <td> <?php echo $area->full_name; ?></td>
+                                        <td> <?php echo $area->email; ?></td>
+                                        <td> <?php echo $area->modified_date; ?></td>
 
-                                            <td class="hidden-print">
+                                        <td class="hidden-print">
 
-                                                <?php $data_s = $this->session->userdata('logged_in');
+                                            <?php $data_s = $this->session->userdata('logged_in');
                                                 if ($data_s['user_id'] == 1 || $data_s['edit'] == 1 || $data_s['user_id'] == 4 || $data_s['edit'] == 4) {  ?>
 
-                                                    <a class="btn btn-info" href="<?php echo base_url() ?>system-content/user/editUser/<?php echo $area->user_id ?>">
-                                                        <i class="fa fa-edit"></i> </a>
-                                                    &nbsp; &nbsp;
+                                            <a class="btn btn-info"
+                                                href="<?php echo base_url() ?>system-content/user/editUser/<?php echo $area->user_id ?>">
+                                                <i class="fa fa-edit"></i> </a>
+                                            &nbsp; &nbsp;
 
 
-                                                <?php }
+                                            <?php }
                                                 if ($data_s['user_id'] == 1 || $data_s['delete'] == 1 || $data_s['user_id'] == 4 || $data_s['delete'] == 4) {  ?>
 
 
 
 
-                                                    <a href="#confirm" data-id="<?php echo $area->user_id; ?>" data-area="<?php echo $area->username; ?>" data-placement="left" class="btn btn-danger confirmation-callback">
+                                            <a href="#confirm" data-id="<?php echo $area->user_id; ?>"
+                                                data-area="<?php echo $area->username; ?>" data-placement="left"
+                                                class="btn btn-danger confirmation-callback">
 
-                                                        <i class="fa fa-trash"></i> </a>
+                                                <i class="fa fa-trash"></i> </a>
 
-                                                <?php } ?>
-
-
-                                            </td>
-
+                                            <?php } ?>
 
 
+                                        </td>
 
-                                        </tr>
+
+
+
+                                    </tr>
 
                                     <?php endforeach  ?>
                                 </tbody>
@@ -378,7 +345,8 @@
 <script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 
 <script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+    type="text/javascript"></script>
 <script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 
 
@@ -386,10 +354,15 @@
 
 
 
-<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/js/jquery.dataTables.min.js" type="text/javascript">
+</script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"
+    type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/js/dataTables.responsive.min.js"
+    type="text/javascript"></script>
+<script
+    src="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
+    type="text/javascript"></script>
 
 
 <!-- CORE TEMPLATE JS - START -->
@@ -397,7 +370,8 @@
 <!-- END CORE TEMPLATE JS - END -->
 
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+</script>
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 
 
@@ -407,54 +381,5 @@
 <script src="<?php echo base_url() ?>resources/js/custome.js" type="text/javascript"></script>
 
 
-<script>
-    var delete_id = null;
-    var delete_tr = null;
-    var name = null;
-
-    $('.confirmation-callback').click(function() {
-        delete_id = $(this).data("id");
-        name = $(this).data("area");
-        delete_tr = $(this).closest('tr');
-    });
-
-    $('.confirmation-callback').confirmation({
-
-        singleton: true,
-
-        onConfirm: function(event, element) {
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "<?php echo base_url(); ?>system-content/user/deleteUser",
-                data: {
-                    id: delete_id,
-                    name: name
-
-                }
-            }).done(function(json) {
-
-
-                delete_tr.css("background-color", "#FF0000");
-                delete_tr.fadeOut(1200, function() {
-                    delete_tr.remove();
-                });
-
-
-            })
-
-
-        }
-    });
-
-
-
-
-
-
-    $('.nt').dataTable({
-        "ordering": true
-    });
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/admin/users/index.js" type="text/javascript"></script>
