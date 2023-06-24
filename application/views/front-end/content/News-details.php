@@ -140,12 +140,12 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 
                                 <div class="row py-3 p-4">
                                     <div class="col-md-9 toggle-content">
-                                        <?php echo $pdf->pdf_title ?>
-                                        <p> <?php echo $pdf->pdf_discription ?> </p>
+                                        <?= $pdf->pdf_title ?>
+                                        <p> <?= $pdf->pdf_discription ?> </p>
                                     </div>
                                     <div class="col-md-3">
 
-                                        <button href="<?= base_url() ?><?php echo $pdf->pdf ?>" target="_blank"
+                                        <button href="<?= base_url() ?><?= $pdf->pdf ?>" target="_blank"
                                             class="form-control btn modal-btn">Download</button>
                                     </div>
                                 </div>
@@ -190,9 +190,9 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 
                         if ($article->image_name != '') {
                             if (file_exists(FCPATH . $article->image_name) && $article->image_name != '') {
-                                $img = base_url() . $article->image_name;
+                                $img = base_url() .'get_share_image.php?im='.$article->image_name;
                             } elseif (file_exists(FCPATH . '/resources/images' . $article->image_name) && $article->image_name != '') {
-                                $img = base_url() . 'resources/images' . $article->image_name;
+                                $img = base_url() .'get_share_image.php?im='.'/resources/images' . $article->image_name;
                             } else {
 
                                 if (!empty($article->image_name)) {
@@ -201,10 +201,10 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                     if (strlen($response_articles)) {
                                         $img = "https://www.eria.org" . $article->image_name;
                                     } else {
-                                        $img = base_url() . "/upload/news.jpg";
+                                        $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                                     }
                                 } else {
-                                    $img = base_url() . "/upload/news.jpg";
+                                    $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
                                 }
                             }
 
@@ -221,7 +221,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-12">
                                     <h2 style="font-size: 28px;" class="second-title text-blue">
-                                        <?php echo RemoveBS(str_replace("â€™", "'", $article->title));  ?>
+                                        <?= RemoveBS(str_replace("â€™", "'", $article->title));  ?>
                                     </h2>
                                 </div>
                             </div>
@@ -371,12 +371,10 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                 <?php foreach ($image_galleries as $value) { ?>
                                 <div class="col-lg-4 mb-4">
                                     <div class="card border-0">
-                                        <a data-fslightbox="gallery"
-                                            href="<?= base_url() ?><?php echo $value->image_name; ?>"
-                                            alt="<?php echo $value->caption; ?>">
-                                            <img src="<?= base_url() ?><?php echo $value->image_name; ?>"
-                                                alt="<?php echo $value->caption; ?>"
-                                                class="img-fluid w-100 img-thumbnail">
+                                        <a data-fslightbox="gallery" href="<?= base_url() ?><?= $value->image_name; ?>"
+                                            alt="<?= $value->caption; ?>">
+                                            <img src="<?= base_url() ?>get_share_image.php?im=<?= $value->image_name; ?>"
+                                                alt="<?= $value->caption; ?>" class="img-fluid w-100 img-thumbnail">
                                         </a>
                                     </div>
                                 </div>
@@ -427,107 +425,11 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-    $("#btnPrint").click(function() {
-        var contents = $("#dvContents").html();
-        var frame1 = $('<iframe />');
-        frame1[0].name = "frame1";
 
-        $("body").append(frame1);
-        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument
-            .document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-        frameDoc.document.open();
-        //Create a new HTML document.
-        frameDoc.document.write('<html><head><title>DIV Contents</title>');
-        frameDoc.document.write('</head><body>');
-        //Append the external CSS file.
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url() ?>v6/assets/js/fslightbox.js"></script>
+<script src="<?= base_url(); ?>v6/js/news-and-views/news-and-views-detail.js"></script>
 
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/style.css" rel="stylesheet" type="text/css" />'
-        );
-
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/animate.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />'
-        );
-
-
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/responsive.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />'
-        );
-        //Append the DIV contents.
-        frameDoc.document.write(contents);
-        frameDoc.document.write('</body></html>');
-        frameDoc.document.close();
-        setTimeout(function() {
-            window.frames["frame1"].focus();
-            window.frames["frame1"].print();
-            frame1.remove();
-        }, 500);
-    });
-});
-</script>
-
-<script src="<?php echo base_url(); ?>v6/assets/js/fslightbox.js"></script>
-
-<script>
-$(document).on('click', '[data-toggle="lightbox"]', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
-});
-
-$(this).ekkoLightbox({
-    alwaysShowClose: true,
-    onShown: function() {
-        console.log('Checking our the events huh?');
-    },
-    onNavigate: function(direction, itemIndex) {
-        console.log('Navigating ' + direction + '. Current item: ' + itemIndex);
-    }
-
-});
-</script>
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
 <?php } ?>
