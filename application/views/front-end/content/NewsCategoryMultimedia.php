@@ -747,7 +747,7 @@ h1 {
 
 .publication-collapsible:after {
     content: "";
-    background-image: url('resources/images/SocialMedia/down.png');
+    background-image: url('../resources/images/SocialMedia/down.png');
     background-size: 20px 20px;
     display: inline-block;
     width: 20px;
@@ -757,7 +757,7 @@ h1 {
 
 .publicationactive:after {
     content: "";
-    background-image: url('resources/images/SocialMedia/up.png');
+    background-image: url('../resources/images/SocialMedia/up.png');
     background-size: 20px 20px;
     display: inline-block;
     width: 20px;
@@ -831,192 +831,10 @@ h1 {
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script>
-        $("#mmore").click(function() {
-            $('.hidem').show();
-        });
 
+        <input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+        <script src="<?= base_url(); ?>v6/js/multimedia/multimedia-categories.js"></script>
 
-        $("#wmore").click(function() {
-            $('.hidew').show();
-        });
-        </script>
-        <script type="text/javascript">
-        $(document).ready(function() {
-            var start = 0;
-            var limit = 12;
-            var wstart = 0;
-            var wlimit = 4;
-            var sstart = 0;
-            var slimit = 4;
-            var reachedMax = false;
-
-            getPostData();
-            getPost_Data();
-            getwebData();
-            // getPostData('Webinar','web');
-
-            $('#nn').click(function() {
-                getPostData();
-            });
-
-            // search by keyword
-            $('#key').keyup(function() {
-                sstart = 0;
-                slimit = 5;
-                $('#searchResult').html('');
-                getPost_searchData();
-            });
-
-            // search by click
-            $('#_msearch').click(function() {
-                sstart = 0;
-                slimit = 5;
-                $('#searchResult').html('');
-                getPost_searchData();
-            });
-
-            // even loadmore
-            $('#ldmr').click(function() {
-                getPost_searchData();
-            });
-
-            function getPostData() {
-                var type = 'Multimedia';
-                var url = '<?= base_url() ?>NewsMultimedia/loadm';
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'text',
-                    cache: false,
-                    data: {
-                        getData: 1,
-                        start: start,
-                        limit: limit,
-                        type: type
-                    },
-                    success: function(response) {
-                        if (response == "") {
-                            $(".loader-image").hide();
-                            // $(".load").html("Loading...");
-                        } else {
-                            start += limit;
-                            $(".loader-image").show();
-                            $("#postData").append(response);
-                        }
-                    }
-                });
-            }
-
-            function getPost_Data() {
-                var type = 'Webinar';
-                var url = '<?= base_url() ?>NewsMultimedia/loadm';
-
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'text',
-                    cache: false,
-                    data: {
-                        getData: 1,
-                        start: wstart,
-                        limit: wlimit,
-                        type: type
-                    },
-                    success: function(response) {
-
-                        if (response == "") {
-                            $(".loader-image").hide();
-                            // $(".load").html("Loading..");
-                        } else {
-                            wstart += wlimit;
-                            $(".loader-image").show();
-                            $("#web").append(response);
-                        }
-                    }
-                });
-            }
-
-
-            function getPost_searchData() {
-
-                $('#normals').show();
-                $('#normal').hide();
-
-                var topic = $('#topic').val();
-                var cat = $('#cat').val();
-                var key = $('#key').val();
-                var topics = $('#tall').val();
-
-                var url = '<?= base_url() ?>NewsMultimedia/loadmSearch';
-
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'text',
-                    cache: false,
-                    data: $("#form_id").serialize() + "&start=" + start + "&limit=" + limit,
-                    success: function(response) {
-                        if (response == "") {
-                            $(".loader-image").hide();
-                            // $("#ldmr").html("That's All");
-                        } else {
-                            // $("#ldmr").html("Load more");
-                            // $('#normals').show();
-                            // $('#normal').hide();
-                            // sstart += slimit;
-                            // $(".loader-image").show();
-                            $("#resultMultimedia").html(response);
-                        }
-                    }
-                });
-            }
-
-            function getwebData() {
-                var type = 'Podcasts';
-                var url = '<?= base_url() ?>NewsMultimedia/loadm_web';
-
-                $.ajax({
-                    url: url,
-                    method: 'POST',
-                    dataType: 'text',
-                    cache: false,
-                    data: {
-                        getData: 1,
-                        start: start,
-                        limit: limit,
-                        type: type
-                    },
-                    success: function(response) {
-                        if (response == "") {
-                            $(".loader-image").hide();
-                            // $(".load").html("That is All");
-                        } else {
-                            start += limit;
-                            $(".loader-image").show();
-                            $("#postDataweb").append(response);
-                        }
-                    }
-                });
-            }
-        });
-        $("#tall").click(function() {
-            $('.tall').not(this).prop('checked', this.checked);
-        });
-        </script>
-        <script>
-        $(document).mouseup(function(e) {
-            var container = $(".publication-collapsible");
-            var co = $(".new_publication");
-
-            // if the target of the click isn't the container nor a descendant of the container
-            if (!container.is(e.target) && container.has(e.target).length === 0 && !co.is(e.target) && co.has(e
-                    .target).length === 0) {
-                $('.new_publication').css("max-height", "");
-                $(".publication-collapsible").removeClass("publicationactive");
-            }
-        });
-        </script>
         <?php if ($type != '') {  ?>
         <script type="text/javascript">
         $(document).ready(function() {
