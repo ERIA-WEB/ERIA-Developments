@@ -154,24 +154,6 @@
         </div>
     </form>
 </div>
-<!-- <div style="display: none" class="row mt-4">
-    <div class="col-md-0 py-2">
-        <div class="sort-by">Sort by</div>
-    </div>
-    <div class="col-md-5 col-10">
-        <div class="dropdown">
-            <button class="btn bg-white border w-100" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Sort by<i class="fa fa-angle-down"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Ascending</a>
-                <a class="dropdown-item" href="#"> Descending</a>
-
-            </div>
-        </div>
-    </div>
-</div> -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
 <script src="<?= base_url(); ?>v6/js/research/searchResearchCategories.js"></script>
