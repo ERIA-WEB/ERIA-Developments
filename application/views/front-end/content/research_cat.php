@@ -51,11 +51,11 @@ function RemoveBS($Str)
 <section class="research-hero-section position-relative overflow-hidden section-top">
     <div class="research-hero-background">
         <?php 
-            // get_thumbs.php?im=
+            // get_share_image_twitter.php?im=
             if (file_exists(FCPATH . $research_categories_data->image_name)) {
-                $img = base_url().'get_thumbs.php?im='.$research_categories_data->image_name;
+                $img = base_url().'get_share_image_twitter.php?im='.$research_categories_data->image_name;
             } else {
-                $img = base_url().'get_thumbs.php?im=upload/Research_baer.jpg';
+                $img = base_url().'get_share_image_twitter.php?im=upload/Research_baer.jpg';
             }
         ?>
         <img class="h-100 w-100" src="<?= $img ?>" alt="<?= ucfirst($research_categories_data->category_name) ?>">
