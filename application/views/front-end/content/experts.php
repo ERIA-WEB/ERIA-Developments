@@ -219,7 +219,7 @@ p.mail-people {
     </div> -->
     <div class="row mb-4">
         <!-- Searches and drop downs -->
-        <input type="hidden" value="<?php echo $catogeryID ?>" name="catogery" id="catogery">
+        <input type="hidden" value="<?= $catogeryID ?>" name="catogery" id="catogery">
         <input type="hidden" value="all" name="cn" id="cn">
         <input type="hidden" value="all" name="cns" id="cns">
         <input type="hidden" value="all" name="subcatdep" id="subcatdep">
@@ -230,7 +230,7 @@ p.mail-people {
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
-                <input type="search" value="<?php echo $key ?>" name="key" id="key" placeholder="Keywords "
+                <input type="search" value="<?= $key ?>" name="key" id="key" placeholder="Keywords "
                     aria-describedby="button-addon2" class="search form-control border-left-0 rounded-0">
             </div>
         </div>
@@ -251,8 +251,8 @@ p.mail-people {
                     <a class="dropdown-item cds dropdown_category" data-cid="All" data-nme="All" href="#">All</a>
                     <?php foreach ($ex_cat as $ex) { ?>
                     <?php if ($ex->category != 'Unclassified') { ?>
-                    <a class="dropdown-item cds dropdown_category" data-cid="<?php echo $ex->ec_id ?>"
-                        data-nme="<?php echo $ex->category ?>" href="#"><?php echo $ex->category ?></a>
+                    <a class="dropdown-item cds dropdown_category" data-cid="<?= $ex->ec_id ?>"
+                        data-nme="<?= $ex->category ?>" href="#"><?= $ex->category ?></a>
                     <?php } ?>
                     <?php } ?>
                 </div>
@@ -271,15 +271,15 @@ p.mail-people {
                             $hidden = "";
                         }
                         ?>
-                    <option data-subcat="<?php echo $subcat->id ?>" data-nme="<?php echo $subcat->name ?>"
-                        value="<?php echo $subcat->id ?>" class="<?= $hidden ?>"><?php echo $subcat->name ?></option>
+                    <option data-subcat="<?= $subcat->id ?>" data-nme="<?= $subcat->name ?>" value="<?= $subcat->id ?>"
+                        class="<?= $hidden ?>"><?= $subcat->name ?></option>
                     <?php } ?>
                 </select>
             </div>
         </div>
     </div>
     <div class="result_ex">
-        <img id="loading-image" src="<?php echo base_url(); ?>ajax-loader.gif" style="display:none;" />
+        <img id="loading-image" src="<?= base_url(); ?>ajax-loader.gif" style="display:none;" />
         <!-- Governing Board -->
         <?php if (!empty($boardmessages)) { ?>
         <?php if (isset($_GET['category']) == false || $_GET['category'] == 'governing-board-members') { ?>
@@ -296,44 +296,45 @@ p.mail-people {
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 mb-4 mt-3">
             <?php foreach ($boardmessages as $content) { ?>
             <div class="col mb-4">
-                <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
+                <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
                         <div class="people-card-image">
-                            <img src=" <?php echo base_url() . $content["image_name"] ?>" alt="governing-board-image"
+                            <img src=" <?= base_url() . $content["image_name"] ?>" alt="governing-board-image"
                                 class="img-fluid w-100">
                         </div>
                         <div class="card-body bg-lg-light px-0 px-lg-4">
                             <h5 class="card-title text-blue">
                                 <?php
-                                            if (isset($content['major'])) {
-                                                $ns = substr(strip_tags($content['major']), 0, 75);
-                                                $str = substr($ns, 0, strrpos($ns, ' '));
-                                                // echo $str."(...)";
-                                                $c = strip_tags(str_replace('Message from', '', $content['major']));
-                                                if (strlen($c) > 90) {
-                                                    echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
-                                                } else {
-                                                    echo $c;
-                                                }
-                                            }
-                                            ?>
+                                if (isset($content['major'])) {
+                                    $ns = substr(strip_tags($content['major']), 0, 75);
+                                    $str = substr($ns, 0, strrpos($ns, ' '));
+                                    // echo $str."(...)";
+                                    $c = strip_tags(str_replace('Message from', '', $content['major']));
+                                    if (strlen($c) > 90) {
+                                        echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
+                                    } else {
+                                        echo $c;
+                                    }
+                                }
+                                ?>
 
                             </h5>
                             <p class="text-secondary mb-2" style="font-weight:600">
                                 <?php
-                                            echo str_replace('Message from', '', $content['title']);
-                                            ?>
+                                echo str_replace('Message from', '', $content['title']);
+                                ?>
                             </p>
                             <p class="mail-people d-none">
                                 <?php
-                                            if (!empty($boardmessage['email'])) {
-                                                $mail = "mailto:" . $boardmessage['email'];
-                                            } else {
-                                                $mail = "mailto:contactus@eria.org";
-                                            }
-                                            ?>
-                                <a href="<?php echo $mail; ?>"><i class="fa fa-envelope"
-                                        style="color: var(--primaryBlue);"></i></a>
+                                if (!empty($boardmessage['email'])) {
+                                    $mail = "mailto:" . $boardmessage['email'];
+                                } else {
+                                    $mail = "mailto:contactus@eria.org";
+                                }
+                                ?>
+                                <a href="<?= $mail; ?>">
+                                    <i class="fa fa-envelope" style="color: var(--primaryBlue);"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -359,43 +360,43 @@ p.mail-people {
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 mb-4 mt-3">
             <?php foreach ($keystaffs as $content) { ?>
             <div class="col mb-4">
-                <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
+                <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
                         <div class="people-card-image">
-                            <img src=" <?php echo base_url() . $content["image_name"] ?>" alt="key-staff-image"
+                            <img src=" <?= base_url() . $content["image_name"] ?>" alt="key-staff-image"
                                 class="img-fluid w-100">
                         </div>
                         <div class="card-body bg-lg-light px-0 px-lg-4">
                             <h5 class="card-title text-blue">
                                 <?php
-                                            // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
-                                            echo $content['title'];
-                                            ?>
+                                // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
+                                echo $content['title'];
+                                ?>
                             </h5>
                             <p class="text-secondary" style="font-weight:500">
                                 <?php
-                                            if (isset($content['major'])) {
-                                                $ns = substr(strip_tags($content['major']), 0, 75);
-                                                $str = substr($ns, 0, strrpos($ns, ' '));
-                                                // echo $str."(...)";
-                                                $c = strip_tags($content['major']);
-                                                if (strlen($c) > 90) {
-                                                    echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
-                                                } else {
-                                                    echo $c;
-                                                }
-                                            }
-                                            ?>
+                                if (isset($content['major'])) {
+                                    $ns = substr(strip_tags($content['major']), 0, 75);
+                                    $str = substr($ns, 0, strrpos($ns, ' '));
+                                    // echo $str."(...)";
+                                    $c = strip_tags($content['major']);
+                                    if (strlen($c) > 90) {
+                                        echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
+                                    } else {
+                                        echo $c;
+                                    }
+                                }
+                                ?>
                             </p>
                             <p class="mail-people">
                                 <?php
-                                            if (!empty($content['email'])) {
-                                                $mail = "mailto:" . $content['email'];
-                                            } else {
-                                                $mail = "mailto:contactus@eria.org";
-                                            }
-                                            ?>
-                                <a href="<?php echo $mail; ?>"><i class="fa fa-envelope"
+                                if (!empty($content['email'])) {
+                                    $mail = "mailto:" . $content['email'];
+                                } else {
+                                    $mail = "mailto:contactus@eria.org";
+                                }
+                                ?>
+                                <a href="<?= $mail; ?>"><i class="fa fa-envelope"
                                         style="color: var(--primaryBlue);"></i></a>
                             </p>
                         </div>
@@ -422,44 +423,45 @@ p.mail-people {
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5">
             <?php foreach ($experts as $content) { ?>
             <div class="col mb-4">
-                <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
+                <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
                         <div class="people-card-image">
-                            <img src=" <?php echo base_url() . $content["image_name"] ?>" alt="expert-image"
+                            <img src=" <?= base_url() . $content["image_name"] ?>" alt="expert-image"
                                 class="img-fluid w-100">
                         </div>
                         <div class="card-body bg-lg-light px-0 px-lg-4">
                             <h5 class="card-title text-blue">
                                 <?php
-                                            // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
-                                            echo $content['title']
-                                            ?>
+                                // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
+                                echo $content['title']
+                                ?>
                             </h5>
                             <p class="text-secondary mb-4" style="font-weight:500; font-size:14px">
                                 <?php
-                                            if (isset($content['major'])) {
-                                                $ns = substr(strip_tags($content['major']), 0, 75);
-                                                $str = substr($ns, 0, strrpos($ns, ' '));
-                                                // echo $str."(...)";
-                                                $c = strip_tags($content['major']);
-                                                if (strlen($c) > 90) {
-                                                    echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
-                                                } else {
-                                                    echo $c;
-                                                }
-                                            }
-                                            ?>
+                                if (isset($content['major'])) {
+                                    $ns = substr(strip_tags($content['major']), 0, 75);
+                                    $str = substr($ns, 0, strrpos($ns, ' '));
+                                    // echo $str."(...)";
+                                    $c = strip_tags($content['major']);
+                                    if (strlen($c) > 90) {
+                                        echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
+                                    } else {
+                                        echo $c;
+                                    }
+                                }
+                                ?>
                             </p>
                             <p class="mail-people">
                                 <?php
-                                            if (!empty($content['email'])) {
-                                                $mail = "mailto:" . $content['email'];
-                                            } else {
-                                                $mail = "mailto:contactus@eria.org";
-                                            }
-                                            ?>
-                                <a href="<?php echo $mail; ?>"><i class="fa fa-envelope"
-                                        style="color: var(--primaryBlue);"></i></a>
+                                if (!empty($content['email'])) {
+                                    $mail = "mailto:" . $content['email'];
+                                } else {
+                                    $mail = "mailto:contactus@eria.org";
+                                }
+                                ?>
+                                <a href="<?= $mail; ?>">
+                                    <i class="fa fa-envelope" style="color: var(--primaryBlue);"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -485,44 +487,45 @@ p.mail-people {
         <div id="associates" class="rexp row row-cols-1 row-cols-md-3 row-cols-lg-5 my-4 mb-3">
             <?php foreach ($associates as $content) { ?>
             <div class="col mb-4">
-                <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
+                <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
                         <div class="people-card-image">
-                            <img src=" <?php echo base_url() . $content["image_name"] ?>"
-                                alt="research-associates-image" class="img-fluid w-100">
+                            <img src=" <?= base_url() . $content["image_name"] ?>" alt="research-associates-image"
+                                class="img-fluid w-100">
                         </div>
                         <div class="card-body bg-lg-light px-0 px-lg-4">
                             <h5 class="card-title text-blue">
                                 <?php
-                                            // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
-                                            echo $content['title'];
-                                            ?>
+                                // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
+                                echo $content['title'];
+                                ?>
                             </h5>
                             <p class="text-secondary mb-2" style="font-weight:600">
                                 <?php
-                                            if (isset($content['major'])) {
-                                                $ns = substr(strip_tags($content['major']), 0, 75);
-                                                $str = substr($ns, 0, strrpos($ns, ' '));
-                                                // echo $str."(...)";
-                                                $c = strip_tags($content['major']);
-                                                if (strlen($c) > 90) {
-                                                    echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
-                                                } else {
-                                                    echo $c;
-                                                }
-                                            }
-                                            ?>
+                                if (isset($content['major'])) {
+                                    $ns = substr(strip_tags($content['major']), 0, 75);
+                                    $str = substr($ns, 0, strrpos($ns, ' '));
+                                    // echo $str."(...)";
+                                    $c = strip_tags($content['major']);
+                                    if (strlen($c) > 90) {
+                                        echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
+                                    } else {
+                                        echo $c;
+                                    }
+                                }
+                                ?>
                             </p>
                             <p class="mail-people">
                                 <?php
-                                            if (!empty($content['email'])) {
-                                                $mail = "mailto:" . $content['email'];
-                                            } else {
-                                                $mail = "mailto:contactus@eria.org";
-                                            }
-                                            ?>
-                                <a href="<?php echo $mail; ?>"><i class="fa fa-envelope"
-                                        style="color: var(--primaryBlue);"></i></a>
+                                if (!empty($content['email'])) {
+                                    $mail = "mailto:" . $content['email'];
+                                } else {
+                                    $mail = "mailto:contactus@eria.org";
+                                }
+                                ?>
+                                <a href="<?= $mail; ?>">
+                                    <i class="fa fa-envelope" style="color: var(--primaryBlue);"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -548,44 +551,45 @@ p.mail-people {
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 mb-4 mt-3">
             <?php foreach ($fellows as $content) { ?>
             <div class="col mb-4">
-                <a href="<?php echo base_url() ?>experts/<?php echo $content['uri'] ?>">
+                <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
                         <div class="people-card-image h-100">
-                            <img src=" <?php echo base_url() . $content["image_name"] ?>" alt="research-fellows-image"
+                            <img src=" <?= base_url() . $content["image_name"] ?>" alt="research-fellows-image"
                                 class="img-fluid w-100">
                         </div>
                         <div class="card-body bg-lg-light px-0 px-lg-4">
                             <h5 class="card-title text-blue">
                                 <?php
-                                            // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
-                                            echo $content['title'];
-                                            ?>
+                                // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
+                                echo $content['title'];
+                                ?>
                             </h5>
                             <p class="text-secondary mb-2" style="font-weight:600">
                                 <?php
-                                            if (isset($content['major'])) {
-                                                $ns = substr(strip_tags($content['major']), 0, 75);
-                                                $str = substr($ns, 0, strrpos($ns, ' '));
-                                                // echo $str."(...)";
-                                                $c = strip_tags($content['major']);
-                                                if (strlen($c) > 90) {
-                                                    echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
-                                                } else {
-                                                    echo $c;
-                                                }
-                                            }
-                                            ?>
+                                if (isset($content['major'])) {
+                                    $ns = substr(strip_tags($content['major']), 0, 75);
+                                    $str = substr($ns, 0, strrpos($ns, ' '));
+                                    // echo $str."(...)";
+                                    $c = strip_tags($content['major']);
+                                    if (strlen($c) > 90) {
+                                        echo substr($c, 0, 90) . "<a href='" . base_url() . "experts/" . $content['uri'] . "'>(...)</a>";
+                                    } else {
+                                        echo $c;
+                                    }
+                                }
+                                ?>
                             </p>
                             <p class="mail-people">
                                 <?php
-                                            if (!empty($content['email'])) {
-                                                $mail = "mailto:" . $content['email'];
-                                            } else {
-                                                $mail = "mailto:contactus@eria.org";
-                                            }
-                                            ?>
-                                <a href="<?php echo $mail; ?>"><i class="fa fa-envelope"
-                                        style="color: var(--primaryBlue);"></i></a>
+                                if (!empty($content['email'])) {
+                                    $mail = "mailto:" . $content['email'];
+                                } else {
+                                    $mail = "mailto:contactus@eria.org";
+                                }
+                                ?>
+                                <a href="<?= $mail; ?>">
+                                    <i class="fa fa-envelope" style="color: var(--primaryBlue);"></i>
+                                </a>
                             </p>
                         </div>
                     </div>
@@ -598,152 +602,6 @@ p.mail-people {
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<script>
-$('.cds').click(function() {
-    var td = $(this).data("cid");
-    var nme = $(this).data("nme") + "<i class='fa fa-angle-down'></i>";
-    $('#catogery').val(td);
-    $('.cv').html(nme);
-    $('#cn').val(td);
-});
 
-
-$(document).on("click", ".cdss", function() {
-    var td = $(this).data("cid");
-    var nme = $(this).data("nme") + "<i class='fa fa-angle-down'></i>";
-    $('.cvs').html(nme);
-    $('#cns').val(td);
-});
-
-$('.search').keyup(function() {
-    $('#esearch').trigger('click');
-});
-
-$('.search').keypress(function(e) {
-    if (e.keyCode == 13) {
-        $('#esearch').trigger('click');
-    }
-});
-
-$("#tall").click(function() {
-    $('.tall').not(this).prop('checked', this.checked);
-});
-
-$('#esearch').click(function() {
-    var key = $('#key').val();
-    var role = $('#cn').val();
-    var srole = $('#dropdownMenuButton').val();
-    // var srole = $('.tall').val();
-    // if ($('.tall').is(':checked')) {
-    //     var srole = $("input[name^='depart_id']").map(function(idx, ele) {
-    //         // this.checked ? this.value : '';
-    //         return $(ele).val();
-    //     }).get();
-    // } else {
-    //     var srole = '';
-    // }
-
-    var url = '<?php echo base_url() ?>Experts/load_expert';
-
-    $('.sre').show();
-    $(".result_ex").html('');
-    $('.rexp').hide();
-
-    $.ajax({
-        url: url,
-        method: 'POST',
-        dataType: 'text',
-        cache: false,
-        data: {
-            key: key,
-            role: role,
-            srole: srole
-        },
-        beforeSend: function() {
-            $("#loading-image").show();
-        },
-        success: function(response) {
-            if (response != "") {
-                $(".result_ex").html(response);
-            } else {
-
-            }
-        }
-    });
-});
-</script>
-<script>
-$('#photo').change(function() {
-    var input = this;
-    var name = $(this).val();
-
-    $('#image').val(name);
-
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#placeholder').attr('src', e.target.result).attr('width', 142);
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
-});
-
-$('#dropdownMenuButton').on('change', function() {
-    var id = $('#cn').val();
-    var subcategory = $(this).val();
-    var keyword = $('#key').val();
-    var category = $('#cn').val();
-
-    $('#subcatdep').val(subcategory);
-
-    $.ajax({
-        type: "POST",
-        url: "<?php echo base_url(); ?>Experts/getSubCatDept",
-        dataType: 'json',
-        data: {
-            id: id,
-            keyword: keyword,
-            category: category,
-            subcategory: subcategory,
-        }
-    }).done(function(json) {
-        var result = json;
-        $('.sre').show();
-        $(".result_ex").html('');
-        $('.rexp').hide();
-        if (result['resultexperts'] != "") {
-            $(".result_ex").html(result['resultexperts']);
-        }
-    });
-});
-
-$('.cds').click(function() {
-    var id = $(this).data('cid');
-
-    var keyword = $('#key').val();
-    var category = $(this).data('cid');
-    var subcategory = $('#dropdownMenuButton').val();
-
-    $.ajax({
-        type: "POST",
-        url: "<?php echo base_url(); ?>Experts/getSubCatExpert",
-        dataType: 'json',
-        data: {
-            id: id,
-            keyword: keyword,
-            category: category,
-            subcategory: subcategory,
-        }
-    }).done(function(json) {
-        var result = json;
-        // $('#dropdownMenuButton').html(result['selectoption']);
-        $('.sre').show();
-        $(".result_ex").html('');
-        $('.rexp').hide();
-        if (result['resultexperts'] != "") {
-            $(".result_ex").html(result['resultexperts']);
-        }
-    });
-
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/experts/experts.js"></script>
