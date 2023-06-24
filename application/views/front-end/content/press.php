@@ -104,60 +104,7 @@
     </div>
 </div>
 
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script type="text/javascript">
-$(document).ready(function() {
-    var start = 0;
-    var limit = 6;
-    var article_type = 'press-releases';
-
-    result_press_room();
-
-    $('#_msearch').click(function() {
-
-        start = 0;
-        limit = 6;
-
-        $('#resultPage').html('');
-
-        result_press_room();
-
-    })
-
-    $('#ldmr').click(function() {
-        result_press_room();
-    })
-
-    function result_press_room() {
-        var url = '<?php echo base_url() ?>News/load_page';
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'text',
-            cache: false,
-            data: {
-                getData: 1,
-                start: start,
-                limit: limit,
-                article_type: article_type
-            },
-            success: function(response) {
-                if (response == "") {
-                    $(".loader-image").hide();
-                    $("#ldmr").html("End");
-                } else {
-                    $("#ldmr").html("Load more");
-                    $('#normals').show();
-                    $('#normal').hide();
-                    start += limit;
-                    $(".loader-image").show();
-                    $("#resultPage").append(response);
-                }
-            }
-        });
-    }
-});
-</script>
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/news/press-rooms.js"></script>
