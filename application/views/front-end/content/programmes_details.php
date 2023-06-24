@@ -412,91 +412,10 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(function() {
-    $("#btnPrint").click(function() {
 
+<input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/programmes/programmes-detail.js"></script>
 
-
-
-        var contents = $("#dvContents").html();
-        var frame1 = $('<iframe />');
-        frame1[0].name = "frame1";
-
-        $("body").append(frame1);
-        var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument
-            .document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
-        frameDoc.document.open();
-        //Create a new HTML document.
-        frameDoc.document.write('<html><head><title>DIV Contents</title>');
-        frameDoc.document.write('</head><body>');
-        //Append the external CSS file.
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/style.css" rel="stylesheet" type="text/css" />'
-        );
-
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/animate.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/jquery-ui/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/icheck/skins/all.css" rel="stylesheet" type="text/css" />'
-        );
-
-
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/css/responsive.css" rel="stylesheet" type="text/css" />'
-        );
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/TableTools/css/dataTables.tableTools.min.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" />'
-        );
-
-        frameDoc.document.write(
-            '<link href="<?php echo base_url() ?>resources/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />'
-        );
-        //Append the DIV contents.
-        frameDoc.document.write(contents);
-        frameDoc.document.write('</body></html>');
-        frameDoc.document.close();
-        setTimeout(function() {
-            window.frames["frame1"].focus();
-            window.frames["frame1"].print();
-            frame1.remove();
-        }, 500);
-    });
-});
-</script>
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
 <?php } ?>
