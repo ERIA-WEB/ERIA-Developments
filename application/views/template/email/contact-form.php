@@ -8,7 +8,7 @@
     <meta name="x-apple-disable-message-reformatting">
     <title></title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,600" rel="stylesheet" type="text/css"> -->
     <!-- Web Font / @font-face : BEGIN -->
     <!--[if mso]>
     <style>
