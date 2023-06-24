@@ -474,8 +474,9 @@ if (!in_array('all', $current_url)) {
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-<input type="hidden" id="base_url_front" value="<?= base_url(); ?>">
-<script src="<?= base_url(); ?>v6/js/news-and-views.js"></script>
+
+<input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
+<script src="<?= base_url(); ?>v6/js/news-and-views/news-and-views.js"></script>
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
 <?php } ?>
