@@ -543,7 +543,7 @@ function limit_text($text, $limit, $link = null)
                         ?>
                         <?php
                             if (file_exists(FCPATH . $pub['image_name'])) {
-                                $img = base_url() .'get_thumbs.php?im='. $pub['image_name'];
+                                $img = base_url() .'get_share_image_twitter.php?im='. $pub['image_name'];
                             } else {
                                 $img = "https://www.eria.org" . $pub['image_name'];
                             }
