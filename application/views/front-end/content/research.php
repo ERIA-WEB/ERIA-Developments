@@ -541,9 +541,9 @@
                         <?php foreach ($research_data as $research) { ?>
                         <?php
                             if (file_exists(FCPATH . $research->image_name)) {
-                                $img = base_url().'get_thumbs.php?im='.$research->image_name;
+                                $img = base_url().'get_share_image_twitter.php?im='.$research->image_name;
                             } else {
-                                $img = base_url().'get_thumbs.php?im=upload/Research_baer.jpg';
+                                $img = base_url().'get_share_image_twitter.php?im=upload/Research_baer.jpg';
                             }
                             ?>
                         <?php if ($research->uri != 'Call_for_Proposals' and $research->uri != 'co-publications') { ?>
