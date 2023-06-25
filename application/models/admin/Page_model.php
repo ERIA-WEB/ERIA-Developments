@@ -1162,6 +1162,117 @@ class Page_model extends CI_Model
         }
     }
 
+    function updateNewImage($new_image_data)
+    {
+        $whitelist = array('127.0.0.1', "::1", "localhost");
+
+        $im = $new_image_data['base_image'];
+        $title = $new_image_data['title_image'];
+        $documentRoot = $this->config->item('base_path');
+
+        if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+            $cacheFolder = $documentRoot.$new_image_data['type_page'].'';
+        } else {
+            $cacheFolder = $documentRoot."/".$new_image_data['type_page'].'';
+        }
+        
+        $thumb_width  = $new_image_data['width'];
+        $thumb_height = $new_image_data['height'];
+        $what = getimagesize(base_url().$im);
+        switch( $what['mime'] ){
+            case 'image/png' : $orig_image = imagecreatefrompng(base_url().$im);break;
+            case 'image/jpeg': $orig_image = imagecreatefromjpeg(base_url().$im);break;
+            case 'image/gif' : $orig_image = imagecreatefromgif(base_url().$im);
+        }
+
+        list($width, $height, $type, $attr) = getimagesize(base_url().$im);
+        
+        
+        
+        $ratioW = $width / $thumb_width;
+        $ratioH = $height / $thumb_height;
+
+        $ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+
+        $newWidth = $width / $ratioU;
+        $newHeight = $height / $ratioU;
+        
+        $cacheFile = $cacheFolder."/".str_replace(' ', '-', $title).".png";
+        
+        $sm_image = imagecreatetruecolor($newWidth, $newHeight) or die ("Cannot Initialize new gd image stream");
+        imagesavealpha($sm_image, true);
+        $black = imagecolorallocate($sm_image, 0, 0, 0);
+        imagefilledrectangle($sm_image, 0, 0, $newWidth, $newHeight, $black);
+        $trans_colour = imagecolorallocatealpha($sm_image, 0, 0, 0, 127);
+        imagefill($sm_image, 0, 0, $trans_colour);
+        
+        imagecopyresampled($sm_image, $orig_image, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+        
+        ob_start();
+        imagepng($sm_image, $cacheFile, 5);
+        
+        $result = $new_image_data['type_page']."/".str_replace(' ', '-', $title).".png";
+        
+        return $result;
+    }
+    
+    function resizeImageCover($image_cover_data)
+    {
+        $whitelist = array('127.0.0.1', "::1", "localhost");
+
+        $im = $image_cover_data['base_image'];
+        $title = $image_cover_data['title_image'];
+        $documentRoot = $this->config->item('base_path');
+
+        if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+            $cacheFolder = $documentRoot.'caching/'.$image_cover_data['type_page'].'';
+        } else {
+            $cacheFolder = $documentRoot."/caching".$image_cover_data['type_page'].'';
+        }
+        
+        $thumb_width  = $image_cover_data['width'];
+        $thumb_height = $image_cover_data['height'];
+        $what = getimagesize(base_url().$im);
+        switch( $what['mime'] ){
+            case 'image/png' : $orig_image = imagecreatefrompng(base_url().$im);break;
+            case 'image/jpeg': $orig_image = imagecreatefromjpeg(base_url().$im);break;
+            case 'image/jpg': $orig_image = imagecreatefromjpeg(base_url().$im);break;
+            case 'image/gif' : $orig_image = imagecreatefromgif(base_url().$im);
+        }
+
+        list($width, $height, $type, $attr) = getimagesize(base_url().$im);
+        
+        
+        
+        $ratioW = $width / $thumb_width;
+        $ratioH = $height / $thumb_height;
+
+        $ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+
+        $newWidth = $width / $ratioU;
+        $newHeight = $height / $ratioU;
+        
+        $cacheFile = $cacheFolder."/".str_replace(' ', '-', $title).".png";
+        
+        $sm_image = imagecreatetruecolor($newWidth, $newHeight) or die ("Cannot Initialize new gd image stream");
+        
+        imagesavealpha($sm_image, true);
+        $black = imagecolorallocate($sm_image, 0, 0, 0);
+        imagefilledrectangle($sm_image, 0, 0, $newWidth, $newHeight, $black);
+        $trans_colour = imagecolorallocatealpha($sm_image, 0, 0, 0, 127);
+        imagefill($sm_image, 0, 0, $trans_colour);
+        
+        imagecopyresampled($sm_image, $orig_image, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+        
+        ob_start();
+        
+        imagepng($sm_image, $cacheFile, 5);
+        
+        $result = base_url()."caching/uploads/".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+        
+        return $result;
+    }
+    
     function getPeopleRelatedAgendaId($event_id)
     {
         $this->db->select('eria_agenda_related.*');
@@ -2115,7 +2226,7 @@ class Page_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->where('article_type', $type);
-
+        $this->db->where('published', 1);
         if ($type == 'experts') {
             $this->db->join('eria_expert_categories', 'eria_expert_categories.ec_id = articles.sub_experts', 'left');
         }
