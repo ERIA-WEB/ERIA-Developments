@@ -71,7 +71,7 @@
                                             <!-- <img id="placeholder" class="grayscale" src="<?php echo base_url(); ?>resources/images<?php echo $path; ?>" width="142"   alt="Sample Image">-->
                                             <img id="placeholder" class="grayscale"
                                                 src="<?= base_url() ?>/get_thumbs.php?im=<?php echo $path; ?>"
-                                                width="142" alt="Sample Image">
+                                                width="142">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -84,7 +84,7 @@
                                     <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
                                         665 X 270 PX*)</span>
                                     <div class="controls">
-                                        <input type="hidden" id="image" name="image" value="" />
+                                        <input type="hidden" name="image" value="<?= $path; ?>" />
                                         <input class="input-file form-control uniform_on focused" id="photo"
                                             value="<?php echo $image; ?>" name="photo" type="file" accept="image/*"
                                             placeholder="photo">
