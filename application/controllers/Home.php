@@ -40,10 +40,11 @@ class Home extends CI_Controller
 
         return $dst;
     }
-
+    
     public function index()
     {
-        $this->output->cache(30); 
+        $this->output->cache(30);
+        // $this->output->clear_all_cache();
         $content = $this->Content_model->getContent();
         
         if (!empty($content)) {
@@ -67,14 +68,17 @@ class Home extends CI_Controller
         }
 
         $data['slider'] = $this->frontModel->get_Slider();
+        
         // $data['experts'] = $this->frontModel->get_article(null,'experts',null,'home');
         $data['categories'] = $this->frontModel->get_catogery('categories');
+        
         $data['news'] = $this->frontModel->get_article(4, 'news', null, 'home');
         $data['m_menu'] = 'home';
         $data['card_type'] = 1;
         $data['card'] = $this->frontModel->getPage_card_order(1);
         
         $news_update_homepage = $this->frontModel->get_recentArticle();
+        
         
         if (count($news_update_homepage) == 6) {
             $data['newsall'] = $this->frontModel->get_recentArticle();
@@ -86,17 +90,16 @@ class Home extends CI_Controller
             $data['newsall'] = $merging_data;
         }
         
-        
         $data['articles'] = $this->frontModel->get_article(5, 'articles', null, 'home');
         $data['publications'] = $this->frontModel->get_publicatio_article('home');
+        
         // $data['publications'] = $this->frontModel->getPublicationForHighlight(1);
         // $data['multimedia'] = $this->frontModel->getMultimedia(178, null);
-         
+        
         $data['podcasts']   = $this->frontModel->getMultimediaLatest('multimedia', 'Podcasts');
         $data['video']      = $this->frontModel->getMultimediaLatest('multimedia', 'Video');
         $data['webinar']    = $this->frontModel->getMultimediaLatest('multimedia', 'Webinar');
         $data['content'] = 'front-end/content/home';
-
         $this->load->view('front-end/common/template', $data);
     }
 
