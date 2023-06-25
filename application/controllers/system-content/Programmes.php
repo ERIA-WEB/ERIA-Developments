@@ -130,15 +130,51 @@ class Programmes extends CI_Controller
 
     function editCatdata()
     {
+        $data_s = $this->session->userdata('logged_in');
+        $pri = $this->privilage->login($data_s['username'], $data_s['user_id'], 24, $data_s['group_id']);
+        
         $id = $this->input->post('id');
         $this->form_validation->set_rules('category_name', 'category_name', 'trim|required');
         $this->form_validation->set_rules('description', 'description', 'trim|required');
 
         $validate = $this->form_validation->run();
-
+        
         $img = -1;
+
+        $title_image_category = str_replace(array(' ','/','@','(',')','%','%20'), '-', strtolower($this->input->post('category_name')));
+        
         if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-            $img = $this->setCat();
+            $img = $this->setCat($title_image_category);
+
+            $img = "/uploads/categories/" . $img;
+            
+            $this->resizeImageNewCategory($title_image_category);
+            
+        } else {
+            
+            if (file_exists(FCPATH . $this->input->post('image'))) {
+
+                $image_cover_data = [
+                    'base_image'    => $this->input->post('image'),
+                    'title_image'   => $title_image_category,
+                    'type_page'     => '/uploads/categories',
+                    'width'         => 359,
+                    'height'        => 270,
+                ];
+                
+                $this->Page_model->resizeImageCover($image_cover_data);
+
+                $new_image_data = [
+                    'base_image'    => $this->input->post('image'),
+                    'title_image'   => $title_image_category,
+                    'type_page'     => '/uploads/categories',
+                    'width'         => 970,
+                    'height'        => 270,
+                ];
+
+                $img = $this->Page_model->updateNewImage($new_image_data);
+
+            }
         }
 
         if ($validate == FALSE) {
@@ -162,20 +198,15 @@ class Programmes extends CI_Controller
                 'category_name' => $this->input->post('category_name'),
                 'category_type' => 'categories',
                 'external_link' => $external_link,
-                'description' => $this->input->post('description'),
-                'order_id' => $this->input->post('order_id'),
-                'published' => $published,
-                'modified_by' => $data_s['user_id'],
+                'image_name'    => $img,
+                'description'   => $this->input->post('description'),
+                'order_id'      => $this->input->post('order_id'),
+                'published'     => $published,
+                'modified_by'   => $data_s['user_id'],
                 'modified_date' => date('Y-m-d H:i:s'),
                 'meta_keywords' => $this->input->post('meta_keywords'),
                 'meta_description' => $this->input->post('meta_description')
             );
-
-            if ($img !== -1) {
-                $img = "/uploads/categories/" . $img;
-                $data['image_name'] = $img;
-            }
-
 
             $query = $this->Page_model->updatecat($id, $data);
 
@@ -191,18 +222,33 @@ class Programmes extends CI_Controller
         }
     }
 
-
     function createCat()
     {
+        $data_s = $this->session->userdata('logged_in');
+        $pri = $this->privilage->login($data_s['username'], $data_s['user_id'], 24, $data_s['group_id']);
+
         $this->form_validation->set_rules('category_name', 'category_name', 'trim|required');
         $this->form_validation->set_rules('description', 'description', 'trim|required');
 
         $validate = $this->form_validation->run();
+
         if ($validate == FALSE) {
             $this->catogeries();
         } else {
-            $img = $this->setCat();
-            $img = "/uploads/categories/" . $img;
+            $title_image_category = str_replace(array(' ','/','@','(',')','%','%20'), '-', strtolower($this->input->post('category_name')));
+            
+            if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
+            
+                $img_data = $this->setCat($title_image_category);
+                
+                $img = "/uploads/categories/" . $img_data;
+                
+                $resizeImage = "/caching/uploads/categories/" .$this->resizeImageNewCategory($title_image_category);
+                
+            } else {
+                $img = $this->input->post('image');
+            }
+            
 
             if ($this->input->post('published')) {
                 $published = 1;
@@ -219,26 +265,26 @@ class Programmes extends CI_Controller
             $data_s = $this->session->userdata('logged_in');
 
             $data = array(
-                'image_name' => $img,
-                'category_name' => $this->input->post('category_name'),
-                'category_type' => 'categories',
-                'uri' => str_replace(' ', '-', $this->input->post('category_name')),
-                'external_link' => $external_link,
-                'description' => $this->input->post('description'),
-                'order_id' => $this->input->post('order_id'),
-                'published' => $published,
-                'modified_by' => $data_s['user_id'],
-                'modified_date' => date('Y-m-d H:i:s'),
-                'meta_keywords' => $this->input->post('meta_keywords'),
-                'meta_description' => $this->input->post('meta_description')
+                'image_name'        => $img,
+                'category_name'     => $this->input->post('category_name'),
+                'category_type'     => 'categories',
+                'uri'               => str_replace(' ', '-', $this->input->post('category_name')),
+                'external_link'     => $external_link,
+                'description'       => $this->input->post('description'),
+                'order_id'          => $this->input->post('order_id'),
+                'published'         => $published,
+                'modified_by'       => $data_s['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s'),
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description')
             );
-
+            
             $query = $this->Page_model->insertCat($data);
 
-            $this->HistoryModel->insertHistory("Catogery", "Catogery", "New Catogery has been Created : " . $this->input->post('category_name'));
+            $this->HistoryModel->insertHistory("Category", "Category", "New Category has been Created : " . $this->input->post('category_name'));
 
             if ($query == TRUE) {
-                $this->session->set_flashdata('success-message', 'Catogery has been created.');
+                $this->session->set_flashdata('success-message', 'Category has been created.');
                 redirect('system-content/Programmes/categories');
             } else {
                 $this->session->set_flashdata('error-message', $query);
@@ -247,6 +293,78 @@ class Programmes extends CI_Controller
         }
     }
 
+    public function setCat($title_image)
+    {
+        //upload and update the file
+        $config['upload_path']      = './uploads/categories';
+        $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
+        $config['overwrite']        = false;
+        $config['remove_spaces']    = true;
+        $config['file_name']        = $title_image.'.png';
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('photo')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+
+    function resizeImageNewCategory($title_image)
+    {
+        $this->load->library('image_lib');
+        //upload and update the file
+        $config['upload_path']      = './caching/uploads/categories';
+        $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
+        $config['overwrite']        = false;
+        $config['remove_spaces']    = true;
+        $config['file_name']        = $title_image.'.png';
+        $config['image_library']    = 'gd2';
+        $config['maintain_ratio']   =  TRUE;
+        $config['width']            = 250;
+        $config['height']           = 250;
+
+        $image_data = $this->upload->data();
+        $config['source_image']     = $image_data['full_path'];
+        $this->load->library('upload', $config);
+        
+        
+        // $config =  array(
+        //     'image_library'   => 'gd2',
+        //     'source_image'    =>  $image_data['full_path'],
+        //     'maintain_ratio'  =>  TRUE,
+        //     'width'           =>  250,
+        //     'height'          =>  250,
+        // );
+        
+        $this->image_lib->clear();
+        $this->upload->initialize($config);
+        $this->image_lib->resize();
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('photo')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
 
     function s_categories()
     {
@@ -337,7 +455,7 @@ class Programmes extends CI_Controller
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/programmes/sucatogery';
         $data['active'] = 'db';
-        $data['sub'] = 'dbcat';
+        $data['sub'] = 'dbscat';
 
         $this->load->view('back-end/common/template', $data);
     }
@@ -714,38 +832,6 @@ class Programmes extends CI_Controller
             }
             redirect('system-content/slider/listSlider');
         }
-    }
-
-    public function setCat()
-    {
-        //upload and update the file
-        $config['upload_path'] = './uploads/categories';
-        $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
-        $config['overwrite'] = false;
-        $config['remove_spaces'] = true;
-        //$config['max_size'] = '20000'; // in KB
-        // $config['max_width'] = '145';
-        // $config['max_height'] = '45';
-        //$config['min_width'] = '32';
-        //$config['min_height'] = '32';
-        // $config['file_name'] = 'logo' . uniqid();
-
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-        $imgName = '';
-
-        if (!is_dir($config['upload_path'])) {
-            $this->session->set_flashdata('msg', "The upload directory does not exist.");
-            $imgName = FALSE;
-        } elseif (!$this->upload->do_upload('photo')) {
-            $msg = $this->upload->display_errors();
-            $this->session->set_flashdata('msg', $msg);
-            $imgName = FALSE;
-        } else {
-            $imgName = $this->upload->data('file_name');
-        }
-
-        return $imgName;
     }
 
     public function setArt()
