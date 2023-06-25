@@ -26,8 +26,8 @@ ob_start();
 */
 $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']);
-$config['base_url'] = "http://localhost/myApp/WEBSITE-ERIA-ORG/www.eria.org/";
-
+$config['base_url'] = "http://localhost/myApp/WEBSITE-ERIA-ORG/www.eria.org/"; // https://test-www-eria-org.azurewebsites.net/
+$config['base_path'] = $_SERVER['DOCUMENT_ROOT'].'/myApp/WEBSITE-ERIA-ORG/www.eria.org/';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -314,7 +314,7 @@ $config['cache_path'] = '';
 |	             of query parameters.
 |
 */
-$config['cache_query_string'] = FALSE;
+$config['cache_query_string'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
