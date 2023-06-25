@@ -213,7 +213,8 @@
                                         comprehensive"</span>
                                     <div class="controls">
                                         <textarea rows="5" style="height: 250px" id="summernote"
-                                            class="form-control mytextarea" name="content"><?= $content ?></textarea>
+                                            class="form-control mytextarea"
+                                            name="content"><?= str_replace('%20', '-', $content) ?></textarea>
                                         <?php echo form_error('content', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
