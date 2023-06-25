@@ -138,14 +138,20 @@ table {
                         foreach ($submenu_aboutus as $val) {
                             $checkurlsame_for_submenu[] = $val->uri;
                         }
+
                         /*
                         ** end
                         */ 
-                        if (in_array($last_url, $checkurlsame_for_submenu)) {
-                            $urlsubmenu_show = 'show';
+                        if (!empty($checkurlsame_for_submenu)) {
+                            if (in_array($last_url, $checkurlsame_for_submenu)) {
+                                $urlsubmenu_show = 'show';
+                            } else {
+                                $urlsubmenu_show = '';
+                            }
                         } else {
                             $urlsubmenu_show = '';
                         }
+                        
                         echo '<li class="sidebar-item position-relative">';
                         if (!empty($submenu_aboutus)) {
                             echo '<a href="'.base_url() .'about-us/'. $value->uri.'" class="btn py-3 w-100 text-left '.$active_first.'">
