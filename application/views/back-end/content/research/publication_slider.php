@@ -66,7 +66,7 @@
                                             <option value="">--select--</option>
 
                                             <?php foreach ($related->result() as $areaList) { ?>
-                                            <?php if ($areaList->published == '1') { ?>
+                                            <?php if ($areaList->published == 1) { ?>
                                             <option <?php if ($pub_id == $areaList->article_id) { ?> selected <?php } ?>
                                                 value="<?php echo $areaList->article_id; ?>"
                                                 data-text="<?php echo $areaList->title; ?>">
