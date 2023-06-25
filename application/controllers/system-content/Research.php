@@ -813,7 +813,8 @@ class Research extends CI_Controller
         $data['aData'] = array();
         $data['ehData'] = array();
         $data['eData'] = array();
-        $data['related'] = $this->Page_model->getPage_allarticle('publications', 200);
+        $data['related'] = $this->Page_model->getPage_allarticle('publications', 1000);
+        
         $data['action'] = site_url('system-content/research/createPs');
         $data['title'] = '  Dashboard';
         $data['content'] = 'back-end/content/research/publication_slider';
