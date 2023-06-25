@@ -784,4 +784,4 @@ function limit_words($text, $limit)
     </div>
 </div>
 
-<script src="<?= base_url(); ?>v6/js/topbar.js"></script>
+<script src="<?= base_url(); ?>v6/js/topbar.min.js" async></script>
