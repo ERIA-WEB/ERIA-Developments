@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL ^ E_NOTICE);
 use \Phpfastcache\CacheManager;
 use \Phpfastcache\Config\ConfigurationOption;
 class FrontModel extends CI_Model
@@ -16,9 +16,64 @@ class FrontModel extends CI_Model
 
     function timeExpired()
     {
-        $time = 30; // 1 hour = 3600 seconds
+        $time = 60; // 1 hour = 3600 seconds
         return $time;
     }
+
+    function resizeImageCover($image_cover_data)
+    {
+        $whitelist = array('127.0.0.1', "::1", "localhost");
+
+        $im = $image_cover_data['base_image'];
+        $title = $image_cover_data['title_image'];
+        $documentRoot = $this->config->item('base_path');
+
+        if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
+            $cacheFolder = $documentRoot.'/myApp/WEBSITE-ERIA-ORG/www.eria.org/uploads/caching/'.$image_cover_data['type_page'].'';
+        } else {
+            $cacheFolder = $documentRoot."/uploads/caching/".$image_cover_data['type_page'].'';
+        }
+        
+        $thumb_width  = $image_cover_data['width'];
+        $thumb_height = $image_cover_data['height'];
+        $what = getimagesize(base_url().$im);
+        switch( $what['mime'] ){
+            case 'image/png' : $orig_image = imagecreatefrompng(base_url().$im);break;
+            case 'image/jpeg': $orig_image = imagecreatefromjpeg(base_url().$im);break;
+            case 'image/gif' : $orig_image = imagecreatefromgif(base_url().$im);
+        }
+
+        list($width, $height, $type, $attr) = getimagesize(base_url().$im);
+        
+        
+        
+        $ratioW = $width / $thumb_width;
+        $ratioH = $height / $thumb_height;
+
+        $ratioU = ($ratioW > $ratioH) ? $ratioH:$ratioW;
+
+        $newWidth = $width / $ratioU;
+        $newHeight = $height / $ratioU;
+        
+        $cacheFile = $cacheFolder."/caching-".str_replace(' ', '-', $title).".png";
+        
+        $sm_image = imagecreatetruecolor($newWidth, $newHeight) or die ("Cannot Initialize new gd image stream");
+        imagesavealpha($sm_image, true);
+        $black = imagecolorallocate($sm_image, 0, 0, 0);
+        imagefilledrectangle($sm_image, 0, 0, $newWidth, $newHeight, $black);
+        $trans_colour = imagecolorallocatealpha($sm_image, 0, 0, 0, 127);
+        imagefill($sm_image, 0, 0, $trans_colour);
+        
+        imagecopyresampled($sm_image, $orig_image, 0, 0, 0, 0, $newWidth, $newHeight, imagesx($orig_image), imagesy($orig_image));
+        
+        ob_start();
+        imagepng($sm_image, $cacheFile, 5);
+        
+        $result = base_url()."uploads/caching/".$image_cover_data['type_page']."/caching-".str_replace(' ', '-', $title).".png";
+        
+        return $result;
+    }
+
 
     function get_Slider()
     {
@@ -31,7 +86,7 @@ class FrontModel extends CI_Model
                 $this->db->where('published', 1);
                 $query = $this->db->get('slides');
                 $results = $query->result();
-
+                
                 $CachedString->set($results)->expiresAfter($this->timeExpired()); // 1 hour = 3600 seconds
                 $this->InstanceCache->save($CachedString);
             } catch (Exception $err) {
@@ -621,6 +676,7 @@ class FrontModel extends CI_Model
 
                 $results = array();
                 foreach ($query->result() as $aid => $query) {
+                    
                     $results[$aid]['editor'] = $query->editor;
                     $results[$aid]['author'] = $query->author;
                     $results[$aid]['article_id'] = $query->article_id;
@@ -645,6 +701,7 @@ class FrontModel extends CI_Model
                     }
 
                     $results[$aid]['image_name'] = $query->image_name;
+                    $results[$aid]['old_image_name'] = $query->image_name;
                     $results[$aid]['cat'] = $this->get_articleCatogery($query->article_id);
                     $results[$aid]['posted_date'] = date('j F Y', strtotime($query->posted_date));
                     $results[$aid]['editornew'] = $this->getPerson($query->article_id, 'Editor', 'Highlite');
@@ -1152,7 +1209,8 @@ class FrontModel extends CI_Model
                 $results[$aid]['article_type'] = $query->article_type;
                 $results[$aid]['uri'] = $query->uri;
                 $results[$aid]['image_name'] = $query->image_name;
-                $results[$aid]['content'] = (string)$query->content;
+                $results[$aid]['old_image_name'] = $query->image_name;
+                // $results[$aid]['content'] = (string)$query->content;
                 $results[$aid]['cat'] = $this->get_articleCatogery($query->article_id);
                 $results[$aid]['posted_date'] = date('j  F Y', strtotime($query->posted_date));
                 $results[$aid]['tags'] = $this->tag_topic($query->article_id);
@@ -1182,6 +1240,16 @@ class FrontModel extends CI_Model
 
                 $results = array();
                 foreach ($query->result() as $aid => $query) {
+
+                    $image_cover_data = [
+                        'id'            => $query->article_id,
+                        'base_image'    => $query->image_name,
+                        'title_image'   => $query->uri,
+                        'width'         => 360,
+                        'height'        => 280,
+                        'type_page'     => 'news'
+                    ];
+                    
                     $results[$aid]['editor'] = $query->editor;
                     $results[$aid]['author'] = $query->author;
                     $results[$aid]['major'] = $query->major;
@@ -1192,7 +1260,8 @@ class FrontModel extends CI_Model
                     $results[$aid]['article_type'] = $query->article_type;
                     $results[$aid]['uri'] = $query->uri;
                     $results[$aid]['image_name'] = $query->image_name;
-                    $results[$aid]['content'] = (string)$query->content;
+                    $results[$aid]['old_image_name'] = $query->image_name;
+                    // $results[$aid]['content'] = (string)$query->content;
                     $results[$aid]['cat'] = $this->get_articleCatogery($query->article_id);
                     $results[$aid]['posted_date'] = date('j  F Y', strtotime($query->posted_date));
                     $results[$aid]['tags'] = $this->tag_topic($query->article_id);
@@ -1646,7 +1715,7 @@ class FrontModel extends CI_Model
         $this->db->where('articles.published', 1);
         $this->db->where('articles.article_type', 'publications');
         if (!empty($type)) {
-
+            
             if ($type > 1) {
                 foreach ($type as $typeuri) {
                     $uri[] = str_replace(array(' ', ':-'), '-', strtolower($typeuri));
@@ -1710,22 +1779,20 @@ class FrontModel extends CI_Model
             $this->db->or_like('articles.content', $key);
         }
 
-        if ($type != 'all') {
+        if ($type > 1) {
+            
+            foreach ($type as $typeuri) {
+                $uri[] = str_replace(array(' ', ':-'), '-', strtolower($typeuri));
+            }
 
-            if ($type > 1) {
-                
-                foreach ($type as $typeuri) {
-                    $uri[] = str_replace(array(' ', ':-'), '-', strtolower($typeuri));
-                }
-                
-                $this->db->where_in('categories.uri', $uri);
-            } else {
+            $this->db->where_in('categories.uri', $uri);
+        } else {
+            if ($type[0] != 'all') {
                 $uri = $type;
                 $this->db->where('categories.uri', $uri);
             }
-            
         }
-
+        
         if ($ath) {
             $this->db->where_in('articles.sub_experts', $ath);
         }
@@ -2325,9 +2392,7 @@ class FrontModel extends CI_Model
                 $out = array_slice($out, $start, 10);
             } else {
                 if ($kword != '') {
-                    // echo "<pre>";
-                    // print_r($kword);
-                    // exit();
+                    
                     // $k = "title LIKE '$kword%' AND";
 
                     // $l = "content LIKE '$kword%' AND";
