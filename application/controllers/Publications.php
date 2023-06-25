@@ -37,7 +37,7 @@ class Publications extends CI_Controller
         $data['contentData'] = $content;
 
         $data['topics'] = $this->frontModel->getTopic('topics', null); //$this->frontModel->get_catogery('topics');
-        $data['ptype'] = $this->frontModel->get_catogery('pubtypes');
+        // $data['ptype'] = $this->frontModel->get_catogery('pubtypes');
         $data['m_menu'] = 'pub';
         $data['news'] = $this->frontModel->getPublicationForHighlight(1);
         $data['latest'] = $this->frontModel->get_article(12, 'publications', null, 'home');
@@ -242,6 +242,7 @@ class Publications extends CI_Controller
         }
 
         $data['contentData'] = $content;
+        
         $data['card_type'] = 6;
         $data['card'] = $this->frontModel->getPage_card_order(6);
 
@@ -268,7 +269,6 @@ class Publications extends CI_Controller
         $data['m_menu'] = 'pub';
         $data['pub'] = $this->frontModel->get_catogery('pubtypes');
 
-
         if ($type == 'co-publications') {
             $get_categories = $this->frontModel->getCategoryByCategoryType('pubtypes');
             
@@ -287,7 +287,7 @@ class Publications extends CI_Controller
             $data['nt'] = $type;
             $type = $type;
         }
-
+        
         $data['related'] = $this->frontModel->getCat_article($type, $start, $limit, $author);
         $data['content'] = 'front-end/content/publications_brows';
 
@@ -364,8 +364,9 @@ class Publications extends CI_Controller
 
         $ty = null;
 
+        
         $mm = $this->frontModel->get_new_searchCat_article($type, $start, $limit, null, $author, $country, $key, $ty);
-
+        
         $output = '';
 
         $output = '<input type="hidden" id="count_author" value='.$count_author.'>
