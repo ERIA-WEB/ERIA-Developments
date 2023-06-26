@@ -1323,7 +1323,7 @@ class headerModel extends CI_Model
                 $this->db->from('categories');
                 $this->db->where('categories.category_type', $type);
                 $this->db->where('published', 1);
-                $this->db->order_by('order_id', 'ASC');
+                $this->db->order_by('category_name', 'ASC'); // order_id
 
                 $queryT = $this->db->get();
                 $results = $queryT->result();
