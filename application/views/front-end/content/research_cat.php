@@ -51,11 +51,10 @@ function RemoveBS($Str)
 <section class="research-hero-section position-relative overflow-hidden section-top">
     <div class="research-hero-background">
         <?php 
-            // get_share_image_twitter.php?im=
             if (file_exists(FCPATH . $research_categories_data->image_name)) {
-                $img = base_url().'get_share_image_twitter.php?im='.$research_categories_data->image_name;
+                $img = base_url().$research_categories_data->image_name;
             } else {
-                $img = base_url().'get_share_image_twitter.php?im=upload/Research_baer.jpg';
+                $img = base_url().'upload/Research_baer.jpg';
             }
         ?>
         <img class="h-100 w-100" src="<?= $img ?>" alt="<?= ucfirst($research_categories_data->category_name) ?>">
@@ -272,7 +271,7 @@ function RemoveBS($Str)
 <input type="hidden" id="slug" value="<?= $slug; ?>">
 
 <input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
-<script src="<?= base_url(); ?>v6/js/research/research-categories.js"></script>
+<script src="<?= base_url(); ?>v6/js/research/research-categories.min.js" async></script>
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
 <?php } ?>
