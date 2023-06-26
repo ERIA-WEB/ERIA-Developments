@@ -161,7 +161,7 @@
                 <div class="card">
                     <div class="car-header bg-white p-2">
                         <a href="<?= base_url() ?>programmes" class="btn btn-link btn-block text-left p-1 font-14">
-                            PLATFORMS
+                            PROGRAMMES
                         </a>
                     </div>
                 </div>
