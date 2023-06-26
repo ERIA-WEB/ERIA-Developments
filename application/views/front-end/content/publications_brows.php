@@ -3,7 +3,7 @@ foreach ($pub as $value) {
     $slugs[] = $value->uri;
 }
 ?>
-<?php if (isset($nt) AND in_array($nt, $slugs)) { ?>
+<?php if (isset($nt) AND in_array($nt, $slugs) OR $nt == 'all') { ?>
 <style>
 .category a {
     color: #69AAB4 !important;
