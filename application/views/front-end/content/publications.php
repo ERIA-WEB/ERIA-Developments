@@ -1,6 +1,6 @@
 <?php
 
-$ptype = $ptype;
+// $ptype = $ptype;
 
 
 $topics = $topics;
