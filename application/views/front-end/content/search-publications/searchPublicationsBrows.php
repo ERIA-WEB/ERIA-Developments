@@ -75,12 +75,22 @@
                         <div class="new_publication_inside">
                             <div class="check-btns">
                                 <label class="container-check"> Select All
-                                    <input type="checkbox" id="pall">
+                                    <?php 
+                                        if ($nt == 'all') {
+                                            $checked = 'checked';
+                                            $value = 'value="all"';
+                                        } else {
+                                            $checked = '';
+                                            $value = '';
+                                        }
+                                    ?>
+                                    <input type="checkbox" id="pall" name="research_type[]" <?= $value; ?>
+                                        <?= $checked; ?>>
                                     <span class="checkmark"></span>
                                 </label>
                                 <?php foreach ($ptype as $pub) { ?>
                                 <label class="container-check"> <?= $pub->category_name ?>
-                                    <input class="pall" type="checkbox" name="research_type[]" id=""
+                                    <input class="pall" type="checkbox" name="research_type[]"
                                         value="<?= $pub->category_name ?>"
                                         <?php if ($pub->uri == $nt) { echo "checked"; } ?>>
                                     <span class="checkmark"></span>
