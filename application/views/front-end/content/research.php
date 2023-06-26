@@ -708,4 +708,4 @@
     <!-- END Research area -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
-    <script src="<?= base_url(); ?>v6/js/research/research-main.js"></script>
+    <script src="<?= base_url(); ?>v6/js/research/research-main.min.js" async></script>
