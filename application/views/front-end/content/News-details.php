@@ -190,9 +190,9 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
 
                         if ($article->image_name != '') {
                             if (file_exists(FCPATH . $article->image_name) && $article->image_name != '') {
-                                $img = base_url() .'get_share_image.php?im='.$article->image_name;
+                                $img = base_url() .$article->image_name;
                             } elseif (file_exists(FCPATH . '/resources/images' . $article->image_name) && $article->image_name != '') {
-                                $img = base_url() .'get_share_image.php?im='.'/resources/images' . $article->image_name;
+                                $img = base_url() .'/resources/images' . $article->image_name;
                             } else {
 
                                 if (!empty($article->image_name)) {
@@ -201,10 +201,10 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                     if (strlen($response_articles)) {
                                         $img = "https://www.eria.org" . $article->image_name;
                                     } else {
-                                        $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
+                                        $img = base_url() .'/upload/news.jpg';
                                     }
                                 } else {
-                                    $img = base_url() .'get_share_image.php?im='.'/upload/news.jpg';
+                                    $img = base_url() .'/upload/news.jpg';
                                 }
                             }
 
