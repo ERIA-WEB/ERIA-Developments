@@ -23,11 +23,24 @@ function limit_text($text, $limit, $link = null)
                                         } ?>">
             <?php
                 if (file_exists(FCPATH . $slider->image_name)) {
-                    //$img=base_url().$slider->image_name;
-                    $img = "." . $slider->image_name;
+                    $image_temporary = '/caching' . $slider->image_name;
+                    
+                    if (file_exists(FCPATH . $image_temporary)) {
+                        $img = base_url().$image_temporary;
+                    } else {
+                        $img = base_url() .'get_compress_slider.php?im='. $slider->image_name;
+                    }
+                    
                 } else {
-                    // $img = "https://www.eria.org".$slider->image_name;
-                    $img = "https://www.eria.org" . $slider->image_name;
+                    $url_slider_home = "https://www.eria.org" . $slider->image_name;
+                    $response_slider_home = @get_headers($url_slider_home, 1);
+                    $file_exists_slider_home = (strpos($response_slider_home[0], "404") === false);
+
+                    if ($file_exists_slider_home == 1) {
+                        $img = "https://www.eria.org" . $slider->image_name;
+                    } else {
+                        $img = base_url() . "/upload/Publication.jpg";
+                    }
                 }
                 ?>
 
@@ -73,9 +86,7 @@ function limit_text($text, $limit, $link = null)
             </style>
 
             <div class="imgCov">
-                <img class="img-fluid imgBanner"
-                    src="<?= base_url() .'get_compress_slider.php?im='. $slider->image_name; ?>"
-                    alt="<?= $slider->heading; ?>">
+                <img class="img-fluid imgBanner" src="<?= $img; ?>" alt="<?= $slider->heading; ?>">
                 <div class="mobileCarouselCaption text-left">
                     <div class="mobileBoxCarouselCaption">
                         <div class="container pl-1">
@@ -224,15 +235,31 @@ function limit_text($text, $limit, $link = null)
                                 $s++;
                         ?>
                         <?php
-                            if (!empty($news['image_name'])) {
-                                if (file_exists(FCPATH . $news['image_name'])) {
-                                    $img = base_url() .'get_share_image.php?im='. $news['image_name'];
+                        
+                        if (!empty($news['image_name'])) {
+                            if (file_exists(FCPATH . $news['image_name'])) {
+                                $image_temporary = '/caching' . $news['image_name'];
+                                
+                                if (file_exists(FCPATH . $image_temporary)) {
+                                    $img = base_url().$image_temporary;
                                 } else {
-                                    $img = "https://www.eria.org" . $news['image_name'];
+                                    $img = base_url() .'get_compress_slider.php?im='. $news['image_name'];
                                 }
+                                
                             } else {
-                                $img = base_url() .'get_share_image.php?im='. 'upload/news.jpg';
+                                $url_news_home = "https://www.eria.org" . $news['image_name'];
+                                $response_news_home = @get_headers($url_news_home, 1);
+                                $file_news_home = (strpos($response_news_home[0], "404") === false);
+
+                                if ($file_news_home == 1) {
+                                    $img = "https://www.eria.org" . $news['image_name'];
+                                } else {
+                                    $img = base_url() . "/upload/news.jpg";
+                                }
                             }
+                        } else {
+                            $img = base_url() . "/upload/news.jpg";
+                        }
                         ?>
                         <div class="col-md-6 recent-update-wrapper">
                             <?php
@@ -302,118 +329,7 @@ function limit_text($text, $limit, $link = null)
 </div>
 
 <!--Author carousel -->
-
-<style>
-.card-image img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-}
-
-.recent-update-card {
-    position: relative;
-}
-
-.recent-update-card::after {
-    content: "";
-    /* position: absolute; */
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(180deg, rgba(27, 27, 27, 0) 39.27%, rgba(0, 0, 0, 0.94) 100%);
-}
-
-.recent-update-card .card-body {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    color: #fff;
-    padding: 0 !important;
-    transform: translateY(100%);
-    transition: .3s ease-in-out;
-    background: linear-gradient(180deg, rgba(27, 27, 27, 0) 0%, rgba(0, 0, 0, 0.94) 100%);
-}
-
-.recent-update-card:hover .card-body,
-.recent-update-card:hover .card-items {
-    transform: translateY(0);
-}
-
-.recent-update-card:hover .card-items {
-    padding: 0 1rem 0;
-}
-
-.recent-update-card .card-items {
-    position: relative;
-    padding: 1rem;
-    transform: translateY(-100%);
-    transition: .3s ease-in-out;
-    background: linear-gradient(150deg, rgba(27, 27, 27, 0.6) 39.27%, rgba(0, 0, 0, 0.6) 100%);
-    /* background: linear-gradient(150deg, rgba(27, 27, 27, 0) 39.27%, rgba(0, 0, 0, 0.94) 100%); */
-}
-
-.recent-update-card .card-description {
-    padding: 0 1rem 1rem;
-    margin: 0;
-}
-
-.swiper {
-    width: 100%;
-    height: 100%;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-    height: 45px;
-    width: 45px;
-    background-color: #fff;
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    visibility: hidden;
-    transition: all 0.3ms ease;
-    color: #003680;
-}
-
-.swiper-button-prev::after,
-.swiper-button-next::after {
-    content: "";
-}
-
-.highlight-slide-swiper:hover .swiper-button-prev,
-.highlight-slide-swiper:hover .swiper-button-next,
-.programmes-slide-swiper:hover .swiper-button-prev,
-.programmes-slide-swiper:hover .swiper-button-next,
-.feature-slide-swiper:hover .swiper-button-prev,
-.feature-slide-swiper:hover .swiper-button-next {
-    visibility: visible;
-}
-
-.card-image {
-    height: 270px;
-    position: relative;
-}
-
-.card-image::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.programmes-card .card-body {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    color: #fff;
-    background: linear-gradient(180deg, rgba(47, 56, 56, 0) 0%, #2F3838 100%);
-}
-</style>
+<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/home-swipper.min.css">
 
 <div class="programmes py-3 py-lg-5" style="background: #efefef;">
     <div class="container">
@@ -434,12 +350,29 @@ function limit_text($text, $limit, $link = null)
                             $e++;
                         ?>
                         <?php
-                            if (file_exists(FCPATH . $categories->image_name)) {
-                                $img = base_url() .'get_share_image.php?im='. $categories->image_name;
+                        $image_caching = '/caching'.str_replace(array('jpg', 'jpeg'), 'png', $categories->image_name);
+                        
+                        if (file_exists(FCPATH . $categories->image_name)) {
+                            $image_temporary = '/caching' . $categories->image_name;
+                            
+                            if (file_exists(FCPATH . $image_caching)) {
+                                $img = base_url().$image_caching;
                             } else {
-                                $img = "https://www.eria.org" . $categories->image_name;
+                                $img = base_url() .'get_compress_slider.php?im='. $categories->image_name;
                             }
-                            ?>
+                            
+                        } else {
+                            $url_programmes_home = "https://www.eria.org" . $categories->image_name;
+                            $response_programmes_home = @get_headers($url_programmes_home, 1);
+                            $file_exists_programmes_home = (strpos($response_programmes_home[0], "404") === false);
+
+                            if ($file_exists_programmes_home == 1) {
+                                $img = "https://www.eria.org" . $categories->image_name;
+                            } else {
+                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                            }
+                        }
+                        ?>
                         <div class="swiper-slide">
                             <a href="<?= base_url() ?>database-and-programmes/topic/<?= $categories->uri ?>">
                                 <div class="programmes-card card rounded-0 h-100">
@@ -488,39 +421,7 @@ function limit_text($text, $limit, $link = null)
 
 
 <!-- highlights -->
-<style>
-.highlight-swiper {
-    width: 100%;
-    height: 100%;
-}
-
-.higlight-swiper-slider-image {
-    /* height: 350px; */
-    overflow: hidden;
-}
-
-.higlight-swiper-slider-image img {
-    object-fit: cover;
-}
-
-.highlight-swiper-slider-content {
-    width: 100%;
-    padding-left: 0;
-}
-
-@media (min-width:768px) {
-    .higlight-swiper-slider-image img {
-        /* width: 450px; */
-        height: 400px;
-    }
-
-    .highlight-swiper-slider-content {
-        width: 75%;
-        padding-left: 30px;
-    }
-}
-</style>
-
+<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/home-highlight.min.css">
 <div class="highlights pt-5 pb-5 mb-5">
     <div class="container">
         <div class="row mb-3">
@@ -543,7 +444,7 @@ function limit_text($text, $limit, $link = null)
                         ?>
                         <?php
                             if (file_exists(FCPATH . $pub['image_name'])) {
-                                $img = base_url() .'get_share_image_twitter.php?im='. $pub['image_name'];
+                                $img = base_url() . $pub['image_name'];
                             } else {
                                 $img = "https://www.eria.org" . $pub['image_name'];
                             }
@@ -728,4 +629,4 @@ function limit_text($text, $limit, $link = null)
 <?php $this->load->view('front-end/content/sections/research-areas'); ?>
 <!-- END Research area -->
 <input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
-<script src="<?= base_url(); ?>v6/js/home-main.js"></script>
+<script src="<?= base_url(); ?>v6/js/home-main.min.js"></script>
