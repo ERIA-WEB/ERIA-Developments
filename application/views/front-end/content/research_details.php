@@ -552,7 +552,7 @@ iframe {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <input type="hidden" id="base_url_front" class="base_url_front" value="<?= base_url(); ?>">
-<script src="<?= base_url(); ?>v6/js/research/research-detail.js"></script>
+<script src="<?= base_url(); ?>v6/js/research/research-detail.min.js" async></script>
 
 <?php } else { ?>
 <?php $this->load->view('front-end/content/404/notFound'); ?>
