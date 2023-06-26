@@ -367,7 +367,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                         </div>
                         <p class='has-dropcap'>
                             <?php
-                            echo  $article->content;
+                            echo  str_replace('%20', '-', $article->content);
                             ?>
                         </p>
                     </div>
