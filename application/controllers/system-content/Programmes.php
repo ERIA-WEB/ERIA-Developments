@@ -235,7 +235,7 @@ class Programmes extends CI_Controller
         if ($validate == FALSE) {
             $this->catogeries();
         } else {
-            $title_image_category = str_replace(array(' ','/','@','(',')','%','%20'), '-', strtolower($this->input->post('category_name')));
+            $title_image_category = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
             
             if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
             
@@ -248,7 +248,6 @@ class Programmes extends CI_Controller
             } else {
                 $img = $this->input->post('image');
             }
-            
 
             if ($this->input->post('published')) {
                 $published = 1;
@@ -320,6 +319,43 @@ class Programmes extends CI_Controller
         return $imgName;
     }
 
+    function resizeImageNewArticle($title_image)
+    {
+        $this->load->library('image_lib');
+        //upload and update the file
+        $config['upload_path']      = './caching/uploads/articles';
+        $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
+        $config['overwrite']        = false;
+        $config['remove_spaces']    = true;
+        $config['file_name']        = $title_image.'.png';
+        $config['image_library']    = 'gd2';
+        $config['maintain_ratio']   =  TRUE;
+        $config['width']            = 250;
+        $config['height']           = 250;
+
+        $image_data = $this->upload->data();
+        $config['source_image']     = $image_data['full_path'];
+        $this->load->library('upload', $config);
+        
+        $this->image_lib->clear();
+        $this->upload->initialize($config);
+        $this->image_lib->resize();
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('thumbnail_image')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+
     function resizeImageNewCategory($title_image)
     {
         $this->load->library('image_lib');
@@ -337,15 +373,6 @@ class Programmes extends CI_Controller
         $image_data = $this->upload->data();
         $config['source_image']     = $image_data['full_path'];
         $this->load->library('upload', $config);
-        
-        
-        // $config =  array(
-        //     'image_library'   => 'gd2',
-        //     'source_image'    =>  $image_data['full_path'],
-        //     'maintain_ratio'  =>  TRUE,
-        //     'width'           =>  250,
-        //     'height'          =>  250,
-        // );
         
         $this->image_lib->clear();
         $this->upload->initialize($config);
@@ -551,8 +578,28 @@ class Programmes extends CI_Controller
         if ($validate == FALSE) {
             $this->article();
         } else {
-            $img = $this->setArt();
-            $img = "/uploads/articles/" . $img;
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+            
+            if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
+            
+                $img_data = $this->setArt($title_image_article);
+                
+                $img = "/uploads/articles/" . $img_data;
+                
+                
+            } else {
+                $img = $this->input->post('image');
+            }
+
+            if ($validate == TRUE && file_exists($_FILES['thumbnail_image']['tmp_name'])) {
+            
+                $resizeImage = $this->resizeImageNewArticle($title_image_article);
+
+                $thumbnail_image = "/caching/uploads/articles/".$resizeImage;
+                
+            } else {
+                $thumbnail_image = $this->input->post('thumbnail_image_old');
+            }
 
             if ($this->input->post('published')) {
                 $published = 1;
@@ -579,6 +626,7 @@ class Programmes extends CI_Controller
                 'modified_date'         => date('Y-m-d H:i:s'),
                 'meta_keywords'         => $this->input->post('meta_keywords'),
                 'meta_description'      => $this->input->post('meta_description'),
+                'thumbnail_image'       => $thumbnail_image,
             );
             
             $category = $this->input->post('catogery');
@@ -664,13 +712,67 @@ class Programmes extends CI_Controller
 
         $validate = $this->form_validation->run();
         $img = -1;
-        if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-            $img = $this->setArt();
-        }
 
+        
         if ($validate == FALSE) {
             $this->editArt($id);
         } else {
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+
+            /*
+            ** Upload Image
+            */ 
+            if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
+            
+                $img_data = $this->setArt($title_image_article);
+                
+                $img = "/uploads/articles/" . $img_data;
+                
+                
+            } else {
+                $img = $this->input->post('image');
+            }
+
+            
+            /*
+            ** Upload Thumbnail
+            */
+            if ($validate == TRUE && file_exists($_FILES['thumbnail_image']['tmp_name'])) {
+                
+                $resizeImage = $this->resizeImageNewArticle($title_image_article);
+
+                $thumbnail_image = "/caching/uploads/articles/".$resizeImage;
+                
+            } else {
+                if (file_exists(FCPATH . $this->input->post('image')) AND !empty($this->input->post('image'))) {
+                    
+                    $image_cover_data = [
+                        'base_image'    => $this->input->post('image'),
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/articles',
+                        'width'         => 360,
+                        'height'        => 235,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+
+                } elseif (file_exists($_FILES['photo']['tmp_name'])) {
+
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/articles',
+                        'width'         => 360,
+                        'height'        => 235,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+                } else {
+                    $thumbnail_image = $this->input->post('thumbnail_image_old');
+                }
+                
+            }
+
             if ($this->input->post('published')) {
                 $published = 1;
             } else {
@@ -686,6 +788,7 @@ class Programmes extends CI_Controller
                 'posted_date'       => $this->input->post('posted_date'),
                 'article_type'      => 'articles',
                 'content'           => $this->input->post('content'),
+                'image_name'        => $img,
                 'tags'              => $this->input->post('tags'),
                 'published'         => $published,
                 'event_time'        => $this->input->post('event_time'),
@@ -694,13 +797,9 @@ class Programmes extends CI_Controller
                 'modified_date'     => date('Y-m-d H:i:s'),
                 'meta_keywords'     => $this->input->post('meta_keywords'),
                 'meta_description'  => $this->input->post('meta_description'),
+                'thumbnail_image'   => $thumbnail_image,
             );
-
-            if ($img !== -1) {
-                $img = "/uploads/articles/" . $img;
-                $data['image_name'] = $img;
-            }
-
+            
             $category = $this->input->post('catogery');
 
             $category = $this->input->post('catogery');
@@ -834,19 +933,14 @@ class Programmes extends CI_Controller
         }
     }
 
-    public function setArt()
+    public function setArt($title_image)
     {
         //upload and update the file
-        $config['upload_path'] = './uploads/articles';
-        $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
-        $config['overwrite'] = false;
-        $config['remove_spaces'] = true;
-        //$config['max_size'] = '20000'; // in KB
-        // $config['max_width'] = '145';
-        // $config['max_height'] = '45';
-        //$config['min_width'] = '32';
-        //$config['min_height'] = '32';
-        $config['file_name'] = 'logo' . uniqid();
+        $config['upload_path']      = './uploads/articles';
+        $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
+        $config['overwrite']        = false;
+        $config['remove_spaces']    = true;
+        $config['file_name']        = $title_image.'.png';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
