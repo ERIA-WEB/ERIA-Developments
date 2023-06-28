@@ -284,14 +284,37 @@ class Research extends CI_Controller
         $this->form_validation->set_rules('category_name', 'category_name', 'trim|required');
         $validate = $this->form_validation->run();
 
-        $img = -1;
-        if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-            $img = $this->setTopics();
-        }
-
         if ($validate == FALSE) {
             $this->edittop($id);
         } else {
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $img = $this->setTopics();
+                $img = "/uploads/topics/" . $img;
+            } else {
+                $img = $this->input->post('image');
+
+                $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
+
+                if (is_dir('caching/uploads/'))
+                {
+                    mkdir('./caching/uploads/topics/', 0777, true);
+                    $dir_exist = true; // dir exist
+                } else {
+                    $date_folder = '';
+                    $dir_exist = false; // dir not exist
+                }
+
+                $image_cover_data = [
+                    'base_image'    => $img,
+                    'title_image'   => $title_image_article,
+                    'type_page'     => '/uploads/topics',
+                    'width'         => 1024,
+                    'height'        => 431,
+                ];
+                
+                $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+            }
+            
             if ($this->input->post('published')) {
                 $published = 1;
             } else {
@@ -301,23 +324,20 @@ class Research extends CI_Controller
             $users = $this->session->userdata('logged_in');
 
             $data = array(
-                'category_name' => $this->input->post('category_name'),
-                'category_type' => 'topics',
-                'uri' => str_replace(' ', '-', strtolower($this->input->post('category_name'))),
-                'order_id' => $this->input->post('order_id'),
-                'description' => $this->input->post('content'),
-                'published' => $published,
-                'modified_by' => $users['user_id'],
-                'modified_date' => date('Y-m-d H:i:s'),
-                'meta_keywords' => $this->input->post('meta_keywords'),
-                'meta_description' => $this->input->post('meta_description')
+                'image_name'        => $img,
+                'category_name'     => $this->input->post('category_name'),
+                'category_type'     => 'topics',
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('category_name'))),
+                'order_id'          => $this->input->post('order_id'),
+                'description'       => $this->input->post('content'),
+                'published'         => $published,
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s'),
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description')
             );
-
-            if ($img !== -1) {
-                $img = "/uploads/topics/" . $img;
-                $data['image_name'] = $img;
-            }
-
+            
+    
             $query = $this->Page_model->updatecat($id, $data);
 
             $this->HistoryModel->insertHistory($id, $id, "Topic has been Updated : " . $this->input->post('category_name'));
@@ -669,11 +689,87 @@ class Research extends CI_Controller
         if ($validate == FALSE) {
             $this->publication();
         } else {
-            $img = $this->setPublication();
-            $img = "/uploads/publications/" . $img;
+            
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
 
-            $thumbnail_img = $this->setThumbnailPublication();
-            $thumbnail_img = "/uploads/publications/" . $thumbnail_img;
+            $date_folder = date('Ymd');
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                
+                $img_data = $this->setPublication($title_image_article);
+                
+                $img = "/uploads/publications/".$date_folder."/". $img_data;
+                
+            } else {
+                if ($validate == TRUE && (file_exists($_FILES['thumbnail_image']['tmp_name']) || is_uploaded_file($_FILES['thumbnail_image']['tmp_name']))) {
+            
+                    $resizeImage = $this->setThumbnailPublication($title_image_article);
+                    
+                    $thumbnail_img = "/caching/uploads/publications/".$date_folder."/".$resizeImage;
+                    
+                } else {
+                    if (file_exists(FCPATH . $this->input->post('image_old') == 1) AND !empty($this->input->post('image_old'))) {
+                            
+                            $image_cover_data = [
+                                'base_image'    => $this->input->post('image_old'),
+                                'title_image'   => $title_image_article,
+                                'type_page'     => '/uploads/publications',
+                                'width'         => 360,
+                                'height'        => 235,
+                            ];
+                            
+                            $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+
+                    } elseif (file_exists(FCPATH. $img) == 1) {
+                        $image_cover_data = [
+                            'base_image'    => $img,
+                            'title_image'   => $title_image_article,
+                            'type_page'     => '/uploads/publications',
+                            'width'         => 248,
+                            'height'        => 349,
+                        ];
+                    
+                        $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+                    } else {
+                        $thumbnail_img = $this->input->post('thumbnail_image_old');
+                    }
+                    
+                }
+            }
+
+            if ($validate == TRUE && (file_exists($_FILES['thumbnail_image']['tmp_name']) || is_uploaded_file($_FILES['thumbnail_image']['tmp_name']))) {
+                        
+                $resizeImage = $this->setThumbnailPublication($title_image_article);
+                
+                $thumbnail_img = "/caching/uploads/publications/".$date_folder."/".$resizeImage;
+                
+            } else {
+                if (file_exists(FCPATH . $this->input->post('image_old') == 1) AND !empty($this->input->post('image_old'))) {
+                        
+                        $image_cover_data = [
+                            'base_image'    => $this->input->post('image_old'),
+                            'title_image'   => $title_image_article,
+                            'type_page'     => '/uploads/publications',
+                            'width'         => 360,
+                            'height'        => 235,
+                        ];
+                        
+                        $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+
+                } elseif (file_exists(FCPATH. $img) == 1) {
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/publications',
+                        'width'         => 248,
+                        'height'        => 349,
+                    ];
+                
+                    $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+                } else {
+                    $thumbnail_img = $this->input->post('thumbnail_image_old');
+                }
+                
+            }
             
             if ($this->input->post('published')) {
                 $published = 1;
@@ -955,22 +1051,53 @@ class Research extends CI_Controller
         $this->form_validation->set_rules('title', 'title', 'trim|required');
 
         $validate = $this->form_validation->run();
-        $img = -1;
+        
+        $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
 
+        $date_folder = date('Ymd');
+       
         if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-            $img = $this->setPublication();
-            $img = "/uploads/publications/" . $img;
+            $img_data = $this->setPublication($title_image_article);
+                
+            $img = "/uploads/publications/".$date_folder."/". $img_data;
+            
         } else {
             $img = $this->input->post('image_old');
         }
-
-        $thumbnail_img = -1;
-
+    
         if ($validate == TRUE && (file_exists($_FILES['thumbnail_image']['tmp_name']) || is_uploaded_file($_FILES['thumbnail_image']['tmp_name']))) {
-            $thumbnail_img = $this->setThumbnailPublication();
-            $thumbnail_img = "/uploads/publications/" . $thumbnail_img;
+            
+            $resizeImage = $this->setThumbnailPublication($title_image_article);
+            
+            $thumbnail_img = "/caching/uploads/publications/".$date_folder."/".$resizeImage;
+            
         } else {
-            $thumbnail_img = $this->input->post('thumbnail_image_old');
+            if (file_exists(FCPATH . $this->input->post('image_old') == 1) AND !empty($this->input->post('image_old'))) {
+                    
+                    $image_cover_data = [
+                        'base_image'    => $this->input->post('image_old'),
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/publications',
+                        'width'         => 360,
+                        'height'        => 235,
+                    ];
+                    
+                    $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+
+            } elseif (file_exists(FCPATH.$img) == 1) {
+                $image_cover_data = [
+                    'base_image'    => $img,
+                    'title_image'   => $title_image_article,
+                    'type_page'     => '/uploads/publications',
+                    'width'         => 248,
+                    'height'        => 349,
+                ];
+            
+                $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+            } else {
+                $thumbnail_img = $this->input->post('thumbnail_image_old');
+            }
+            
         }
         
         $pt = $this->input->post('pub_type');
@@ -1042,7 +1169,7 @@ class Research extends CI_Controller
                 'meta_keywords'     => $this->input->post('meta_keywords'),
                 'meta_description'  => $this->input->post('meta_description'),
             );
-
+            
             $category = $this->input->post('catogery');
             $topic_s = $this->input->post('topics');
             $related = $this->input->post('related');
@@ -1291,11 +1418,6 @@ class Research extends CI_Controller
         $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite'] = false;
         $config['remove_spaces'] = true;
-        //$config['max_size'] = '20000'; // in KB
-        // $config['max_width'] = '145';
-        // $config['max_height'] = '45';
-        //$config['min_width'] = '32';
-        //$config['min_height'] = '32';
         $config['file_name'] = 'logo' . uniqid();
 
         $this->load->library('upload', $config);
@@ -1316,14 +1438,26 @@ class Research extends CI_Controller
         return $imgName;
     }
 
-    public function setThumbnailPublication()
-    {
+    public function setThumbnailPublication($title_image)
+    { 
+        $dir_exist = false; // flag for checking the directory exist or not
+        
+        if (is_dir('caching/uploads/publications/'))
+        {
+            $date_folder = "/".date('Ymd');
+            mkdir('./caching/uploads/publications/' . $date_folder, 0777, true);
+            $dir_exist = true; // dir exist
+        } else {
+            $date_folder = '';
+            $dir_exist = false; // dir not exist
+        }
+        
         //upload and update the file
-        $config['upload_path'] = './uploads/publications';
+        $config['upload_path'] = './caching/uploads/publications'.$date_folder.'';
         $config['allowed_types'] = '*';
         $config['overwrite'] = false;
         $config['remove_spaces'] = true;
-        $config['file_name'] = 'thumbnail-' . uniqid();
+        $config['file_name'] = $title_image.'.png';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1343,14 +1477,25 @@ class Research extends CI_Controller
         return $imgName;
     }
 
-    public function setPublication()
+    public function setPublication($title_image)
     {
+        $dir_exist = false; // flag for checking the directory exist or not
+        
+        if (is_dir('uploads/publications/'))
+        {
+            $date_folder = "/".date('Ymd');
+            mkdir('./uploads/publications/' . $date_folder, 0777, true);
+            $dir_exist = true; // dir exist
+        } else {
+            $date_folder = '';
+            $dir_exist = false; // dir not exist
+        }
         //upload and update the file
-        $config['upload_path'] = './uploads/publications';
+        $config['upload_path'] = './uploads/publications/'.$date_folder.'';
         $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF
         $config['overwrite'] = false;
         $config['remove_spaces'] = true;
-        $config['file_name'] = 'logo' . uniqid();
+        $config['file_name'] = $title_image.'.png';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1366,7 +1511,7 @@ class Research extends CI_Controller
         } else {
             $imgName = $this->upload->data('file_name');
         }
-
+        
         return $imgName;
     }
 
