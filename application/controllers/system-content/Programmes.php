@@ -139,47 +139,46 @@ class Programmes extends CI_Controller
 
         $validate = $this->form_validation->run();
         
-        $img = -1;
-
-        $title_image_category = str_replace(array(' ','/','@','(',')','%','%20'), '-', strtolower($this->input->post('category_name')));
-        
-        if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-            $img = $this->setCat($title_image_category);
-
-            $img = "/uploads/categories/" . $img;
-            
-            $this->resizeImageNewCategory($title_image_category);
-            
-        } else {
-            
-            if (file_exists(FCPATH . $this->input->post('image'))) {
-
-                $image_cover_data = [
-                    'base_image'    => $this->input->post('image'),
-                    'title_image'   => $title_image_category,
-                    'type_page'     => '/uploads/categories',
-                    'width'         => 359,
-                    'height'        => 270,
-                ];
-                
-                $this->Page_model->resizeImageCover($image_cover_data);
-
-                $new_image_data = [
-                    'base_image'    => $this->input->post('image'),
-                    'title_image'   => $title_image_category,
-                    'type_page'     => '/uploads/categories',
-                    'width'         => 970,
-                    'height'        => 270,
-                ];
-
-                $img = $this->Page_model->updateNewImage($new_image_data);
-
-            }
-        }
-
         if ($validate == FALSE) {
             $this->editcat($id);
         } else {
+            // echo "<pre>";
+            // print_r($_FILES);
+            // echo "<pre>";
+            // print_r($_POST);
+            // exit();
+            $title_image_category = str_replace(array(' ','/','@','(',')','%','%20'), '-', strtolower($this->input->post('category_name')));
+        
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $img = $this->setCat($title_image_category);
+
+                $img = "/uploads/categories/" . $img;
+                
+            } else {
+                $img = $this->input->post('image');
+            }
+
+            if ($validate == TRUE && (file_exists($_FILES['thumbnail_image']['tmp_name']) || is_uploaded_file($_FILES['thumbnail_image']['tmp_name']))) {
+                $thumbnail_image_data = $this->resizeImageNewCategory($title_image_category);
+
+                $thumbnail_image = "/caching/uploads/categories" . $thumbnail_image_data;
+                
+            } else {
+                if (file_exists(FCPATH . $img) == 1) {
+
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_category,
+                        'type_page'     => '/uploads/categories',
+                        'width'         => 250,
+                        'height'        => 250,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+
+                }
+            }
+        
             if ($this->input->post('published')) {
                 $published = 1;
             } else {
@@ -205,9 +204,10 @@ class Programmes extends CI_Controller
                 'modified_by'   => $data_s['user_id'],
                 'modified_date' => date('Y-m-d H:i:s'),
                 'meta_keywords' => $this->input->post('meta_keywords'),
-                'meta_description' => $this->input->post('meta_description')
+                'meta_description'      => $this->input->post('meta_description'),
+                'thumbnail_image'       => $thumbnail_image,
             );
-
+            
             $query = $this->Page_model->updatecat($id, $data);
 
             $this->HistoryModel->insertHistory($id, $id, "New Catogery has been Updated : " . $this->input->post('category_name'));
