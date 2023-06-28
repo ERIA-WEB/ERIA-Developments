@@ -79,7 +79,6 @@ class Home extends CI_Controller
         
         $news_update_homepage = $this->frontModel->get_recentArticle();
         
-        
         if (count($news_update_homepage) == 6) {
             $data['newsall'] = $this->frontModel->get_recentArticle();
         } else {
