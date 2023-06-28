@@ -1270,7 +1270,8 @@ class Page_model extends CI_Model
         
         $url_slug = explode('/', $image_cover_data['type_page']);
         if (end($url_slug) == 'categories') {
-            $result = base_url()."/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+            $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+            // $result = base_url()."/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
         } else {
             $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
         }
