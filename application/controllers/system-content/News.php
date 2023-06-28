@@ -180,15 +180,12 @@ class News extends CI_Controller
         if ($validate == FALSE) {
             $this->editmA($id);
         } else {
-            // echo "<pre>";
-            // print_r($_FILES);
-            // echo "<pre>";
-            // print_r($_POST);
-            // exit();
             $data_s = $this->session->userdata('logged_in');
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
 
+            $date_folder = date('Ymd');
+            
             /*
             ** Upload Image
             */ 
@@ -196,7 +193,7 @@ class News extends CI_Controller
             
                 $img_data = $this->setNews($title_image_article);
                 
-                $img = "/uploads/news/" . $img_data;
+                $img = "/uploads/news/".$date_folder."/". $img_data;
                 
                 
             } else {
@@ -211,10 +208,10 @@ class News extends CI_Controller
                 
                 $resizeImage = $this->resizeImageNewArticle($title_image_article);
 
-                $thumbnail_image = "/caching/uploads/news/".$resizeImage;
+                $thumbnail_image = "/caching/uploads/news/".$date_folder."/".$resizeImage;
                 
             } else {
-                if (file_exists(FCPATH . $this->input->post('image')) AND !empty($this->input->post('image'))) {
+                if (file_exists(FCPATH . $this->input->post('image') == 1) AND !empty($this->input->post('image'))) {
                     
                     $image_cover_data = [
                         'base_image'    => $this->input->post('image'),
@@ -226,7 +223,7 @@ class News extends CI_Controller
                     
                     $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
 
-                } elseif (file_exists($_FILES['photo']['tmp_name'])) {
+                } elseif (file_exists(FCPATH.$img) == 1) {
 
                     $image_cover_data = [
                         'base_image'    => $img,
@@ -238,10 +235,12 @@ class News extends CI_Controller
                     
                     $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
                 } else {
+                    
                     $thumbnail_image = $this->input->post('thumbnail_image_old');
                 }
                 
             }
+            
             if ($this->input->post('published')) {
                 $published = 1;
             } else {
@@ -387,13 +386,64 @@ class News extends CI_Controller
         if ($validate == FALSE) {
             $this->multimedia();
         } else {
-            $img = $this->setEvent();
+            
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
 
-            if (!empty($img)) {
-                $img = "/uploads/news/" . $img;
+            $date_folder = date('Ymd');
+            
+            if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
+            
+                $img_data = $this->setMultimedia($title_image_article);
+                
+                $img = "/uploads/multimedia/".$date_folder."/". $img_data;
+                
+                
             } else {
-                $img = NULL;
+                $img = $this->input->post('image');
             }
+            
+            if ($validate == TRUE && file_exists($_FILES['thumbnail_image']['tmp_name'])) {
+            
+                $resizeImage = $this->resizeImageMultimediaArticle($title_image_article);
+
+                $thumbnail_image = "/caching/uploads/multimedia/".$date_folder."/".$resizeImage;
+                
+            } else {
+
+                if (file_exists(FCPATH . $this->input->post('image')) AND !empty($this->input->post('image'))) {
+                    
+                    $image_cover_data = [
+                        'base_image'    => $this->input->post('image'),
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/news',
+                        'width'         => 360,
+                        'height'        => 235,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+
+                } elseif (file_exists($_FILES['photo']['tmp_name'])) {
+
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/news',
+                        'width'         => 360,
+                        'height'        => 235,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+                } else {
+                    $thumbnail_image = $this->input->post('thumbnail_image_old');
+                }
+            }
+            // $img = $this->setEvent();
+
+            // if (!empty($img)) {
+            //     $img = "/uploads/news/" . $img;
+            // } else {
+            //     $img = NULL;
+            // }
             
 
             if ($this->input->post('published')) {
@@ -405,24 +455,25 @@ class News extends CI_Controller
             $data_s = $this->session->userdata('logged_in');
 
             $data = array(
-                'image_name' => $img,
-                'title' => $this->input->post('title'),
-                'uri' => str_replace(' ', '-', $this->input->post('title')),
-                'posted_date' => $this->input->post('posted_date'),
-                'editor' => $this->input->post('editor'),
-                'video_url' => $this->input->post('video_url'),
-                'pub_type' => 0,
-                'content' => $this->input->post('content'),
-                'published' => $published,
-                'image_name' => $img,
-                'sc_id' => $this->input->post('scat'),
-                'modified_by' => $data_s['user_id'],
-                'modified_date' => date('Y-m-d H:i:s'),
-                'article_type' => 'multimedia',
-                'sub_experts'  => $this->input->post('catogery'),
-                'sub_dep_experts'  => $this->input->post('scat'),
-                'meta_keywords' => $this->input->post('meta_keywords'),
-                'meta_description' => $this->input->post('meta_description'),
+                'image_name'        => $img,
+                'title'             => $this->input->post('title'),
+                'uri'               => str_replace(' ', '-', $this->input->post('title')),
+                'posted_date'       => $this->input->post('posted_date'),
+                'editor'            => $this->input->post('editor'),
+                'video_url'         => $this->input->post('video_url'),
+                'pub_type'          => 0,
+                'content'           => $this->input->post('content'),
+                'published'         => $published,
+                'image_name'        => $img,
+                'sc_id'             => $this->input->post('scat'),
+                'modified_by'       => $data_s['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s'),
+                'article_type'      => 'multimedia',
+                'sub_experts'       => $this->input->post('catogery'),
+                'sub_dep_experts'   => $this->input->post('scat'),
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'thumbnail_image'   => $thumbnail_image,
             );
 
             $category = $this->input->post('catogery');
@@ -696,6 +747,133 @@ class News extends CI_Controller
         $this->load->view('back-end/common/template', $data);
     }
 
+    function edit_mul()
+    {
+        $id = $this->input->post('id');
+        $this->form_validation->set_rules('title', 'title', 'trim|required');
+        $validate = $this->form_validation->run();
+        
+        if ($validate == FALSE) {
+            $this->editmA($id);
+        } else {
+            
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
+
+            $date_folder = date('Ymd');
+            
+            /*
+            ** Upload Image
+            */ 
+            if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
+            
+                $img_data = $this->setMultimedia($title_image_article);
+                
+                $img = "/uploads/multimedia/".$date_folder."/". $img_data;
+                
+                
+            } else {
+                $img = $this->input->post('image');
+            }
+
+            /*
+            ** Upload Thumbnail
+            */
+            if ($validate == TRUE && file_exists($_FILES['thumbnail_image']['tmp_name'])) {
+                
+                $resizeImage = $this->resizeImageMultimediaArticle($title_image_article);
+
+                $thumbnail_image = "/caching/uploads/multimedia/".$date_folder."/".$resizeImage;
+                
+            } else {
+                
+                if (file_exists(FCPATH . $this->input->post('image') == 1) AND !empty($this->input->post('image'))) {
+                    
+                    $image_cover_data = [
+                        'base_image'    => $this->input->post('image'),
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/multimedia',
+                        'width'         => 250,
+                        'height'        => 250,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+
+                } elseif (file_exists(FCPATH.$img) == 1) {
+
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/multimedia',
+                        'width'         => 250,
+                        'height'        => 250,
+                    ];
+                    
+                    $thumbnail_image = $this->Page_model->resizeImageCover($image_cover_data);
+                } else {
+                    
+                    $thumbnail_image = $this->input->post('thumbnail_image_old');
+                }
+                
+            }
+            
+            if ($this->input->post('published')) {
+                $published = 1;
+            } else {
+                $published = 0;
+            }
+            $data_s = $this->session->userdata('logged_in');
+            //$u=preg_replace('/[^a-zA-Z0-9_ %\[\]\.\'\(\)%&-]/s', '', $this->input->post('title'));
+            $data_s = $this->session->userdata('logged_in');
+
+            $value_slug = $this->input->post('title');
+            // $str_replace = preg_replace("/(\'|.)(,)(.*\'|)/", "$1.$3", $value_slug);
+            $str_replace1 = str_replace("'", "-", $value_slug);
+            $str_replace2 = str_replace("|", "-", $str_replace1);
+            $str_replace3 = str_replace("`", "-", $str_replace2);
+            $str_replace4 = str_replace(":", "-", $str_replace3);
+            $str_replace5 = str_replace(" ", "-", $str_replace4);
+
+            $uri = str_replace(' ', '-', $str_replace5);
+
+            $data = array(
+                'uri'               => $uri,
+                'title'             => $this->input->post('title'),
+                'image_name'        => $img,
+                'posted_date'       => $this->input->post('posted_date'),
+                'editor'            => $this->input->post('editor'),
+                'video_url'         => $this->input->post('video_url'),
+                'pub_type'          => 0,
+                'content'           => $this->input->post('content'),
+                'published'         => $published,
+                'modified_by'       => $data_s['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s'),
+                'article_type'      => 'multimedia',
+                'sub_experts'       => $this->input->post('catogery'),
+                'sub_dep_experts'   => $this->input->post('scat'),
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'thumbnail_image'   => $thumbnail_image,
+            );
+            
+            $topic_s = $this->input->post('topics');
+            $related = $this->input->post('related');
+            $mcategory = $this->input->post('mcatogery');
+            $related_publication = $this->input->post('related_publication');
+
+            $query = $this->Page_model->updateArticle($id, $data, null, $topic_s, $related, null, null, null, null, $mcategory, 'C', $related_publication, null);
+            
+            $this->HistoryModel->insertHistory($id, $id, "  Multimedia has been Updated : " . $this->input->post('title'));
+
+            if ($query == TRUE) {
+                $this->session->set_flashdata('success-message', 'Multimedia has been updated.');
+                redirect('system-content/News/editmA/' . $id);
+            } else {
+                $this->session->set_flashdata('error-message', $query);
+                redirect('system-content/News/listmnews');
+            }
+        }
+    }
+
     function getSub()
     {
         $id = $this->input->post('id');
@@ -727,7 +905,7 @@ class News extends CI_Controller
         if (is_dir('uploads/news/'))
         {
             mkdir('./uploads/news/' . $id, 0777, true);
-            $dir_exist = true; // dir not exist
+            $dir_exist = true; // dir exist
         }
 
         // $imgGallery = array();
@@ -754,81 +932,6 @@ class News extends CI_Controller
         return $result;
     }
 
-    function edit_mul()
-    {
-        $id = $this->input->post('id');
-        $this->form_validation->set_rules('title', 'title', 'trim|required');
-        $validate = $this->form_validation->run();
-        $img = -1;
-
-        if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-            $img = $this->setEvent();
-        }
-
-        if ($validate == FALSE) {
-            $this->editmA($id);
-        } else {
-            if ($this->input->post('published')) {
-                $published = 1;
-            } else {
-                $published = 0;
-            }
-            $data_s = $this->session->userdata('logged_in');
-            //$u=preg_replace('/[^a-zA-Z0-9_ %\[\]\.\'\(\)%&-]/s', '', $this->input->post('title'));
-            $data_s = $this->session->userdata('logged_in');
-
-            $value_slug = $this->input->post('title');
-            // $str_replace = preg_replace("/(\'|.)(,)(.*\'|)/", "$1.$3", $value_slug);
-            $str_replace1 = str_replace("'", "-", $value_slug);
-            $str_replace2 = str_replace("|", "-", $str_replace1);
-            $str_replace3 = str_replace("`", "-", $str_replace2);
-            $str_replace4 = str_replace(":", "-", $str_replace3);
-            $str_replace5 = str_replace(" ", "-", $str_replace4);
-
-            $uri = str_replace(' ', '-', $str_replace5);
-
-            $data = array(
-                'uri'           => $uri,
-                'title'         => $this->input->post('title'),
-                'posted_date'   => $this->input->post('posted_date'),
-                'editor'        => $this->input->post('editor'),
-                'video_url'     => $this->input->post('video_url'),
-                'pub_type'      => 0,
-                'content'       => $this->input->post('content'),
-                'published'     => $published,
-                'modified_by'   => $data_s['user_id'],
-                'modified_date' => date('Y-m-d H:i:s'),
-                'article_type'      => 'multimedia',
-                'sub_experts'       => $this->input->post('catogery'),
-                'sub_dep_experts'   => $this->input->post('scat'),
-                'meta_keywords'     => $this->input->post('meta_keywords'),
-                'meta_description'  => $this->input->post('meta_description'),
-            );
-
-            if ($img !== -1) {
-                $img = "/uploads/news/" . $img;
-                $data['image_name'] = $img;
-            }
-
-            $topic_s = $this->input->post('topics');
-            $related = $this->input->post('related');
-            $mcategory = $this->input->post('mcatogery');
-            $related_publication = $this->input->post('related_publication');
-
-            $query = $this->Page_model->updateArticle($id, $data, null, $topic_s, $related, null, null, null, null, $mcategory, 'C', $related_publication, null);
-            
-            $this->HistoryModel->insertHistory($id, $id, "  Multimedia has been Updated : " . $this->input->post('title'));
-
-            if ($query == TRUE) {
-                $this->session->set_flashdata('success-message', 'Multimedia has been updated.');
-                redirect('system-content/News/editmA/' . $id);
-            } else {
-                $this->session->set_flashdata('error-message', $query);
-                redirect('system-content/News/listmnews');
-            }
-        }
-    }
-
     function create()
     {
         $this->form_validation->set_rules('title', 'title', 'trim|required');
@@ -840,13 +943,15 @@ class News extends CI_Controller
             $this->index();
         } else {
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
+
+            $date_folder = date('Ymd');
             
             if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
             
                 $img_data = $this->setNews($title_image_article);
                 
-                $img = "/uploads/news/" . $img_data;
+                $img = "/uploads/news/".$date_folder."/". $img_data;
                 
                 
             } else {
@@ -857,7 +962,7 @@ class News extends CI_Controller
             
                 $resizeImage = $this->resizeImageNewArticle($title_image_article);
 
-                $thumbnail_image = "/caching/uploads/news/".$resizeImage;
+                $thumbnail_image = "/caching/uploads/news/".$date_folder."/".$resizeImage;
                 
             } else {
 
@@ -1332,8 +1437,57 @@ class News extends CI_Controller
 
     public function setNews($title_image)
     {
+        $dir_exist = false; // flag for checking the directory exist or not
+        
+        if (is_dir('uploads/news/'))
+        {
+            $date_folder = "/".date('Ymd');
+            mkdir('./uploads/news/' . $date_folder, 0777, true);
+            $dir_exist = true; // dir exist
+        } else {
+            $date_folder = '';
+            $dir_exist = false; // dir not exist
+        }
         //upload and update the file
-        $config['upload_path']      = './uploads/news';
+        $config['upload_path']      = './uploads/news'.$date_folder.'';
+        $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
+        $config['overwrite']        = false;
+        $config['remove_spaces']    = true;
+        $config['file_name']        = $title_image.'.png';
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('photo')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+
+    public function setMultimedia($title_image)
+    {
+        $dir_exist = false; // flag for checking the directory exist or not
+        
+        if (is_dir('uploads/multimedia/'))
+        {
+            $date_folder = "/".date('Ymd');
+            mkdir('./uploads/multimedia/' . $date_folder, 0777, true);
+            $dir_exist = true; // dir exist
+        } else {
+            $date_folder = '';
+            $dir_exist = false; // dir not exist
+        }
+        //upload and update the file
+        $config['upload_path']      = './uploads/multimedia'.$date_folder.'';
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
@@ -1359,9 +1513,68 @@ class News extends CI_Controller
 
     function resizeImageNewArticle($title_image)
     {
+        $dir_exist = false; // flag for checking the directory exist or not
+        
+        if (is_dir('caching/uploads/news/'))
+        {
+            $date_folder = "/".date('Ymd');
+            mkdir('./caching/uploads/news/' . $date_folder, 0777, true);
+            $dir_exist = true; // dir exist
+        } else {
+            $date_folder = '';
+            $dir_exist = false; // dir not exist
+        }
         $this->load->library('image_lib');
         //upload and update the file
-        $config['upload_path']      = './caching/uploads/news';
+        $config['upload_path']      = './caching/uploads/news'.$date_folder.'';
+        $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
+        $config['overwrite']        = false;
+        $config['remove_spaces']    = true;
+        $config['file_name']        = $title_image.'.png';
+        $config['image_library']    = 'gd2';
+        $config['maintain_ratio']   =  TRUE;
+        $config['width']            = 250;
+        $config['height']           = 250;
+
+        $image_data = $this->upload->data();
+        $config['source_image']     = $image_data['full_path'];
+        $this->load->library('upload', $config);
+        
+        $this->image_lib->clear();
+        $this->upload->initialize($config);
+        $this->image_lib->resize();
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('thumbnail_image')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+
+    function resizeImageMultimediaArticle($title_image)
+    {
+        $dir_exist = false; // flag for checking the directory exist or not
+        
+        if (is_dir('caching/uploads/multimedia/'))
+        {
+            $date_folder = "/".date('Ymd');
+            mkdir('./caching/uploads/multimedia/' . $date_folder, 0777, true);
+            $dir_exist = true; // dir exist
+        } else {
+            $date_folder = '';
+            $dir_exist = false; // dir not exist
+        }
+        $this->load->library('image_lib');
+        //upload and update the file
+        $config['upload_path']      = './caching/uploads/multimedia'.$date_folder.'';
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
