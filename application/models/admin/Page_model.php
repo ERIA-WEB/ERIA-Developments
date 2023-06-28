@@ -1268,7 +1268,13 @@ class Page_model extends CI_Model
         
         imagepng($sm_image, $cacheFile, 5);
         
-        $result = base_url()."caching/uploads/".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+        $url_slug = explode('/', $image_cover_data['type_page']);
+        if (end($url_slug) == 'categories') {
+            $result = base_url()."/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+        } else {
+            $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+        }
+        
         
         return $result;
     }
@@ -2226,7 +2232,7 @@ class Page_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->where('article_type', $type);
-        $this->db->where('published', 1);
+        // $this->db->where('published', 1);
         if ($type == 'experts') {
             $this->db->join('eria_expert_categories', 'eria_expert_categories.ec_id = articles.sub_experts', 'left');
         }
