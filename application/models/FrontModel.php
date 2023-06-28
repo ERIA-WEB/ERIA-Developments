@@ -701,6 +701,7 @@ class FrontModel extends CI_Model
                     }
 
                     $results[$aid]['image_name'] = $query->image_name;
+                    $results[$aid]['thumbnail_image'] = $query->thumbnail_image;
                     $results[$aid]['old_image_name'] = $query->image_name;
                     $results[$aid]['cat'] = $this->get_articleCatogery($query->article_id);
                     $results[$aid]['posted_date'] = date('j F Y', strtotime($query->posted_date));
@@ -1199,21 +1200,22 @@ class FrontModel extends CI_Model
 
             $results = array();
             foreach ($query->result() as $aid => $query) {
-                $results[$aid]['editor'] = $query->editor;
-                $results[$aid]['author'] = $query->author;
-                $results[$aid]['major'] = $query->major;
-                $results[$aid]['keywords'] = $query->keywords;
-                $results[$aid]['article_keywords'] = $query->article_keywords;
-                $results[$aid]['title'] = $query->title;
-                $results[$aid]['short_des'] = $query->short_des;
-                $results[$aid]['article_type'] = $query->article_type;
-                $results[$aid]['uri'] = $query->uri;
-                $results[$aid]['image_name'] = $query->image_name;
-                $results[$aid]['old_image_name'] = $query->image_name;
+                $results[$aid]['editor']            = $query->editor;
+                $results[$aid]['author']            = $query->author;
+                $results[$aid]['major']             = $query->major;
+                $results[$aid]['keywords']          = $query->keywords;
+                $results[$aid]['article_keywords']  = $query->article_keywords;
+                $results[$aid]['title']             = $query->title;
+                $results[$aid]['short_des']         = $query->short_des;
+                $results[$aid]['article_type']      = $query->article_type;
+                $results[$aid]['uri']               = $query->uri;
+                $results[$aid]['image_name']        = $query->image_name;
+                $results[$aid]['thumbnail_image']   = $query->thumbnail_image;
+                $results[$aid]['old_image_name']    = $query->image_name;
                 // $results[$aid]['content'] = (string)$query->content;
-                $results[$aid]['cat'] = $this->get_articleCatogery($query->article_id);
-                $results[$aid]['posted_date'] = date('j  F Y', strtotime($query->posted_date));
-                $results[$aid]['tags'] = $this->tag_topic($query->article_id);
+                $results[$aid]['cat']               = $this->get_articleCatogery($query->article_id);
+                $results[$aid]['posted_date']       = date('j  F Y', strtotime($query->posted_date));
+                $results[$aid]['tags']              = $this->tag_topic($query->article_id);
             }
 
             return $results;
