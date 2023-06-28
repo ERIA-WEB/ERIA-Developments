@@ -373,7 +373,7 @@ if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)) {
                                     <div class="card border-0">
                                         <a data-fslightbox="gallery" href="<?= base_url() ?><?= $value->image_name; ?>"
                                             alt="<?= $value->caption; ?>">
-                                            <img src="<?= base_url() ?>get_share_image.php?im=<?= $value->image_name; ?>"
+                                            <img src="<?= base_url().$value->image_name; ?>"
                                                 alt="<?= $value->caption; ?>" class="img-fluid w-100 img-thumbnail">
                                         </a>
                                     </div>
