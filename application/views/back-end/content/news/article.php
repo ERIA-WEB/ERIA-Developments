@@ -10,7 +10,18 @@
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <div class="page-title">
                 <div class="pull-left">
-                    <h1 class="title">Add News</h1>
+                    <?php 
+                    $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+
+                    $urlArray = explode('/', $parse_url);
+
+                    if (in_array('editA', $urlArray)) {
+                        $title_h1 = 'Edit News';
+                    } else {
+                        $title_h1 = 'Add News';
+                    }
+                    ?>
+                    <h1 class="title"><?= $title_h1; ?></h1>
                 </div>
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
@@ -27,7 +38,7 @@
         <div class="col-lg-12"><?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
-                    <h2 class="title pull-left"> Add News </h2>
+                    <h2 class="title pull-left"><?= $title_h1; ?></h2>
                     <div class="actions panel_actions pull-right">
                         <i class="box_toggle fa fa-chevron-down"></i>
                         <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -53,7 +64,7 @@
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <div class="masonry-gallery">
-                                                <div class="masonry-thumb" style="margin-left: 30%;">
+                                                <div class="masonry-thumb text-center">
                                                     <?php
                                                     if (!empty($slider_row)) {
                                                         if (file_exists(FCPATH . $slider_row->image_name) && $slider_row->image_name != '') {
@@ -98,16 +109,74 @@
                                                 Dimensions 800 X 450 PX*)</span>
                                             <div class="controls">
                                                 <i class=""></i>
-                                                <input type="hidden" id="image" name="image" value="" />
+                                                <input type="hidden" id="image" name="image"
+                                                    value="<?php echo $image; ?>" />
                                                 <input class="input-file form-control uniform_on focused" id="photo"
-                                                    value="<?php echo $image; ?>" name="photo" type="file"
-                                                    accept="image/*" placeholder="photo">
+                                                    name="photo" type="file" accept="image/*">
                                                 <?php echo form_error('photo', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-lg-12">
+                                        <fieldset>
+                                            <div class="masonry-gallery">
+                                                <div class="masonry-thumb text-center">
+                                                    <?php
+                                                    if (!empty($slider_row)) {
+                                                        if (file_exists(FCPATH . $slider_row->thumbnail_image) && $slider_row->thumbnail_image != '') {
+                                                            $img = base_url() . $slider_row->thumbnail_image;
+                                                        } elseif (file_exists(FCPATH . '/resources/images' . $slider_row->image_name) && $slider_row->thumbnail_image != '') {
+                                                            $img = base_url() . "/upload/news.jpg";
+                                                        } else {
+
+                                                            $url_ = "https://www.eria.org" . $slider_row->image_name;
+                                                            $response = @file_get_contents($url_);
+
+                                                            if ($response == false) {
+                                                                $img = base_url() . "/upload/news.jpg";
+                                                            } else {
+                                                                if (strlen($response)) {
+                                                                    if (!empty($slider_row->thumbnail_image)) {
+                                                                        $img = "https://www.eria.org/" . $slider_row->thumbnail_image;
+                                                                    } else {
+                                                                        $img = base_url() . "/upload/news.jpg";
+                                                                    }
+                                                                } else {
+                                                                    $img = base_url() . "/upload/news.jpg";
+                                                                }
+                                                            }
+                                                        }
+                                                    } else {
+                                                        $img = base_url() . "/upload/news.jpg";
+                                                    }
+                                                    ?>
+                                                    <img id="placeholder" class="grayscale" src="<?= $img; ?>"
+                                                        alt="Sample Image" style="width:100%;max-width:150px;">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                            <?php
+                                            $error = (form_error('thumbnail_image') === '') ? '' : 'error';
+                                            $thumbnail_image = (set_value('thumbnail_image') == false && !empty($slider_row)) ? $slider_row->thumbnail_image : set_value('thumbnail_image');
+                                            ?>
+                                            <label class="form-label" for="formfield1"> Thumbnail </label>
+
+                                            <span style="font-size: 9px;font-style: italic;color: red;">(Please Using
+                                                Dimensions
+                                                360 X 235 PX*)</span>
+                                            <div class="controls">
+                                                <input type="hidden" id="thumbnail_image_old" name="thumbnail_image_old"
+                                                    value="<?= $thumbnail_image; ?>" />
+                                                <input class="input-file form-control uniform_on focused"
+                                                    id="thumbnail_image" name="thumbnail_image" type="file"
+                                                    accept="image/*">
+                                                <?php echo form_error('thumbnail_image', '<span class="help-inline">', '</span>'); ?>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="form-group">
                                             <?php
@@ -377,7 +446,7 @@
                                         <?php echo form_error('meta_description', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
-                                <?php if (count($article_images) != 0) { ?>
+                                <?php if (in_array('editA', $urlArray)) { ?>
                                 <div class="form-group">
                                     <label class="form-label" for="formfield1">Gallery Images</label>
                                     <span class="desc" style="color: red;font-style: italic;">Dimensions Image must be:
@@ -472,7 +541,9 @@
                                         <input type="file" id="pro-image" name="image_gallery[]" style="opacity: 0;"
                                             accept="image/*" class="form-control" multiple>
                                     </fieldset>
+                                    <?php if (count($article_images) != 0) { ?>
                                     <div class="preview-images-zone">
+
                                         <?php foreach ($article_images as $key => $value) { ?>
                                         <div class="preview-image preview-show-<?php echo $key; ?>">
                                             <div class="image-cancel" data-no="<?php echo $key; ?>"
@@ -491,6 +562,7 @@
                                         <?php } ?>
 
                                     </div>
+                                    <?php } ?>
                                 </div>
                                 <?php } ?>
                                 <div class="pull-right">
