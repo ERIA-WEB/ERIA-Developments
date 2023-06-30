@@ -13,7 +13,18 @@ $aut_d = $author_->result();
         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
             <div class="page-title">
                 <div class="pull-left">
-                    <h1 class="title"> Publication </h1>
+                    <?php 
+                    $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+
+                    $urlArray = explode('/', $parse_url);
+
+                    if (in_array('editPub', $urlArray)) {
+                        $title_h1 = 'Edit Publications';
+                    } else {
+                        $title_h1 = 'Add Publications';
+                    }
+                    ?>
+                    <h1 class="title"><?= $title_h1; ?></h1>
                 </div>
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
@@ -32,7 +43,7 @@ $aut_d = $author_->result();
         <div class="col-lg-12"><?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
-                    <h2 class="title pull-left"> Add Publication </h2>
+                    <h1 class="title"><?= $title_h1; ?></h1>
                     <div class="actions panel_actions pull-right">
                         <i class="box_toggle fa fa-chevron-down"></i>
                         <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
