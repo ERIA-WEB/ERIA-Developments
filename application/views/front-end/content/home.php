@@ -230,35 +230,42 @@ function limit_text($text, $limit, $link = null)
                 <div class="container-fluid px-0">
                     <div class="row">
                         <?php $s = 0;
+                        
                         foreach ($newsall as $news) {
                             if (strip_tags($news['title']) != 'Inaugural Meeting of APEN Business Club') {
                                 $s++;
                         ?>
                         <?php
                         
-                        if (!empty($news['image_name'])) {
-                            if (file_exists(FCPATH . $news['image_name'])) {
-                                $image_temporary = '/caching' . $news['image_name'];
-                                
-                                if (file_exists(FCPATH . $image_temporary)) {
-                                    $img = base_url().$image_temporary;
-                                } else {
-                                    $img = base_url() .'get_compress_slider.php?im='. $news['image_name'];
-                                }
-                                
-                            } else {
-                                $url_news_home = "https://www.eria.org" . $news['image_name'];
-                                $response_news_home = @get_headers($url_news_home, 1);
-                                $file_news_home = (strpos($response_news_home[0], "404") === false);
-
-                                if ($file_news_home == 1) {
-                                    $img = "https://www.eria.org" . $news['image_name'];
-                                } else {
-                                    $img = base_url() . "/upload/news.jpg";
-                                }
-                            }
+                        $image_caching = $news['thumbnail_image'];
+                        
+                        if (!empty($news['thumbnail_image']) && file_exists(FCPATH . $image_caching)) {
+                            $img = base_url().$image_caching;
                         } else {
-                            $img = base_url() . "/upload/news.jpg";
+                            if (!empty($news['image_name'])) {
+                                if (file_exists(FCPATH . $news['image_name'])) {
+                                    $image_temporary = '/caching' . $news['image_name'];
+                                    
+                                    if (file_exists(FCPATH . $image_temporary)) {
+                                        $img = base_url().$image_temporary;
+                                    } else {
+                                        $img = base_url() .'get_compress_slider.php?im='. $news['image_name'];
+                                    }
+                                    
+                                } else {
+                                    $url_news_home = "https://www.eria.org" . $news['image_name'];
+                                    $response_news_home = @get_headers($url_news_home, 1);
+                                    $file_news_home = (strpos($response_news_home[0], "404") === false);
+
+                                    if ($file_news_home == 1) {
+                                        $img = "https://www.eria.org" . $news['image_name'];
+                                    } else {
+                                        $img = base_url() . "/upload/news.jpg";
+                                    }
+                                }
+                            } else {
+                                $img = base_url() . "/upload/news.jpg";
+                            }
                         }
                         ?>
                         <div class="col-md-6 recent-update-wrapper">
@@ -443,12 +450,38 @@ function limit_text($text, $limit, $link = null)
                             $pu[] = $x;
                         ?>
                         <?php
-                            if (file_exists(FCPATH . $pub['image_name'])) {
-                                $img = base_url() . $pub['image_name'];
+                        $image_caching_pub = $pub['thumbnail_image'];
+                        
+                        if (!empty($pub['thumbnail_image']) && file_exists(FCPATH . $image_caching_pub)) {
+                            $img = base_url().$image_caching_pub;
+                        } else {
+                            if (!empty($pub['image_name'])) {
+                                if (file_exists(FCPATH . $pub['image_name'])) {
+                                    $image_temporary = '/caching' . $pub['image_name'];
+                                    
+                                    if (file_exists(FCPATH . $image_temporary)) {
+                                        $img = base_url().$image_temporary;
+                                    } else {
+                                        $img = base_url() .'get_compress_slider.php?im='. $pub['image_name'];
+                                    }
+                                    
+                                } else {
+                                    $url_pub_home = "https://www.eria.org" . $pub['image_name'];
+                                    $response_pub_home = @get_headers($url_pub_home, 1);
+                                    $file_pub_home = (strpos($response_pub_home[0], "404") === false);
+
+                                    if ($file_pub_home == 1) {
+                                        $img = "https://www.eria.org" . $pub['image_name'];
+                                    } else {
+                                        $img = base_url() . "/upload/news.jpg";
+                                    }
+                                }
                             } else {
-                                $img = "https://www.eria.org" . $pub['image_name'];
+                                $img = base_url() . "/upload/news.jpg";
                             }
-                            ?>
+                        }
+
+                        ?>
 
                         <div class="swiper-slide d-md-flex align-items-md-center">
                             <div class="higlight-swiper-slider-image mb-3 mb-md-0">
