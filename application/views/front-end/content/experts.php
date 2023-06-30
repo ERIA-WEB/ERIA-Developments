@@ -1,4 +1,8 @@
 <style>
+.bg-lg-light {
+    background-color: #f3f8fc;
+}
+
 select {
     appearance: none;
 }
@@ -22,7 +26,7 @@ select {
 
 @media (min-width:1024px) {
     .people-card .card-body {
-        background-color: #f8f9fa;
+        background-color: #f3f8fc;
     }
 }
 
@@ -298,11 +302,11 @@ p.mail-people {
             <div class="col mb-4">
                 <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
-                        <div class="people-card-image">
+                        <div class="people-card-image bg-lg-light pt-3 px-3">
                             <img src=" <?= base_url() . $content["image_name"] ?>" alt="governing-board-image"
                                 class="img-fluid w-100">
                         </div>
-                        <div class="card-body bg-lg-light px-0 px-lg-4">
+                        <div class="card-body bg-lg-light pt-2 mt-0 px-0 px-3">
                             <h5 class="card-title text-blue">
                                 <?php
                                 if (isset($content['major'])) {
@@ -362,11 +366,11 @@ p.mail-people {
             <div class="col mb-4">
                 <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
-                        <div class="people-card-image">
+                        <div class="people-card-image bg-lg-light pt-3 px-3">
                             <img src=" <?= base_url() . $content["image_name"] ?>" alt="key-staff-image"
                                 class="img-fluid w-100">
                         </div>
-                        <div class="card-body bg-lg-light px-0 px-lg-4">
+                        <div class="card-body bg-lg-light pt-2 mt-0 px-0 px-3">
                             <h5 class="card-title text-blue">
                                 <?php
                                 // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
@@ -425,11 +429,11 @@ p.mail-people {
             <div class="col mb-4">
                 <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
-                        <div class="people-card-image">
+                        <div class="people-card-image bg-lg-light pt-3 px-3">
                             <img src=" <?= base_url() . $content["image_name"] ?>" alt="expert-image"
                                 class="img-fluid w-100">
                         </div>
-                        <div class="card-body bg-lg-light px-0 px-lg-4">
+                        <div class="card-body bg-lg-light pt-2 mt-0 px-0 px-3">
                             <h5 class="card-title text-blue">
                                 <?php
                                 // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
@@ -489,11 +493,11 @@ p.mail-people {
             <div class="col mb-4">
                 <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
-                        <div class="people-card-image">
+                        <div class="people-card-image bg-lg-light pt-3 px-3">
                             <img src=" <?= base_url() . $content["image_name"] ?>" alt="research-associates-image"
                                 class="img-fluid w-100">
                         </div>
-                        <div class="card-body bg-lg-light px-0 px-lg-4">
+                        <div class="card-body bg-lg-light pt-2 mt-0 px-0 px-3">
                             <h5 class="card-title text-blue">
                                 <?php
                                 // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
@@ -553,11 +557,11 @@ p.mail-people {
             <div class="col mb-4">
                 <a href="<?= base_url() ?>experts/<?= $content['uri'] ?>">
                     <div class="card people-card border-0 rounded-0 h-100">
-                        <div class="people-card-image h-100">
+                        <div class="people-card-image bg-lg-light pt-3 px-3">
                             <img src=" <?= base_url() . $content["image_name"] ?>" alt="research-fellows-image"
                                 class="img-fluid w-100">
                         </div>
-                        <div class="card-body bg-lg-light px-0 px-lg-4">
+                        <div class="card-body bg-lg-light pt-2 mt-0 px-0 px-3">
                             <h5 class="card-title text-blue">
                                 <?php
                                 // echo implode(' ', array_slice(explode(' ', $content['title']), 0, 6));
