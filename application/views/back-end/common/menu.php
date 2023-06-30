@@ -304,17 +304,19 @@ if (!isset($sactive))
                             </li>
                             <li>
                                 <a class="<?php if ($sub == 'expertsc') { ?> active <?php } ?>"
-                                    href="<?php echo base_url() ?>system-content/Experts/catogeries" target=''> People
-                                    Categories </a>
+                                    href="<?php echo base_url() ?>system-content/Experts/catogeries">
+                                    Categories
+                                </a>
                             </li>
                             <li>
                                 <a class="<?php if ($sub == 'expertssc') { ?> active <?php } ?>"
-                                    href="<?php echo base_url() ?>system-content/Experts/sub_catogeries" target=''>
-                                    People Department </a>
+                                    href="<?php echo base_url() ?>system-content/Experts/sub_catogeries">
+                                    Department
+                                </a>
                             </li>
                             <li>
                                 <a class="<?php if ($sub == 'experts') { ?> active <?php } ?>"
-                                    href="<?php echo base_url() ?>system-content/Experts" target=''> Add People </a>
+                                    href="<?php echo base_url() ?>system-content/Experts" target=''> Add New Person</a>
                             </li>
                             <li>
                                 <a class="<?php if ($sub == 'expertslist') { ?> active <?php } ?>"
