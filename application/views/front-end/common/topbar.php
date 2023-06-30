@@ -189,9 +189,28 @@ function limit_words($text, $limit)
                                                         <h4 class="mega-menu-title">Featured</h4>
                                                         <div class="row">
                                                             <?php foreach ($asean as $key => $value) { ?>
+                                                            <?php 
+                                                                $image_caching = $value->thumbnail_image;
+                        
+                                                                if (file_exists(FCPATH . $image_caching) == 1) {
+                                                                    
+                                                                    $img_prog = base_url().$image_caching;
+                                                                    
+                                                                } else {
+                                                                    $url_programmes_home = "https://www.eria.org" . $value->image_name;
+                                                                    $response_programmes_home = @get_headers($url_programmes_home, 1);
+                                                                    $file_exists_programmes_home = (strpos($response_programmes_home[0], "404") === false);
+
+                                                                    if ($file_exists_programmes_home == 1) {
+                                                                        $img_prog = "https://www.eria.org" . $value->image_name;
+                                                                    } else {
+                                                                        $img_prog = base_url() . "/upload/thumbnails-pub.jpg";
+                                                                    }
+                                                                }    
+                                                                ?>
                                                             <div class="col-md-3">
                                                                 <img style="width: 100%;height: 65px;"
-                                                                    src="<?= base_url() ?><?= $value->image_name; ?>">
+                                                                    src="<?= $img_prog; ?>">
                                                                 <div class="dropdown-item-heading">
                                                                     <a href="<?= base_url() ?>database-and-programmes/topic/<?= $value->uri ?>"
                                                                         class="nav_lnk">
@@ -360,8 +379,40 @@ function limit_words($text, $limit)
                                                     </div>
                                                     <div class="col-md-3">
                                                         <h4 class="mega-menu-title">Featured News</h4>
+                                                        <?php 
+                                                        $image_caching = $up->thumbnail_image;
+                                                        
+                                                        if (!empty($up->thumbnail_image) && file_exists(FCPATH . $image_caching) == 1) {
+                                                            $img_news_featured = $image_caching;
+                                                        } else {
+                                                            if (!empty($up->image_name)) {
+                                                                if (file_exists(FCPATH . $up->image_name)) {
+                                                                    $image_temporary = '/caching' . $up->image_name;
+                                                                    
+                                                                    if (file_exists(FCPATH . $image_temporary)) {
+                                                                        $img_news_featured = base_url().$image_temporary;
+                                                                    } else {
+                                                                        $img_news_featured = base_url() .'get_compress_slider.php?im='. $up->image_name;
+                                                                    }
+                                                                    
+                                                                } else {
+                                                                    $url_news_home = "https://www.eria.org" . $up->image_name;
+                                                                    $response_news_home = @get_headers($url_news_home, 1);
+                                                                    $file_news_home = (strpos($response_news_home[0], "404") === false);
+
+                                                                    if ($file_news_home == 1) {
+                                                                        $img_news_featured = "https://www.eria.org" . $up->image_name;
+                                                                    } else {
+                                                                        $img_news_featured = base_url() . "/upload/news.jpg";
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                $img_news_featured = base_url() . "/upload/news.jpg";
+                                                            }
+                                                        }
+                                                        ?>
                                                         <img class="img-fluid"
-                                                            src="<?= base_url() ?><?= $up->image_name ?>">
+                                                            src="<?= base_url() ?><?= $img_news_featured ?>">
                                                         <div class="dropdown-item-header"><?= $up->tags ?></div>
                                                         <div class="dropdown-item-heading">
                                                             <a href="<?= base_url() ?>news-and-views/<?= $up->uri ?>"
@@ -378,26 +429,41 @@ function limit_words($text, $limit)
                                                                 <div class="row mb-3">
                                                                     <div class="col-md-3">
                                                                         <?php
-                                                                            if (file_exists(FCPATH . $value->image_name) && $value->image_name != '') {
-                                                                                $img = base_url() . $value->image_name;
-                                                                            } elseif (file_exists(FCPATH . '/resources/images' . $value->image_name) && $value->image_name != '') {
-                                                                                $img = base_url() . 'resources/images' . $value->image_name;
+                                                                            $image_caching = $value->thumbnail_image;
+                        
+                                                                            if (!empty($value->thumbnail_image) && file_exists(FCPATH . $image_caching)) {
+                                                                                $img_news_menu = base_url().$image_caching;
                                                                             } else {
                                                                                 if (!empty($value->image_name)) {
-                                                                                    $url_articles = "https://www.eria.org" . $value->image_name;
-                                                                                    $response_articles = @file_get_contents($url_articles);
-                                                                                    if (strlen($response_articles)) {
-                                                                                        $img = "https://www.eria.org" . $value->image_name;
+                                                                                    if (file_exists(FCPATH . $value->image_name)) {
+                                                                                        $image_temporary = '/caching' . $value->image_name;
+                                                                                        
+                                                                                        if (file_exists(FCPATH . $image_temporary)) {
+                                                                                            $img_news_menu = base_url().$image_temporary;
+                                                                                        } else {
+                                                                                            $img_news_menu = base_url() .'get_compress_slider.php?im='. $value->image_name;
+                                                                                        }
+                                                                                        
                                                                                     } else {
-                                                                                        $img = base_url() . "/upload/news.jpg";
+                                                                                        $url_news_home = "https://www.eria.org" . $value->image_name;
+                                                                                        $response_news_home = @get_headers($url_news_home, 1);
+                                                                                        $file_news_home = (strpos($response_news_home[0], "404") === false);
+
+                                                                                        if ($file_news_home == 1) {
+                                                                                            $img_news_menu = "https://www.eria.org" . $value->image_name;
+                                                                                        } else {
+                                                                                            $img_news_menu = base_url() . "/upload/news.jpg";
+                                                                                        }
                                                                                     }
                                                                                 } else {
-                                                                                    $img = base_url() . "/upload/news.jpg";
+                                                                                    $img_news_menu = base_url() . "/upload/news.jpg";
                                                                                 }
                                                                             }
+                                                                            
                                                                             ?>
 
-                                                                        <img class="img-fluid" src=" <?= $img; ?>">
+                                                                        <img class="img-fluid"
+                                                                            src=" <?= $img_news_menu; ?>">
                                                                     </div>
                                                                     <div class="col-md-9">
                                                                         <div
@@ -678,15 +744,37 @@ function limit_words($text, $limit)
                                                     <div class="col-md-3">
                                                         <h4 class="mega-menu-title">Featured Video</h4>
                                                         <?php
-                                                        if (file_exists(FCPATH . $mm->image_name)) {
-                                                            $img5 = base_url() . $mm->image_name;
-                                                        } else if ($mm->image_name == '') {
-                                                            $img5 = base_url() . "upload/Video.jpg";
-                                                        } else if ("https://www.eria.org/" . $mm->image_name) {
-                                                            $img5 = "https://www.eria.org/" . $mm->image_name;
+                                                        $image_caching = $mm->thumbnail_image;
+                        
+                                                        if (!empty($mm->thumbnail_image) && file_exists(FCPATH . $image_caching)) {
+                                                            $img5 = base_url().$image_caching;
                                                         } else {
-                                                            $img5 = base_url() . "upload/Video.jpg";
+                                                            if (!empty($mm->image_name)) {
+                                                                if (file_exists(FCPATH . $mm->image_name)) {
+                                                                    $image_temporary5 = '/caching' . $mm->image_name;
+                                                                    
+                                                                    if (file_exists(FCPATH . $image_temporary5)) {
+                                                                        $img5 = base_url().$image_temporary5;
+                                                                    } else {
+                                                                        $img5 = base_url() .'get_compress_slider.php?im='. $mm->image_name;
+                                                                    }
+                                                                    
+                                                                } else {
+                                                                    $url_multimedia_5 = "https://www.eria.org" . $mm->image_name;
+                                                                    $response_multimedia_5 = @get_headers($url_multimedia_5, 1);
+                                                                    $file_multimedia_5 = (strpos($response_multimedia_5[0], "404") === false);
+
+                                                                    if ($file_multimedia_5 == 1) {
+                                                                        $img5 = "https://www.eria.org" . $mm->image_name;
+                                                                    } else {
+                                                                        $img5 = base_url() . "/upload/news.jpg";
+                                                                    }
+                                                                }
+                                                            } else {
+                                                                $img5 = base_url() . "/upload/news.jpg";
+                                                            }
                                                         }
+                                                        
                                                         ?>
                                                         <img class="img-fluid" src="<?= $img5; ?>">
                                                         <div class="dropdown-item-header mb-2">
@@ -708,11 +796,41 @@ function limit_words($text, $limit)
                                                         <div class="row">
                                                             <?php foreach (array_slice($mdata, 0, 6) as $latestmultimedia) { ?>
                                                             <div class="col-md-6">
+                                                                <?php 
+                                                                $image_caching_6 = $latestmultimedia->thumbnail_image;
+                        
+                                                                if (!empty($latestmultimedia->thumbnail_image) && file_exists(FCPATH . $image_caching_6)) {
+                                                                    $img6 = base_url().$image_caching_6;
+                                                                } else {
+                                                                    if (!empty($latestmultimedia->image_name)) {
+                                                                        if (file_exists(FCPATH . $latestmultimedia->image_name)) {
+                                                                            $image_temporary5 = '/caching' . $latestmultimedia->image_name;
+                                                                            
+                                                                            if (file_exists(FCPATH . $image_temporary5)) {
+                                                                                $img6 = base_url().$image_temporary5;
+                                                                            } else {
+                                                                                $img6 = base_url() .'get_compress_slider.php?im='. $latestmultimedia->image_name;
+                                                                            }
+                                                                            
+                                                                        } else {
+                                                                            $url_multimedia_5 = "https://www.eria.org" . $latestmultimedia->image_name;
+                                                                            $response_multimedia_5 = @get_headers($url_multimedia_5, 1);
+                                                                            $file_multimedia_5 = (strpos($response_multimedia_5[0], "404") === false);
 
+                                                                            if ($file_multimedia_5 == 1) {
+                                                                                $img6 = "https://www.eria.org" . $latestmultimedia->image_name;
+                                                                            } else {
+                                                                                $img6 = base_url() . "/upload/news.jpg";
+                                                                            }
+                                                                        }
+                                                                    } else {
+                                                                        $img6 = base_url() . "/upload/news.jpg";
+                                                                    }
+                                                                }
+                                                                ?>
                                                                 <div class="row mb-3">
                                                                     <div class="col-md-5">
-                                                                        <img class="img-fluid"
-                                                                            src="<?= base_url() ?><?= $latestmultimedia->image_name ? $latestmultimedia->image_name: "upload/Video.jpg"; ?>">
+                                                                        <img class="img-fluid" src="<?= $img6; ?>">
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <div style="font-weight:bold"
