@@ -12,7 +12,20 @@
             <div class="page-title">
 
                 <div class="pull-left">
-                    <h1 class="title"> Add Multimedia News </h1>
+                    <?php 
+                    $parse_url = trim(parse_url(current_url(), PHP_URL_PATH), '/');
+
+                    $urlArray = explode('/', $parse_url);
+
+                    if (in_array('editmA', $urlArray)) {
+                        $title_h1 = 'Edit Multimedia News';
+                        $li_title = 'Edit';
+                    } else {
+                        $title_h1 = 'Add Multimedia News';
+                        $li_title = 'Add';
+                    }
+                    ?>
+                    <h1 class="title"><?= $title_h1 ?></h1>
                 </div>
                 <div class="pull-right hidden-xs">
                     <ol class="breadcrumb">
@@ -20,7 +33,7 @@
                             <a href=" "><i class="fa fa-globe"></i><strong>Multimedia </strong></a>
                         </li>
                         <li class="active">
-                            Add
+                            <?= $li_title ?>
                         </li>
                     </ol>
                 </div>
@@ -31,7 +44,7 @@
         <div class="col-lg-12"><?php $this->load->view('back-end/common/message'); ?>
             <section class="box ">
                 <header class="panel_header">
-                    <h2 class="title pull-left"> Add Multimedia News </h2>
+                    <h1 class="title"><?= $title_h1; ?></h1>
                     <div class="actions panel_actions pull-right">
                         <i class="box_toggle fa fa-chevron-down"></i>
                         <i class="box_setting fa fa-cog" data-toggle="modal" href="#section-settings"></i>
@@ -42,25 +55,24 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <form id="login_form" method="POST" enctype="multipart/form-data" accept-charset="utf-8"
-                                action="<?php echo $action; ?>">
+                                action="<?= $action; ?>">
                                 <?php
                                 $csrf = array(
                                     'name' => $this->security->get_csrf_token_name(),
                                     'hash' => $this->security->get_csrf_hash()
                                 );
                                 ?>
-                                <input type="hidden" name="<?php echo $csrf['name']; ?>"
-                                    value="<?php echo $csrf['hash']; ?>" />
+                                <input type="hidden" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
                                 <input type="hidden" name="id"
-                                    value="<?php echo (isset($slider_row)) ? $slider_row->article_id : '' ?>" />
+                                    value="<?= (isset($slider_row)) ? $slider_row->article_id : '' ?>" />
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <fieldset>
                                             <div class="masonry-gallery">
-                                                <div class="masonry-thumb" style="margin-left: 30%;">
+                                                <div class="masonry-thumb text-center">
                                                     <?php $path = (!isset($slider_row->image_name)) ? "/uploads/slides/slider.jpg" : $slider_row->image_name; ?>
                                                     <img id="placeholder" class="grayscale"
-                                                        src="<?php echo base_url(); ?><?php echo $path; ?>" width="142"
+                                                        src="<?= base_url(); ?><?= $path; ?>" width="142"
                                                         alt="Sample Image">
                                                 </div>
                                             </div>
@@ -75,11 +87,67 @@
                                                 Dimensions 1200 X 510 PX*)</span>
                                             <div class="controls">
                                                 <i class=""></i>
-                                                <input type="hidden" id="image" name="image" value="" />
+                                                <input type="hidden" id="image" name="image" value="<?= $path; ?>" />
                                                 <input class="input-file form-control uniform_on focused" id="photo"
-                                                    value="<?php echo $image; ?>" name="photo" type="file"
-                                                    accept="image/*" placeholder="photo">
-                                                <?php echo form_error('photo', '<span class="help-inline">', '</span>'); ?>
+                                                    value="<?= $image; ?>" name="photo" type="file" accept="image/*"
+                                                    placeholder="photo">
+                                                <?= form_error('photo', '<span class="help-inline">', '</span>'); ?>
+                                            </div>
+                                        </div>
+                                        <fieldset>
+                                            <div class="masonry-gallery">
+                                                <div class="masonry-thumb text-center">
+                                                    <?php
+                                                    if (!empty($slider_row)) {
+                                                        if (file_exists(FCPATH . $slider_row->thumbnail_image) && $slider_row->thumbnail_image != '') {
+                                                            $img = base_url() . $slider_row->thumbnail_image;
+                                                        } elseif (file_exists(FCPATH . '/resources/images' . $slider_row->image_name) && $slider_row->thumbnail_image != '') {
+                                                            $img = base_url() . "/uploads/slides/slider.jpg";
+                                                        } else {
+
+                                                            $url_ = "https://www.eria.org" . $slider_row->image_name;
+                                                            $response = @file_get_contents($url_);
+
+                                                            if ($response == false) {
+                                                                $img = base_url() . "/uploads/slides/slider.jpg";
+                                                            } else {
+                                                                if (strlen($response)) {
+                                                                    if (!empty($slider_row->thumbnail_image)) {
+                                                                        $img = "https://www.eria.org/" . $slider_row->thumbnail_image;
+                                                                    } else {
+                                                                        $img = base_url() . "/uploads/slides/slider.jpg";
+                                                                    }
+                                                                } else {
+                                                                    $img = base_url() . "/uploads/slides/slider.jpg";
+                                                                }
+                                                            }
+                                                        }
+                                                    } else {
+                                                        $img = base_url() . "/uploads/slides/slider.jpg";
+                                                    }
+                                                    ?>
+                                                    <img id="placeholder" class="grayscale" src="<?= $img; ?>"
+                                                        alt="Sample Image" style="width:100%;max-width:150px;">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                            <?php
+                                            $error = (form_error('thumbnail_image') === '') ? '' : 'error';
+                                            $thumbnail_image = (set_value('thumbnail_image') == false && !empty($slider_row)) ? $slider_row->thumbnail_image : set_value('thumbnail_image');
+                                            ?>
+                                            <label class="form-label" for="formfield1"> Thumbnail </label>
+
+                                            <span style="font-size: 9px;font-style: italic;color: red;">(Please Using
+                                                Dimensions
+                                                360 X 235 PX*)</span>
+                                            <div class="controls">
+                                                <input type="hidden" id="thumbnail_image_old" name="thumbnail_image_old"
+                                                    value="<?= $thumbnail_image; ?>" />
+                                                <input class="input-file form-control uniform_on focused"
+                                                    id="thumbnail_image" name="thumbnail_image" type="file"
+                                                    accept="image/*">
+                                                <?= form_error('thumbnail_image', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -97,9 +165,9 @@
                                             <div class="controls">
                                                 <i class=""></i>
                                                 <input type="text" required="required"
-                                                    value='<?php echo  $this->privilage->RemoveBS($title); ?>'
+                                                    value='<?=  $this->privilage->RemoveBS($title); ?>'
                                                     class="form-control" id="title" name="title">
-                                                <?php echo form_error('title', '<span class="help-inline">', '</span>'); ?>
+                                                <?= form_error('title', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -117,11 +185,11 @@
                                                     <option>Choose Multimedia Categories</option>
                                                     <?php foreach ($areaList as $areaList) { ?>
                                                     <option <?php if ($sub_experts == $areaList->ec_id) { ?> selected=""
-                                                        <?php  } ?> value="<?php echo $areaList->ec_id; ?>">
-                                                        <?php echo $areaList->category; ?></option>
+                                                        <?php  } ?> value="<?= $areaList->ec_id; ?>">
+                                                        <?= $areaList->category; ?></option>
                                                     <?php } ?>
                                                 </select>
-                                                <?php echo form_error('menu_title', '<span class="help-inline">', '</span>'); ?>
+                                                <?= form_error('menu_title', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -141,13 +209,12 @@
                                                     <?php foreach ($sub_category_multimedia as $subcategory) { ?>
                                                     <option
                                                         <?php if ($subcategorymultimedia == $subcategory->es_id) { ?>
-                                                        selected="" <?php  } ?>
-                                                        value="<?php echo $subcategory->es_id; ?>">
-                                                        <?php echo $subcategory->s_catogery; ?></option>
+                                                        selected="" <?php  } ?> value="<?= $subcategory->es_id; ?>">
+                                                        <?= $subcategory->s_catogery; ?></option>
                                                     <?php } ?>
                                                 </select>
 
-                                                <?php echo form_error('scat', '<span class="help-inline">', '</span>'); ?>
+                                                <?= form_error('scat', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -165,8 +232,8 @@
                                                 <i class=""></i>
                                                 <textarea class="form-control mytextarea" id="video_url"
                                                     name="video_url"
-                                                    style="height: 150px;"><?php echo $video_url; ?></textarea>
-                                                <?php echo form_error('video_url', '<span class="help-inline">', '</span>'); ?>
+                                                    style="height: 150px;"><?= $video_url; ?></textarea>
+                                                <?= form_error('video_url', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -179,8 +246,8 @@
                                             <label class="form-label" for="formfield1"> Post Date </label>
                                             <!-- <span class="desc">e.g. "12/12/2020"</span> -->
                                             <div class="controls">
-                                                <input type="date" value="<?php echo $posted_date ?>"
-                                                    class="form-control" id="posted_date" name="posted_date">
+                                                <input type="date" value="<?= $posted_date ?>" class="form-control"
+                                                    id="posted_date" name="posted_date">
                                             </div>
                                         </div>
                                     </div>
@@ -194,12 +261,11 @@
                                                 <select class="" id="selectTopicinMultimedia" name="topics[]" multiple>
                                                     <?php foreach ($area_List->result() as $areaList) { ?>
                                                     <option <?php if (in_array($areaList->category_id, $topData)) { ?>
-                                                        selected="" <?php  } ?>
-                                                        value="<?php echo $areaList->category_id; ?>">
-                                                        <?php echo $areaList->category_name; ?></option>
+                                                        selected="" <?php  } ?> value="<?= $areaList->category_id; ?>">
+                                                        <?= $areaList->category_name; ?></option>
                                                     <?php } ?>
                                                 </select>
-                                                <?php echo form_error('menu_title', '<span class="help-inline">', '</span>'); ?>
+                                                <?= form_error('menu_title', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -211,10 +277,10 @@
                                                 <i class=""></i>
                                                 <select class="" id="s2example-7" name="mcatogery[]" multiple>
                                                     <?php foreach ($pubtypes->result() as $areaList) { ?>
-                                                        <option <?php if (in_array($areaList->category_id, $_experts)) { ?> selected="" <?php  } ?> value="<?php echo $areaList->category_id; ?>"> <?php echo $areaList->category_name; ?></option>
+                                                        <option <?php if (in_array($areaList->category_id, $_experts)) { ?> selected="" <?php  } ?> value="<?= $areaList->category_id; ?>"> <?= $areaList->category_name; ?></option>
                                                     <?php } ?>
                                                 </select>
-                                                <?php echo form_error('mcatogery', '<span class="help-inline">', '</span>'); ?>
+                                                <?= form_error('mcatogery', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div> -->
@@ -229,7 +295,7 @@
                                         <i class=""></i>
                                         <textarea rows="5" style="height: 250px" id="summernote"
                                             class="form-control mytextarea" name="content"><?= $content ?></textarea>
-                                        <?php echo form_error('content', '<span class="help-inline">', '</span>'); ?>
+                                        <?= form_error('content', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -251,7 +317,7 @@
                                                         <?= $areaList->title ?></option>
                                                     <?php } ?>
                                                 </select>
-                                                <?php echo form_error('editor', '<span class="help-inline">', '</span>'); ?>
+                                                <?= form_error('editor', '<span class="help-inline">', '</span>'); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -267,7 +333,7 @@
                                         <i class=""></i>
                                         <input type="checkbox" value="1" <?php if ($published == 1) { ?> checked
                                             <?php } ?> class="form-control" id="published" name="published">
-                                        <?php echo form_error('published', '<span class="help-inline">', '</span>'); ?>
+                                        <?= form_error('published', '<span class="help-inline">', '</span>'); ?>
 
                                     </div>
                                 </div>
@@ -279,11 +345,11 @@
                                         <select id="relatedArticleInMultimedia" name="related[]" multiple>
                                             <?php foreach ($related->result() as $areaList) { ?>
                                             <option <?php if (in_array($areaList->article_id, $relatedData)) { ?>
-                                                selected="" <?php  } ?> value="<?php echo $areaList->article_id; ?>">
-                                                <?php echo $this->privilage->RemoveBS($areaList->title); ?></option>
+                                                selected="" <?php  } ?> value="<?= $areaList->article_id; ?>">
+                                                <?= $this->privilage->RemoveBS($areaList->title); ?></option>
                                             <?php } ?>
                                         </select>
-                                        <?php echo form_error('related', '<span class="help-inline">', '</span>'); ?>
+                                        <?= form_error('related', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -296,13 +362,12 @@
                                             <?php foreach ($publicationList->result() as $publicationlist) { ?>
                                             <option
                                                 <?php if (in_array($publicationlist->article_id, $relatedPublicationsData)) { ?>
-                                                selected="" <?php  } ?>
-                                                value="<?php echo $publicationlist->article_id; ?>">
-                                                <?php echo $this->privilage->RemoveBS($publicationlist->title); ?>
+                                                selected="" <?php  } ?> value="<?= $publicationlist->article_id; ?>">
+                                                <?= $this->privilage->RemoveBS($publicationlist->title); ?>
                                             </option>
                                             <?php } ?>
                                         </select>
-                                        <?php echo form_error('related_publication', '<span class="help-inline">', '</span>'); ?>
+                                        <?= form_error('related_publication', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -316,7 +381,7 @@
                                         <i class=""></i>
                                         <input type="text" value="<?= $meta_keywords ?>" class="form-control"
                                             id="meta_keywords" name="meta_keywords">
-                                        <?php echo form_error('meta_keywords', '<span class="help-inline">', '</span>'); ?>
+                                        <?= form_error('meta_keywords', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -330,7 +395,7 @@
                                         <i class=""></i>
                                         <input type="text" value="<?= $meta_description ?>" class="form-control"
                                             id="meta_description" name="meta_description">
-                                        <?php echo form_error('meta_description', '<span class="help-inline">', '</span>'); ?>
+                                        <?= form_error('meta_description', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="pull-right">
@@ -358,32 +423,32 @@
     </div>
 </div>
 <!-- CORE JS FRAMEWORK - END -->
-<script src="<?php echo base_url() ?>resources/js/jquery-1.11.2.min.js" type="text/javascript"></script>
-<!-- <script src="<?php echo base_url() ?>resources/js/jquery.easing.min.js" type="text/javascript"></script> -->
-<script src="<?php echo base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
-    type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+<!-- <script src="<?= base_url() ?>resources/js/jquery.easing.min.js" type="text/javascript"></script> -->
+<script src="<?= base_url() ?>resources/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/plugins/pace/pace.min.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript">
+</script>
+<script src="<?= base_url() ?>resources/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
 
 
-<script src="<?php echo base_url() ?>resources/plugins/jquery-validation/js/jquery.validate.min.js"
-    type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/plugins/jquery-validation/js/additional-methods.min.js"
-    type="text/javascript"></script>
-<script src="<?php echo base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript">
+</script>
+<script src="<?= base_url() ?>resources/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript">
+</script>
+<script src="<?= base_url() ?>resources/js/form-validation.js" type="text/javascript"></script>
 
-<script src="<?php echo base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/js/scripts.js" type="text/javascript"></script>
 <!-- END CORE TEMPLATE JS - END -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
-<script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
 
 
 <!-- Sidebar Graph - START -->
-<script src="<?php echo base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
+<script src="<?= base_url() ?>resources/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript">
 </script>
-<script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
+<script src="<?= base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" type="text/javascript">
 </script>
