@@ -380,8 +380,7 @@
                 </div>
                 <div class="card">
                     <div class="car-header bg-white p-2">
-                        <a href="<?= base_url() ?>news-and-views/category/press-room"
-                            class="btn btn-link btn-block text-left p-1 font-14">
+                        <a href="<?= base_url() ?>news/press-room" class="btn btn-link btn-block text-left p-1 font-14">
                             PRESS ROOM
                         </a>
                     </div>
