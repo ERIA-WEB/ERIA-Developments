@@ -83,7 +83,7 @@
                                     <span style="font-size: 9px;font-style: italic;color: red;">(Please Using Dimensions
                                         300 X 200 PX*)</span>
                                     <div class="controls">
-                                        <input type="hidden" id="image" name="image" value="" />
+                                        <input type="hidden" id="image" name="image" value="<?php echo $path; ?>" />
                                         <input class="input-file form-control uniform_on focused" id="photo"
                                             value="<?php echo $image; ?>" name="photo" type="file" accept="image/*"
                                             placeholder="photo">
