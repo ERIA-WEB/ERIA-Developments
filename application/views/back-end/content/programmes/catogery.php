@@ -66,7 +66,7 @@
                                 </div>
                                 <fieldset>
                                     <div class="masonry-gallery">
-                                        <div class="masonry-thumb" style="margin-left: 30%;">
+                                        <div class="masonry-thumb text-center">
                                             <?php $path = (!isset($slider_row->image_name)) ? "/uploads/categories/slider.jpg" : $slider_row->image_name; ?>
                                             <!-- <img id="placeholder" class="grayscale" src="<?php echo base_url(); ?>resources/images<?php echo $path; ?>" width="142"   alt="Sample Image">-->
                                             <img id="placeholder" class="grayscale"
@@ -89,6 +89,61 @@
                                             value="<?php echo $image; ?>" name="photo" type="file" accept="image/*"
                                             placeholder="photo">
                                         <?php echo form_error('photo', '<span class="help-inline">', '</span>'); ?>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    <div class="masonry-gallery">
+                                        <div class="masonry-thumb text-center">
+                                            <?php
+                                            if (!empty($slider_row)) {
+                                                if (file_exists(FCPATH . $slider_row->thumbnail_image) && $slider_row->thumbnail_image != '') {
+                                                    $img = base_url() . $slider_row->thumbnail_image;
+                                                } elseif (file_exists(FCPATH . '/resources/images' . $slider_row->image_name) && $slider_row->thumbnail_image != '') {
+                                                    $img = base_url() . "/uploads/slides/slider.jpg";
+                                                } else {
+
+                                                    $url_ = "https://www.eria.org" . $slider_row->image_name;
+                                                    $response = @file_get_contents($url_);
+
+                                                    if ($response == false) {
+                                                        $img = base_url() . "/uploads/slides/slider.jpg";
+                                                    } else {
+                                                        if (strlen($response)) {
+                                                            if (!empty($slider_row->thumbnail_image)) {
+                                                                $img = "https://www.eria.org/" . $slider_row->thumbnail_image;
+                                                            } else {
+                                                                $img = base_url() . "/uploads/slides/slider.jpg";
+                                                            }
+                                                        } else {
+                                                            $img = base_url() . "/uploads/slides/slider.jpg";
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                $img = base_url() . "/uploads/slides/slider.jpg";
+                                            }
+                                            ?>
+                                            <img id="placeholder" class="grayscale" src="<?= $img; ?>"
+                                                alt="Sample Image" style="width:100%;max-width:150px;">
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    <?php
+                                    $error = (form_error('thumbnail_image') === '') ? '' : 'error';
+                                    $thumbnail_image = (set_value('thumbnail_image') == false && !empty($slider_row)) ? $slider_row->thumbnail_image : set_value('thumbnail_image');
+                                    ?>
+                                    <label class="form-label" for="formfield1"> Thumbnail </label>
+
+                                    <span style="font-size: 9px;font-style: italic;color: red;">(Please Using
+                                        Dimensions
+                                        360 X 235 PX*)</span>
+                                    <div class="controls">
+                                        <input type="hidden" id="thumbnail_image_old" name="thumbnail_image_old"
+                                            value="<?= $thumbnail_image; ?>" />
+                                        <input class="input-file form-control uniform_on focused" id="thumbnail_image"
+                                            name="thumbnail_image" type="file" accept="image/*">
+                                        <?= form_error('thumbnail_image', '<span class="help-inline">', '</span>'); ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
