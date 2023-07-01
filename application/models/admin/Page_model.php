@@ -1197,7 +1197,7 @@ class Page_model extends CI_Model
         $newWidth = $width / $ratioU;
         $newHeight = $height / $ratioU;
         
-        $cacheFile = $cacheFolder."/".str_replace(' ', '-', $title).".png";
+        $cacheFile = $cacheFolder."/".str_replace(' ', '-', $title).".webp";
         
         $sm_image = imagecreatetruecolor($newWidth, $newHeight) or die ("Cannot Initialize new gd image stream");
         imagesavealpha($sm_image, true);
@@ -1211,7 +1211,7 @@ class Page_model extends CI_Model
         ob_start();
         imagepng($sm_image, $cacheFile, 5);
         
-        $result = $new_image_data['type_page']."/".str_replace(' ', '-', $title).".png";
+        $result = $new_image_data['type_page']."/".str_replace(' ', '-', $title).".webp";
         
         return $result;
     }
@@ -1252,7 +1252,7 @@ class Page_model extends CI_Model
         $newWidth = $width / $ratioU;
         $newHeight = $height / $ratioU;
         
-        $cacheFile = $cacheFolder."/".str_replace(' ', '-', $title).".png";
+        $cacheFile = $cacheFolder."/".str_replace(' ', '-', $title).".webp";
         
         $sm_image = imagecreatetruecolor($newWidth, $newHeight) or die ("Cannot Initialize new gd image stream");
         
@@ -1270,10 +1270,10 @@ class Page_model extends CI_Model
         
         $url_slug = explode('/', $image_cover_data['type_page']);
         if (end($url_slug) == 'categories') {
-            $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
-            // $result = base_url()."/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+            $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".webp";
+            // $result = base_url()."/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".webp";
         } else {
-            $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".png";
+            $result = "/caching".$image_cover_data['type_page']."/".str_replace(' ', '-', $title).".webp";
         }
         
         
