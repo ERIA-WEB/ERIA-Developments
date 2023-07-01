@@ -1453,7 +1453,7 @@ class News extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1491,7 +1491,7 @@ class News extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1530,7 +1530,7 @@ class News extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
         $config['image_library']    = 'gd2';
         $config['maintain_ratio']   =  TRUE;
         $config['width']            = 250;
@@ -1578,7 +1578,7 @@ class News extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
         $config['image_library']    = 'gd2';
         $config['maintain_ratio']   =  TRUE;
         $config['width']            = 250;
