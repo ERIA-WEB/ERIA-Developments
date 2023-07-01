@@ -142,11 +142,6 @@ class Programmes extends CI_Controller
         if ($validate == FALSE) {
             $this->editcat($id);
         } else {
-            // echo "<pre>";
-            // print_r($_FILES);
-            // echo "<pre>";
-            // print_r($_POST);
-            // exit();
             $title_image_category = str_replace(array(' ','/','@','(',')','%','%20'), '-', strtolower($this->input->post('category_name')));
         
             if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
@@ -299,7 +294,7 @@ class Programmes extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -327,7 +322,7 @@ class Programmes extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
         $config['image_library']    = 'gd2';
         $config['maintain_ratio']   =  TRUE;
         $config['width']            = 250;
@@ -364,7 +359,7 @@ class Programmes extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
         $config['image_library']    = 'gd2';
         $config['maintain_ratio']   =  TRUE;
         $config['width']            = 250;
@@ -940,7 +935,7 @@ class Programmes extends CI_Controller
         $config['allowed_types']    = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite']        = false;
         $config['remove_spaces']    = true;
-        $config['file_name']        = $title_image.'.png';
+        $config['file_name']        = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
