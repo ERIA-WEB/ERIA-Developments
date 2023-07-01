@@ -1457,7 +1457,7 @@ class Research extends CI_Controller
         $config['allowed_types'] = '*';
         $config['overwrite'] = false;
         $config['remove_spaces'] = true;
-        $config['file_name'] = $title_image.'.png';
+        $config['file_name'] = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1495,7 +1495,7 @@ class Research extends CI_Controller
         $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF
         $config['overwrite'] = false;
         $config['remove_spaces'] = true;
-        $config['file_name'] = $title_image.'.png';
+        $config['file_name'] = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
