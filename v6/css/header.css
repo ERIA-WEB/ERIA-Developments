@@ -87,7 +87,10 @@
 }
 
 .dropdown-menu-items {
-  padding: 28px;
+  padding-top: 28px;
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: 15px;
   font-size: 14px;
   font-weight: 500;
   color: var(--primaryBlue);
