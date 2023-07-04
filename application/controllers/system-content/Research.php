@@ -211,10 +211,52 @@ class Research extends CI_Controller
 
         $validate = $this->form_validation->run();
         if ($validate == FALSE) {
-            // $this->catogeries();
+            $this->topic();
         } else {
-            $img = $this->setTopics();
-            $img = "/uploads/topics/" . $img;
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
+
+            if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
+                $img = $this->setTopics($title_image_article);
+                $img = "/uploads/topics/" . $img;
+            } else {
+                $img = $this->input->post('image');
+
+            }
+            
+            if ($validate == TRUE && (file_exists($_FILES['thumbnail_image']['tmp_name']) || is_uploaded_file($_FILES['thumbnail_image']['tmp_name']))) {
+            
+                $resizeImage = $this->setThumbnailtopics($title_image_article);
+                
+                $thumbnail_img = "/caching/uploads/topics/".$resizeImage;
+                
+            } else {
+                if (file_exists(FCPATH . $this->input->post('image_old') == 1) AND !empty($this->input->post('image_old'))) {
+                        
+                        $image_cover_data = [
+                            'base_image'    => $this->input->post('image_old'),
+                            'title_image'   => $title_image_article,
+                            'type_page'     => '/uploads/topics',
+                            'width'         => 360,
+                            'height'        => 235,
+                        ];
+                        
+                        $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+
+                } elseif (file_exists(FCPATH.$img) == 1) {
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/topics',
+                        'width'         => 248,
+                        'height'        => 349,
+                    ];
+                
+                    $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+                } else {
+                    $thumbnail_img = $this->input->post('thumbnail_image_old');
+                }
+                
+            }
 
             if ($this->input->post('published')) {
                 $published = 1;
@@ -224,19 +266,20 @@ class Research extends CI_Controller
 
             $users = $this->session->userdata('logged_in');
             $data = array(
-                'category_name' => $this->input->post('category_name'),
-                'category_type' => 'topics',
-                'uri' => str_replace(' ', '-', strtolower($this->input->post('category_name'))),
-                'order_id' => $this->input->post('order_id'),
-                'description' => $this->input->post('content'),
-                'published' => $published,
-                'modified_by' => $users['user_id'],
-                'image_name'  => $img,
-                'modified_date' => date('Y-m-d H:i:s'),
-                'meta_keywords' => $this->input->post('meta_keywords'),
-                'meta_description' => $this->input->post('meta_description')
+                'image_name'        => $img,
+                'category_name'     => $this->input->post('category_name'),
+                'category_type'     => 'topics',
+                'uri'               => str_replace(' ', '-', strtolower($this->input->post('category_name'))),
+                'order_id'          => $this->input->post('order_id'),
+                'description'       => $this->input->post('content'),
+                'published'         => $published,
+                'modified_by'       => $users['user_id'],
+                'modified_date'     => date('Y-m-d H:i:s'),
+                'meta_keywords'     => $this->input->post('meta_keywords'),
+                'meta_description'  => $this->input->post('meta_description'),
+                'thumbnail_image'   => $thumbnail_img,
             );
-
+            
             $query = $this->Page_model->insertCat($data);
 
             $this->HistoryModel->insertHistory("Catogery", "Catogery", "New Topic has been Created : " . $this->input->post('category_name'));
@@ -287,32 +330,50 @@ class Research extends CI_Controller
         if ($validate == FALSE) {
             $this->edittop($id);
         } else {
+            
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
+
             if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
-                $img = $this->setTopics();
+                $img = $this->setTopics($title_image_article);
                 $img = "/uploads/topics/" . $img;
             } else {
                 $img = $this->input->post('image');
 
-                $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
-
-                if (is_dir('caching/uploads/'))
-                {
-                    mkdir('./caching/uploads/topics/', 0777, true);
-                    $dir_exist = true; // dir exist
-                } else {
-                    $date_folder = '';
-                    $dir_exist = false; // dir not exist
-                }
-
-                $image_cover_data = [
-                    'base_image'    => $img,
-                    'title_image'   => $title_image_article,
-                    'type_page'     => '/uploads/topics',
-                    'width'         => 1024,
-                    'height'        => 431,
-                ];
+            }
+            
+            if ($validate == TRUE && (file_exists($_FILES['thumbnail_image']['tmp_name']) || is_uploaded_file($_FILES['thumbnail_image']['tmp_name']))) {
+            
+                $resizeImage = $this->setThumbnailtopics($title_image_article);
                 
-                $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+                $thumbnail_img = "/caching/uploads/topics/".$resizeImage;
+                
+            } else {
+                if (file_exists(FCPATH . $this->input->post('image_old') == 1) AND !empty($this->input->post('image_old'))) {
+                        
+                        $image_cover_data = [
+                            'base_image'    => $this->input->post('image_old'),
+                            'title_image'   => $title_image_article,
+                            'type_page'     => '/uploads/topics',
+                            'width'         => 360,
+                            'height'        => 235,
+                        ];
+                        
+                        $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+
+                } elseif (file_exists(FCPATH.$img) == 1) {
+                    $image_cover_data = [
+                        'base_image'    => $img,
+                        'title_image'   => $title_image_article,
+                        'type_page'     => '/uploads/topics',
+                        'width'         => 248,
+                        'height'        => 349,
+                    ];
+                
+                    $thumbnail_img = $this->Page_model->resizeImageCover($image_cover_data);
+                } else {
+                    $thumbnail_img = $this->input->post('thumbnail_image_old');
+                }
+                
             }
             
             if ($this->input->post('published')) {
@@ -334,10 +395,10 @@ class Research extends CI_Controller
                 'modified_by'       => $users['user_id'],
                 'modified_date'     => date('Y-m-d H:i:s'),
                 'meta_keywords'     => $this->input->post('meta_keywords'),
-                'meta_description'  => $this->input->post('meta_description')
+                'meta_description'  => $this->input->post('meta_description'),
+                'thumbnail_image'   => $thumbnail_img,
             );
             
-    
             $query = $this->Page_model->updatecat($id, $data);
 
             $this->HistoryModel->insertHistory($id, $id, "Topic has been Updated : " . $this->input->post('category_name'));
@@ -1379,19 +1440,14 @@ class Research extends CI_Controller
         }
     }
 
-    public function setTopics()
+    public function setTopics($title_image)
     {
         //upload and update the file
         $config['upload_path'] = './uploads/topics';
         $config['allowed_types'] = '*'; // gif|jpg|jpeg|png|bmp|PNG|JPG|jfif|JFIF;
         $config['overwrite'] = false;
         $config['remove_spaces'] = true;
-        //$config['max_size'] = '20000'; // in KB
-        // $config['max_width'] = '145';
-        // $config['max_height'] = '45';
-        //$config['min_width'] = '32';
-        //$config['min_height'] = '32';
-        //$config['file_name'] = 'logo' . uniqid();
+        $config['file_name'] = $title_image.'.webp';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -1428,6 +1484,33 @@ class Research extends CI_Controller
             $this->session->set_flashdata('msg', "The upload directory does not exist.");
             $imgName = FALSE;
         } elseif (!$this->upload->do_upload('photo')) {
+            $msg = $this->upload->display_errors();
+            $this->session->set_flashdata('msg', $msg);
+            $imgName = FALSE;
+        } else {
+            $imgName = $this->upload->data('file_name');
+        }
+
+        return $imgName;
+    }
+
+    public function setThumbnailtopics($title_image)
+    { 
+        //upload and update the file
+        $config['upload_path'] = './caching/uploads/topics';
+        $config['allowed_types'] = '*';
+        $config['overwrite'] = false;
+        $config['remove_spaces'] = true;
+        $config['file_name'] = $title_image.'.webp';
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        $imgName = '';
+
+        if (!is_dir($config['upload_path'])) {
+            $this->session->set_flashdata('msg', "The upload directory does not exist.");
+            $imgName = FALSE;
+        } elseif (!$this->upload->do_upload('thumbnail_image')) {
             $msg = $this->upload->display_errors();
             $this->session->set_flashdata('msg', $msg);
             $imgName = FALSE;
