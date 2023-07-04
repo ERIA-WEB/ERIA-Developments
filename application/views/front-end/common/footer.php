@@ -21,7 +21,8 @@
             <div class="col-md-6 col-lg-4 mb-3 mb-md-0">
                 <div class="footer-logo d-flex align-items-center">
                     <a href="<?php echo base_url(); ?>">
-                        <img src="<?php echo base_url() ?>v6/assets/logo.png" alt="Logo" width="100px">
+                        <img loading="lazy" data-src="<?php echo base_url() ?>v6/assets/logo.webp"
+                            src="<?php echo base_url() ?>v6/assets/logo.webp" alt="Logo" width="100px">
                     </a>
                     <div class="logo-text ml-2"><?= $this->header->get_Site()->slogan ?></div>
                 </div>
@@ -94,7 +95,8 @@
                     </a>
                     <a class="flickr-icon d-none" href="<?= $this->header->get_variableContent('Flickr') ?>"
                         target="_blank">
-                        <img src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg" alt="fickr-logo-icon">
+                        <img loading="lazy" data-src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg"
+                            src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg" alt="fickr-logo-icon">
                     </a>
                     <a href="<?= $this->header->get_variableContent('M') ?>" class="d-none" target="_blank"><i
                             class="bi bi-medium"></i>
