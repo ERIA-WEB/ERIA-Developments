@@ -9,8 +9,8 @@
         <h6 class="mr-4">We use cookies on this website to give you a better user experience. By continuing to browse
             the
             site, you are
-            agreeing to our use of cookies. <span><a class="text-white"
-                    href="<?= base_url().'privacy-policy/'; ?>">Learn
+            agreeing to our use of cookies. <span><a class="text-white" href="<?= base_url().'privacy-policy/'; ?>"
+                    aria-label="Privacy Policy">Learn
                     more</a></span></h6>
         <button class="btn third-button h-100" onclick="acceptCookieConsent()">Accept</button>
     </div>
