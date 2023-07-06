@@ -1,6 +1,4 @@
-/*
-** Old Css
-*/
+
 .gray-bg {
     background: #f8f8f8;
 }
@@ -63,14 +61,6 @@
   color: #6c757d;
 }
 
-/* Main Button */
-
-/* End of Main Button */
-
-/* .highlight-author {
-  font-family: "Literata";
-} */
-
 @media only screen and (width: 768px) {
   .fades {
     width: 300px;
@@ -108,15 +98,6 @@
   nav .fa {
     font-size: 16px;
   }
-
-  /*.page-content .heading { font-size: 15px;  }
-    .page-content .date { font-size: 10px; }
-    .page-content .description { font-size: 11px; }
-    .author .carousel-inner .carousel-item>div { display: block }
-
-    .person-description .description { padding-right: 0px; }
-    .person-description { height: 190px; }
-    .person-main { height: 250px;  }*/
   .author .carousel-control-prev {
     left: -40px;
   }
@@ -168,13 +149,7 @@
   nav .fa {
     font-size: 16px;
   }
-  /*.page-content .heading { font-size: 15px;  }
-    .page-content .date { font-size: 10px; }
-    .page-content .description { font-size: 11px; }
-    .author .carousel-inner .carousel-item>div { display: block }
-    .person-description .description { padding-right: 0px; }
-    .person-description { height: 190px; }
-    .person-main { height: 250px;  }*/
+  
   .author .carousel-control-prev {
     left: -40px;
   }
@@ -229,13 +204,7 @@
   nav .fa {
     font-size: 16px;
   }
-  /*.page-content .heading { font-size: 15px;  }
-    .page-content .date { font-size: 10px; }
-    .page-content .description { font-size: 11px; }
-    .author .carousel-inner .carousel-item>div { display: block }
-    .person-description .description { padding-right: 0px; }
-    .person-description { height: 190px; }
-    .person-main { height: 250px;  }*/
+  
   .author .carousel-control-prev {
     left: -40px;
   }
@@ -1576,7 +1545,7 @@ a.btnReadmore.btn.btn-outline-light {
 }
 
 .imgIcon {
-  width: 44px;
+  width: auto;
 }
 
 .imgCov {
@@ -1926,11 +1895,6 @@ img.img-fluid.imgBanner.researchCategory {
   -webkit-transform: translateY(-218px);
 }
 
-/* .boxContent .card-img-top:hover + .boxContent .contentCardBody {
-    opacity: 1;
-    transform: translateY(-230px);
-    -webkit-transform: translateY(-230px);
-} */
 
 .btnSeeDetails {
   position: absolute;
