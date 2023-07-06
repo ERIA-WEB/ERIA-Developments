@@ -39,7 +39,7 @@ function limit_text($text, $limit, $link = null)
                     if ($file_exists_slider_home == 1) {
                         $img = "https://www.eria.org" . $slider->image_name;
                     } else {
-                        $img = base_url() . "/upload/Publication.jpg";
+                        $img = base_url() . "/upload/thumbnails-pub.webp";
                     }
                 }
                 ?>
@@ -86,7 +86,7 @@ function limit_text($text, $limit, $link = null)
             </style>
 
             <div class="imgCov">
-                <img class="img-fluid imgBanner" src="<?= $img; ?>" alt="<?= $slider->heading; ?>">
+                <img class="img-fluid imgBanner" loading="lazy" src="<?= $img; ?>" alt="<?= $slider->heading; ?>">
                 <div class="mobileCarouselCaption text-left">
                     <div class="mobileBoxCarouselCaption">
                         <div class="container pl-1">
@@ -108,7 +108,7 @@ function limit_text($text, $limit, $link = null)
                                 <div class="col-md-12 position-relative" style="height:50px;">
                                     <div class="text-right position-absolute" style="bottom: 15px;">
                                         <a class="btnReadmore btn btn-outline-light" href="<?= $slider->banner_url; ?>"
-                                            role="button">Read more</a>
+                                            aria-label="Read more Slider Home" role="button">Read more</a>
                                     </div>
                                 </div>
                             </div>
@@ -121,7 +121,7 @@ function limit_text($text, $limit, $link = null)
                 <div class="container h-100">
                     <div class="row h-100 align-items-center">
                         <div class="col-lg-8 contentHeroBanner px-4">
-                            <h2 class="main-title mb-3"><?php echo $slider->heading; ?></h2>
+                            <h2 class="main-title mb-3"><?= $slider->heading; ?></h2>
                             <p class="description mb-4">
                                 <?php
                                     $n = str_replace($slider->heading, "", $slider->content);
@@ -130,7 +130,8 @@ function limit_text($text, $limit, $link = null)
                                     echo limit_text($ns, 31);
                                     ?>
                             </p>
-                            <a class="btn second-button" href="<?= $slider->banner_url; ?>" role="button">Read
+                            <a class="btn second-button" href="<?= $slider->banner_url; ?>"
+                                aria-label="<?= $slider->heading; ?>" role="button">Read
                                 more</a>
                         </div>
                     </div>
@@ -140,80 +141,18 @@ function limit_text($text, $limit, $link = null)
         <?php } ?>
     </div>
     <!-- Left and right controls -->
-    <a class="carousel-control-prev" href="#homeBanners" data-slide="prev">
+    <a class="carousel-control-prev" href="#homeBanners" data-slide="prev" aria-label="Left Icon">
         <!-- <span class="carousel-control-prev-icon"></span>-->
-        <img class="img-fluid imgIcon iconLeft" src="<?= base_url() ?>v6/assets/Icons/chevron-left_white.svg">
+        <img loading="lazy" class="img-fluid imgIcon iconLeft"
+            data-src="<?= base_url() ?>v6/assets/Icons/chevron-left_white.svg"
+            src="<?= base_url() ?>v6/assets/Icons/chevron-left_white.svg" alt="icon left">
     </a>
-    <a class="carousel-control-next" href="#homeBanners" data-slide="next">
+    <a class="carousel-control-next" href="#homeBanners" data-slide="next" aria-label="Right Icon">
         <!-- <span class="carousel-control-next-icon"></span>-->
-        <img class="img-fluid imgIcon iconRight" src="<?= base_url() ?>v6/assets/Icons/chevron-right_white.svg">
+        <img loading="lazy" class="img-fluid imgIcon iconRight"
+            data-src="<?= base_url() ?>v6/assets/Icons/chevron-right_white.svg"
+            src="<?= base_url() ?>v6/assets/Icons/chevron-right_white.svg" alt="icon right">
     </a>
-</div>
-<!-- Featured topics -->
-<style>
-.featured-topic-list {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-width: 768px;
-}
-
-.featured-topic-list::-webkit-scrollbar {
-    display: none;
-}
-
-.featureed-topic-list-item {
-    flex: 0 0 auto;
-}
-</style>
-
-<div class="featured-topic font-merriweather d-none">
-    <div class="container pt-3">
-        <div class="row">
-            <div class="col-lg-12 feature-slide-swiper">
-                <div class="swiper feature-swiper">
-                    <div class="swiper-wrapper">
-                        <?php 
-                            $new_rarea = $this->header->getMenuShortCutLinkCategories(array('newscategories', 'topics'), 0);
-                        ?>
-                        <?php foreach ($new_rarea as $value) { ?>
-                        <?php if ($value->published == 1) { ?>
-                        <?php
-                                    if ($value->category_type == 'newscategories') {
-                                        echo '<div class="swiper-slide featureed-topic-list-item w-auto">
-                                                <a href="'.base_url().'news-and-views/category/'.$value->uri.'"
-                                                    target="_blank">'.strtoupper($value->category_name).'</a>
-                                            </div>';
-                                    } else {
-                                        echo '<div class="swiper-slide featureed-topic-list-item w-auto">
-                                                <a href="'.base_url().'research/topic/'.$value->uri.'"
-                                                    target="_blank">'.strtoupper($value->category_name).'</a>
-                                            </div>';
-                                    }
-                                ?>
-                        <?php } ?>
-                        <?php } ?>
-                    </div>
-                </div>
-                <div class="d-none d-md-flex swiper-button-prev" id="feature-button-prev" style="left:-8px">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        class="bi bi-arrow-left-short" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
-                    </svg>
-                </div>
-                <div class="d-none d-md-flex swiper-button-next" id="feature-button-next" style="right:-8px">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                        class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-        <hr>
-    </div>
 </div>
 
 <!-- Page content -->
@@ -221,7 +160,8 @@ function limit_text($text, $limit, $link = null)
     <div class="container">
         <div class="row mb-3">
             <div class="col-md-12">
-                <a href="<?= base_url() ?>news-and-views" class="main-title text-blue">Updates</a>
+                <a href="<?= base_url() ?>news-and-views" class="main-title text-blue"
+                    aria-label="News and Views Updates">Updates</a>
             </div>
         </div>
         <div class="row">
@@ -260,11 +200,11 @@ function limit_text($text, $limit, $link = null)
                                     if ($file_news_home == 1) {
                                         $img = "https://www.eria.org" . $news['image_name'];
                                     } else {
-                                        $img = base_url() . "/upload/news.jpg";
+                                        $img = base_url() . "/upload/news.webp";
                                     }
                                 }
                             } else {
-                                $img = base_url() . "/upload/news.jpg";
+                                $img = base_url() . "/upload/news.webp";
                             }
                         }
                         ?>
@@ -277,8 +217,11 @@ function limit_text($text, $limit, $link = null)
                             }
                             ?>
                             <div class="card recent-update-card boxContent" style="cursor:unset;">
-                                <a href="<?= base_url() ?><?= $url ?>" style="color: #fff;">
-                                    <img id="imgCardHover<?= $s; ?>" class="card-img-top" src="<?= $img ?>"
+                                <a href="<?= base_url() ?><?= $url ?>"
+                                    aria-label="<?= strip_tags(str_replace('Call for Proposals:', '', $news['title'])) ?>"
+                                    style="color: #fff;">
+                                    <img loading="lazy" id="imgCardHover<?= $s; ?>" class="card-img-top"
+                                        src="<?= $img ?>" data-src="<?= $img ?>"
                                         alt="<?= strip_tags(str_replace('Call for Proposals:', '', $news['title'])) ?>" />
                                 </a>
                                 <div class="card-body">
@@ -289,7 +232,8 @@ function limit_text($text, $limit, $link = null)
                                             ?>
                                         </small>
                                         <h5 class="card-title my-2">
-                                            <a href="<?= base_url() ?><?= $url ?>" style="color: #fff;">
+                                            <a href="<?= base_url() ?><?= $url ?>" style="color: #fff;"
+                                                aria-label="<?= strip_tags(str_replace('Call for Proposals:', '', $news['title'])) ?>">
                                                 <?php
                                                 $title_recent_update = strip_tags(str_replace('Call for Proposals:', '', $news['title']));
                                                 ?>
@@ -336,13 +280,14 @@ function limit_text($text, $limit, $link = null)
 </div>
 
 <!--Author carousel -->
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/home-swipper.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>v6/css/home-swipper.min.css" rel="preload" as="style" />
 
 <div class="programmes py-3 py-lg-5" style="background: #efefef;">
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-6">
-                <a href="<?= base_url() ?>database-and-programmes" class="main-title text-blue">Programmes</a>
+                <a href="<?= base_url() ?>database-and-programmes" class="main-title text-blue"
+                    aria-label="Programmes Pages">Programmes</a>
             </div>
         </div>
         <div class="row">
@@ -357,34 +302,45 @@ function limit_text($text, $limit, $link = null)
                             $e++;
                         ?>
                         <?php
-                        $image_caching = '/caching'.str_replace(array('jpg', 'jpeg'), 'png', $categories->image_name);
-                        
-                        if (file_exists(FCPATH . $categories->image_name)) {
-                            $image_temporary = '/caching' . $categories->image_name;
-                            
-                            if (file_exists(FCPATH . $image_caching)) {
-                                $img = base_url().$image_caching;
-                            } else {
-                                $img = base_url() .'get_compress_slider.php?im='. $categories->image_name;
-                            }
-                            
+                        $image_caching = $categories->thumbnail_image;
+                                                        
+                        if (!empty($categories->thumbnail_image) && file_exists(FCPATH . $image_caching) == 1) {
+                            $img = base_url().$image_caching;
                         } else {
-                            $url_programmes_home = "https://www.eria.org" . $categories->image_name;
-                            $response_programmes_home = @get_headers($url_programmes_home, 1);
-                            $file_exists_programmes_home = (strpos($response_programmes_home[0], "404") === false);
+                            if (!empty($categories->image_name)) {
+                                if (file_exists(FCPATH . $categories->image_name)) {
+                                    $image_temporary = '/caching' . $categories->image_name;
+                                    
+                                    if (file_exists(FCPATH . $image_temporary)) {
+                                        $img = base_url().$image_temporary;
+                                    } else {
+                                        $img = base_url() .'get_compress_slider.php?im='. $categories->image_name;
+                                    }
+                                    
+                                } else {
+                                    $url_programmes_category = "https://www.eria.org" . $categories->image_name;
+                                    $response_programmes_category = @get_headers($url_programmes_category, 1);
+                                    $file_programmes_category = (strpos($response_programmes_category[0], "404") === false);
 
-                            if ($file_exists_programmes_home == 1) {
-                                $img = "https://www.eria.org" . $categories->image_name;
+                                    if ($file_programmes_category == 1) {
+                                        $img = "https://www.eria.org" . $categories->image_name;
+                                    } else {
+                                        $img = base_url() . "/upload/news.webp";
+                                    }
+                                }
                             } else {
-                                $img = base_url() . "/upload/thumbnails-pub.jpg";
+                                $img = base_url() . "/upload/news.webp";
                             }
                         }
+                        
                         ?>
                         <div class="swiper-slide">
-                            <a href="<?= base_url() ?>database-and-programmes/topic/<?= $categories->uri ?>">
+                            <a href="<?= base_url() ?>database-and-programmes/topic/<?= $categories->uri ?>"
+                                aria-label="<?= $categories->category_name; ?>">
                                 <div class="programmes-card card rounded-0 h-100">
                                     <div class="card-image">
-                                        <img src="<?= $img ?>" alt="<?= $categories->category_name; ?>">
+                                        <img loading="lazy" data-src="<?= $img ?>" src="<?= $img ?>"
+                                            alt="<?= $categories->category_name; ?>">
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title">
@@ -428,12 +384,13 @@ function limit_text($text, $limit, $link = null)
 
 
 <!-- highlights -->
-<link rel="stylesheet" href="<?php echo base_url() ?>v6/css/home-highlight.min.css">
+<link rel="stylesheet" href="<?= base_url() ?>v6/css/home-highlight.min.css" rel="preload" as="style">
 <div class="highlights pt-5 pb-5 mb-5">
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-6">
-                <a href="<?= base_url() ?>publications" class="main-title text-white text-left">Highlighted
+                <a href="<?= base_url() ?>publications" class="main-title text-white text-left" aria-label="Highlighted
+                    Publications">Highlighted
                     Publications</a>
             </div>
         </div>
@@ -473,11 +430,11 @@ function limit_text($text, $limit, $link = null)
                                     if ($file_pub_home == 1) {
                                         $img = "https://www.eria.org" . $pub['image_name'];
                                     } else {
-                                        $img = base_url() . "/upload/news.jpg";
+                                        $img = base_url() . "/upload/news.webp";
                                     }
                                 }
                             } else {
-                                $img = base_url() . "/upload/news.jpg";
+                                $img = base_url() . "/upload/news.webp";
                             }
                         }
 
@@ -485,8 +442,8 @@ function limit_text($text, $limit, $link = null)
 
                         <div class="swiper-slide d-md-flex align-items-md-center">
                             <div class="higlight-swiper-slider-image mb-3 mb-md-0">
-                                <img src="<?= $img ?>" alt="<?= str_replace("â€™", "'", $pub['title']) ?>"
-                                    class="w-100">
+                                <img loading="lazy" data-src="<?= $img ?>" src="<?= $img ?>"
+                                    alt="<?= str_replace("â€™", "'", $pub['title']) ?>" class="w-100">
                             </div>
                             <div class="highlight-swiper-slider-content text-white pr-lg-5">
                                 <h3 class="second-title text-white">
@@ -544,7 +501,8 @@ function limit_text($text, $limit, $link = null)
                                         ?>
                                 </p>
                                 <a href="<?= base_url() . 'publications/' . $pub['uri'] ?>"
-                                    class="btn second-button mt-4">
+                                    class="btn second-button mt-4"
+                                    aria-label="<?= str_replace("â€™", "'", $pub['title']) ?>">
                                     Read more
                                 </a>
                             </div>
@@ -580,7 +538,8 @@ function limit_text($text, $limit, $link = null)
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-6">
-                <a href="<?= base_url() ?>multimedia" class="main-title text-blue">Multimedia</a>
+                <a href="<?= base_url() ?>multimedia" class="main-title text-blue"
+                    aria-label="Multimedia">Multimedia</a>
             </div>
         </div>
         <div class="row">
@@ -590,7 +549,7 @@ function limit_text($text, $limit, $link = null)
                         if (!empty($podcasts->video_url)) {
                             $iframing = $podcasts->video_url;
                         } else {
-                            $iframing = '<img src="'.base_url().$podcasts->image_name.'" class="rounded-0" width="100%">';
+                            $iframing = '<img src="'.base_url().$podcasts->image_name.'" class="rounded-0" width="100%" alt="image multimedia">';
                         }
 
                         echo $iframing;
@@ -600,7 +559,7 @@ function limit_text($text, $limit, $link = null)
                     <small class="text-uppercase mb-2"><?= ucfirst($podcasts->category) ?></small>
                     <h5 class="card-title"><?= $podcasts->title ?></h5>
                 </div>
-                <a href="<?= base_url() ?>multimedia/podcasts">
+                <a href="<?= base_url() ?>multimedia/podcasts" aria-label="Multimedia Podcasts">
                     <button class="btn main-button w-responsive">More podcasts</button>
                 </a>
             </div>
@@ -612,7 +571,7 @@ function limit_text($text, $limit, $link = null)
                                 if (!empty($video->video_url)) {
                                     $iframing_video = $video->video_url;
                                 } else {
-                                    $iframing_video = '<img src="'.base_url().$video->image_name.'" class="rounded-0" width="100%">';
+                                    $iframing_video = '<img loading="lazy" src="'.base_url().$video->image_name.'" class="rounded-0" width="100%" alt="image multimedia">';
                                 }
 
                                 echo $iframing_video;
@@ -624,7 +583,7 @@ function limit_text($text, $limit, $link = null)
                             <small class="text-uppercase mb-2"><?= ucfirst($video->category) ?></small>
                             <h5 class="card-title"><?= $video->title ?></h5>
                         </div>
-                        <a href="<?= base_url() ?>multimedia/video">
+                        <a href="<?= base_url() ?>multimedia/video" aria-label="Multimedia Video">
                             <button class="btn main-button w-100">More videos</button>
                         </a>
                     </div>
@@ -636,7 +595,7 @@ function limit_text($text, $limit, $link = null)
                                 if (!empty($webinar->video_url)) {
                                     $iframing_webinar = $webinar->video_url;
                                 } else {
-                                    $iframing_webinar = '<img src="'.base_url().$webinar->image_name.'" class="rounded-0" width="100%">';
+                                    $iframing_webinar = '<img loading="lazy" src="'.base_url().$webinar->image_name.'" class="rounded-0" width="100%" alt="image multimedia">';
                                 }
 
                                 echo $iframing_webinar;
@@ -648,7 +607,7 @@ function limit_text($text, $limit, $link = null)
                             <small class="text-uppercase mb-2"><?= ucfirst($webinar->category).'s'; ?></small>
                             <h5 class="card-title mb-3"><?= $webinar->title ?></h5>
                         </div>
-                        <a href="<?= base_url() ?>multimedia/webinar">
+                        <a href="<?= base_url() ?>multimedia/webinar" aria-label="Multimedia Webinar">
                             <button class="btn main-button w-100">More webinars</button>
                         </a>
                     </div>
