@@ -44,10 +44,6 @@ button:focus {
   outline: 0px auto -webkit-focus-ring-color !important;
 }
 
-.publicationactive:after {
-  /*content: "\2303";*/
-}
-
 .publicationcontent {
   max-height: 0;
   overflow: auto;
