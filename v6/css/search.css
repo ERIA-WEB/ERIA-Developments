@@ -191,7 +191,7 @@
   font-size: 14px;
   font-style: normal;
   color: #251f20;
-  vertical-align: middle;
+  /* vertical-align: middle; */
 }
 
 /* Hide the browser's default checkbox */
