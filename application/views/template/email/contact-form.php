@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office">
 
 <head>
     <meta charset="utf-8">
@@ -28,53 +29,53 @@
 
 
     <style>
-        /* What it does: Remove spaces around the email design added by some email clients. */
-        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
-        html,
-        body {
-            margin: 0 auto !important;
-            padding: 0 !important;
-            height: 100% !important;
-            width: 100% !important;
-            font-family: 'Roboto', sans-serif !important;
-            font-size: 14px;
-            margin-bottom: 10px;
-            line-height: 24px;
-            color: #8094ae;
-            font-weight: 400;
-        }
+    /* What it does: Remove spaces around the email design added by some email clients. */
+    /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+    html,
+    body {
+        margin: 0 auto !important;
+        padding: 0 !important;
+        height: 100% !important;
+        width: 100% !important;
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 14px;
+        margin-bottom: 10px;
+        line-height: 24px;
+        color: #8094ae;
+        font-weight: 400;
+    }
 
-        * {
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-        /* table,
+    /* table,
         td { */
-        /* mso-table-lspace: 0pt !important;
+    /* mso-table-lspace: 0pt !important;
             mso-table-rspace: 0pt !important; */
-        /* } */
+    /* } */
 
-        table {
-            border-spacing: 0 !important;
-            border-collapse: collapse !important;
-            table-layout: fixed !important;
-            margin: 0 auto !important;
-        }
+    table {
+        border-spacing: 0 !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important;
+        margin: 0 auto !important;
+    }
 
-        table table table {
-            table-layout: auto;
-        }
+    table table table {
+        table-layout: auto;
+    }
 
-        a {
-            text-decoration: none;
-        }
+    a {
+        text-decoration: none;
+    }
 
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
+    img {
+        -ms-interpolation-mode: bicubic;
+    }
     </style>
 
 </head>
@@ -88,7 +89,9 @@
                         <tbody>
                             <tr>
                                 <td style="text-align: center; padding-bottom:25px">
-                                    <a target="_blank" href="<?php echo base_url() ?>"><img style="width: 180px !important;" src="<?php echo base_url() ?>v6/assets/logo.png" alt="logo"></a>
+                                    <a target="_blank" href="<?php echo base_url() ?>"><img
+                                            style="width: 180px !important;"
+                                            src="<?php echo base_url() ?>v6/assets/logo.webp" alt="logo"></a>
                                     <p style="font-size: 14px; color: #6576ff; padding-top: 12px;">Contact Form ERIA
                                     </p>
                                 </td>
@@ -99,7 +102,8 @@
                         <tbody>
                             <tr>
                                 <td style="text-align:center;padding: 30px 30px 15px 30px;">
-                                    <h2 style="font-size: 18px; color: #1ee0ac; font-weight: 600; margin: 0;">Contact Form ERIA</h2>
+                                    <h2 style="font-size: 18px; color: #1ee0ac; font-weight: 600; margin: 0;">Contact
+                                        Form ERIA</h2>
                                 </td>
                             </tr>
                             <tr>
