@@ -44,7 +44,7 @@ class Experts extends CI_Controller
         $content = $this->Page_model->getPage_content(19);
         
         if (!empty($content)) {
-            $image_meta = 'v6/assets/logo.png';
+            $image_meta = 'v6/assets/logo.webp';
             $title_meta = ucfirst($content->menu_title);
             $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
             $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
@@ -59,7 +59,7 @@ class Experts extends CI_Controller
         } else {
             $data['md'] = "Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "Economic Research Institute for ASEAN and East Asia";
         }
 
@@ -296,7 +296,7 @@ class Experts extends CI_Controller
         $content = $this->Page_model->getPage_content(7);
 
         if (!empty($article)) {
-            $image_meta = $article->image_name ? $article->image_name :'v6/assets/logo.png';
+            $image_meta = $article->image_name ? $article->image_name :'v6/assets/logo.webp';
             $title_meta = $article->title;
             $keyword_meta = $article->meta_keywords ? $article->meta_keywords: $article->title;
             $description_meta = $article->meta_description ? $article->meta_description: $article->title;
@@ -311,7 +311,7 @@ class Experts extends CI_Controller
         } else {
             $data['md'] = "Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "Economic Research Institute for ASEAN and East Asia";
         }
         
