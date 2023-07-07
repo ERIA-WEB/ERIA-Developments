@@ -40,7 +40,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -52,7 +52,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -65,7 +65,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -77,7 +77,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -89,7 +89,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -101,7 +101,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -118,7 +118,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -130,7 +130,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -143,7 +143,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -155,7 +155,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -167,7 +167,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -179,7 +179,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -195,7 +195,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -207,7 +207,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -220,7 +220,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -232,7 +232,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -244,7 +244,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -255,7 +255,7 @@ class headerModel extends CI_Model
                             ];
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -274,7 +274,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -286,7 +286,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -300,7 +300,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -312,7 +312,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -325,7 +325,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -336,7 +336,7 @@ class headerModel extends CI_Model
                             ];
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -351,7 +351,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -363,7 +363,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -375,7 +375,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -386,7 +386,7 @@ class headerModel extends CI_Model
                         ];
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -401,7 +401,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -412,7 +412,7 @@ class headerModel extends CI_Model
                         ];
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -434,7 +434,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -446,7 +446,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -458,7 +458,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -470,7 +470,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -487,7 +487,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -498,7 +498,7 @@ class headerModel extends CI_Model
                         ];
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -529,7 +529,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -540,7 +540,7 @@ class headerModel extends CI_Model
                             ];
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -551,7 +551,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -562,7 +562,7 @@ class headerModel extends CI_Model
                             ];
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -587,7 +587,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -599,7 +599,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -612,7 +612,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -623,7 +623,7 @@ class headerModel extends CI_Model
                             ];
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -635,7 +635,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -647,7 +647,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -664,7 +664,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
                         
                         $data = [
@@ -676,7 +676,7 @@ class headerModel extends CI_Model
                         
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -689,7 +689,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -701,7 +701,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -713,7 +713,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -725,7 +725,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -741,7 +741,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
                  
                         $data = [
@@ -753,7 +753,7 @@ class headerModel extends CI_Model
                         
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -768,7 +768,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
 
                             $data = [
@@ -780,7 +780,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -792,7 +792,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -804,7 +804,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -822,7 +822,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -834,7 +834,7 @@ class headerModel extends CI_Model
                         
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -847,7 +847,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -859,7 +859,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -871,7 +871,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -883,7 +883,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -899,7 +899,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -911,7 +911,7 @@ class headerModel extends CI_Model
                         
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -923,7 +923,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -935,7 +935,7 @@ class headerModel extends CI_Model
                         
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -951,7 +951,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -963,7 +963,7 @@ class headerModel extends CI_Model
 
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -985,7 +985,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -997,7 +997,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -1009,7 +1009,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -1021,7 +1021,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -1038,7 +1038,7 @@ class headerModel extends CI_Model
                         if (file_exists(FCPATH . $images) && $images != '') {
                             $image_meta = base_url().'get_share_image.php?im='.$images;
                         } else {
-                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                            $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                         }
 
                         $data = [
@@ -1050,7 +1050,7 @@ class headerModel extends CI_Model
                         
                     } else {
                         $data = [
-                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                            'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                             'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                             'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                             'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -1082,7 +1082,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -1094,7 +1094,7 @@ class headerModel extends CI_Model
 
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
@@ -1106,7 +1106,7 @@ class headerModel extends CI_Model
                             if (file_exists(FCPATH . $images) && $images != '') {
                                 $image_meta = base_url().'get_share_image.php?im='.$images;
                             } else {
-                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.png';
+                                $image_meta = base_url().'get_share_image.php?im=v6/assets/logo.webp';
                             }
                             
                             $data = [
@@ -1118,7 +1118,7 @@ class headerModel extends CI_Model
                             
                         } else {
                             $data = [
-                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.png',
+                                'image_meta'        => base_url().'get_share_image.php?im=v6/assets/logo.webp',
                                 'title_meta'        => 'Economic Research Institute for ASEAN and East Asia',
                                 'keyword_meta'      => 'eria, economic research, economic research institute, research institute, asean, east asia',
                                 'description_meta'  => 'Economic Research Institute for ASEAN and East Asia',
