@@ -20,9 +20,9 @@
         <div class="row">
             <div class="col-md-6 col-lg-4 mb-3 mb-md-0">
                 <div class="footer-logo d-flex align-items-center">
-                    <a href="<?php echo base_url(); ?>">
+                    <a href="<?php echo base_url(); ?>" aria-label="Logo ERIA">
                         <img loading="lazy" data-src="<?php echo base_url() ?>v6/assets/logo.webp"
-                            src="<?php echo base_url() ?>v6/assets/logo.webp" alt="Logo" width="100px">
+                            src="<?php echo base_url() ?>v6/assets/logo.webp" alt="Logo ERIA" width="100px">
                     </a>
                     <div class="logo-text ml-2"><?= $this->header->get_Site()->slogan ?></div>
                 </div>
@@ -30,35 +30,35 @@
             </div>
             <div class="col-md-6 col-lg-5 mb-3 mb-lg-0">
                 <div class="row row-cols-2 ">
-                    <div class="col-7">
+                    <div class="col-md-7 col-12">
                         <h6 class="card-title">Address</h6>
-                        <div class="">
+                        <div>
                             <p class="mb-1 font-weight-semibold">ERIA Annex Office:</p>
                             <?= $this->header->get_Site()->footer_Content ?>
                         </div>
                         <!-- <div>
                             <p class="mb-1 font-weight-semibold">Email:</p>
-                            <a href="mailto:contactus@eria.org">contactus@eria.org</a>
+                            <a href="mailto:contactus@eria.org" aria-label="Contact ERIA">contactus@eria.org</a>
                         </div> -->
                     </div>
-                    <div class="col-5">
+                    <div class="col-md-5 col-12">
                         <h6 class="card-title">Quick Links</h6>
                         <ul class="list-unstyled">
-                            <li class="footer-link">
-                                <a href="<?= base_url() ?>contact-us"> Contact </a>
+                            <li class="footer-link p-1">
+                                <a href="<?= base_url() ?>contact-us" aria-label="Contact ERIA"> Contact </a>
                             </li>
-                            <li class="footer-link">
-                                <a href="<?= base_url() ?>experts"> Our Experts </a>
+                            <li class="footer-link p-1">
+                                <a href="<?= base_url() ?>experts" aria-label="Our Experts ERIA"> Our Experts </a>
                             </li>
-                            <li class="footer-link">
-                                <a href="<?= base_url() ?>career"> Career Opportunities </a>
+                            <li class="footer-link p-1">
+                                <a href="<?= base_url() ?>career" aria-label="Career ERIA"> Career Opportunities </a>
                             </li>
-                            <li class="footer-link">
-                                <a href="<?= base_url() ?>history"> History </a>
+                            <li class="footer-link p-1">
+                                <a href="<?= base_url() ?>history" aria-label="History ERIA"> History </a>
                             </li>
-                            <li class="footer-link">
+                            <li class="footer-link p-1">
                                 <a href="<?= base_url(); ?>research/topic/call-for-proposals"
-                                    class="text-blue font-weight-bold"> Call for
+                                    class="text-blue font-weight-bold" aria-label="Call for Proposals ERIA"> Call for
                                     Proposals </a>
                             </li>
                         </ul>
@@ -83,25 +83,32 @@
 
                         $linkedIn = $this->header->get_variableContent('Linkedin');
                     ?>
-                    <a href="<?php echo $fb; ?>" target="_blank"><i class="bi bi-facebook"></i>
+                    <a href="<?php echo $fb; ?>" target="_blank" aria-label="Facebook ERIA">
+                        <i class="bi bi-facebook"></i>
                     </a>
-                    <a href="<?php echo $twitter; ?>" target="_blank"><i class="bi bi-twitter"></i>
+                    <a href="<?php echo $twitter; ?>" target="_blank" aria-label="Twitter ERIA">
+                        <i class="bi bi-twitter"></i>
                     </a>
-                    <a href="<?php echo $linkedIn; ?>" target="_blank">
+                    <a href="<?php echo $linkedIn; ?>" target="_blank" aria-label="LinkedIn ERIA">
                         <i class="bi bi-linkedin"></i>
                     </a>
-                    <a href="<?= $this->header->get_variableContent('Youtube') ?>" target="_blank"><i
-                            class="bi bi-youtube"></i>
+                    <a href="<?= $this->header->get_variableContent('Youtube') ?>" target="_blank"
+                        aria-label="Youtube ERIA">
+                        <i class="bi bi-youtube"></i>
                     </a>
                     <a class="flickr-icon d-none" href="<?= $this->header->get_variableContent('Flickr') ?>"
-                        target="_blank">
+                        target="_blank" aria-label="Flickr ERIA">
                         <img loading="lazy" data-src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg"
-                            src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg" alt="fickr-logo-icon">
+                            src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg" alt="fickr logo icon"
+                            data-src="<?php echo base_url() ?>v6/assets/SocialMedia/flickr-logo.svg"
+                            alt="fickr logo icon" loading="lazy">
                     </a>
-                    <a href="<?= $this->header->get_variableContent('M') ?>" class="d-none" target="_blank"><i
-                            class="bi bi-medium"></i>
+                    <a href="<?= $this->header->get_variableContent('M') ?>" class="d-none" target="_blank"
+                        aria-label="Medium ERIA">
+                        <i class="bi bi-medium"></i>
                     </a>
-                    <a href="<?= $this->header->get_variableContent('Instagram') ?>" target="_blank">
+                    <a href="<?= $this->header->get_variableContent('Instagram') ?>" target="_blank"
+                        aria-label="Instagram ERIA">
                         <i class="bi bi-instagram"></i>
                     </a>
                 </div>
@@ -120,7 +127,7 @@
             </div>
             <div class="col-6 text-right">
                 <small class="font-merriweather">
-                    <a href="<?php echo base_url() ?>privacy">Privacy Policy</a>
+                    <a href="<?php echo base_url() ?>privacy" aria-label="Privacy Policy ERIA">Privacy Policy</a>
                 </small>
             </div>
         </div>
@@ -140,7 +147,8 @@
 
             </div>
             <div class="modal-footer text-center border-0">
-                <button type="button" class="btn btn-primary px-5" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-primary px-5" data-dismiss="modal"
+                    aria-label="Ok Button">Ok</button>
             </div>
         </div>
     </div>
