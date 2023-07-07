@@ -63,7 +63,7 @@ class Research extends CI_Controller
         $content = $this->Page_model->getPage_content(2);
         
         if (!empty($content)) {
-            $image_meta = 'v6/assets/logo.png';
+            $image_meta = 'v6/assets/logo.webp';
             $title_meta = ucfirst($content->title);
             $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
             $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
@@ -78,7 +78,7 @@ class Research extends CI_Controller
         } else {
             $data['md'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
         }
 
@@ -127,7 +127,7 @@ class Research extends CI_Controller
         } else {
             $data['md'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
         }
 
@@ -717,7 +717,7 @@ class Research extends CI_Controller
         $content = $this->Page_model->getMetaContenSEO($id);
         
         if (!empty($content)) {
-            $image_meta = $content['image_name'] ? $content['image_name'] :'v6/assets/logo.png';
+            $image_meta = $content['image_name'] ? $content['image_name'] :'v6/assets/logo.webp';
             $title_meta = ucfirst($content['meta_title']);
             $keyword_meta = $content['meta_keywords'] ? $content['meta_keywords']: 'eria, economic research, economic research institute, research institute, asean, east asia';
             $description_meta = $content['meta_description'] ? $content['meta_description']: 'Economic Research Institute for ASEAN and East Asia';
@@ -732,7 +732,7 @@ class Research extends CI_Controller
         } else {
             $data['md'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
         }
         
