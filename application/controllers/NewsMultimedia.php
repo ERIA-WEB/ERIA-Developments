@@ -14,7 +14,7 @@ class NewsMultimedia extends CI_Controller
     {
         $content = $this->Page_model->getPage_content(7);
         if (!empty($content)) {
-            $image_meta = 'v6/assets/logo.png';
+            $image_meta = 'v6/assets/logo.webp';
             $title_meta = ucfirst($content->menu_title);
             $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
             $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
@@ -29,7 +29,7 @@ class NewsMultimedia extends CI_Controller
         } else {
             $data['md'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
         }
         
@@ -283,7 +283,7 @@ class NewsMultimedia extends CI_Controller
     {
         $content = $this->Page_model->getPage_content(7);
         if (!empty($content)) {
-            $image_meta = 'v6/assets/logo.png';
+            $image_meta = 'v6/assets/logo.webp';
             $title_meta = ucfirst($content->menu_title);
             $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
             $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
@@ -298,7 +298,7 @@ class NewsMultimedia extends CI_Controller
         } else {
             $data['md'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
         }
         
@@ -313,7 +313,7 @@ class NewsMultimedia extends CI_Controller
     {
         $content = $this->Page_model->getPage_content(7);
         if (!empty($content)) {
-            $image_meta = 'v6/assets/logo.png';
+            $image_meta = 'v6/assets/logo.webp';
             $title_meta = ucfirst($content->menu_title);
             $keyword_meta = $content->meta_keywords ? $content->meta_keywords: 'eria, economic research, economic research institute, research institute, asean, east asia';
             $description_meta = $content->meta_description ? $content->meta_description: 'Economic Research Institute for ASEAN and East Asia';
@@ -328,7 +328,7 @@ class NewsMultimedia extends CI_Controller
         } else {
             $data['md'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
             $data['mk'] = "eria, economic research, economic research institute, research institute, asean, east asia";
-            $data['image_meta'] = "v6/assets/logo.png";
+            $data['image_meta'] = "v6/assets/logo.webp";
             $data['title'] = "ERIA: Economic Research Institute for ASEAN and East Asia";
         }
         
