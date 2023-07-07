@@ -95,7 +95,7 @@ section.box {
                                                     }
                                                     ?>
                                                     <img id="placeholder" class="img grayscale"
-                                                        src="<?php echo $path; ?>" style="width:100%;">
+                                                        src="<?php echo $path; ?>" style="width:350px;height:200px;">
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -754,10 +754,10 @@ $(document).ready(function() {
 
 <!-- END CORE TEMPLATE JS - END -->
 <script src="<?php echo base_url() ?>resources/plugins/select2/select2.min.js" type="text/javascript"></script>
-<!-- <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+<link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
 <link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet" />
-<script src="https://unpkg.com/dropzone"></script>
-<script src="https://unpkg.com/cropperjs"></script> -->
+<!-- <script src="https://unpkg.com/dropzone"></script> -->
+<script src="https://unpkg.com/cropperjs"></script>
 
 
 <!-- Sidebar Graph - START -->
@@ -766,9 +766,9 @@ $(document).ready(function() {
 <script src="<?php echo base_url() ?>resources/js/chart-sparkline.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js" type="text/javascript">
 </script>
-
+<!-- 
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> -->
 
 <input type="hidden" class="base_url_front" value="<?= base_url(); ?>">
 <script src="<?= base_url(); ?>v6/js/admin/events/article.js" type="text/javascript"></script>
