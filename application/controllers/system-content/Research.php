@@ -213,7 +213,7 @@ class Research extends CI_Controller
         if ($validate == FALSE) {
             $this->topic();
         } else {
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('category_name')));
 
             if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
                 $img = $this->setTopics($title_image_article);
@@ -331,7 +331,7 @@ class Research extends CI_Controller
             $this->edittop($id);
         } else {
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('category_name')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('category_name')));
 
             if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
                 $img = $this->setTopics($title_image_article);
@@ -751,7 +751,7 @@ class Research extends CI_Controller
             $this->publication();
         } else {
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
             $date_folder = date('Ymd');
             if ($validate == TRUE && (file_exists($_FILES['photo']['tmp_name']) || is_uploaded_file($_FILES['photo']['tmp_name']))) {
@@ -1113,7 +1113,7 @@ class Research extends CI_Controller
 
         $validate = $this->form_validation->run();
         
-        $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+        $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
         $date_folder = date('Ymd');
        
@@ -1211,7 +1211,7 @@ class Research extends CI_Controller
                 'thumbnail_image'   => $thumbnail_img,
                 'pub_type'          => $ptp,
                 'title'             => $this->input->post('title'),
-                'uri'               => $uri,
+                // 'uri'               => $uri,
                 'posted_date'       => $this->input->post('posted_date'),
                 'author'            => $na,
                 'article_type'      => 'publications',
