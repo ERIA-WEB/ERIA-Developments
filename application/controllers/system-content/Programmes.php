@@ -573,7 +573,7 @@ class Programmes extends CI_Controller
         if ($validate == FALSE) {
             $this->article();
         } else {
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
             
             if ($validate == TRUE && file_exists($_FILES['photo']['tmp_name'])) {
             
@@ -712,7 +712,7 @@ class Programmes extends CI_Controller
         if ($validate == FALSE) {
             $this->editArt($id);
         } else {
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
             /*
             ** Upload Image
