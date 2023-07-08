@@ -182,7 +182,7 @@ class News extends CI_Controller
         } else {
             $data_s = $this->session->userdata('logged_in');
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
             $date_folder = date('Ymd');
             
@@ -387,7 +387,7 @@ class News extends CI_Controller
             $this->multimedia();
         } else {
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
             $date_folder = date('Ymd');
             
@@ -757,7 +757,7 @@ class News extends CI_Controller
             $this->editmA($id);
         } else {
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
             $date_folder = date('Ymd');
             
@@ -943,7 +943,7 @@ class News extends CI_Controller
             $this->index();
         } else {
             
-            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#'.'|','-|-','"'), '-', strtolower($this->input->post('title')));
+            $title_image_article = str_replace(array(' ','/','@','(',')','%','%20', ':', ';', '#', ',', '"', '”', '’', ':', ';', '$', '!', '(', ')', '=', '*', 'â€™', 'â€œ', 'â€“', 'â€', '|', '[', ']', '{', '}', '^', '"', "'"), '-', strtolower($this->input->post('title')));
 
             $date_folder = date('Ymd');
             
