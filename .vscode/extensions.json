@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "phiter.phpstorm-snippets",
+        "esbenp.prettier-vscode",
+        "zobo.php-intellisense",
+        "mcright.auto-save"
+    ]
+}
