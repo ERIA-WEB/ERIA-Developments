@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost', // eria-web-database.mariadb.database.azure.com
-	'username' => 'root', // eriawebadmin@eria-web-database
-	'password' => '', // 48-D3-1A-65-88-1B
+	'hostname' => 'localhost', 
+	'username' => 'root', 
+	'password' => '', 
 	'database' => 'eria_v3',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
